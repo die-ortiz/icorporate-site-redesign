@@ -124,4 +124,8 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && root.classList.contains('is-open')) { setOpen(false); launcher.focus(); }
   });
+  // Botones externos (p. ej. "Abrir el asistente" en la página Tech Solutions)
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-open-ibot]')) { e.preventDefault(); setOpen(true); }
+  });
 })();

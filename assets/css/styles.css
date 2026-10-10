@@ -582,3 +582,17 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
 .faq details p { padding: 0 1.3rem 1.2rem; color: var(--ink-soft); }
 
+/* Tarjetas de servicio con viñetas (p. ej. Tech Solutions) */
+@media (min-width: 720px) { .type-cards--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .type-cards--4 { grid-template-columns: repeat(4, 1fr); } }
+.type-card ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
+.type-card li { position: relative; padding-left: 1.1rem; font-size: .9rem; color: var(--ink-soft); }
+.type-card li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+.demo-band { display: grid; gap: 1.6rem; align-items: center; padding: 2.2rem; border-radius: var(--radius); color: #fff; background: linear-gradient(135deg, var(--navy), var(--navy-2)); }
+@media (min-width: 820px) { .demo-band { grid-template-columns: 1.4fr auto; padding: 2.6rem 3rem; } }
+.demo-band .eyebrow { color: var(--cyan); }
+.demo-band h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; max-width: 22ch; }
+.demo-band p { margin-top: .8rem; color: #c6d9ee; max-width: 52ch; }
+.demo-band .btn--primary { background: var(--cyan); color: var(--navy); }
+.demo-band .btn--primary:hover { background: #5fd8f3; }
+
