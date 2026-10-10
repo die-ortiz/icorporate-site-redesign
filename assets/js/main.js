@@ -16,6 +16,31 @@ if (header) {
   update();
 }
 
+// Submenú de Services (escritorio): abre con hover, foco o clic en la flecha; cierra con Esc o clic fuera
+const subItem = document.querySelector('.nav__item.has-sub');
+if (subItem) {
+  const caret = subItem.querySelector('.nav__caret');
+  const desktop = window.matchMedia('(min-width: 1020px)');
+  let closeTimer;
+  const setSub = (open) => {
+    clearTimeout(closeTimer);
+    const on = open && desktop.matches;
+    subItem.classList.toggle('is-open', on);
+    caret.setAttribute('aria-expanded', String(on));
+    if (header) header.classList.toggle('is-mega', on);
+  };
+  subItem.addEventListener('mouseenter', () => setSub(true));
+  subItem.addEventListener('mouseleave', () => { closeTimer = setTimeout(() => setSub(false), 280); });
+  subItem.addEventListener('focusin', () => setSub(true));
+  subItem.addEventListener('focusout', (e) => { if (!subItem.contains(e.relatedTarget)) setSub(false); });
+  caret.addEventListener('click', () => setSub(!subItem.classList.contains('is-open')));
+  document.addEventListener('click', (e) => { if (!subItem.contains(e.target)) setSub(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && subItem.classList.contains('is-open')) { setSub(false); caret.focus(); }
+  });
+  desktop.addEventListener('change', () => setSub(false));
+}
+
 // Menú móvil (se cierra con Esc o al elegir un enlace)
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.getElementById('site-nav');

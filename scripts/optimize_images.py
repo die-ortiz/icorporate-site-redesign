@@ -8,7 +8,7 @@ sumarla a JOBS y volver a correr:  python3 scripts/optimize_images.py
 Requiere Pillow con soporte WebP.
 """
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageChops
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "reference" / "img-originals"
@@ -28,9 +28,19 @@ JOBS = {
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
     "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {}),
     "client-aviatdo.webp": ("aviatdo.png",       300, 88, {}),
+    # Versiones blancas (carrusel sobre fondo oscuro): la luminosidad pasa a transparencia,
+    # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
+    "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
+    "client-aci-lac-white.webp": ("Logo_Acilac.png",  300, 90, {"white": True}),
+    "client-iata-white.webp":    ("Logo_Iata.png",    300, 90, {"white": True}),
+    "client-sita-white.webp":    ("Logo_sita.png",    300, 90, {"white": True}),
+    "client-heico-white.webp":   ("Logo_Heico.png",   300, 90, {"white": True}),
+    "client-itaerea-white.webp": ("Logo_Itaerea.png", 300, 90, {"white": True}),
+    "client-aviatdo-white.webp": ("aviatdo.png",      300, 90, {"white": True}),
     # Fotografías
     "apps-home.webp":       ("icorporate_apps_home.jpg",               1000, 78, {}),
     "branding-objects.webp": ("Imagen_corporate_branding_objetos.jpg",  800, 78, {}),
+    "ibot-icon.webp":       ("icono-ibot.jpg",                          160, 90, {}),
     "events-stage.webp":    ("icorporate_event_tech_home.jpg",         725, 80, {}),
 }
 # Íconos PNG (los navegadores los piden en PNG): salida -> (original, lado)
@@ -51,6 +61,17 @@ def to_light(im):
     return im
 
 
+def to_white(im):
+    """Logo -> blanco sobre transparente. alpha = alpha_original * oscuridad (1 - luminancia)."""
+    r, g, b, alpha = im.split()
+    lum = Image.merge("RGB", (r, g, b)).convert("L")
+    dark = lum.point(lambda v: min(255, int((255 - v) * 1.25)))
+    new_alpha = ImageChops.multiply(alpha, dark)
+    out = Image.new("RGBA", im.size, (255, 255, 255, 0))
+    out.putalpha(new_alpha)
+    return out
+
+
 def resize(im, width):
     if im.width <= width:
         return im
@@ -69,6 +90,8 @@ def main():
             im = im.crop(im.split()[3].getbbox())
         if opts.get("light"):
             im = to_light(im)
+        if opts.get("white"):
+            im = to_white(im)
         im = resize(im, width)
         has_alpha = src.suffix.lower() == ".png"
         if not has_alpha:

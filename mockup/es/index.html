@@ -47,9 +47,51 @@
       <div class="header-bar">
         <a class="brand" href="index.html" aria-label="iCorporate, inicio"><img class="brand__dark" src="../../assets/img/logo.webp" width="480" height="99" alt="" aria-hidden="true"><img class="brand__light" src="../../assets/img/logo-light.webp" width="480" height="99" alt="iCorporate"></a>
         <nav class="nav" id="site-nav" aria-label="Principal">
-          <a href="#services">Servicios</a>
-          <a href="#cases">Casos</a>
-          <a href="#process">Cómo trabajamos</a>
+          <div class="nav__item has-sub">
+            <a href="#services">Servicios</a>
+            <button class="nav__caret" type="button" aria-expanded="false" aria-controls="nav-services" aria-label="Mostrar el menú de servicios"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="mega" id="nav-services">
+              <div class="mega__col">
+                <p class="mega__title">Nuestros servicios</p>
+                <ul class="mega__cards">
+                <li><a class="mega__card" href="#services">
+                  <span class="mega__card-text"><b>Tech Solutions</b><em>Bots, apps y plataformas</em></span>
+                  <span class="mega__thumb mega__thumb--cover" aria-hidden="true"><img src="../../assets/img/apps-home.webp" alt="" width="120" height="90" decoding="async"></span>
+                </a></li>
+                <li><a class="mega__card" href="#services">
+                  <span class="mega__card-text"><b>Events Management</b><em>Cumbres y conferencias, de punta a punta</em></span>
+                  <span class="mega__thumb mega__thumb--cover" aria-hidden="true"><img src="../../assets/img/events-stage.webp" alt="" width="120" height="90" decoding="async"></span>
+                </a></li>
+                <li><a class="mega__card" href="#services">
+                  <span class="mega__card-text"><b>Corporate Branding</b><em>Identidad y materiales</em></span>
+                  <span class="mega__thumb mega__thumb--contain" aria-hidden="true"><img src="../../assets/img/branding-objects.webp" alt="" width="120" height="90" decoding="async"></span>
+                </a></li>
+                </ul>
+              </div>
+              <div class="mega__col mega__caps">
+                <p class="mega__title">Capacidades</p>
+                <ul class="mega__list">
+                <li><a href="#services">Bots y automatización</a></li>
+                <li><a href="#services">Apps a medida</a></li>
+                <li><a href="#services">Plataformas web</a></li>
+                <li><a href="#services">Tecnología para eventos</a></li>
+                <li><a href="#services">Conferencias y cumbres</a></li>
+                <li><a href="#services">Registro y operación en sitio</a></li>
+                <li><a href="#services">Identidad corporativa</a></li>
+                <li><a href="#services">Materiales y merchandising de marca</a></li>
+                <li><a href="#services">Contenido para redes sociales</a></li>
+                <li><a href="#services">Producción de video y multimedia</a></li>
+                </ul>
+              </div>
+              <a class="mega__promo" href="#cases">
+                <span class="mega__promo-photo" aria-hidden="true"><img src="../../assets/img/events-stage.webp" alt="" width="725" height="324" decoding="async"></span>
+                <span class="mega__promo-body"><em>Caso destacado</em><b>ALTA Fuel &amp; Sustainability Conference</b><span class="mega__promo-link">Leer el caso <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+              </a>
+            </div>
+          </div>
+          <!-- PENDIENTE: #about y #team apuntan a la página Nosotros cuando exista -->
+          <a href="#about">Sobre nosotros</a>
+          <a href="#team">Nuestro equipo</a>
           <a href="#contact">Contacto</a>
         </nav>
         <div class="header-actions">
@@ -72,10 +114,43 @@
           <p class="hero__sub">Desde cumbres aeronáuticas hasta automatización a medida: diseñamos, construimos y operamos lo que tu negocio necesita para crecer.</p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#contact">Agendá una llamada</a>
-            <a class="btn btn--ghost" href="#cases">Ver casos</a>
           </div>
         </div>
-        <div class="pillars" id="services" role="list" aria-label="Nuestros tres servicios">
+      </div>
+      <div class="trust" aria-label="Clientes">
+        <div class="marquee">
+        <div class="marquee__track">
+          <ul class="marquee__group">
+            <li><img src="../../assets/img/client-alta-white.webp" width="300" height="200" alt="ALTA" decoding="async"></li>
+            <li><img src="../../assets/img/client-aci-lac-white.webp" width="300" height="200" alt="ACI-LAC" decoding="async"></li>
+            <li><img src="../../assets/img/client-iata-white.webp" width="300" height="200" alt="IATA" decoding="async"></li>
+            <li><img src="../../assets/img/client-sita-white.webp" width="300" height="200" alt="SITA" decoding="async"></li>
+            <li><img src="../../assets/img/client-heico-white.webp" width="300" height="200" alt="HEICO" decoding="async"></li>
+            <li><img src="../../assets/img/client-itaerea-white.webp" width="300" height="200" alt="Itaerea" decoding="async"></li>
+            <li><img src="../../assets/img/client-aviatdo-white.webp" width="300" height="150" alt="AviatDO" decoding="async"></li>
+          </ul>
+          <ul class="marquee__group" aria-hidden="true">
+            <li><img src="../../assets/img/client-alta-white.webp" width="300" height="200" alt="" decoding="async"></li>
+            <li><img src="../../assets/img/client-aci-lac-white.webp" width="300" height="200" alt="" decoding="async"></li>
+            <li><img src="../../assets/img/client-iata-white.webp" width="300" height="200" alt="" decoding="async"></li>
+            <li><img src="../../assets/img/client-sita-white.webp" width="300" height="200" alt="" decoding="async"></li>
+            <li><img src="../../assets/img/client-heico-white.webp" width="300" height="200" alt="" decoding="async"></li>
+            <li><img src="../../assets/img/client-itaerea-white.webp" width="300" height="200" alt="" decoding="async"></li>
+            <li><img src="../../assets/img/client-aviatdo-white.webp" width="300" height="150" alt="" decoding="async"></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow">Nuestros servicios</span>
+          <h2 class="title">Tres formas de hacer brillar tu idea.</h2>
+        </div>
+        <div class="pillars" role="list" aria-label="Nuestros tres servicios">
           <a class="pillar reveal" data-d="0" href="#contact">
             <span class="pillar__photo" aria-hidden="true"><img src="../../assets/img/apps-home.webp" width="1000" height="751" alt="" loading="lazy" decoding="async"></span>
             <div class="pillar__body">
@@ -104,35 +179,6 @@
       </div>
     </section>
 
-    <!-- CLIENTES -->
-    <section class="trust" aria-label="Clientes">
-      <div class="container trust__head">
-        <p class="trust__label">La confianza de las organizaciones que mueven la aviación global</p>
-        <button class="marquee-pause" type="button" aria-pressed="false" aria-label="Pausar animación de logos" data-play="Reanudar animación de logos" data-pause="Pausar animación de logos"><svg class="i-pause" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" rx="1" fill="currentColor"/></svg><svg class="i-play" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></button>
-      </div>
-      <div class="marquee">
-        <div class="marquee__track">
-          <ul class="marquee__group">
-            <li><img src="../../assets/img/client-alta.webp" width="300" height="200" alt="ALTA" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-aci-lac.webp" width="300" height="200" alt="ACI-LAC" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-iata.webp" width="300" height="200" alt="IATA" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-sita.webp" width="300" height="200" alt="SITA" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-heico.webp" width="300" height="200" alt="HEICO" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-itaerea.webp" width="300" height="200" alt="Itaerea" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-aviatdo.webp" width="300" height="150" alt="AviatDO" loading="lazy" decoding="async"></li>
-          </ul>
-          <ul class="marquee__group" aria-hidden="true">
-            <li><img src="../../assets/img/client-alta.webp" width="300" height="200" alt="" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-aci-lac.webp" width="300" height="200" alt="" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-iata.webp" width="300" height="200" alt="" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-sita.webp" width="300" height="200" alt="" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-heico.webp" width="300" height="200" alt="" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-itaerea.webp" width="300" height="200" alt="" loading="lazy" decoding="async"></li>
-            <li><img src="../../assets/img/client-aviatdo.webp" width="300" height="150" alt="" loading="lazy" decoding="async"></li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
     <!-- CIFRAS (datos reales tomados del sitio actual icorporatelab.com) -->
     <section class="stats" aria-label="Cifras">
@@ -349,6 +395,7 @@
     </div>
   </footer>
 
+  <script src="../../assets/js/ibot.js" defer></script>
   <script type="module" src="../../assets/js/main.js"></script>
 </body>
 </html>
