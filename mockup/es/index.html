@@ -105,7 +105,7 @@
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero hero--center">
+    <section class="hero hero--center hero--stats">
       <!-- Video de fondo: se activa solo si existe assets/video/hero.mp4 (ver scripts/optimize_video.sh) -->
       <img class="hero__poster" src="../../assets/img/hero-poster.webp" width="1280" height="732" alt="" fetchpriority="high" decoding="async">
       <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="../../assets/video/hero.mp4"></video>
@@ -118,6 +118,15 @@
             <a class="btn btn--primary" href="#contact">Agendá una llamada</a>
           </div>
         </div>
+      </div>
+      <!-- CIFRAS dentro del hero (datos reales del sitio actual) -->
+      <div class="stats stats--hero" aria-label="Cifras">
+        <div class="container stats__grid">
+        <div class="stat"><b>+100</b><span>Conferencias y eventos corporativos</span></div>
+        <div class="stat"><b>+15</b><span>Países alcanzados</span></div>
+        <div class="stat"><b>+25K</b><span>Asistentes gestionados</span></div>
+        <div class="stat"><b>20</b><span>Años de experiencia</span></div>
+      </div>
       </div>
       <div class="trust" aria-label="Clientes">
         <div class="marquee">
@@ -182,15 +191,6 @@
     </section>
 
 
-    <!-- CIFRAS (datos reales tomados del sitio actual icorporatelab.com) -->
-    <section class="stats" aria-label="Cifras">
-      <div class="container stats__grid">
-        <div class="stat reveal"><b>+100</b><span>Conferencias y eventos corporativos</span></div>
-        <div class="stat reveal" data-d="1"><b>+15</b><span>Países alcanzados</span></div>
-        <div class="stat reveal" data-d="2"><b>+25K</b><span>Asistentes gestionados</span></div>
-        <div class="stat reveal" data-d="2"><b>20</b><span>Años de experiencia</span></div>
-      </div>
-    </section>
 
     <!-- CASOS (MUESTRA: textos de ejemplo; validar con el material real de cada caso) -->
     <section class="section cases" id="cases">
