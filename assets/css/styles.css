@@ -701,3 +701,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 @keyframes flow-dash { to { stroke-dashoffset: -20; } }
 @media (prefers-reduced-motion: reduce) { .flow__lines path { animation: none; } }
+
+/* Banda de demo: botón principal + enlace secundario a la página del bot */
+.demo-band__actions { display: flex; flex-wrap: wrap; gap: .8rem; }
