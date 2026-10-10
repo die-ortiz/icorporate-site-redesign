@@ -104,6 +104,87 @@ if (orbEls.length) {
     .catch(() => {});
 }
 
+// Diagrama de integraciones: líneas desde cada herramienta hasta el borde del iBot y destellos con cola degradada
+document.querySelectorAll('.flow').forEach((flow) => {
+  const mid = flow.querySelector('.flow__mid');
+  const svg = mid && mid.querySelector('svg');
+  const hub = flow.querySelector('.flow__tile--hub');
+  if (!svg || !hub) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LAYERS = [ // cola → cabeza: largo (px), opacidad, color, grosor
+    { len: 70, op: 0.18, color: '#037FD9', w: 5 },
+    { len: 48, op: 0.38, color: '#06BDE7', w: 5 },
+    { len: 28, op: 0.7, color: '#5fd8f3', w: 4.5 },
+    { len: 12, op: 1, color: '#e6fbff', w: 4 },
+  ];
+  const TAIL = LAYERS[0].len;
+  let routes = [];
+
+  const mk = (cls) => { const p = document.createElementNS(NS, 'path'); p.setAttribute('class', cls); svg.appendChild(p); return p; };
+  const build = () => {
+    const fr = flow.getBoundingClientRect();
+    const mr = mid.getBoundingClientRect();
+    const hr = hub.getBoundingClientRect();
+    svg.style.cssText = `position:absolute;left:${fr.left - mr.left}px;top:${fr.top - mr.top}px;width:${fr.width}px;height:${fr.height}px;overflow:visible`;
+    svg.setAttribute('viewBox', `0 0 ${fr.width} ${fr.height}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.querySelectorAll('path').forEach((p) => p.remove());
+    const hy = hr.top + hr.height / 2 - fr.top;
+    routes = [];
+    flow.querySelectorAll('.flow__col').forEach((col, ci) => {
+      col.querySelectorAll('.flow__tile').forEach((tile, i) => {
+        const tr = tile.getBoundingClientRect();
+        const left = ci === 0;
+        const x0 = (left ? tr.right : tr.left) - fr.left;
+        const y0 = tr.top + tr.height / 2 - fr.top;
+        const x1 = (left ? hr.left : hr.right) - fr.left + (left ? 2 : -2);
+        const dx = (x1 - x0) / 2;
+        const d = `M${x0} ${y0} C${x0 + dx} ${y0} ${x1 - dx} ${hy} ${x1} ${hy}`;
+        mk('flow__path').setAttribute('d', d);
+        const layers = LAYERS.map((L) => {
+          const p = mk('flow__comet');
+          p.setAttribute('d', d);
+          p.setAttribute('stroke', L.color);
+          p.setAttribute('stroke-opacity', L.op);
+          p.setAttribute('stroke-width', L.w);
+          p.setAttribute('stroke-linecap', 'round');
+          p.setAttribute('fill', 'none');
+          return p;
+        });
+        const len = layers[0].getTotalLength();
+        routes.push({ layers, len, delay: (ci * 3 + i) * 0.37 });
+      });
+    });
+  };
+
+  const PERIOD = 2.6;
+  const frame = (now) => {
+    const t = now / 1000;
+    routes.forEach((r) => {
+      const k = (((t - r.delay) % PERIOD) + PERIOD) % PERIOD / PERIOD;
+      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; // ease in-out
+      const head = e * (r.len + TAIL);
+      LAYERS.forEach((L, j) => {
+        const p = r.layers[j];
+        p.setAttribute('stroke-dasharray', `${L.len} ${r.len + L.len}`);
+        p.setAttribute('stroke-dashoffset', L.len - head); // el tramo visible es [head - largo, head], recortado en el borde del iBot
+      });
+    });
+  };
+
+  build();
+  if (reduce) return; // sin movimiento: quedan las líneas tenues
+  let raf = null;
+  const loop = (now) => { frame(now); raf = requestAnimationFrame(loop); };
+  new IntersectionObserver(([en]) => {
+    if (en.isIntersecting && raf === null) raf = requestAnimationFrame(loop);
+    else if (!en.isIntersecting && raf !== null) { cancelAnimationFrame(raf); raf = null; }
+  }, { threshold: 0.05 }).observe(flow);
+  if ('ResizeObserver' in window) new ResizeObserver(build).observe(flow);
+  else window.addEventListener('resize', build);
+});
+
 // Carrusel de logos: bucle continuo a ancho completo
 const marquee = document.querySelector('.marquee');
 if (marquee) {
