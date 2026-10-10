@@ -46,6 +46,10 @@ JOBS = {
     "integration-gmail.webp": ("logo-gmail.png", 128, 90, {}),
     "integration-notion.webp": ("logo-notion.png", 128, 90, {}),
     "integration-zapier.webp": ("logo-zapier.png", 128, 90, {}),
+    "case-itaerea.webp":    ("itaerea-graduacion-2025.webp",            900, 80, {}),
+    "case-alta-ccma.webp":  ("alta-ccma-2026-minimeetings.jpg",        1000, 82, {}),
+    "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
+    "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
     "events-stage.webp":    ("icorporate_event_tech_home.jpg",         725, 80, {}),
 }
