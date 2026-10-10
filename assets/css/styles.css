@@ -668,3 +668,12 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .office svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .office__address { display: flex; align-items: flex-start; gap: .9rem; padding: 1rem 1.2rem; border-radius: 14px; border: 1px solid var(--line); background: #fff; font-weight: 600; font-style: normal; }
 .office__address svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-top: .1rem; }
+
+/* Cabecera con orbe WebGL de fondo (Tech Solutions): cuadrado centrado, más alto que la cabecera para que se vea el anillo de luz */
+.orb { position: absolute; left: 50%; top: 50%; z-index: -3; height: 135%; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
+.orb canvas { display: block; }
+.page-hero--orb::after {
+  background:
+    radial-gradient(55% 70% at 50% 48%, rgba(5,20,43,.24) 0%, rgba(5,20,43,.1) 60%, rgba(5,20,43,0) 100%),
+    linear-gradient(0deg, rgba(5,20,43,.25) 0%, rgba(5,20,43,0) 30%);
+}
