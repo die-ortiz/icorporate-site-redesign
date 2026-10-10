@@ -288,6 +288,15 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .stats--hero .stat b { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #fff; font-size: clamp(1.7rem, 3.2vw, 2.5rem); font-weight: 700; }
 .stat__plus { color: var(--cyan); }
+/* Franjas de cifras de las páginas internas: mismo estilo centrado que las del hero de la home */
+.stats--inline .stat { border: 0; border-image: none; padding: .25rem 1rem; text-align: center; }
+.stats--inline .stat:nth-child(2n) { border-left: 1px solid rgba(255,255,255,.22); }
+@media (min-width: 820px) {
+  .stats--inline .stat:nth-child(2n) { border-left: 0; }
+  .stats--inline .stat + .stat { border-left: 1px solid rgba(255,255,255,.22); }
+}
+.stats--inline .stat b { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #fff; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; }
+.stats--inline .stat > span { margin-top: .45rem; font-size: .8rem; color: #c6d9ee; }
 .stats--hero .stat > span { margin-top: .4rem; font-size: .78rem; color: #c6d9ee; }
 
 /* Casos */
@@ -622,4 +631,26 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 @media (min-width: 1100px) { .type-cards--5 { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 720px) and (max-width: 1099px) { .type-cards--5 { grid-template-columns: repeat(2, 1fr); } }
 .split__media--soft { background: var(--mist); padding: 1.2rem; }
+
+/* Nosotros: equipo, clientes y oficina */
+.team-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
+@media (min-width: 640px) { .team-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .team-cards { grid-template-columns: repeat(4, 1fr); } }
+.team-card { padding: 1.8rem 1.4rem; text-align: center; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.team-card__avatar { width: 92px; height: 92px; margin: 0 auto; padding: 3px; border-radius: 50%; background: var(--grad); }
+.team-card__avatar span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: var(--navy-2); color: #fff; font-family: var(--font-head); font-size: 1.5rem; font-weight: 600; letter-spacing: .02em; }
+.team-card h3 { margin-top: 1.1rem; font-size: 1.1rem; font-weight: 700; }
+.team-card__role { margin-top: .2rem; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-dark); }
+.team-card p { margin-top: .8rem; color: var(--ink-soft); font-size: .92rem; }
+.logo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; margin-top: 2.2rem; align-items: center; }
+@media (min-width: 640px) { .logo-row { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1000px) { .logo-row { grid-template-columns: repeat(7, 1fr); } }
+.logo-row img { width: 100%; max-width: 150px; height: 80px; margin-inline: auto; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .25s, opacity .25s; }
+.logo-row img:hover { filter: none; opacity: 1; }
+.office { display: grid; gap: 1.1rem; margin-top: 1.8rem; }
+.office a { display: flex; align-items: center; gap: .9rem; padding: 1rem 1.2rem; border-radius: 14px; border: 1px solid var(--line); background: #fff; text-decoration: none; font-weight: 600; color: var(--ink); transition: border-color .2s, transform .2s; overflow-wrap: anywhere; }
+.office a:hover { border-color: rgba(3,127,217,.5); transform: translateX(3px); }
+.office svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.office__address { display: flex; align-items: flex-start; gap: .9rem; padding: 1rem 1.2rem; border-radius: 14px; border: 1px solid var(--line); background: #fff; font-weight: 600; font-style: normal; }
+.office__address svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-top: .1rem; }
 
