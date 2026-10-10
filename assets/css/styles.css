@@ -704,3 +704,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 
 /* Banda de demo: botón principal + enlace secundario a la página del bot */
 .demo-band__actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+
+/* Botones del panel de integraciones (abrir demo + página del bot) */
+.flow-card__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+.flow-card .btn--primary { background: var(--cyan); color: var(--navy); box-shadow: 0 10px 30px -10px rgba(6,189,231,.7); }
+.flow-card .btn--primary:hover { background: #5fd8f3; }
