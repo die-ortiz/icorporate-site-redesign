@@ -334,6 +334,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 
 /* Testimonios: muro de columnas verticales en bucle */
 .voices { background: var(--mist); overflow: hidden; }
+/* Casos y testimonios comparten el fondo mist: sin el padding superior doble queda el mismo espacio que entre el resto de las secciones */
+.cases + .voices { padding-top: 0; }
 .voices__head { position: relative; display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
 .voices__head .title { max-width: 20ch; }
 .voices__head .lead { max-width: 52ch; }
