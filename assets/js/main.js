@@ -73,7 +73,7 @@ if ('IntersectionObserver' in window && reveals.length) {
 // Video de fondo del hero: solo si hay archivo, sin movimiento reducido, sin ahorro de datos y en pantallas >= 768px
 const heroVideo = document.querySelector('.hero__video');
 if (heroVideo) {
-  const hero = heroVideo.closest('.hero');
+  const hero = heroVideo.closest('.hero, .page-hero');
   const saveData = navigator.connection && navigator.connection.saveData;
   const allowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     && window.matchMedia('(min-width: 768px)').matches && !saveData;
