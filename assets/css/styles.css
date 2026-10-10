@@ -65,6 +65,13 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
   background: var(--cyan); color: var(--navy); box-shadow: 0 10px 30px -10px rgba(6,189,231,.7);
 }
 .hero .btn--primary:hover, .flagship .btn--primary:hover { background: #5fd8f3; }
+/* Home: el botón del hero lleva un degradado de dos colores de marca (azul → cian); texto navy para contraste.
+   background-origin/clip en border-box: con el borde transparente de .btn el degradado repetía una franja lima a la izquierda */
+.hero .btn--primary {
+  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+  color: var(--navy); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
+}
+.hero .btn--primary:hover { background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat; filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
 .btn--ghost { border-color: rgba(255,255,255,.4); color: #fff; }
 .btn--ghost:hover { background: rgba(255,255,255,.1); border-color: #fff; }
 .btn--white { background: #fff; color: var(--blue-dark); }
