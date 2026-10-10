@@ -34,6 +34,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - SEO por página: title, meta description, schema.org y hreflang EN/ES.
 - Un CTA primario consistente ("Book a call"), sin salidas a sitios externos.
 - Formulario de contacto funcional por correo directo (definir el método de envío en un sitio estático, por ejemplo `mailto:` o endpoint PHP en el servidor).
+- Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.
 
 ## Estructura de carpetas
 ```
