@@ -233,8 +233,6 @@ if (statNumbers.length) {
   }
 }
 
-// SOLO PRUEBA: selector de tipografías (?font=a|b|c|d). Se elimina al elegir una opción.
-{ const q = new URLSearchParams(location.search); if (q.has('font') || q.has('hero')) import('./font-preview.js'); }
 
 // Formulario de propuesta (páginas de servicio): correo directo con todos los campos etiquetados
 const proposalForm = document.getElementById('proposal-form');
@@ -265,4 +263,3 @@ if (proposalForm) {
   });
   proposalForm.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
 }
-
