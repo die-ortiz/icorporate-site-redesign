@@ -739,6 +739,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 /* Logos reales/de referencia dentro de los mosaicos */
 .flow__tile--logo { background: rgba(255,255,255,.07); }
 .flow__tile--logo svg { width: 42px; height: 42px; fill: initial; stroke: none; }
+.flow__tile--logo img { width: 46px; height: 46px; object-fit: contain; border-radius: 10px; }
 .flow-full .flow__tile { width: 84px; height: 84px; border-radius: 22px; }
 .flow-full .flow__label { top: calc(50% + 52px); }
 .flow-full .flow__tile--hub { width: 88px; height: 88px; border-radius: 50%; }
@@ -747,6 +748,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .flow-full .flow { min-height: 300px; }
   .flow-full .flow__tile { width: 56px; height: 56px; border-radius: 16px; }
   .flow__tile--logo svg { width: 28px; height: 28px; }
+  .flow__tile--logo img { width: 30px; height: 30px; border-radius: 7px; }
   .flow-full .flow__label { top: calc(50% + 36px); }
   .flow-full .flow__tile--hub { width: 62px; height: 62px; border-radius: 50%; }
 }
