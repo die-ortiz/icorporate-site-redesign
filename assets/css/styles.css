@@ -1,0 +1,9 @@
+:root {
+  /* Reemplazar por la paleta y tipografía actuales de iCorporate */
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-accent: #0a58ca;
+  --font-base: system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-base); }
