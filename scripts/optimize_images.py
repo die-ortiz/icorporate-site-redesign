@@ -27,7 +27,7 @@ JOBS = {
     "client-sita.webp":    ("Logo_sita.png",    300, 88, {}),
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
     "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {}),
-    "client-aviatdo.webp": ("aviatdo.png",       300, 88, {}),
+    "client-aviatdo.webp": ("aviatdo.png",       300, 88, {"unmatte": True}),
     # Versiones blancas (carrusel sobre fondo oscuro): la luminosidad pasa a transparencia,
     # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
     "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
@@ -72,6 +72,21 @@ def to_white(im):
     return out
 
 
+def unmatte(im):
+    """Quita el fondo blanco de un logo sin transparencia: alpha = 1 - mínimo canal, color recalculado."""
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            al = 255 - min(r, g, b)
+            if al == 0:
+                px[x, y] = (255, 255, 255, 0)
+            else:
+                f = lambda c: max(0, min(255, round(255 - (255 - c) * 255 / al)))
+                px[x, y] = (f(r), f(g), f(b), min(a, al))
+    return im
+
+
 def resize(im, width):
     if im.width <= width:
         return im
@@ -90,6 +105,8 @@ def main():
             im = im.crop(im.split()[3].getbbox())
         if opts.get("light"):
             im = to_light(im)
+        if opts.get("unmatte"):
+            im = unmatte(im)
         if opts.get("white"):
             im = to_white(im)
         im = resize(im, width)
