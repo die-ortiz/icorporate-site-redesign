@@ -134,13 +134,3 @@ if (wall) {
     new IntersectionObserver(([e]) => voices.classList.toggle('is-offscreen', !e.isIntersecting)).observe(voices);
   }
 }
-
-// Botones de pausa (WCAG 2.2.2): logos y testimonios
-document.querySelectorAll('.marquee-pause').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const paused = btn.getAttribute('aria-pressed') !== 'true';
-    btn.setAttribute('aria-pressed', String(paused));
-    btn.setAttribute('aria-label', paused ? btn.dataset.play : btn.dataset.pause);
-    btn.closest('.trust, .voices').classList.toggle('is-paused', paused);
-  });
-});
