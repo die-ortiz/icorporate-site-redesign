@@ -662,3 +662,11 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .office__address { display: flex; align-items: flex-start; gap: .9rem; padding: 1rem 1.2rem; border-radius: 14px; border: 1px solid var(--line); background: #fff; font-weight: 600; font-style: normal; }
 .office__address svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-top: .1rem; }
 
+
+/* Home: cifras dentro del hero (mismo formato que Events), con degradado inferior a azul oscuro */
+.hero--stats .stats--hero { margin-top: 2.4rem; padding-bottom: .4rem; }
+.hero--stats.hero--center .hero__veil {
+  background:
+    radial-gradient(75% 85% at 50% 42%, rgba(5,20,43,.8) 0%, rgba(5,20,43,.62) 55%, rgba(5,20,43,.34) 100%),
+    linear-gradient(0deg, rgba(5,20,43,.96) 0%, rgba(5,20,43,.78) 30%, rgba(5,20,43,0) 60%);
+}
