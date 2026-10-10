@@ -107,6 +107,9 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero">
+      <!-- Video de fondo: se activa solo si existe assets/video/hero.mp4 (ver scripts/optimize_video.sh) -->
+      <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="../assets/video/hero.mp4"></video>
+      <div class="hero__veil" aria-hidden="true"></div>
       <div class="rays" data-siderays data-origin="top-right" aria-hidden="true"></div>
       <div class="container">
         <div class="hero__text">

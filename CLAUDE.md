@@ -35,6 +35,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - Un CTA primario consistente ("Book a call"), sin salidas a sitios externos.
 - Formulario de contacto funcional por correo directo (definir el método de envío en un sitio estático, por ejemplo `mailto:` o endpoint PHP en el servidor).
 - Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.
+- Video de fondo del hero (opcional): dejar el original y correr `scripts/optimize_video.sh original.mp4`; genera `assets/video/hero.mp4` (≤ 4 MB, 8-15 s en bucle, sin audio ni texto). Si el archivo no existe, el hero usa el fondo con rayos. No se carga con movimiento reducido, ahorro de datos ni pantallas < 768px.
 
 ## Estructura de carpetas
 ```

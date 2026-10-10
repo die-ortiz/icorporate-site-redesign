@@ -189,6 +189,17 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .hero > .container { flex: 1; display: flex; align-items: center; }
 .rays { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* Video de fondo del hero (opcional). Sin archivo, o con movimiento reducido / ahorro de datos / pantallas chicas, queda el fondo con rayos */
+.hero__video { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; pointer-events: none; }
+.hero__veil {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none; display: none;
+  background:
+    linear-gradient(90deg, rgba(5,20,43,.78) 0%, rgba(5,20,43,.58) 50%, rgba(5,20,43,.22) 100%),
+    linear-gradient(0deg, rgba(5,20,43,.7) 0%, rgba(5,20,43,0) 34%);
+}
+.hero.has-video .hero__video { opacity: 1; }
+.hero.has-video .hero__veil { display: block; }
+.hero.has-video .rays { display: none; }
 .hero__text { max-width: 1020px; }
 .hero h1 { font-size: clamp(2.2rem, 5.4vw, 4.2rem); font-weight: 800; margin-top: 0; letter-spacing: -0.035em; }
 .hero__sub { margin-top: 1.6rem; font-size: clamp(1.02rem, 2vw, 1.25rem); color: #c6d9ee; max-width: 52ch; }
