@@ -99,7 +99,7 @@
 
   <main id="main">
     <!-- CABECERA (centrada) -->
-    <section class="page-hero">
+    <section class="page-hero page-hero--stats">
       <img class="page-hero__img" src="../../assets/img/events-stage.webp" width="725" height="324" alt="" fetchpriority="high">
       <!-- Video opcional: se activa solo si existe assets/video/events.mp4 (ver scripts/optimize_video.sh) -->
       <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="../../assets/video/events.mp4"></video>
@@ -114,15 +114,14 @@
           <a class="btn btn--ghost" href="#phases">Mirá cómo trabajamos</a>
         </div>
       </div>
-    </section>
-
-    <!-- CIFRAS (datos reales del sitio actual) -->
-    <section class="stats stats--inline" aria-label="Nuestra trayectoria">
-      <div class="container stats__grid">
-        <div class="stat reveal"><b>+100</b><span>Conferencias y eventos corporativos</span></div>
-        <div class="stat reveal" data-d="1"><b>+15</b><span>Países alcanzados</span></div>
-        <div class="stat reveal" data-d="2"><b>+25K</b><span>Asistentes gestionados</span></div>
-        <div class="stat reveal" data-d="2"><b>20</b><span>Años de experiencia</span></div>
+      <!-- CIFRAS dentro de la cabecera (datos reales del sitio actual icorporatelab.com) -->
+      <div class="stats stats--hero" aria-label="Nuestra trayectoria">
+        <div class="container stats__grid">
+        <div class="stat"><b>+100</b><span>Conferencias y eventos corporativos</span></div>
+        <div class="stat"><b>+15</b><span>Países alcanzados</span></div>
+        <div class="stat"><b>+25K</b><span>Asistentes gestionados</span></div>
+        <div class="stat"><b>20</b><span>Años de experiencia</span></div>
+      </div>
       </div>
     </section>
 
