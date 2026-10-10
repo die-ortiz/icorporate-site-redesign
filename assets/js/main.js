@@ -112,13 +112,7 @@ document.querySelectorAll('.flow').forEach((flow) => {
   if (!svg || !hub) return;
   const NS = 'http://www.w3.org/2000/svg';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const LAYERS = [ // cola → cabeza: largo (px), opacidad, color, grosor
-    { len: 70, op: 0.18, color: '#037FD9', w: 5 },
-    { len: 48, op: 0.38, color: '#06BDE7', w: 5 },
-    { len: 28, op: 0.7, color: '#5fd8f3', w: 4.5 },
-    { len: 12, op: 1, color: '#e6fbff', w: 4 },
-  ];
-  const TAIL = LAYERS[0].len;
+  const TAIL = 84; // largo del destello en px (un solo trazo con degradado, para que los colores viajen juntos)
   let routes = [];
 
   const mk = (cls) => { const p = document.createElementNS(NS, 'path'); p.setAttribute('class', cls); svg.appendChild(p); return p; };
@@ -129,7 +123,9 @@ document.querySelectorAll('.flow').forEach((flow) => {
     svg.style.cssText = `position:absolute;left:${fr.left - mr.left}px;top:${fr.top - mr.top}px;width:${fr.width}px;height:${fr.height}px;overflow:visible`;
     svg.setAttribute('viewBox', `0 0 ${fr.width} ${fr.height}`);
     svg.setAttribute('preserveAspectRatio', 'none');
-    svg.querySelectorAll('path').forEach((p) => p.remove());
+    svg.querySelectorAll('path, defs').forEach((p) => p.remove());
+    const defs = document.createElementNS(NS, 'defs');
+    svg.appendChild(defs);
     const hy = hr.top + hr.height / 2 - fr.top;
     routes = [];
     flow.querySelectorAll('.flow__col').forEach((col, ci) => {
@@ -142,34 +138,42 @@ document.querySelectorAll('.flow').forEach((flow) => {
         const dx = (x1 - x0) / 2;
         const d = `M${x0} ${y0} C${x0 + dx} ${y0} ${x1 - dx} ${hy} ${x1} ${hy}`;
         mk('flow__path').setAttribute('d', d);
-        const layers = LAYERS.map((L) => {
-          const p = mk('flow__comet');
-          p.setAttribute('d', d);
-          p.setAttribute('stroke', L.color);
-          p.setAttribute('stroke-opacity', L.op);
-          p.setAttribute('stroke-width', L.w);
-          p.setAttribute('stroke-linecap', 'round');
-          p.setAttribute('fill', 'none');
-          return p;
+        const id = `flow-grad-${ci}-${i}`;
+        const grad = document.createElementNS(NS, 'linearGradient');
+        grad.setAttribute('id', id);
+        grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+        [['0', '#037FD9', 0], ['0.55', '#06BDE7', 0.75], ['1', '#e6fbff', 1]].forEach(([o, col, op]) => {
+          const st = document.createElementNS(NS, 'stop');
+          st.setAttribute('offset', o); st.setAttribute('stop-color', col); st.setAttribute('stop-opacity', op);
+          grad.appendChild(st);
         });
-        const len = layers[0].getTotalLength();
-        routes.push({ layers, len, delay: (ci * 3 + i) * 0.37 });
+        defs.appendChild(grad);
+        const comet = mk('flow__comet');
+        comet.setAttribute('d', d);
+        comet.setAttribute('stroke', `url(#${id})`);
+        comet.setAttribute('stroke-width', 4.5);
+        comet.setAttribute('fill', 'none');
+        comet.setAttribute('stroke-dasharray', `${TAIL} 100000`);
+        routes.push({ comet, grad, len: comet.getTotalLength(), delay: (ci * 3 + i) * 0.37 });
       });
     });
   };
 
-  const PERIOD = 2.6;
+  // Velocidad constante (px/s) para todas las líneas: sin aceleración ni frenado al salir de la herramienta
+  const SPEED = 230;
+  const GAP = 140; // espacio muerto entre un destello y el siguiente, en px de recorrido
   const frame = (now) => {
     const t = now / 1000;
     routes.forEach((r) => {
-      const k = (((t - r.delay) % PERIOD) + PERIOD) % PERIOD / PERIOD;
-      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; // ease in-out
-      const head = e * (r.len + TAIL);
-      LAYERS.forEach((L, j) => {
-        const p = r.layers[j];
-        p.setAttribute('stroke-dasharray', `${L.len} ${r.len + L.len}`);
-        p.setAttribute('stroke-dashoffset', L.len - head); // el tramo visible es [head - largo, head], recortado en el borde del iBot
-      });
+      const cycle = r.len + TAIL + GAP;
+      const head = ((((t - r.delay) * SPEED) % cycle) + cycle) % cycle; // la cabeza avanza en línea recta, de 0 a len + cola
+      const tip = Math.min(head, r.len);
+      const back = Math.max(0, head - TAIL);
+      const pt = r.comet.getPointAtLength(tip);
+      const pb = r.comet.getPointAtLength(Math.min(back, r.len));
+      r.grad.setAttribute('x1', pb.x); r.grad.setAttribute('y1', pb.y);
+      r.grad.setAttribute('x2', pt.x); r.grad.setAttribute('y2', pt.y);
+      r.comet.setAttribute('stroke-dashoffset', TAIL - head); // tramo visible [head - cola, head], recortado en los extremos
     });
   };
 

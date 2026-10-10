@@ -707,16 +707,24 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .flow__mid > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .flow__path { fill: none; stroke: rgba(255,255,255,.18); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .flow__hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: flex; flex-direction: column; align-items: center; }
-.flow__tile--hub { width: 92px; height: 92px; border-radius: 26px; background: #0c2447; border-color: rgba(6,189,231,.45);
-  box-shadow: 0 0 0 8px rgba(6,189,231,.1), 0 0 48px rgba(6,189,231,.4); }
-.flow__tile--hub img { width: 60px; height: 60px; border-radius: 16px; background: #fff; padding: 5px; }
+.flow__tile--hub { width: 92px; height: 92px; border: 0; border-radius: 50%; background: none; box-shadow: none; }
+.flow__tile--hub img { width: 100%; height: 100%; object-fit: contain; background: none; padding: 0; border-radius: 0; filter: drop-shadow(0 0 14px rgba(6,189,231,.45)); }
+/* Pulso del halo cian del iBot (sin caja): el brillo respira y un anillo circular se expande y se desvanece */
+.flow__tile--hub { position: relative; }
+.flow__tile--hub img { animation: ibot-pulse 2.8s ease-in-out infinite; }
+.flow__tile--hub::after { content: ""; position: absolute; inset: 6%; border-radius: 50%; border: 2px solid rgba(6,189,231,.55); pointer-events: none; animation: ibot-ring 2.8s ease-out infinite; }
+@keyframes ibot-pulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(6,189,231,.35)) drop-shadow(0 0 28px rgba(6,189,231,.25)); }
+  50%      { filter: drop-shadow(0 0 18px rgba(6,189,231,.75)) drop-shadow(0 0 56px rgba(6,189,231,.55)); }
+}
+@keyframes ibot-ring { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.9); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .flow__tile--hub img, .flow__tile--hub::after { animation: none; } .flow__tile--hub::after { opacity: 0; } }
 .flow__hub .flow__label { top: calc(100% + 12px); color: var(--cyan); }
 @media (max-width: 520px) {
   .flow { min-height: 270px; }
   .flow__tile { width: 54px; height: 54px; border-radius: 16px; }
   .flow__tile svg { width: 24px; height: 24px; }
-  .flow__tile--hub { width: 70px; height: 70px; border-radius: 20px; }
-  .flow__tile--hub img { width: 46px; height: 46px; }
+  .flow__tile--hub { width: 70px; height: 70px; border-radius: 50%; }
   .flow__label { top: calc(50% + 34px); font-size: .55rem; }
 }
 
@@ -733,14 +741,12 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .flow__tile--logo svg { width: 42px; height: 42px; fill: initial; stroke: none; }
 .flow-full .flow__tile { width: 84px; height: 84px; border-radius: 22px; }
 .flow-full .flow__label { top: calc(50% + 52px); }
-.flow-full .flow__tile--hub { width: 104px; height: 104px; border-radius: 28px; }
-.flow-full .flow__tile--hub img { width: 70px; height: 70px; }
+.flow-full .flow__tile--hub { width: 88px; height: 88px; border-radius: 50%; }
 .flow-full .flow__hub .flow__label { top: calc(100% + 14px); }
 @media (max-width: 520px) {
   .flow-full .flow { min-height: 300px; }
   .flow-full .flow__tile { width: 56px; height: 56px; border-radius: 16px; }
   .flow__tile--logo svg { width: 28px; height: 28px; }
   .flow-full .flow__label { top: calc(50% + 36px); }
-  .flow-full .flow__tile--hub { width: 74px; height: 74px; border-radius: 20px; }
-  .flow-full .flow__tile--hub img { width: 48px; height: 48px; }
+  .flow-full .flow__tile--hub { width: 62px; height: 62px; border-radius: 50%; }
 }

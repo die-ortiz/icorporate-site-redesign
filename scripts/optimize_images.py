@@ -41,6 +41,7 @@ JOBS = {
     "apps-home.webp":       ("icorporate_apps_home.jpg",               1000, 78, {}),
     "branding-objects.webp": ("Imagen_corporate_branding_objetos.jpg",  800, 78, {}),
     "ibot-icon.webp":       ("icono-ibot.jpg",                          160, 90, {}),
+    "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
     "events-stage.webp":    ("icorporate_event_tech_home.jpg",         725, 80, {}),
 }
 # Íconos PNG (los navegadores los piden en PNG): salida -> (original, lado)
@@ -87,6 +88,37 @@ def unmatte(im):
     return im
 
 
+def clear_background(im):
+    """Quita solo el fondo blanco exterior (conectado a las esquinas); el blanco interior del dibujo se conserva.
+    Los píxeles del borde se desmatizan para evitar el halo blanco."""
+    from PIL import ImageDraw, ImageFilter
+    rgb = im.convert("RGB")
+    r, g, b = rgb.split()
+    mn = ImageChops.darker(ImageChops.darker(r, g), b)
+    flood = mn.point(lambda v: 255 if v >= 225 else 0)
+    w, h = flood.size
+    for xy in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)):
+        if flood.getpixel(xy) == 255:
+            ImageDraw.floodfill(flood, xy, 128)
+    outer = flood.point(lambda v: 255 if v == 128 else 0)
+    zone = outer.filter(ImageFilter.MaxFilter(7))          # franja de borde alrededor del fondo
+    out = Image.new("RGBA", im.size)
+    px, po, pz, pm = out.load(), outer.load(), zone.load(), mn.load()
+    src = rgb.load()
+    for y in range(h):
+        for x in range(w):
+            if po[x, y]:
+                continue                                    # fondo exterior: transparente
+            cr, cg, cb = src[x, y]
+            if pz[x, y]:
+                al = max(1, 255 - pm[x, y])
+                f = lambda c: max(0, min(255, round(255 - (255 - c) * 255 / al)))
+                px[x, y] = (f(cr), f(cg), f(cb), al if pm[x, y] > 40 else 255)
+            else:
+                px[x, y] = (cr, cg, cb, 255)
+    return out
+
+
 def resize(im, width):
     if im.width <= width:
         return im
@@ -105,12 +137,14 @@ def main():
             im = im.crop(im.split()[3].getbbox())
         if opts.get("light"):
             im = to_light(im)
+        if opts.get("clearbg"):
+            im = clear_background(im)
         if opts.get("unmatte"):
             im = unmatte(im)
         if opts.get("white"):
             im = to_white(im)
         im = resize(im, width)
-        has_alpha = src.suffix.lower() == ".png"
+        has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False)
         if not has_alpha:
             im = im.convert("RGB")
         im.save(DST / out, "WEBP", quality=quality, method=6)
