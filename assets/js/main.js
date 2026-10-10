@@ -96,6 +96,14 @@ if (rayEls.length) {
     .catch(() => {});
 }
 
+// Orbe de fondo (WebGL) en la cabecera de Tech Solutions. Si falla, queda el fondo navy.
+const orbEls = document.querySelectorAll('[data-orb]');
+if (orbEls.length) {
+  import('./orb.js')
+    .then(({ initOrb }) => orbEls.forEach((el) => initOrb(el)))
+    .catch(() => {});
+}
+
 // Carrusel de logos: bucle continuo a ancho completo
 const marquee = document.querySelector('.marquee');
 if (marquee) {
