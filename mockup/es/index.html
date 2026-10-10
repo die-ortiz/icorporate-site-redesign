@@ -110,7 +110,6 @@
       <div class="rays" data-siderays data-origin="top-right" aria-hidden="true"></div>
       <div class="container">
         <div class="hero__text">
-          <span class="eyebrow eyebrow--light">Haz brillar cada idea</span>
           <h1>Tecnología, eventos y marca. <span class="grad-text">Un equipo, un estándar.</span></h1>
           <p class="hero__sub">Desde cumbres aeronáuticas hasta automatización a medida: diseñamos, construimos y operamos lo que tu negocio necesita para crecer.</p>
           <div class="hero__actions">
@@ -355,14 +354,37 @@
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta" id="contact">
+    <!-- CONTACTO -->
+    <section class="contact" id="contact">
       <div class="rays" data-siderays data-origin="top-left" data-intensity="1.5" aria-hidden="true"></div>
-      <div class="container reveal">
-        <h2>Construyamos lo que viene.</h2>
-        <p>Agendá una llamada y te mostramos cómo lo abordaríamos.</p>
-        <p></p>
-        <a class="btn btn--white" href="mailto:info@icorporateevents.com?subject=Agendar%20una%20llamada">Agendá una llamada</a>
+      <div class="container contact__grid">
+        <div class="contact__info reveal">
+          <span class="contact__badge">Contacto</span>
+          <h2>Construyamos lo que viene.</h2>
+          <p>Contanos sobre tu proyecto. Un especialista te contactará para coordinar una primera llamada.</p>
+          <a class="contact__mail" href="mailto:info@icorporateevents.com"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 7.5l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>info@icorporateevents.com</span></a>
+          <div class="social contact__social" aria-label="Seguinos">
+            <a href="https://www.linkedin.com/company/icorporatemarketing/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4.98 3.5a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM3.3 8.9h3.4V20H3.3zM9 8.9h3.2v1.5h.05c.45-.85 1.55-1.75 3.2-1.75 3.4 0 4.05 2.2 4.05 5.1V20h-3.4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.1 1.4-2.1 2.85V20H9z" fill="currentColor"/></svg></a>
+            <a href="https://www.instagram.com/icorporatemarketing/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.15" fill="currentColor"/></svg></a>
+            <a href="https://www.youtube.com/@icorporatemarketingevents4248" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9.2v5.6l5-2.8z" fill="currentColor"/></svg></a>
+          </div>
+        </div>
+        <form class="contact__form reveal" data-d="1" id="contact-form" novalidate
+              data-to="info@icorporateevents.com" data-subject="Consulta desde el sitio" data-ok="¡Gracias! Se debería abrir tu aplicación de correo con el mensaje listo para enviar." data-err="Completá tu nombre, correo y mensaje.">
+          <div class="field"><label for="cf-first">Nombre</label><input id="cf-first" name="first" type="text" autocomplete="given-name" placeholder="Ana" required></div>
+          <div class="field"><label for="cf-last">Apellido</label><input id="cf-last" name="last" type="text" autocomplete="family-name" placeholder="García"></div>
+          <div class="field"><label for="cf-company">Empresa</label><input id="cf-company" name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa"></div>
+          <div class="field"><label for="cf-phone">Teléfono</label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000"></div>
+          <div class="field"><label for="cf-email">Correo electrónico</label><input id="cf-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required></div>
+          <div class="field"><label for="cf-by">Prefiero que me contacten por</label><select id="cf-by" name="by"><option>Correo</option><option>Teléfono</option><option>WhatsApp</option></select></div>
+          <div class="field field--full"><label for="cf-service">¿Qué servicios necesitás?</label>
+            <select id="cf-service" name="service"><option value="" selected>Seleccioná un servicio</option><option>Tech Solutions</option><option>Events Management</option><option>Corporate Branding</option><option>Todavía no lo sé</option></select></div>
+          <div class="field field--full"><label for="cf-msg">Mensaje</label><textarea id="cf-msg" name="message" rows="4" placeholder="Contanos sobre tu proyecto" required></textarea></div>
+          <div class="field--full contact__actions">
+            <button class="btn btn--primary" type="submit">Enviar mensaje</button>
+            <p class="contact__status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
       </div>
     </section>
   </main>
@@ -384,11 +406,11 @@
         </div>
         <div>
           <h4>Seguinos</h4>
-          <ul>
-            <li><a href="https://www.linkedin.com/company/icorporatemarketing" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://www.instagram.com/icorporatemarketing" rel="noopener">Instagram</a></li>
-            <li><a href="https://www.youtube.com/@icorporatemarketingevents4248" rel="noopener">YouTube</a></li>
-          </ul>
+          <div class="social" aria-label="Seguinos">
+            <a href="https://www.linkedin.com/company/icorporatemarketing/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4.98 3.5a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM3.3 8.9h3.4V20H3.3zM9 8.9h3.2v1.5h.05c.45-.85 1.55-1.75 3.2-1.75 3.4 0 4.05 2.2 4.05 5.1V20h-3.4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.1 1.4-2.1 2.85V20H9z" fill="currentColor"/></svg></a>
+            <a href="https://www.instagram.com/icorporatemarketing/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.15" fill="currentColor"/></svg></a>
+            <a href="https://www.youtube.com/@icorporatemarketingevents4248" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9.2v5.6l5-2.8z" fill="currentColor"/></svg></a>
+          </div>
         </div>
       </div>
       <p class="footer__legal">© 2026 iCorporate. Todos los derechos reservados.</p>
