@@ -51,6 +51,7 @@ JOBS = {
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),
+    "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
     "events-stage.webp":    ("icorporate_event_tech_home.jpg",         725, 80, {}),
 }
