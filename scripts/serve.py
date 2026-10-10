@@ -13,6 +13,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+class DevServer(ThreadingHTTPServer):
+    # La cola por defecto es de 5 conexiones: la home pide ~35 archivos a la vez y el navegador
+    # recibía ERR_CONNECTION_RESET en algunas imágenes. Con 128 no se pierde ninguna.
+    request_queue_size = 128
+    daemon_threads = True
+
+
 class NoCacheHandler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("Cache-Control", "no-store, max-age=0")
@@ -23,4 +30,4 @@ if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
     handler = partial(NoCacheHandler, directory=str(ROOT))
     print(f"Sirviendo {ROOT} en http://localhost:{port}/mockup/  (sin caché)")
-    ThreadingHTTPServer(("127.0.0.1", port), handler).serve_forever()
+    DevServer(("127.0.0.1", port), handler).serve_forever()

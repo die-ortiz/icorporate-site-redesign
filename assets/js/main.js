@@ -187,3 +187,82 @@ if (contactForm) {
   });
   contactForm.addEventListener('input', (e) => { if (e.target.getAttribute && e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
 }
+
+// Cifras: cuentan de 0 al valor final al entrar en pantalla (el valor final queda para lectores de pantalla)
+const statNumbers = document.querySelectorAll('.stat b');
+if (statNumbers.length) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  const items = [...statNumbers].map((el) => {
+    const m = el.textContent.trim().match(/^(\D*)([\d.,]+)(\D*)$/);
+    if (!m) return null;
+    const sep = (m[2].match(/\D/) || [''])[0];
+    const target = parseInt(m[2].replace(/\D/g, ''), 10);
+    // Lectores de pantalla leen el valor final; el número que se anima queda oculto para ellos
+    const live = document.createElement('span');
+    live.setAttribute('aria-hidden', 'true');
+    const sr = document.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = el.textContent.trim();
+    el.textContent = '';
+    el.append(live, sr);
+    live.textContent = m[1] + fmt(target, sep) + m[3];
+    return { live, prefix: m[1], suffix: m[3], target, sep };
+  }).filter(Boolean);
+
+  const run = (it, delay) => {
+    const dur = 1800;
+    setTimeout(() => {
+      const t0 = performance.now();
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        it.live.textContent = it.prefix + fmt(Math.round(it.target * eased), it.sep) + it.suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, delay);
+  };
+
+  if (!reduce && 'IntersectionObserver' in window) {
+    items.forEach((it) => { it.live.textContent = it.prefix + '0' + it.suffix; });
+    const grid = statNumbers[0].closest('.stats');
+    new IntersectionObserver((entries, obs) => {
+      if (entries[0].isIntersecting) { items.forEach((it, i) => run(it, i * 120)); obs.disconnect(); }
+    }, { threshold: 0.35 }).observe(grid);
+  }
+}
+
+// SOLO PRUEBA: selector de tipografías (?font=a|b|c|d). Se elimina al elegir una opción.
+{ const q = new URLSearchParams(location.search); if (q.has('font') || q.has('hero')) import('./font-preview.js'); }
+
+// Formulario de propuesta (páginas de servicio): correo directo con todos los campos etiquetados
+const proposalForm = document.getElementById('proposal-form');
+if (proposalForm) {
+  const status = proposalForm.querySelector('.contact__status');
+  proposalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const required = [...proposalForm.querySelectorAll('[required]')];
+    let firstBad = null;
+    required.forEach((el) => {
+      const bad = !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value.trim()));
+      el.setAttribute('aria-invalid', String(bad));
+      if (bad && !firstBad) firstBad = el;
+    });
+    if (firstBad) {
+      status.textContent = proposalForm.dataset.err; status.classList.add('is-error'); firstBad.focus();
+      return;
+    }
+    const lines = [...proposalForm.querySelectorAll('input, select, textarea')]
+      .filter((el) => el.name && el.value.trim() && el.name !== 'brief')
+      .map((el) => `${el.labels[0].textContent}: ${el.value.trim()}`);
+    const brief = proposalForm.elements.brief.value.trim();
+    const name = proposalForm.elements.name.value.trim();
+    const subject = `${proposalForm.dataset.subject} - ${name}`;
+    const body = `${lines.join('\n')}\n\n${brief}`;
+    status.textContent = proposalForm.dataset.ok; status.classList.remove('is-error');
+    window.location.href = `mailto:${proposalForm.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+  proposalForm.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
+}
+
