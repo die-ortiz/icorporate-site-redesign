@@ -193,6 +193,12 @@ const statNumbers = document.querySelectorAll('.stat b');
 if (statNumbers.length) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  // El prefijo (+) va en su propio <span> para poder darle color
+  const paint = (it, text) => {
+    it.live.textContent = '';
+    if (it.prefix) { const p = document.createElement('span'); p.className = 'stat__plus'; p.textContent = it.prefix; it.live.appendChild(p); }
+    it.live.appendChild(document.createTextNode(text + it.suffix));
+  };
   const items = [...statNumbers].map((el) => {
     const m = el.textContent.trim().match(/^(\D*)([\d.,]+)(\D*)$/);
     if (!m) return null;
@@ -206,8 +212,9 @@ if (statNumbers.length) {
     sr.textContent = el.textContent.trim();
     el.textContent = '';
     el.append(live, sr);
-    live.textContent = m[1] + fmt(target, sep) + m[3];
-    return { live, prefix: m[1], suffix: m[3], target, sep };
+    const it = { live, prefix: m[1], suffix: m[3], target, sep };
+    paint(it, fmt(target, sep));
+    return it;
   }).filter(Boolean);
 
   const run = (it, delay) => {
@@ -217,7 +224,7 @@ if (statNumbers.length) {
       const tick = (now) => {
         const p = Math.min(1, (now - t0) / dur);
         const eased = 1 - Math.pow(1 - p, 3);
-        it.live.textContent = it.prefix + fmt(Math.round(it.target * eased), it.sep) + it.suffix;
+        paint(it, fmt(Math.round(it.target * eased), it.sep));
         if (p < 1) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
@@ -225,7 +232,7 @@ if (statNumbers.length) {
   };
 
   if (!reduce && 'IntersectionObserver' in window) {
-    items.forEach((it) => { it.live.textContent = it.prefix + '0' + it.suffix; });
+    items.forEach((it) => paint(it, '0'));
     const grid = statNumbers[0].closest('.stats');
     new IntersectionObserver((entries, obs) => {
       if (entries[0].isIntersecting) { items.forEach((it, i) => run(it, i * 120)); obs.disconnect(); }
