@@ -20,7 +20,20 @@ class DevServer(ThreadingHTTPServer):
     daemon_threads = True
 
 
+# Solo desarrollo: el index.html de la raíz es un marcador y la home real vive en mockup/.
+REDIRECTS = {"/": "/mockup/", "/index.html": "/mockup/", "/es/": "/mockup/es/", "/es/index.html": "/mockup/es/"}
+
+
 class NoCacheHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        target = REDIRECTS.get(self.path.split("?")[0])
+        if target:
+            self.send_response(302)
+            self.send_header("Location", target)
+            self.end_headers()
+            return
+        super().do_GET()
+
     def end_headers(self):
         self.send_header("Cache-Control", "no-store, max-age=0")
         super().end_headers()
