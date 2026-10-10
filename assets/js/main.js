@@ -194,10 +194,14 @@ if (statNumbers.length) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
   // El prefijo (+) va en su propio <span> para poder darle color
+  const plus = (ch) => { const p = document.createElement('span'); p.className = 'stat__plus'; p.textContent = ch; return p; };
   const paint = (it, text) => {
     it.live.textContent = '';
-    if (it.prefix) { const p = document.createElement('span'); p.className = 'stat__plus'; p.textContent = it.prefix; it.live.appendChild(p); }
-    it.live.appendChild(document.createTextNode(text + it.suffix));
+    if (it.prefix) it.live.appendChild(plus(it.prefix));
+    // sufijo: la "K" va con el número y un "+" final (formato inglés: 100+, 25K+) se colorea aparte
+    const m = it.suffix.match(/^(.*?)(\+?)$/);
+    it.live.appendChild(document.createTextNode(text + m[1]));
+    if (m[2]) it.live.appendChild(plus(m[2]));
   };
   const items = [...statNumbers].map((el) => {
     const m = el.textContent.trim().match(/^(\D*)([\d.,]+)(\D*)$/);
