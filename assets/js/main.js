@@ -233,3 +233,36 @@ if (statNumbers.length) {
   }
 }
 
+// SOLO PRUEBA: selector de tipografías (?font=a|b|c|d). Se elimina al elegir una opción.
+{ const q = new URLSearchParams(location.search); if (q.has('font') || q.has('hero')) import('./font-preview.js'); }
+
+// Formulario de propuesta (páginas de servicio): correo directo con todos los campos etiquetados
+const proposalForm = document.getElementById('proposal-form');
+if (proposalForm) {
+  const status = proposalForm.querySelector('.contact__status');
+  proposalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const required = [...proposalForm.querySelectorAll('[required]')];
+    let firstBad = null;
+    required.forEach((el) => {
+      const bad = !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value.trim()));
+      el.setAttribute('aria-invalid', String(bad));
+      if (bad && !firstBad) firstBad = el;
+    });
+    if (firstBad) {
+      status.textContent = proposalForm.dataset.err; status.classList.add('is-error'); firstBad.focus();
+      return;
+    }
+    const lines = [...proposalForm.querySelectorAll('input, select, textarea')]
+      .filter((el) => el.name && el.value.trim() && el.name !== 'brief')
+      .map((el) => `${el.labels[0].textContent}: ${el.value.trim()}`);
+    const brief = proposalForm.elements.brief.value.trim();
+    const name = proposalForm.elements.name.value.trim();
+    const subject = `${proposalForm.dataset.subject} - ${name}`;
+    const body = `${lines.join('\n')}\n\n${brief}`;
+    status.textContent = proposalForm.dataset.ok; status.classList.remove('is-error');
+    window.location.href = `mailto:${proposalForm.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+  proposalForm.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
+}
+
