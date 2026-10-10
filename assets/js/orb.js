@@ -76,7 +76,7 @@ vec4 draw(vec2 uv) {
   float n0 = snoise3(vec3(uv * noiseScale, iTime * 0.5)) * 0.5 + 0.5;
   float r0 = mix(mix(innerRadius, 1.0, 0.4), mix(innerRadius, 1.0, 0.6), n0);
   float d0 = distance(uv, (r0 * invLen) * uv);
-  float v0 = light1(1.0, 10.0, d0);
+  float v0 = light1(1.0, 16.0, d0);
   v0 *= smoothstep(r0 * 1.05, r0, len);
   float innerFade = smoothstep(r0 * 0.8, r0 * 0.95, len);
   v0 *= mix(innerFade, 1.0, bgLuminance * 0.7);
@@ -157,8 +157,8 @@ export function initOrb(container, opts = {}) {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const updateSize = () => {
-    // el shader es pesado (ruido por píxel): 1x en pantallas chicas, hasta 1.5x en el resto
-    const dpr = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+    // el shader es pesado (ruido por píxel): 1x en pantallas chicas, hasta 2x en el resto (nitidez en pantallas retina)
+    const dpr = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     const { clientWidth: w, clientHeight: h } = container;
     renderer.dpr = dpr;
     renderer.setSize(w, h);
