@@ -31,6 +31,7 @@ JOBS = {
     # Fotografías
     "apps-home.webp":       ("icorporate_apps_home.jpg",               1000, 78, {}),
     "branding-objects.webp": ("Imagen_corporate_branding_objetos.jpg",  800, 78, {}),
+    "events-stage.webp":    ("icorporate_event_tech_home.jpg",         725, 80, {}),
 }
 # Íconos PNG (los navegadores los piden en PNG): salida -> (original, lado)
 ICONS = {
