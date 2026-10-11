@@ -299,8 +299,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .stats--inline .stat:nth-child(2n) { border-left: 0; }
   .stats--inline .stat + .stat { border-left: 1px solid rgba(255,255,255,.22); }
 }
-.stats--inline .stat b { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #fff; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; }
-.stats--inline .stat > span { margin-top: .45rem; font-size: .8rem; color: #d2d4d7; }
+.stats--inline .stat b { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #fff; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; }
+.stats--inline .stat > span { margin-top: .6rem; font-size: .88rem; color: #d2d4d7; }
 .stats--hero .stat > span { margin-top: .4rem; font-size: .78rem; color: #d2d4d7; }
 
 /* Casos */
