@@ -13,7 +13,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - **Formulario y reservas:** correo directo (sin Calendly ni servicios externos por ahora).
 - **Blog:** fase posterior. No construirlo en esta etapa.
 - **Casos de éxito:** hay material suficiente (se entrega en `assets/img` y se redacta con el usuario).
-- **Identidad visual:** se mantienen logo y paleta (azul `#037FD9`, cian `#06BDE7`, lima `#BDCC26`, navy `#05142B`). La tipografía **cambió** a Sora (títulos) + Inter (texto) + JetBrains Mono (etiquetas), activa con `body.theme-a`; el H1 va en peso 500. Comparativa en `reference/fonts-preview.html`.
+- **Identidad visual:** se mantienen logo y paleta (azul `#037FD9`, cian `#06BDE7`, lima `#BDCC26` y el casi negro del logo `#101010` como fondo oscuro, `--dark`; el antiguo navy `#05142B` no era de marca y se retiró). La tipografía **cambió** a Sora (títulos) + Inter (texto) + JetBrains Mono (etiquetas), activa con `body.theme-a`; el H1 va en peso 500. Comparativa en `reference/fonts-preview.html`.
 - **Contenido:** se reescriben todos los textos (hoy son genéricos y vagos). Pendiente definir quién valida EN/ES.
 - **Mockup = solo muestra visual:** el texto, las fotos, el equipo, los testimonios y los logos de integraciones son de ejemplo y deben llevar la etiqueta visible `.sample-tag` ("Example content" / "Contenido de ejemplo"). Reemplazar por datos reales antes de publicar.
 - **Plazo:** sin fecha límite; objetivo de tener la primera versión la semana próxima.
@@ -36,7 +36,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - Un CTA primario consistente ("Book a call"), sin salidas a sitios externos. Excepción acordada: el botón "Learn more about iBot" de Tech Solutions abre `https://icorporatelab.com/service-ibot-2/` (WordPress actual) en pestaña nueva; pasar a ruta interna cuando esa página se migre.
 - Formulario de contacto funcional por correo directo (definir el método de envío en un sitio estático, por ejemplo `mailto:` o endpoint PHP en el servidor).
 - Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.
-- Video de fondo (opcional): dejar el original y correr `scripts/optimize_video.sh original.mp4 [hero|events|tech]`; genera `assets/video/<nombre>.mp4` (H.264, 1280 px, ≤ 4 MB, 8-15 s en bucle, sin audio ni texto) y su póster `<nombre>-poster.webp`. Hoy solo existe `hero.mp4` (Home). Si el archivo no existe, la cabecera usa el póster o el fondo navy. No se carga con movimiento reducido, ahorro de datos ni pantallas < 768px.
+- Video de fondo (opcional): dejar el original y correr `scripts/optimize_video.sh original.mp4 [hero|events|tech]`; genera `assets/video/<nombre>.mp4` (H.264, 1280 px, ≤ 4 MB, 8-15 s en bucle, sin audio ni texto) y su póster `<nombre>-poster.webp`. Hoy solo existe `hero.mp4` (Home). Si el archivo no existe, la cabecera usa el póster o el fondo oscuro (--dark). No se carga con movimiento reducido, ahorro de datos ni pantallas < 768px.
 - Efectos WebGL (`ogl` desde CDN, con respaldo si falla): rayos en la sección de contacto (`assets/js/siderays.js`) y orbe en la cabecera de Tech Solutions (`assets/js/orb.js`). Ambos se pausan fuera de pantalla y respetan movimiento reducido.
 
 ## Estructura de carpetas

@@ -121,7 +121,7 @@ void main() {
 
 export function initOrb(container, opts = {}) {
   const o = {
-    color1: '#037FD9', color2: '#06BDE7', color3: '#0A2F7A', background: '#05142B',
+    color1: '#037FD9', color2: '#06BDE7', color3: '#0266B0', background: '#101010',
     hoverIntensity: 1.2, rotateOnHover: true, ...opts,
   };
 
