@@ -105,7 +105,7 @@ if (rayEls.length) {
     .catch(() => {});
 }
 
-// Orbe de fondo (WebGL) en la cabecera de Tech Solutions. Si falla, queda el fondo navy.
+// Orbe de fondo (WebGL) en la cabecera de Tech Solutions. Si falla, queda el fondo oscuro.
 const orbEls = document.querySelectorAll('[data-orb]');
 if (orbEls.length) {
   import('./orb.js')
