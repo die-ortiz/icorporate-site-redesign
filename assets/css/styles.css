@@ -910,7 +910,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .store-cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem .75rem; margin: 1.6rem 0 1.9rem; padding: 0; list-style: none; }
 .store-cats li { display: flex; align-items: center; gap: .6rem; font-size: .86rem; line-height: 1.3; color: #fff; }
 .store-cats svg { flex: none; width: 26px; height: 26px; fill: none; stroke: var(--cyan); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.store-note { margin: 1.2rem 0 0; font-size: .92rem; color: #c3c6ca; }
+.store__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.store-note { margin: 0; font-size: .92rem; color: #c3c6ca; }
 .store-note a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .store-note a:hover { color: var(--cyan); }
 @media (max-width: 520px) {
