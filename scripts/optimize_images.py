@@ -53,6 +53,8 @@ JOBS = {
     "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
     # Logo de la conferencia en blanco para la tarjeta destacada (sin caja, sobre la foto)
     "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
+    # Logo del evento WAGA 2026 para la insignia de la tarjeta de casos (se muestra a ~210 px)
+    "logo-waga-2026.webp": ("logo-waga-2026.png", 640, 90, {}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),

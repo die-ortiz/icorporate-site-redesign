@@ -847,6 +847,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .case:hover .case__photo img { transform: scale(1.05); }
 .case__badge { position: absolute; left: .9rem; bottom: .9rem; display: inline-flex; align-items: center; height: 40px; padding: .35rem .8rem; border-radius: 8px; background: #fff; box-shadow: 0 8px 20px -10px rgba(16,16,16,.6); }
 .case__badge img { max-height: 28px; width: auto; }
+.case__badge--wide { height: auto; max-width: calc(100% - 1.8rem); padding: .5rem .75rem; }
+.case__badge--wide img { width: 100%; max-width: 220px; max-height: none; height: auto; }
 .case__badge strong { font-size: 1.05rem; letter-spacing: .14em; color: var(--blue-dark); }
 .case__body { display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem 1.5rem; flex: 1; }
 .case__result { align-self: flex-start; padding: .28rem .6rem; border-radius: 999px; background: rgba(6,189,231,.12); color: var(--blue-dark); font: 600 .66rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
