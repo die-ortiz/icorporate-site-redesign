@@ -382,19 +382,7 @@ document.querySelectorAll('[data-cycle]').forEach((cycle) => {
   const tabs = [...cycle.querySelectorAll('[role="tab"]')];
   const panels = tabs.map((t) => document.getElementById(t.getAttribute('aria-controls')));
   const last = tabs.length - 1;
-  // Flechas sobre la línea: marcan el camino entre etapas (hechas, la siguiente en movimiento, pendientes)
-  const track = cycle.querySelector('.cycle__track');
-  const chevs = Array.from({ length: last }, (_, k) => {
-    const c = document.createElement('span');
-    c.className = 'cycle__chev';
-    c.setAttribute('aria-hidden', 'true');
-    c.style.setProperty('--k', String(k));
-    c.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" focusable="false"><path d="M6 3.5L10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    track.appendChild(c);
-    return c;
-  });
   const select = (i, focus) => {
-    chevs.forEach((c, k) => { c.classList.toggle('is-done', k < i); c.classList.toggle('is-next', k === i); });
     cycle.style.setProperty('--cy', String(i / last));
     tabs.forEach((t, k) => {
       t.setAttribute('aria-selected', String(k === i));
@@ -411,14 +399,6 @@ document.querySelectorAll('[data-cycle]').forEach((cycle) => {
       if (next === undefined) return;
       e.preventDefault();
       select(Math.min(last, Math.max(0, next)), true);
-    });
-  });
-  cycle.querySelectorAll('[data-cycle-next]').forEach((b) => {
-    b.addEventListener('click', () => {
-      const cur = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
-      select(Math.min(last, cur + 1));
-      const top = track.getBoundingClientRect().top;
-      if (top < 80) track.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     });
   });
   cycle.classList.add('is-ready');
