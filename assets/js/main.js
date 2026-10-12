@@ -404,3 +404,27 @@ document.querySelectorAll('[data-cycle]').forEach((cycle) => {
   cycle.classList.add('is-ready');
   select(0);
 });
+
+// Tarjeta destacada del Home: carrusel de fotos con fundido, puntos y avance automático (pausa al pasar el mouse o enfocar)
+document.querySelectorAll('[data-flagship-slides]').forEach((box) => {
+  const slides = [...box.querySelectorAll('.flagship__photo')];
+  const dots = [...box.parentElement.querySelectorAll('.flagship__dot')];
+  if (slides.length < 2) return;
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let i = 0, timer = null;
+  const show = (n) => {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle('is-active', k === i));
+    dots.forEach((d, k) => { d.classList.toggle('is-active', k === i); d.setAttribute('aria-current', String(k === i)); });
+  };
+  const stop = () => { clearInterval(timer); timer = null; };
+  const play = () => { if (!still && !timer) timer = setInterval(() => show(i + 1), 5000); };
+  dots.forEach((d, k) => d.addEventListener('click', () => { show(k); stop(); }));
+  const media = box.parentElement;
+  media.addEventListener('mouseenter', stop);
+  media.addEventListener('mouseleave', play);
+  media.addEventListener('focusin', stop);
+  media.addEventListener('focusout', play);
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
+  play();
+});
