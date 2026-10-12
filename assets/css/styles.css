@@ -877,3 +877,15 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .pillar__photo--dark { background: #161616; }
 .pillar__photo--dark img { object-fit: contain; }
 .pillar__photo--dark::after { background: linear-gradient(to top, rgba(16,16,16,.18), transparent 40%); }
+
+/* Botones pastilla primarios: todos con el degradado azul a cian de "Book a call" y texto oscuro.
+   Va al final para imponerse a las variantes por sección (hero, flagship, page-hero, header, demo, flow...). */
+.btn.btn--primary, .ibot__cta {
+  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+  color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
+}
+.btn.btn--primary:hover, .ibot__cta:hover {
+  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+  color: var(--dark); filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8);
+}
+.nav .mega a.btn.btn--primary, .nav .mega a.btn.btn--primary:hover { color: var(--dark); }
