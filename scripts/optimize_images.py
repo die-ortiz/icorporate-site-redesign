@@ -51,6 +51,8 @@ JOBS = {
     "case-alta-ccma-registration.webp": ("alta-ccma-2025-registration.jpg", 1000, 82, {}),
     "case-alta-ccma-plenary.webp":      ("alta-ccma-2025-plenary.jpg",      1000, 82, {}),
     "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
+    # Logo de la conferencia en blanco para la tarjeta destacada (sin caja, sobre la foto)
+    "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),
@@ -76,11 +78,12 @@ def to_light(im):
     return im
 
 
-def to_white(im):
-    """Logo -> blanco sobre transparente. alpha = alpha_original * oscuridad (1 - luminancia)."""
+def to_white(im, gain=1.25):
+    """Logo -> blanco sobre transparente. alpha = alpha_original * oscuridad (1 - luminancia).
+    gain mayor opaca más los tonos medios (logos con color, como el de ALTA CCMA)."""
     r, g, b, alpha = im.split()
     lum = Image.merge("RGB", (r, g, b)).convert("L")
-    dark = lum.point(lambda v: min(255, int((255 - v) * 1.25)))
+    dark = lum.point(lambda v: min(255, int((255 - v) * gain)))
     new_alpha = ImageChops.multiply(alpha, dark)
     out = Image.new("RGBA", im.size, (255, 255, 255, 0))
     out.putalpha(new_alpha)
@@ -156,7 +159,7 @@ def main():
         if opts.get("unmatte"):
             im = unmatte(im)
         if opts.get("white"):
-            im = to_white(im)
+            im = to_white(im) if opts["white"] is True else to_white(im, opts["white"])
         im = resize(im, width)
         has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False)
         if not has_alpha:
