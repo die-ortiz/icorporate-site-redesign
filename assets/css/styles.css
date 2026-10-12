@@ -109,7 +109,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .brand__light { opacity: calc(1 - var(--hdr-fp)); }
 .brand__dark { position: absolute; left: 0; top: 0; opacity: var(--hdr-fp); }
 .nav { display: none; }
-.nav a { font-size: .96rem; font-weight: 600; letter-spacing: .01em; text-transform: capitalize; text-decoration: none; padding: .5rem .2rem; color: var(--hdr-fg); transition: color .15s; }
+.nav a { font-family: var(--font-head); font-size: 1.05rem; font-weight: 600; letter-spacing: .01em; text-transform: capitalize; text-decoration: none; padding: .5rem .2rem; color: var(--hdr-fg); transition: color .15s; }
 .nav a:hover { color: color-mix(in srgb, var(--blue-dark) calc(var(--hdr-fp) * 100%), var(--cyan)); }
 /* Menú: cada servicio es un ítem propio; en escritorio abre un mega-menú de borde a borde bajo la cabecera */
 .nav__item { display: flex; flex-direction: column; }
@@ -180,7 +180,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 /* 1200-1439 px: con textos en ES (CTA más largo) el menú completo no cabe con el espaciado normal */
 @media (min-width: 1200px) and (max-width: 1439px) {
   .nav, .nav.is-open { gap: 1rem; }
-  .nav a { font-size: .86rem; letter-spacing: 0; }
+  .nav a { font-size: .9rem; letter-spacing: 0; }
   .nav__caret { width: 20px; }
   .header-actions { gap: .3rem; }
   .header-cta { padding-inline: 1rem; }
