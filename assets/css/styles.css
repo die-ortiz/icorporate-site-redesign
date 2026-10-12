@@ -459,7 +459,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot { pointer-events: none; }
 .ibot__launcher, .ibot.is-open .ibot__panel { pointer-events: auto; }
 .ibot__launcher {
-  position: relative; width: 68px; height: 68px; border: 0; padding: 0; border-radius: 16px; cursor: pointer;
+  position: relative; width: 56px; height: 56px; border: 0; padding: 0; border-radius: 16px; cursor: pointer;
   background: transparent; display: block; transition: transform .25s, background-color .25s;
 }
 .ibot__launcher:hover { transform: translateY(-2px) scale(1.05); }
