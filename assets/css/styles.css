@@ -586,6 +586,53 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .metric-card dl { margin: 0; display: grid; gap: .9rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
 .metric-card dt { font-family: var(--font-head); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .metric-card dd { margin: .25rem 0 0; font-size: .85rem; color: var(--ink-soft); }
+/* Ciclo del evento: línea de tiempo con 4 hitos; la figura del logo marca la etapa activa.
+   Sin JS (html:not(.js)) se muestran los 4 paneles apilados. --cy = progreso 0..1 que escribe main.js */
+.cycle { --cy: 0; margin-top: 2.5rem; }
+.cycle__track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); padding-bottom: 2.4rem; }
+.cycle__tab { position: relative; display: flex; flex-direction: column; align-items: center; gap: .15rem; padding: .4rem .3rem .9rem; border: 0; background: none; font: inherit; color: var(--ink-soft); cursor: pointer; text-align: center; transition: color .2s; }
+.cycle__num { font-family: var(--font-mono); font-size: .78rem; font-weight: 700; letter-spacing: .08em; color: var(--blue-dark); opacity: .55; transition: opacity .2s; }
+.cycle__name { font-size: .95rem; font-weight: 700; line-height: 1.25; }
+.cycle__tab:hover, .cycle__tab[aria-selected="true"] { color: var(--ink); }
+.cycle__tab:hover .cycle__num, .cycle__tab[aria-selected="true"] .cycle__num, .cycle__tab.is-done .cycle__num { opacity: 1; }
+.cycle__tab::after { content: ""; position: absolute; left: 50%; top: calc(100% + 1.25rem - 1.5px); width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--line); transform: translate(-50%, -50%); transition: border-color .25s, background .25s; z-index: 1; }
+.cycle__tab.is-done::after, .cycle__tab[aria-selected="true"]::after { border-color: var(--cyan); background: var(--cyan); }
+.cycle__line { position: absolute; left: 12.5%; right: 12.5%; bottom: 1.15rem; height: 3px; border-radius: 3px; background: var(--line); }
+.cycle__fill { position: absolute; inset: 0 auto 0 0; width: calc(var(--cy) * 100%); border-radius: 3px; background: var(--grad); transition: width .45s cubic-bezier(.3,.7,.2,1); }
+.cycle__star { position: absolute; bottom: calc(1.15rem + 1.5px); left: calc(12.5% + var(--cy) * 75%); width: 44px; height: 44px; margin: 0 0 0 -22px; display: grid; place-items: center; border-radius: 50%; background: #fff; box-shadow: 0 8px 22px -8px rgba(16,16,16,.45), 0 0 0 1px var(--line); transform: translateY(50%); transition: left .45s cubic-bezier(.3,.7,.2,1); z-index: 2; pointer-events: none; }
+.cycle__star img { width: 26px; height: 26px; }
+.cycle__panel { display: grid; gap: 1.1rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; animation: cycle-in .35s ease both; }
+.cycle__panel[hidden] { display: none; }
+.cycle__main { padding: .9rem .9rem .5rem; }
+.cycle__kicker, .cycle__ai-tag { font-family: var(--font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.cycle__kicker { color: var(--blue-dark); }
+.cycle__main h3 { margin-top: .5rem; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 700; }
+.cycle__list { margin: 1.2rem 0 0; padding: 0; list-style: none; display: grid; gap: .7rem 2rem; }
+.cycle__list li { position: relative; padding-left: 1.5rem; font-size: .96rem; color: var(--ink-soft); }
+.cycle__list li::before { content: ""; position: absolute; left: 0; top: .32em; width: 14px; height: 14px; border-radius: 50%; background: var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2l2 2 4-4.4' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; }
+.cycle__ai { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border-radius: calc(var(--radius) - 4px); background: var(--dark); color: #fff; }
+.cycle__ai::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--grad); }
+.cycle__ai-tag { align-self: flex-start; padding: .3rem .7rem; border-radius: 99px; background: rgba(189,204,38,.16); color: var(--lime); }
+.cycle__ai ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .9rem; }
+.cycle__ai li { position: relative; padding-left: 1.3rem; font-size: 1rem; font-weight: 500; line-height: 1.45; }
+.cycle__ai li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; border-radius: 2px; transform: rotate(45deg); background: var(--lime); }
+.cycle__link { display: inline-flex; align-items: center; gap: .45rem; margin-top: auto; align-self: flex-start; font-size: .9rem; font-weight: 700; color: var(--cyan); text-decoration: none; }
+.cycle__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+@keyframes cycle-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (min-width: 820px) {
+  .cycle__panel { grid-template-columns: 1.5fr 1fr; }
+  .cycle__list { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 719px) {
+  .cycle__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cycle__tab { padding-bottom: 1.1rem; }
+  .cycle__num { font-size: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) { .cycle__fill, .cycle__star { transition: none; } .cycle__panel { animation: none; } }
+/* Sin JS: paneles apilados y sin selector */
+html:not(.js) .cycle__track, .cycle:not(.is-ready) .cycle__track { display: none; }
+html:not(.js) .cycle { display: grid; gap: 1rem; }
+html:not(.js) .cycle__panel[hidden] { display: grid; }
 .cases--mist { background: var(--mist); }
 
 /* Tipos de evento */

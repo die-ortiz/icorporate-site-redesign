@@ -220,15 +220,35 @@
       <div class="container">
         <div class="section__head reveal">
           <span class="eyebrow">Cómo trabajamos <span class="sample-tag" title="Texto ficticio solo para ilustración visual">Contenido de ejemplo</span></span>
-          <h2 class="title">Un solo equipo responsable de todo el evento.</h2>
+          <h2 class="title">Un solo equipo responsable de todo el evento, con IA donde ayuda.</h2>
           <p class="lead">Desde la primera conversación hasta el informe final, las mismas personas operan cada fase, así que nada se pierde entre equipos.</p>
         </div>
-        <ol class="phases">
-          <li class="phase reveal"><h3>Estrategia y diseño</h3><ul><li>Objetivos, audiencia y formato definidos con vos</li><li>Agenda y curaduría de oradores</li><li>Identidad del evento y mensajes clave</li></ul></li>
-          <li class="phase reveal"><h3>Producción y logística</h3><ul><li>Sede, proveedores y suministros coordinados</li><li>Logística de oradores, talento y viajes</li><li>Cronograma maestro y plan de riesgos</li></ul></li>
-          <li class="phase reveal"><h3>Operación en sitio</h3><ul><li>Registro y acreditación</li><li>Escenario, salas y equipo técnico</li><li>Equipo de soporte en vivo y gestión de incidentes</li></ul></li>
-          <li class="phase reveal"><h3>Medición y reporte</h3><ul><li>Datos de asistencia y participación</li><li>Resultados para sponsors y expositores</li><li>Informe posterior con aprendizajes</li></ul></li>
-        </ol>
+        <div class="cycle" data-cycle>
+          <div class="cycle__track" role="tablist" aria-label="Fases del evento">
+            <button class="cycle__tab" type="button" role="tab" id="cy-t1" aria-controls="cy-p1" aria-selected="true"><span class="cycle__num">01</span><span class="cycle__name">Estrategia y diseño</span></button>
+            <button class="cycle__tab" type="button" role="tab" id="cy-t2" aria-controls="cy-p2" aria-selected="false" tabindex="-1"><span class="cycle__num">02</span><span class="cycle__name">Producción y logística</span></button>
+            <button class="cycle__tab" type="button" role="tab" id="cy-t3" aria-controls="cy-p3" aria-selected="false" tabindex="-1"><span class="cycle__num">03</span><span class="cycle__name">Operación en sitio</span></button>
+            <button class="cycle__tab" type="button" role="tab" id="cy-t4" aria-controls="cy-p4" aria-selected="false" tabindex="-1"><span class="cycle__num">04</span><span class="cycle__name">Medición y reporte</span></button>
+            <span class="cycle__line" aria-hidden="true"><i class="cycle__fill"></i></span>
+            <span class="cycle__star" aria-hidden="true"><img src="../../assets/img/favicon-192.png" width="192" height="192" alt="" loading="lazy" decoding="async"></span>
+          </div>
+          <article class="cycle__panel" role="tabpanel" id="cy-p1" aria-labelledby="cy-t1">
+            <div class="cycle__main"><span class="cycle__kicker">Lo que entrega el equipo</span><h3>Estrategia y diseño</h3><ul class="cycle__list"><li>Objetivos, audiencia y formato definidos con usted</li><li>Presupuesto y aprobaciones</li><li>Selección de sede y proveedores</li><li>Planos y diagramas de salas</li><li>Plantillas para eventos repetibles</li><li>Identidad del evento y mensajes clave</li></ul></div>
+            <aside class="cycle__ai"><span class="cycle__ai-tag">Con IA</span><ul><li>Comparativa de sedes y proveedores lado a lado</li><li>Primer borrador de agenda y presupuesto a partir del brief</li></ul></aside>
+          </article>
+          <article class="cycle__panel" role="tabpanel" id="cy-p2" aria-labelledby="cy-t2" hidden>
+            <div class="cycle__main"><span class="cycle__kicker">Lo que entrega el equipo</span><h3>Producción y logística</h3><ul class="cycle__list"><li>Sitio de registro y venta de entradas</li><li>Campañas de email y comunicaciones</li><li>Bloques de hotel y viajes</li><li>Gestión de oradores y agenda</li><li>Sponsors y expositores</li><li>Cronograma maestro y plan de riesgos</li></ul></div>
+            <aside class="cycle__ai"><span class="cycle__ai-tag">Con IA</span><ul><li>Textos y segmentación de campañas</li><li>Recordatorios y respuestas automáticas a invitados</li></ul></aside>
+          </article>
+          <article class="cycle__panel" role="tabpanel" id="cy-p3" aria-labelledby="cy-t3" hidden>
+            <div class="cycle__main"><span class="cycle__kicker">Lo que entrega el equipo</span><h3>Operación en sitio</h3><ul class="cycle__list"><li>Check-in y acreditación</li><li>Escenario, salas y equipo técnico</li><li>Logística de oradores y talento</li><li>Equipo de soporte en vivo y gestión de incidentes</li><li>App del evento para asistentes</li></ul></div>
+            <aside class="cycle__ai"><span class="cycle__ai-tag">Con IA</span><ul><li>Asistente iBot: agenda, ubicaciones y preguntas frecuentes en tiempo real</li></ul><a class="cycle__link arrow" href="tech-solutions.html#integrations">Ver el asistente</a></aside>
+          </article>
+          <article class="cycle__panel" role="tabpanel" id="cy-p4" aria-labelledby="cy-t4" hidden>
+            <div class="cycle__main"><span class="cycle__kicker">Lo que entrega el equipo</span><h3>Medición y reporte</h3><ul class="cycle__list"><li>Datos de asistencia y participación</li><li>Resultados para sponsors y expositores</li><li>Encuestas y satisfacción</li><li>Informe posterior con aprendizajes</li></ul></div>
+            <aside class="cycle__ai"><span class="cycle__ai-tag">Con IA</span><ul><li>Resumen automático de encuestas y comentarios</li><li>Informe con hallazgos y recomendaciones</li></ul></aside>
+          </article>
+        </div>
       </div>
     </section>
 
