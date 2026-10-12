@@ -623,14 +623,12 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .cycle__ai li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; border-radius: 2px; transform: rotate(45deg); background: var(--lime); }
 .cycle__link { display: inline-flex; align-items: center; gap: .45rem; margin-top: auto; align-self: flex-start; font-size: .9rem; font-weight: 700; color: var(--cyan); text-decoration: none; }
 .cycle__link:hover { text-decoration: underline; text-underline-offset: 4px; }
-/* Pulso en cada uno de los 4 puntos del recorrido (escalonado) y en el marcador del logo */
+/* Pulso en cada uno de los 4 puntos del recorrido (escalonado); el marcador del logo no pulsa */
 .cycle__tab::after { animation: cycle-pulse 2.4s ease-out infinite; }
 .cycle__tab:nth-child(2)::after { animation-delay: .35s; }
 .cycle__tab:nth-child(3)::after { animation-delay: .7s; }
 .cycle__tab:nth-child(4)::after { animation-delay: 1.05s; }
-.cycle__star { animation: cycle-pulse-star 2.4s ease-out infinite; }
 @keyframes cycle-pulse { 0% { box-shadow: 0 0 0 0 rgba(6,189,231,.55); } 70%, 100% { box-shadow: 0 0 0 12px rgba(6,189,231,0); } }
-@keyframes cycle-pulse-star { 0% { box-shadow: 0 8px 22px -8px rgba(16,16,16,.45), 0 0 0 1px var(--line), 0 0 0 0 rgba(6,189,231,.5); } 70%, 100% { box-shadow: 0 8px 22px -8px rgba(16,16,16,.45), 0 0 0 1px var(--line), 0 0 0 14px rgba(6,189,231,0); } }
 @keyframes cycle-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (min-width: 820px) {
   .cycle__panel { grid-template-columns: 1.5fr 1fr; }
@@ -640,7 +638,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .cycle__tab { padding-bottom: 1.1rem; }
   .cycle__num { font-size: 1.25rem; }
 }
-@media (prefers-reduced-motion: reduce) { .cycle__fill, .cycle__star { transition: none; } .cycle__tab::after, .cycle__star { animation: none; } .cycle__panel { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .cycle__fill, .cycle__star { transition: none; } .cycle__tab::after { animation: none; } .cycle__panel { animation: none; } }
 /* Sin JS: paneles apilados y sin selector */
 html:not(.js) .cycle__track, .cycle:not(.is-ready) .cycle__track { display: none; }
 html:not(.js) .cycle { display: grid; gap: 1rem; }
