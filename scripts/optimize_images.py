@@ -59,6 +59,9 @@ JOBS = {
     "case-mark-alta.webp":    ("Logo_alta.png",    300, 90, {"white": True, "trim": True}),
     "case-mark-itaerea.webp": ("Logo_Itaerea.png", 300, 90, {"white": True, "trim": True}),
     "logo-alta-agm-white.webp": ("logo-alta-agm.png", 600, 92, {"white": 2.6, "trim": True}),
+    # Pie de página: wordmark y figura del logo largo por separado (se componen a gran tamaño en CSS)
+    "footer-wordmark.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 1400, 90, {"box": (150, 135, 2040, 495), "trim": True}),
+    "footer-star.webp":     ("inverseicorporate-logo-long-tag-color@2x.png", 520, 90, {"box": (2140, 95, 2635, 620), "trim": True}),
     "logo-waga-2026-white.webp": ("logo-waga-2026.png", 285, 92, {"white": 2.6}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
@@ -157,6 +160,8 @@ def main():
     for out, (name, width, quality, opts) in JOBS.items():
         src = SRC / name
         im = Image.open(src).convert("RGBA")
+        if opts.get("box"):
+            im = im.crop(opts["box"])
         if opts.get("crop"):
             im = im.crop(im.split()[3].getbbox())
         if opts.get("light"):
