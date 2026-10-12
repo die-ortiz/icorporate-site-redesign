@@ -463,11 +463,13 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   background: transparent; display: block; transition: transform .25s, background-color .25s;
 }
 .ibot__launcher:hover { transform: translateY(-2px) scale(1.05); }
-/* Pulso: anillo cian que se expande detrás del ícono (sin fondo propio); se detiene con el chat abierto */
-.ibot__launcher::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: rgba(6,189,231,.5); animation: ibot-ring 2.4s ease-out infinite; }
-.ibot.is-open .ibot__launcher::before { animation: none; opacity: 0; }
-@keyframes ibot-ring { 0% { transform: scale(.8); opacity: .65; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .ibot__launcher::before { animation: none; opacity: 0; } }
+/* Pulso: dos ondas cian (relleno y aro) que se expanden detrás del ícono, desfasadas; se detienen con el chat abierto */
+.ibot__launcher::before, .ibot__launcher::after { content: ""; position: absolute; inset: 6px; z-index: -1; border-radius: 50%; animation: ibot-ring 2s ease-out infinite; }
+.ibot__launcher::before { background: rgba(6,189,231,.75); }
+.ibot__launcher::after { border: 3px solid #06bde7; animation-delay: 1s; }
+.ibot.is-open .ibot__launcher::before, .ibot.is-open .ibot__launcher::after { animation: none; opacity: 0; }
+@keyframes ibot-ring { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ibot__launcher::before, .ibot__launcher::after { animation: none; opacity: 0; } }
 .ibot img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .ibot__launcher-icon img { object-fit: contain; filter: drop-shadow(0 8px 14px rgba(16,16,16,.45)); }
 .ibot__launcher-icon, .ibot__launcher-x { position: absolute; inset: 0; transition: opacity .2s, transform .25s; }
