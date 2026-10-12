@@ -370,8 +370,10 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 @media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
 .step { counter-increment: s; position: relative; padding-top: 1.4rem; }
 .step::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 3px; background: var(--grad); }
-.step::after { content: "0" counter(s); position: absolute; top: .9rem; right: 0; font-size: 3.4rem; font-weight: 800; color: var(--mist); line-height: 1; }
-.step h3 { font-size: 1.35rem; font-weight: 400; margin-top: 1rem; }
+/* Números 01-03 con el degradado celeste (azul a cian) de los botones */
+.step::after { content: "0" counter(s); position: absolute; top: .9rem; right: 0; font-size: 3.4rem; font-weight: 800; line-height: 1;
+  background: linear-gradient(90deg, var(--blue), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.step h3 { font-size: 1.35rem; font-weight: 400; margin-top: 1rem; padding-right: 4.6rem; }
 .step p { margin-top: .6rem; color: var(--ink-soft); max-width: 36ch; }
 
 /* Contacto: texto a la izquierda, formulario en tarjeta blanca a la derecha */
