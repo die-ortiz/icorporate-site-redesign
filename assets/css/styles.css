@@ -891,3 +891,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   color: var(--dark); filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8);
 }
 .nav .mega a.btn.btn--primary, .nav .mega a.btn.btn--primary:hover { color: var(--dark); }
+
+/* Tienda (PromoPlace): etiquetas de categoría, enlaces del mega-menú */
+.store-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.4rem 0 1.8rem; padding: 0; list-style: none; }
+.store-tags li { padding: .45rem .9rem; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--blue-dark); font: 600 .8rem/1.2 var(--font); }
+.mega__links { display: flex; align-items: center; gap: 1.75rem; }
