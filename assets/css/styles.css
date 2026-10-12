@@ -819,7 +819,15 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 /* Casos del Home: tarjeta destacada con foto y cifras; tarjetas con foto, insignia y resultado */
 @media (min-width: 900px) { .flagship { grid-template-columns: 1fr 1fr; } }
 .flagship__media { position: relative; min-height: 300px; overflow: hidden; isolation: isolate; }
-.flagship__photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+.flagship__slides { position: absolute; inset: 0; z-index: -2; }
+.flagship__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; opacity: 0; transition: opacity .8s ease; }
+.flagship__photo.is-active { opacity: 1; }
+.flagship__dots { position: absolute; top: 1.2rem; left: 1.2rem; z-index: 1; display: flex; gap: 0; }
+.flagship__dot { width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+.flagship__dot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.5); box-shadow: 0 0 0 1px rgba(16,16,16,.25); transition: background .25s, transform .25s; }
+.flagship__dot:hover::before { background: rgba(255,255,255,.85); }
+.flagship__dot.is-active::before { background: var(--cyan); transform: scale(1.4); }
+@media (prefers-reduced-motion: reduce) { .flagship__photo { transition: none; } }
 .flagship__media::after { content: ""; position: absolute; inset: 0; z-index: -1; background:
   linear-gradient(90deg, rgba(8,24,52,.85) 0%, rgba(8,24,52,0) 38%),
   linear-gradient(0deg, rgba(16,16,16,.85) 0%, rgba(16,16,16,0) 55%); }
