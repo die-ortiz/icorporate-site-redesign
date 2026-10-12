@@ -393,9 +393,11 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .social { display: flex; gap: .65rem; }
 .social a {
   width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%;
-  background: rgba(255,255,255,.1); color: #fff; text-decoration: none; transition: background .2s, color .2s;
+  /* Mismo degradado del botón "Book a call" del hero (azul a cian, icono oscuro) */
+  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+  color: var(--dark); text-decoration: none; box-shadow: 0 8px 22px -10px rgba(6,189,231,.75); transition: filter .2s, box-shadow .2s, transform .2s;
 }
-.social a:hover, .site-footer .social a:hover { background: var(--cyan); color: var(--dark); text-decoration: none; }
+.social a:hover, .site-footer .social a:hover { filter: brightness(1.08); box-shadow: 0 12px 28px -10px rgba(6,189,231,.8); transform: translateY(-2px); text-decoration: none; }
 .contact__social { margin-top: 1.4rem; }
 .contact__form {
   display: grid; grid-template-columns: 1fr; gap: 1.1rem 1rem; padding: 1.75rem; color: var(--ink);
