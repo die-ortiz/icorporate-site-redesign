@@ -12,6 +12,7 @@
   --mist: #f3f6fa;
   --line: #e1e7ef;
   --grad: linear-gradient(90deg, var(--blue), var(--cyan) 55%, var(--lime));
+  --grad-sky: linear-gradient(90deg, var(--blue), var(--cyan)); /* degradado celeste de los botones y las cifras */
   --font: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-head: var(--font); --font-mono: var(--font);
   --radius: 12px;
@@ -889,3 +890,11 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   color: var(--dark); filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8);
 }
 .nav .mega a.btn.btn--primary, .nav .mega a.btn.btn--primary:hover { color: var(--dark); }
+
+/* Cifras: todas con el degradado celeste (azul a cian) de los botones.
+   width: fit-content hace que el degradado se reparta sobre el número y no sobre toda la columna. */
+.stat b, .stats--hero .stat b, .stats--inline .stat b, .metric-card dt, .flagship__metrics b {
+  background: var(--grad-sky); -webkit-background-clip: text; background-clip: text; color: transparent;
+  width: fit-content;
+}
+.stats--hero .stat b { margin-inline: auto; }
