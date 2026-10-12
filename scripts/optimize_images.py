@@ -53,6 +53,13 @@ JOBS = {
     "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
     # Logo de la conferencia en blanco para la tarjeta destacada (sin caja, sobre la foto)
     "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
+    # Logo del evento WAGA 2026 para la insignia de la tarjeta de casos (se muestra a ~170 px)
+    "logo-waga-2026.webp": ("logo-waga-2026.png", 285, 90, {}),
+    # Marcas en blanco recortadas, sin caja, para las tarjetas de casos del Home
+    "case-mark-alta.webp":    ("Logo_alta.png",    300, 90, {"white": True, "trim": True}),
+    "case-mark-itaerea.webp": ("Logo_Itaerea.png", 300, 90, {"white": True, "trim": True}),
+    "logo-alta-agm-white.webp": ("logo-alta-agm.png", 600, 92, {"white": 2.6, "trim": True}),
+    "logo-waga-2026-white.webp": ("logo-waga-2026.png", 285, 92, {"white": 2.6}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),
@@ -160,6 +167,8 @@ def main():
             im = unmatte(im)
         if opts.get("white"):
             im = to_white(im) if opts["white"] is True else to_white(im, opts["white"])
+        if opts.get("trim"):
+            im = im.crop(im.split()[3].getbbox())
         im = resize(im, width)
         has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False)
         if not has_alpha:
