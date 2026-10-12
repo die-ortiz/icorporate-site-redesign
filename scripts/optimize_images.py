@@ -50,6 +50,7 @@ JOBS = {
     "case-alta-ccma.webp":  ("alta-ccma-2026-minimeetings.jpg",        1000, 82, {}),
     "case-alta-ccma-registration.webp": ("alta-ccma-2025-registration.jpg", 1000, 82, {}),
     "case-alta-ccma-plenary.webp":      ("alta-ccma-2025-plenary.jpg",      1000, 82, {}),
+    "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),

@@ -418,7 +418,7 @@ document.querySelectorAll('[data-flagship-slides]').forEach((box) => {
     dots.forEach((d, k) => { d.classList.toggle('is-active', k === i); d.setAttribute('aria-current', String(k === i)); });
   };
   const stop = () => { clearInterval(timer); timer = null; };
-  const play = () => { if (!still && !timer) timer = setInterval(() => show(i + 1), 5000); };
+  const play = () => { if (!still && !timer) timer = setInterval(() => show(i + 1), 4000); };
   dots.forEach((d, k) => d.addEventListener('click', () => { show(k); stop(); }));
   const media = box.parentElement;
   media.addEventListener('mouseenter', stop);
