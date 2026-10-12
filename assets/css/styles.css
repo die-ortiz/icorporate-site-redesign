@@ -427,7 +427,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .footer__grid { display: grid; gap: 2.5rem; }
 @media (min-width: 820px) { .footer__grid { grid-template-columns: 1.3fr 1fr 1.1fr .9fr; } }
 .site-footer li a[aria-current="page"] { color: #fff; }
-.footer__brand img { width: 200px; height: auto; }
+.footer__brand img { width: 260px; max-width: 100%; height: auto; }
 .footer__brand p { margin-top: 1rem; max-width: 32ch; }
 .site-footer h4 { margin: 0 0 1rem; color: #fff; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
 .site-footer ul { list-style: none; padding: 0; display: grid; gap: .5rem; }
