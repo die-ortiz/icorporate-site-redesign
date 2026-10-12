@@ -37,6 +37,9 @@
   const base = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
   const ICON_SRC = base ? new URL('../img/ibot-icon.webp', base).href : '';
   const ICON = `<img src="${ICON_SRC}" alt="" width="160" height="160" decoding="async">`;
+  // Lanzador flotante: versión sin fondo (transparente) para que el ícono flote sobre la página
+  const CLEAR_SRC = base ? new URL('../img/ibot-icon-clear.webp', base).href : '';
+  const ICON_CLEAR = `<img src="${CLEAR_SRC}" alt="" width="300" height="300" decoding="async">`;
   const SEND = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M21.5 3.5L10 14M21.5 3.5l-6.5 17-3.5-7.5L4 9.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const CLOSE = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
@@ -57,7 +60,7 @@
       </form>
     </section>
     <button class="ibot__launcher" type="button" aria-expanded="false" aria-controls="ibot-panel" aria-label="${T.launcher}">
-      <span class="ibot__launcher-icon">${ICON}</span>
+      <span class="ibot__launcher-icon">${ICON_CLEAR}</span>
       <span class="ibot__launcher-x">${CLOSE}</span>
     </button>`;
   document.body.appendChild(root);

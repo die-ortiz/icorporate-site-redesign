@@ -459,14 +459,19 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot { pointer-events: none; }
 .ibot__launcher, .ibot.is-open .ibot__panel { pointer-events: auto; }
 .ibot__launcher {
-  position: relative; width: 64px; height: 64px; border: 0; padding: 0; border-radius: 16px; cursor: pointer; overflow: hidden;
-  background: transparent; box-shadow: 0 16px 36px -12px rgba(16,16,16,.6); display: block; transition: transform .25s, box-shadow .25s, background-color .25s;
+  position: relative; width: 68px; height: 68px; border: 0; padding: 0; border-radius: 16px; cursor: pointer;
+  background: transparent; display: block; transition: transform .25s, background-color .25s;
 }
-.ibot__launcher:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 20px 40px -12px rgba(16,16,16,.7); }
+.ibot__launcher:hover { transform: translateY(-2px) scale(1.05); }
+/* Pulso: anillo cian que se expande detrás del ícono (sin fondo propio); se detiene con el chat abierto */
+.ibot__launcher::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: rgba(6,189,231,.5); animation: ibot-ring 2.4s ease-out infinite; }
+.ibot.is-open .ibot__launcher::before { animation: none; opacity: 0; }
+@keyframes ibot-ring { 0% { transform: scale(.8); opacity: .65; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ibot__launcher::before { animation: none; opacity: 0; } }
 .ibot img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.ibot__launcher-icon img { object-fit: cover; }
+.ibot__launcher-icon img { object-fit: contain; filter: drop-shadow(0 8px 14px rgba(16,16,16,.45)); }
 .ibot__launcher-icon, .ibot__launcher-x { position: absolute; inset: 0; transition: opacity .2s, transform .25s; }
-.ibot__launcher-icon { width: 100%; height: 100%; background: #fff; }
+.ibot__launcher-icon { width: 100%; height: 100%; }
 .ibot__launcher-x { display: grid; place-items: center; color: #fff; opacity: 0; transform: rotate(-90deg) scale(.6); }
 .ibot.is-open .ibot__launcher { background: var(--blue-dark); }
 .ibot.is-open .ibot__launcher-icon { opacity: 0; transform: rotate(90deg) scale(.6); }
