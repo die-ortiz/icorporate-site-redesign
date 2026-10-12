@@ -426,15 +426,27 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .site-footer { position: relative; background: var(--dark); color: #c3c6ca; padding: 4rem 0 2rem; font-size: .9rem; }
 .site-footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(255,255,255,.16); } /* separador fino y claro con el contacto, que comparte el fondo navy */
 .footer__grid { display: grid; gap: 2.5rem; }
-@media (min-width: 820px) { .footer__grid { grid-template-columns: 1.3fr 1fr 1.1fr .9fr; } }
+@media (min-width: 560px) { .footer__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 820px) { .footer__grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2rem; } }
+@media (min-width: 1100px) { .footer__grid { grid-template-columns: repeat(5, 1fr); } }
+.site-footer h4 a { color: inherit; }
 .site-footer li a[aria-current="page"] { color: #fff; }
-.footer__brand img { width: 260px; max-width: 100%; height: auto; }
-.footer__brand p { margin-top: 1rem; max-width: 32ch; }
+/* Wordmark gigante con la figura; las redes comparten la línea, alineadas al borde inferior del logo */
+.footer__mark { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1.6rem 3%; margin-top: 4.5rem; }
+.footer__wordmark { flex: 0 1 62%; width: 62%; height: auto; }
+.footer__star { flex: 0 1 16%; width: 16%; height: auto; margin-bottom: -.4%; }
+@media (min-width: 720px) { .footer__mark { flex-wrap: nowrap; } .footer__mark .social { flex: none; } }
+.footer__mark .social { margin-left: auto; align-self: flex-end; padding-bottom: .4rem; }
+@media (max-width: 719px) {
+  .footer__wordmark { flex-basis: 74%; width: 74%; }
+  .footer__star { flex-basis: 20%; width: 20%; }
+  .footer__mark .social { margin-left: 0; width: 100%; }
+}
 .site-footer h4 { margin: 0 0 1rem; color: #fff; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
 .site-footer ul { list-style: none; padding: 0; display: grid; gap: .5rem; }
 .site-footer a { text-decoration: none; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
-.footer__legal { margin-top: 3rem; padding-top: 1.3rem; border-top: 1px solid rgba(255,255,255,.12); font-size: .78rem; }
+.footer__legal { margin-top: 2.2rem; padding-top: 1.3rem; border-top: 1px solid rgba(255,255,255,.12); font-size: .78rem; }
 
 /* Entrada al hacer scroll (solo si hay JS) */
 .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
