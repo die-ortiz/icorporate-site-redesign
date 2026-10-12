@@ -100,7 +100,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .site-header.is-open, .site-header.is-mega, .site-header--solid, html:not(.js) .site-header { --hdr-p: 1; --hdr-fp: 1; }
 .site-header.is-mega { box-shadow: none; }
 .header-bar {
-  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 72px;
+  /* sin position: el menú móvil desplegado se ancla a toda la cabecera (ancho completo), no a la caja del contenedor */
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 72px;
   padding: 0 1.25rem;
 }
 /* Logo: fundido cruzado entre la versión clara (sobre oscuro) y la oscura (sobre blanco) */
@@ -165,7 +166,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .menu-toggle span::after { position: absolute; top: 6px; }
 .nav.is-open {
   display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #fff;
-  padding: .75rem 1.25rem 1.25rem; border-top: 1px solid var(--line);
+  padding: .75rem 2.25rem 1.25rem; border-top: 1px solid var(--line);
   box-shadow: 0 0 0 1px rgba(16,16,16,.07), 0 24px 40px -28px rgba(16,16,16,.5);
 }
 .nav.is-open a { color: var(--ink); }
