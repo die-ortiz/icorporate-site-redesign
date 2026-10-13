@@ -16,7 +16,7 @@ if (header) {
   update();
 }
 
-// Desplegables de servicio (escritorio): abren con hover, foco o clic en la flecha; cierran con Esc o clic fuera
+// Desplegables de servicio (escritorio): abren solo con clic (en el nombre o en la flecha; en el nombre, Ctrl/Cmd/Shift-clic sigue yendo a la página); cierran con Esc, clic fuera o al salir el foco
 const subItems = document.querySelectorAll('.nav__item.has-sub');
 if (subItems.length) {
   const desktop = window.matchMedia('(min-width: 1200px)');
@@ -24,9 +24,7 @@ if (subItems.length) {
     if (header) header.classList.toggle('is-mega', [...subItems].some((el) => el.classList.contains('is-open')));
   };
   const closeAll = (except) => subItems.forEach((el) => { if (el !== except) setSub(el, false); });
-  const timers = new Map();
   function setSub(item, open) {
-    clearTimeout(timers.get(item));
     const on = open && desktop.matches;
     if (on) closeAll(item);
     item.classList.toggle('is-open', on);
@@ -35,9 +33,12 @@ if (subItems.length) {
   }
   subItems.forEach((item) => {
     const caret = item.querySelector('.nav__caret');
-    item.addEventListener('mouseenter', () => setSub(item, true));
-    item.addEventListener('mouseleave', () => timers.set(item, setTimeout(() => setSub(item, false), 200)));
-    item.addEventListener('focusin', () => setSub(item, true));
+    const label = item.querySelector(':scope > a');
+    if (label) label.addEventListener('click', (e) => {
+      if (!desktop.matches || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+      e.preventDefault();
+      setSub(item, !item.classList.contains('is-open'));
+    });
     item.addEventListener('focusout', (e) => { if (!item.contains(e.relatedTarget)) setSub(item, false); });
     caret.addEventListener('click', () => setSub(item, !item.classList.contains('is-open')));
   });
