@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Mantiene cabecera, mega-menú y footer idénticos en todas las páginas desde UNA fuente.
+"""Mantiene cabecera, mega-menú, footer y los <script> de cada página desde UNA fuente.
 
 Fuente:  scripts/partials/header.{en,es}.html  y  scripts/partials/footer.{en,es}.html
 Destino: mockup/*.html (EN) y mockup/es/*.html (ES): reemplaza <header class="site-header">…</header>
          y <footer class="site-footer">…</footer>.
+
+Scripts: al final de <body> se escribe ibot.js + core.js y, además, solo los módulos que la página necesita según
+         lo que contiene su HTML (ver FEATURES). Para que una página cargue un módulo nuevo basta con que use su
+         marcado; no se editan los <script> a mano.
 
 Variables dentro de las plantillas (lo único que cambia entre páginas):
   {{CTA_HREF}}   destino de los botones "Book a call" (ancla de contacto de la propia página)
@@ -28,6 +32,18 @@ PAGES = {
     "events-management.html": "#proposal",
     "corporate-branding.html": "#proposal",
 }
+# módulo -> patrón del marcado que lo hace necesario (core.js e ibot.js van siempre)
+FEATURES = {
+    "backgrounds.js": r'hero__video|data-siderays|data-orb',
+    "cycle.js": r'data-cycle',
+    "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
+    "forms.js": r'id="(?:contact|proposal)-form"',
+    "home.js": r'class="(?:[^"]* )?(?:marquee|wall)(?: [^"]*)?"|data-flagship-slides',
+    "stats.js": r'class="(?:[^"]* )?stat(?: [^"]*)?"',
+}
+SCRIPTS_RE = re.compile(
+    r'(?:<!-- scripts:[^>]*-->\n\s*)?<script src="[^"]*ibot\.js" defer></script>\n(?:\s*<script type="module" src="[^"]*"></script>\n?)+',
+)
 NOTE = ("<!-- chrome:{name}: generado desde scripts/partials/{name}.{lang}.html. "
         "No editar aquí: editar la plantilla y correr scripts/sync_chrome.py -->")
 BLOCKS = {
@@ -52,6 +68,20 @@ def render(html, lang, page):
         html, n = re.subn(pattern, lambda m: note + "\n  " + tpl, html, count=1, flags=re.S)
         if n != 1:
             raise SystemExit(f"no se encontró <{name}> en {page} ({lang})")
+    return render_scripts(html, lang)
+
+
+def render_scripts(html, lang):
+    prefix = "../assets/js/" if lang == "en" else "../../assets/js/"
+    body = SCRIPTS_RE.sub("", html)  # el marcado a inspeccionar no incluye los propios <script>
+    mods = ["core.js"] + [m for m, pat in sorted(FEATURES.items()) if re.search(pat, body)]
+    tags = [f'<script src="{prefix}ibot.js" defer></script>'] + \
+           [f'<script type="module" src="{prefix}{m}"></script>' for m in mods]
+    block = ("<!-- scripts: generado por scripts/sync_chrome.py según el marcado de la página (ver FEATURES) -->\n  "
+             + "\n  ".join(tags) + "\n")
+    html, n = SCRIPTS_RE.subn(lambda m: block, html, count=1)
+    if n != 1:
+        raise SystemExit("no se encontró el bloque de <script> al final de la página")
     return html
 
 
