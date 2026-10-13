@@ -654,6 +654,13 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
     linear-gradient(0deg, rgba(16,16,16,.85) 0%, rgba(16,16,16,0) 40%);
 }
 .page-hero .hero__video { z-index: -2; }
+/* Variante con velo más claro: deja lucir la foto (el texto sigue sobre una zona central más oscura) */
+.page-hero--clear .page-hero__img { object-position: 50% 60%; }
+.page-hero--clear::after {
+  background:
+    radial-gradient(58% 72% at 50% 46%, rgba(16,16,16,.56) 0%, rgba(16,16,16,.36) 55%, rgba(16,16,16,.1) 100%),
+    linear-gradient(0deg, rgba(16,16,16,.42) 0%, rgba(16,16,16,0) 36%);
+}
 .page-hero.has-video .hero__video { opacity: 1; }
 /* Cabecera de página con las cifras dentro: degradado inferior de transparente a azul oscuro */
 .page-hero--stats { padding-bottom: 0; }
