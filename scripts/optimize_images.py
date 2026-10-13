@@ -53,10 +53,7 @@ JOBS = {
     "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
     # Logo de la conferencia en blanco para la tarjeta destacada (sin caja, sobre la foto)
     "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
-    # Logo del evento WAGA 2026 para la insignia de la tarjeta de casos (se muestra a ~170 px)
-    "logo-waga-2026.webp": ("logo-waga-2026.png", 285, 90, {}),
     # Marcas en blanco recortadas, sin caja, para las tarjetas de casos del Home
-    "case-mark-alta.webp":    ("Logo_alta.png",    300, 90, {"white": True, "trim": True}),
     "case-mark-itaerea.webp": ("Logo_Itaerea.png", 300, 90, {"white": True, "trim": True}),
     "logo-alta-agm-white.webp": ("logo-alta-agm.png", 600, 92, {"white": 2.6, "trim": True}),
     # Pie de página: wordmark y figura del logo largo por separado (se componen a gran tamaño en CSS)
@@ -68,7 +65,6 @@ JOBS = {
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
-    "events-stage.webp":    ("icorporate_event_tech_home.jpg",         725, 80, {}),
 }
 # Íconos PNG (los navegadores los piden en PNG): salida -> (original, lado)
 ICONS = {
