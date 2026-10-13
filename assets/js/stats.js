@@ -1,9 +1,9 @@
-/* stats.js · cifras (.stat b): cuentan de 0 al valor final al entrar en pantalla.
+/* stats.js · cifras (.stat b y [data-count]): cuentan de 0 al valor final al entrar en pantalla.
    El valor final queda en un .sr-only para lectores de pantalla; el prefijo/sufijo "+" se colorea aparte
    (.stat__plus). Sin movimiento (prefers-reduced-motion) muestra el valor final directamente. */
 
 // Cifras: cuentan de 0 al valor final al entrar en pantalla (el valor final queda para lectores de pantalla)
-const statNumbers = document.querySelectorAll('.stat b');
+const statNumbers = document.querySelectorAll('.stat b, [data-count]');
 if (statNumbers.length) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
@@ -51,7 +51,7 @@ if (statNumbers.length) {
 
   if (!reduce && 'IntersectionObserver' in window) {
     items.forEach((it) => paint(it, '0'));
-    const grid = statNumbers[0].closest('.stats');
+    const grid = statNumbers[0].closest('.stats, .metric-cards');
     new IntersectionObserver((entries, obs) => {
       if (entries[0].isIntersecting) { items.forEach((it, i) => run(it, i * 120)); obs.disconnect(); }
     }, { threshold: 0.35 }).observe(grid);

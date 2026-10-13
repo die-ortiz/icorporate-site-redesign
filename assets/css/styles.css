@@ -716,6 +716,24 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .metric-card dl { margin: 0; display: grid; gap: .9rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
 .metric-card dt { font-family: var(--font-head); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .metric-card dd { margin: .25rem 0 0; font-size: .85rem; color: var(--ink-soft); }
+/* Tarjetas de resultados con banda visual, cifra protagonista y cifras secundarias (Tech Solutions) */
+.metric-cards--rich .metric-card { padding: 0; gap: 0; overflow: hidden; transition: transform .3s, box-shadow .3s, border-color .3s; }
+.metric-cards--rich .metric-card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+.metric-card__media { position: relative; aspect-ratio: 16 / 8; overflow: hidden; background: var(--dark); }
+.metric-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+.metric-card:hover .metric-card__media img { transform: scale(1.05); }
+.metric-card__media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(16,16,16,.45) 0, rgba(16,16,16,0) 40%); }
+.metric-card__media--icon { display: grid; place-items: center; background: radial-gradient(60% 90% at 50% 45%, rgba(6,189,231,.38), transparent 70%), radial-gradient(40% 60% at 10% 0%, rgba(3,127,217,.35), transparent 70%), var(--dark); }
+.metric-card__media--icon img { width: 92px; height: 92px; object-fit: contain; }
+.metric-card__tag { position: absolute; z-index: 1; top: .9rem; left: .9rem; padding: .35rem .7rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(16,16,16,.55); color: #fff;
+  font: 600 .66rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.metric-card__body { flex: 1; padding: 1.5rem 1.6rem 0; }
+.metric-card__result { display: grid; gap: 1rem; padding: 1.3rem 1.6rem 1.6rem; }
+.metric-card__hero b { display: block; font-family: var(--font-head); font-size: clamp(2.6rem, 4.6vw, 3.4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.metric-card__hero > span { display: block; margin-top: .45rem; color: var(--ink-soft); font-size: .9rem; }
+.metric-cards--rich .metric-card__sub { grid-template-columns: repeat(2, 1fr); gap: .8rem 1rem; padding-top: 1rem; }
+.metric-cards--rich .metric-card__sub dt { font-size: 1.3rem; }
 /* Ciclo del evento: línea de tiempo con 4 hitos; la figura del logo marca la etapa activa.
    Sin JS (html:not(.js)) se muestran los 4 paneles apilados. --cy = progreso 0..1 que escribe main.js */
 .cycle { --cy: 0; margin-top: 2.5rem; }

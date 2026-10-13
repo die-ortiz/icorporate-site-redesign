@@ -44,7 +44,7 @@ FEATURES = {
     "forms.js": r'id="(?:contact|proposal)-form"',
     "magnetic.js": r'data-magnetic',
     "home.js": r'class="(?:[^"]* )?(?:marquee|wall)(?: [^"]*)?"|data-flagship-slides',
-    "stats.js": r'class="(?:[^"]* )?stat(?: [^"]*)?"',
+    "stats.js": r'class="(?:[^"]* )?stat(?: [^"]*)?"|data-count',
 }
 SCRIPTS_RE = re.compile(
     r'(?:<!-- scripts:[^>]*-->\n\s*)?<script src="[^"]*ibot\.js" defer></script>\n(?:\s*<script type="module" src="[^"]*"></script>\n?)+',
