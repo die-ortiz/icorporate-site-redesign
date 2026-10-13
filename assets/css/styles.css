@@ -658,8 +658,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .page-hero--clear .page-hero__img { object-position: 50% 60%; }
 .page-hero--clear::after {
   background:
-    radial-gradient(60% 75% at 50% 46%, rgba(16,16,16,.66) 0%, rgba(16,16,16,.46) 55%, rgba(16,16,16,.2) 100%),
-    linear-gradient(0deg, rgba(16,16,16,.55) 0%, rgba(16,16,16,0) 38%);
+    radial-gradient(58% 72% at 50% 46%, rgba(16,16,16,.56) 0%, rgba(16,16,16,.36) 55%, rgba(16,16,16,.1) 100%),
+    linear-gradient(0deg, rgba(16,16,16,.42) 0%, rgba(16,16,16,0) 36%);
 }
 .page-hero.has-video .hero__video { opacity: 1; }
 /* Cabecera de página con las cifras dentro: degradado inferior de transparente a azul oscuro */
