@@ -393,7 +393,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,16,16,.5) 0, rgba(16,16,16,0) 26%), linear-gradient(180deg, rgba(16,16,16,0) 20%, rgba(16,16,16,.55) 58%, rgba(16,16,16,.92) 100%); }
 .magnetic__label {
   position: absolute; z-index: 1; left: 18px; bottom: 18px; width: calc(var(--w1) - 36px);
-  opacity: var(--reveal); bottom: calc(6px + var(--reveal) * 12px); transition: bottom .5s cubic-bezier(.22,1,.36,1);
+  opacity: var(--reveal); bottom: calc(6px + var(--reveal) * 104px); transition: bottom .5s cubic-bezier(.22,1,.36,1);
 }
 .magnetic__cat { display: block; margin-bottom: .5rem; font-family: var(--font-mono); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
 .magnetic__title { display: block; font-family: var(--font-head); font-size: 1.05rem; font-weight: 400; line-height: 1.12; letter-spacing: -.02em; }
@@ -410,15 +410,17 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .magnetic__close svg { width: 16px; height: 16px; }
 .magnetic__actions { position: absolute; z-index: 3; left: 22px; right: 22px; bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
-.magnetic__ext { font-family: var(--font-mono); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
+.magnetic__ext { white-space: nowrap; font-family: var(--font-mono); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
 .magnetic__ext:hover { color: #fff; }
+/* con el cursor (o el foco) sobre una tarjeta cerrada los botones ya se ven y se pueden pulsar */
+.magnetic:not(.is-open) .magnetic__item:hover .magnetic__actions, .magnetic:not(.is-open) .magnetic__item:focus-within .magnetic__actions { opacity: var(--reveal); visibility: visible; transition-delay: 0s; }
 .magnetic__item.is-open .magnetic__close, .magnetic__item.is-open .magnetic__actions { opacity: 1; visibility: visible; transition-delay: .25s, 0s, 0s; }
 .magnetic__hint {
   position: absolute; left: 0; right: 0; width: max-content; margin-inline: auto; bottom: 18px; z-index: 4; padding: .5rem .9rem; border-radius: 999px; pointer-events: none;
   border: 1px solid rgba(255,255,255,.12); background: rgba(16,16,16,.55); backdrop-filter: blur(12px); white-space: nowrap;
   font-family: var(--font-mono); font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark); transition: opacity .3s ease;
 }
-.magnetic.is-open .magnetic__hint { opacity: 0; }
+.magnetic.is-open .magnetic__hint, .magnetic:hover .magnetic__hint { opacity: 0; }
 /* Variante sin caja: la galería flota directamente sobre el fondo de la sección */
 .magnetic--bare { overflow: visible; background: none; border-radius: 0; color: var(--ink); margin-top: -1rem; height: clamp(420px, 58vh, 520px); }
 .magnetic--bare .magnetic__strip { padding-inline: 0; }
