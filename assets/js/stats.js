@@ -30,7 +30,7 @@ if (statNumbers.length) {
     sr.textContent = el.textContent.trim();
     el.textContent = '';
     el.append(live, sr);
-    const it = { live, prefix: m[1], suffix: m[3], target, sep };
+    const it = { el, live, prefix: m[1], suffix: m[3], target, sep };
     paint(it, fmt(target, sep));
     return it;
   }).filter(Boolean);
@@ -49,11 +49,23 @@ if (statNumbers.length) {
     }, delay);
   };
 
+  // Cada grupo (.stats o .metric-cards) arranca al entrar en pantalla; sin umbral de área para que un grupo
+  // más alto que la ventana (móvil, tarjetas apiladas) no se quede en 0.
   if (!reduce && 'IntersectionObserver' in window) {
-    items.forEach((it) => paint(it, '0'));
-    const grid = statNumbers[0].closest('.stats, .metric-cards');
-    new IntersectionObserver((entries, obs) => {
-      if (entries[0].isIntersecting) { items.forEach((it, i) => run(it, i * 120)); obs.disconnect(); }
-    }, { threshold: 0.35 }).observe(grid);
+    const groups = new Map();
+    items.forEach((it) => {
+      paint(it, '0');
+      const g = it.el.closest('.stats, .metric-cards') || it.el;
+      if (!groups.has(g)) groups.set(g, []);
+      groups.get(g).push(it);
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        groups.get(e.target).forEach((it, i) => run(it, i * 120));
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    groups.forEach((_, g) => io.observe(g));
   }
 }
