@@ -328,15 +328,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .flagship__text h3 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 400; }
 .flagship__text p { color: var(--on-dark); }
 .flagship__text .btn { align-self: flex-start; margin-top: .6rem; }
-.case-grid { display: grid; gap: 1.1rem; margin-top: 1.1rem; }
-@media (min-width: 820px) { .case-grid { grid-template-columns: repeat(3, 1fr); } }
-.case { background: #fff; border-radius: var(--radius); padding: 0; overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 0; text-decoration: none; transition: transform .3s, box-shadow .3s; }
-.case:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
-.case h3 { font-size: 1.15rem; font-weight: 400; }
-.case p { color: var(--ink-soft); font-size: .93rem; }
-.case .go { margin-top: auto; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-dark); }
 
-/* Casos del Home: tarjeta destacada con foto y cifras; tarjetas con foto, insignia y resultado */
+/* Casos del Home: tarjeta destacada con foto y cifras (debajo va la galería magnética) */
 @media (min-width: 900px) { .flagship { grid-template-columns: 1fr 1fr; } }
 .flagship__media { position: relative; min-height: 300px; overflow: hidden; isolation: isolate; }
 .flagship__slides { position: absolute; inset: 0; z-index: -2; }
@@ -360,12 +353,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .flagship__metrics b { display: block; font-family: var(--font-head); font-size: clamp(1.1rem, 2.2vw, 1.6rem); font-weight: 700; line-height: 1.1; color: #fff; }
 .flagship__metrics span { display: block; margin-top: .25rem; font: 600 .62rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark-muted); }
 
-.case__photo { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--dark-2); }
-.case__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
-.case:hover .case__photo img { transform: scale(1.05); }
-.case__mark { position: absolute; left: .9rem; bottom: .8rem; display: block; }
-.case__mark img { display: block; width: 104px; height: auto; filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); }
-.case__mark--wide img { width: 190px; }
 
 /* Galería magnética de casos (magnetic.js): escritorio con efecto "dock" y tarjeta abierta; móvil con scroll horizontal */
 .magnetic {
@@ -444,9 +431,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 @media (prefers-reduced-motion: reduce) {
   .magnetic__item, .magnetic__photo, .magnetic__logo, .magnetic__label, .magnetic__close, .magnetic__actions { transition-duration: 1ms !important; }
 }
-.case__body { display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem 1.5rem; flex: 1; }
-.case__result { align-self: flex-start; padding: .28rem .6rem; border-radius: 999px; background: rgba(6,189,231,.12); color: var(--blue-dark); font: 600 .66rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
-.case__body .sample-tag { align-self: flex-start; margin-left: 0; }
 
 /* Testimonios: muro de columnas verticales en bucle */
 .voices { background: var(--mist); overflow: hidden; }
