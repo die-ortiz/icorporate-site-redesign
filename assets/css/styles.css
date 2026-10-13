@@ -12,6 +12,7 @@
   --mist: #f3f6fa;
   --line: #e1e7ef;
   --grad: linear-gradient(90deg, var(--blue), var(--cyan) 55%, var(--lime));
+  --grad-btn: linear-gradient(90deg, var(--blue), var(--cyan)); /* botones primarios y números destacados */
   --font: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-head: var(--font); --font-mono: var(--font);
   --radius: 12px;
@@ -59,23 +60,15 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
   transition: transform .25s, background .25s, box-shadow .25s, border-color .25s;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn--primary { background: var(--blue-dark); color: #fff; box-shadow: 0 10px 30px -10px rgba(3,127,217,.8); }
-.btn--primary:hover { background: #02558f; }
-/* Primario sobre fondos oscuros: cian de marca con texto oscuro (el del header se interpola con el scroll) */
-.hero .btn--primary, .flagship .btn--primary {
-  background: var(--cyan); color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.7);
-}
-.hero .btn--primary:hover, .flagship .btn--primary:hover { background: #5fd8f3; }
-/* Home: el botón del hero lleva un degradado de dos colores de marca (azul → cian); texto oscuro para contraste.
-   background-origin/clip en border-box: con el borde transparente de .btn el degradado repetía una franja lima a la izquierda */
-.hero .btn--primary {
-  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+/* Primario: degradado azul a cian de "Book a call" con texto oscuro, en todos los fondos.
+   background-origin/clip en border-box: con el borde transparente de .btn el degradado repetía una franja lima a la izquierda. */
+.btn--primary, .ibot__cta {
+  background: var(--grad-btn); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
   color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
 }
-.hero .btn--primary:hover { background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat; filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
+.btn--primary:hover, .ibot__cta:hover { filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
 .btn--ghost { border-color: rgba(255,255,255,.4); color: #fff; }
 .btn--ghost:hover { background: rgba(255,255,255,.1); border-color: #fff; }
-.btn--white { background: #fff; color: var(--blue-dark); }
 .btn--sm { padding: .75rem 1.15rem; font-size: .7rem; min-height: 44px; }
 .arrow::after { content: "→"; font-size: 1.1em; transition: transform .25s; }
 a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
@@ -112,6 +105,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .nav { display: none; }
 .nav a { font-family: var(--font-head); font-size: 1.05rem; font-weight: 600; letter-spacing: .01em; text-transform: capitalize; text-decoration: none; padding: .5rem .2rem; color: var(--hdr-fg); transition: color .15s; }
 .nav a:hover { color: color-mix(in srgb, var(--blue-dark) calc(var(--hdr-fp) * 100%), var(--cyan)); }
+/* El botón del mega-menú vive dentro de .nav: sin esto .nav a (0,1,1) le pintaría el color del texto del menú */
+.nav .mega a.btn--primary, .nav .mega a.btn--primary:hover { color: var(--dark); }
 /* Menú: cada servicio es un ítem propio; en escritorio abre un mega-menú de borde a borde bajo la cabecera */
 .nav__item { display: flex; flex-direction: column; }
 .nav__caret, .mega { display: none; }
@@ -147,19 +142,13 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .nav .mega a.mega__all { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-mono); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); text-decoration: underline; text-underline-offset: 6px; }
   .nav .mega a.mega__all:hover { color: var(--blue-dark); }
   /* .nav a (0,1,1) le quitaba el padding al botón; se restituye y se contiene el brillo dentro de la barra */
-  .nav .mega a.btn { padding: .65rem 1.5rem; min-height: 40px; font-size: .7rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #fff; box-shadow: none; }
-  .nav .mega a.btn:hover { color: #fff; box-shadow: 0 8px 20px -10px rgba(3,127,217,.7); }
+  .nav .mega a.btn { padding: .65rem 1.5rem; min-height: 40px; font-size: .7rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--dark); box-shadow: none; }
+  .nav .mega a.btn:hover { color: var(--dark); box-shadow: 0 8px 20px -10px rgba(3,127,217,.7); }
 }
 .header-actions { display: flex; align-items: center; gap: .8rem; }
 .lang { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-decoration: none; color: var(--hdr-muted); transition: color .15s; }
 .lang:hover { color: var(--hdr-fg); }
 .header-cta { display: none; }
-.site-header .header-cta {
-  background: color-mix(in srgb, var(--blue-dark) calc(var(--hdr-fp) * 100%), var(--cyan));
-  color: color-mix(in srgb, #fff calc(var(--hdr-fp) * 100%), var(--dark));
-  box-shadow: 0 10px 30px -10px rgba(6,189,231,calc(.7 - var(--hdr-fp) * .3));
-}
-.site-header .header-cta:hover { background: color-mix(in srgb, #02558f calc(var(--hdr-fp) * 100%), #5fd8f3); }
 .menu-toggle { width: 46px; height: 46px; border: 0; border-radius: 50%; background: rgba(127,150,180,.18); cursor: pointer; display: grid; place-items: center; }
 .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after { display: block; width: 18px; height: 2px; background: var(--hdr-fg); border-radius: 2px; content: ""; position: relative; }
 .menu-toggle span::before { position: absolute; top: -6px; }
@@ -315,16 +304,10 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .flagship__text h3 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 400; }
 .flagship__text p { color: #d2d4d7; }
 .flagship__text .btn { align-self: flex-start; margin-top: .6rem; }
-.flagship__logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.12); }
-.flagship__logos div { background: #fff; display: grid; place-items: center; padding: 1.2rem .6rem; }
-.flagship__logos img { max-height: 70px; width: auto; }
 .case-grid { display: grid; gap: 1.1rem; margin-top: 1.1rem; }
 @media (min-width: 820px) { .case-grid { grid-template-columns: repeat(3, 1fr); } }
 .case { background: #fff; border-radius: var(--radius); padding: 1.6rem; border: 1px solid var(--line); display: flex; flex-direction: column; gap: .7rem; text-decoration: none; transition: transform .3s, box-shadow .3s; }
 .case:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); }
-.case__logo { height: 64px; display: flex; align-items: center; }
-.case__logo img { max-height: 64px; width: auto; }
-.case__logo strong { font-size: 1.7rem; letter-spacing: .12em; color: var(--blue-dark); }
 .case h3 { font-size: 1.15rem; font-weight: 400; }
 .case p { color: var(--ink-soft); font-size: .93rem; }
 .case .go { margin-top: auto; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-dark); }
@@ -518,8 +501,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot__msg--bot { align-self: flex-start; background: var(--mist); color: var(--ink); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
 .ibot__msg--user { align-self: flex-end; background: var(--blue-dark); color: #fff; border-bottom-right-radius: 6px; }
 .ibot__msg.is-typing { color: var(--ink-soft); letter-spacing: .15em; }
-.ibot__cta { display: inline-flex; margin-top: .6rem; padding: .6rem 1rem; border-radius: 999px; background: var(--blue-dark); color: #fff; text-decoration: none; font-size: .74rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-.ibot__cta:hover { background: #02558f; }
+.ibot__cta { display: inline-flex; margin-top: .6rem; padding: .6rem 1rem; border-radius: 999px; text-decoration: none; font-size: .74rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .ibot__chips { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0 1rem .8rem; }
 .ibot__chips[hidden] { display: none; }
 .ibot__chip { padding: .5rem .8rem; min-height: 40px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--blue-dark); font: 600 .8rem/1.2 var(--font); cursor: pointer; text-align: left; transition: border-color .2s, background .2s; }
@@ -565,8 +547,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .page-hero h1 { font-size: clamp(2.1rem, 5vw, 3.8rem); font-weight: 400; max-width: 20ch; margin-inline: auto; }
 .page-hero__sub { margin: 1.4rem auto 0; max-width: 54ch; color: #d2d4d7; font-size: clamp(1.02rem, 2vw, 1.2rem); }
 .page-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2.2rem; }
-.page-hero .btn--primary { background: var(--cyan); color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.7); }
-.page-hero .btn--primary:hover { background: #5fd8f3; }
 
 /* Etiqueta visible de contenido de ejemplo */
 .sample-tag {
@@ -715,8 +695,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .demo-band .eyebrow { color: var(--cyan); }
 .demo-band h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 400; max-width: 22ch; }
 .demo-band p { margin-top: .8rem; color: #d2d4d7; max-width: 52ch; }
-.demo-band .btn--primary { background: var(--cyan); color: var(--dark); }
-.demo-band .btn--primary:hover { background: #5fd8f3; }
 
 /* Cabecera sin foto (p. ej. Corporate Branding) */
 .page-hero--plain {
@@ -727,7 +705,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 }
 @media (min-width: 1100px) { .type-cards--5 { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 720px) and (max-width: 1099px) { .type-cards--5 { grid-template-columns: repeat(2, 1fr); } }
-.split__media--soft { background: var(--mist); padding: 1.2rem; }
 
 /* Nosotros: equipo, clientes y oficina */
 .team-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
@@ -773,8 +750,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .flow-full h2 { margin-top: 1.2rem; font-size: clamp(1.9rem, 4.2vw, 3.2rem); font-weight: 400; max-width: 22ch; }
 .flow-full p { margin-top: 1.1rem; max-width: 60ch; color: #c3c6ca; font-size: clamp(1rem, 1.6vw, 1.12rem); }
 .flow-full__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 1.8rem; }
-.flow-full .btn--primary { background: var(--cyan); color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.7); }
-.flow-full .btn--primary:hover { background: #5fd8f3; }
 .flow-full .flow { margin-top: clamp(1.6rem, 3vw, 2.4rem); min-height: 340px; }
 .flow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: stretch; min-height: 380px; }
 .flow__col { display: grid; grid-template-rows: repeat(3, 1fr); margin: 0; padding: 0; list-style: none; }
@@ -811,12 +786,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 }
 
 /* Banda de demo: botón principal + enlace secundario a la página del bot */
-.demo-band__actions { display: flex; flex-wrap: wrap; gap: .8rem; }
 
 /* Botones del panel de integraciones (abrir demo + página del bot) */
-.flow-card__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
-.flow-card .btn--primary { background: var(--cyan); color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.7); }
-.flow-card .btn--primary:hover { background: #5fd8f3; }
 
 /* Logos reales/de referencia dentro de los mosaicos */
 .flow__tile--logo { background: rgba(255,255,255,.07); }
@@ -864,12 +835,9 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .case__photo { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--dark-2); }
 .case__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
 .case:hover .case__photo img { transform: scale(1.05); }
-.case__badge { position: absolute; left: .9rem; bottom: .9rem; display: inline-flex; align-items: center; height: 40px; padding: .35rem .8rem; border-radius: 8px; background: #fff; box-shadow: 0 8px 20px -10px rgba(16,16,16,.6); }
-.case__badge img { max-height: 28px; width: auto; }
 .case__mark { position: absolute; left: .9rem; bottom: .8rem; display: block; }
 .case__mark img { display: block; width: 104px; height: auto; filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); }
 .case__mark--wide img { width: 190px; }
-.case__badge strong { font-size: 1.05rem; letter-spacing: .14em; color: var(--blue-dark); }
 .case__body { display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem 1.5rem; flex: 1; }
 .case__result { align-self: flex-start; padding: .28rem .6rem; border-radius: 999px; background: rgba(6,189,231,.12); color: var(--blue-dark); font: 600 .66rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 .case__body .sample-tag { align-self: flex-start; margin-left: 0; }
@@ -879,18 +847,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .pillar__photo--dark { background: #161616; }
 .pillar__photo--dark img { object-fit: contain; }
 .pillar__photo--dark::after { background: linear-gradient(to top, rgba(16,16,16,.18), transparent 40%); }
-
-/* Botones pastilla primarios: todos con el degradado azul a cian de "Book a call" y texto oscuro.
-   Va al final para imponerse a las variantes por sección (hero, flagship, page-hero, header, demo, flow...). */
-.btn.btn--primary, .ibot__cta {
-  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
-  color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
-}
-.btn.btn--primary:hover, .ibot__cta:hover {
-  background: linear-gradient(90deg, var(--blue), var(--cyan)); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
-  color: var(--dark); filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8);
-}
-.nav .mega a.btn.btn--primary, .nav .mega a.btn.btn--primary:hover { color: var(--dark); }
 
 /* Tienda (PromoPlace): banda oscura, cifras, categorías y enlaces del mega-menú */
 .store { position: relative; overflow: hidden; background: var(--dark); color: #fff; }
