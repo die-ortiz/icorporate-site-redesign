@@ -8,7 +8,7 @@ sumarla a JOBS y volver a correr:  python3 scripts/optimize_images.py
 Requiere Pillow con soporte WebP.
 """
 from pathlib import Path
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "reference" / "img-originals"
@@ -63,7 +63,8 @@ JOBS = {
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),
-    "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {}),
+    # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
+    "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
 }
@@ -95,6 +96,18 @@ def to_white(im, gain=1.25):
     out = Image.new("RGBA", im.size, (255, 255, 255, 0))
     out.putalpha(new_alpha)
     return out
+
+
+def blur_boxes(im, boxes, radius=14, feather=10):
+    """Desenfoca zonas (x0, y0, x1, y1 en píxeles del original), p. ej. logos de terceros, con borde suave."""
+    for x0, y0, x1, y1 in boxes:
+        region = im.crop((x0, y0, x1, y1)).filter(ImageFilter.GaussianBlur(radius))
+        mask = Image.new("L", region.size, 0)
+        ImageDraw.Draw(mask).rounded_rectangle((feather // 2, feather // 2, region.width - feather // 2,
+                                                region.height - feather // 2), radius=feather, fill=255)
+        mask = mask.filter(ImageFilter.GaussianBlur(feather / 2))
+        im.paste(region, (x0, y0), mask)
+    return im
 
 
 def unmatte(im):
@@ -157,6 +170,8 @@ def main():
     for out, (name, width, quality, opts) in JOBS.items():
         src = SRC / name
         im = Image.open(src).convert("RGBA")
+        if opts.get("blur"):
+            im = blur_boxes(im, opts["blur"])
         if opts.get("box"):
             im = im.crop(opts["box"])
         if opts.get("crop"):
