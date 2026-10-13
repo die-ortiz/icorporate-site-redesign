@@ -670,6 +670,12 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
     linear-gradient(0deg, rgba(16,16,16,.96) 0%, rgba(16,16,16,.78) 24%, rgba(16,16,16,0) 56%);
 }
 .page-hero--stats .stats--hero { margin-top: 3.2rem; padding-bottom: 1.6rem; }
+/* Velo más claro con cifras (Events): deja lucir la foto; el pie se mantiene denso para las cifras */
+.page-hero--veil-light.page-hero--stats::after {
+  background:
+    radial-gradient(75% 90% at 50% 38%, rgba(16,16,16,.69) 0%, rgba(16,16,16,.53) 55%, rgba(16,16,16,.31) 100%),
+    linear-gradient(0deg, rgba(16,16,16,.92) 0%, rgba(16,16,16,.69) 23%, rgba(16,16,16,0) 54%);
+}
 .breadcrumb { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.6rem; padding: 0; list-style: none; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-muted); }
 .breadcrumb li + li::before { content: "›"; margin-right: .5rem; opacity: .6; }
 .breadcrumb a { color: #fff; text-decoration: none; }
