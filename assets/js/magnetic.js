@@ -1,5 +1,5 @@
 /* magnetic.js · galería magnética de casos ([data-magnetic]). Cargar solo donde exista ese marcado.
-   Marcado: [data-magnetic] > .magnetic__strip > li.magnetic__item > (button.magnetic__card + .magnetic__close + a.magnetic__cta)
+   Marcado: [data-magnetic] > .magnetic__strip > li.magnetic__item > (button.magnetic__card + .magnetic__close + .magnetic__actions)
    - Escritorio (≥ 768 px): las tarjetas cercanas al cursor crecen (efecto "dock"); clic abre una tarjeta grande y
      atenúa las demás. Flechas izquierda/derecha cambian de tarjeta, Esc cierra.
    - Móvil (< 768 px): sin efecto; el CSS muestra una fila con scroll horizontal y el enlace siempre visible.

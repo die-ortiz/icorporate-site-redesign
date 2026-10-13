@@ -386,9 +386,11 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic.is-open .magnetic__item.is-open { flex: var(--open-grow) 1 0; height: var(--open); opacity: 1; filter: none; z-index: 2; box-shadow: 0 48px 130px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.13); }
 .magnetic__card { position: absolute; inset: 0; display: block; width: 100%; padding: 0; border: 0; color: inherit; background: none; text-align: left; cursor: pointer; font: inherit; }
 .magnetic__card:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
-.magnetic__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform .85s cubic-bezier(.22,1,.36,1); }
-.magnetic__item:hover .magnetic__card img, .magnetic__item.is-open .magnetic__card img { transform: scale(1); }
-.magnetic__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,16,16,0) 20%, rgba(16,16,16,.55) 58%, rgba(16,16,16,.92) 100%); }
+.magnetic__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform .85s cubic-bezier(.22,1,.36,1); }
+.magnetic__item:hover .magnetic__photo, .magnetic__item.is-open .magnetic__photo { transform: scale(1); }
+.magnetic__logo { position: absolute; z-index: 1; top: 18px; left: 18px; width: 150px; max-width: calc(100% - 36px); height: auto; opacity: var(--reveal); filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); transition: width .5s cubic-bezier(.22,1,.36,1); }
+.magnetic__item.is-open .magnetic__logo { width: 190px; max-width: calc(100% - 90px); opacity: 1; }
+.magnetic__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,16,16,.5) 0, rgba(16,16,16,0) 26%), linear-gradient(180deg, rgba(16,16,16,0) 20%, rgba(16,16,16,.55) 58%, rgba(16,16,16,.92) 100%); }
 .magnetic__label {
   position: absolute; z-index: 1; left: 18px; bottom: 18px; width: calc(var(--w1) - 36px);
   opacity: var(--reveal); transform: translateY(calc((1 - var(--reveal)) * 12px)); transition: bottom .5s cubic-bezier(.22,1,.36,1);
@@ -407,8 +409,10 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   opacity: 0; visibility: hidden; transform: scale(.8); transition: opacity .3s ease, transform .4s cubic-bezier(.22,1,.36,1), visibility 0s .3s;
 }
 .magnetic__close svg { width: 16px; height: 16px; }
-.magnetic__cta { position: absolute; z-index: 3; left: 22px; bottom: 22px; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
-.magnetic__item.is-open .magnetic__close, .magnetic__item.is-open .magnetic__cta { opacity: 1; visibility: visible; transition-delay: .25s, 0s, 0s; }
+.magnetic__actions { position: absolute; z-index: 3; left: 22px; right: 22px; bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
+.magnetic__ext { font-family: var(--font-mono); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
+.magnetic__ext:hover { color: #fff; }
+.magnetic__item.is-open .magnetic__close, .magnetic__item.is-open .magnetic__actions { opacity: 1; visibility: visible; transition-delay: .25s, 0s, 0s; }
 .magnetic__item.is-open .magnetic__close { transform: scale(1); }
 .magnetic__hint {
   position: absolute; left: 50%; bottom: 18px; z-index: 4; transform: translateX(-50%); padding: .5rem .9rem; border-radius: 999px; pointer-events: none;
@@ -427,15 +431,17 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .magnetic { height: auto; display: block; overflow: visible; background: none; border-radius: 0; }
   .magnetic__strip { overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: .25rem 1rem 1rem 0; margin-right: -1rem; }
   .magnetic__item, .magnetic.is-open .magnetic__item, .magnetic.is-open .magnetic__item.is-open { flex: 0 0 78%; height: 400px; scroll-snap-align: start; opacity: 1; filter: none; }
-  .magnetic__label { --reveal: 1; opacity: 1; transform: none; width: calc(100% - 36px); bottom: 78px; }
+  .magnetic__label { --reveal: 1; opacity: 1; transform: none; width: calc(100% - 36px); bottom: 118px; }
+  .magnetic__logo { --reveal: 1; opacity: 1; }
+  .magnetic__actions { flex-direction: column; align-items: flex-start; }
   .magnetic__title { font-size: 1.35rem; }
   .magnetic__result { opacity: 1; }
   .magnetic__num, .magnetic__close, .magnetic__hint { display: none; }
-  .magnetic__cta { opacity: 1; visibility: visible; }
+  .magnetic__actions { opacity: 1; visibility: visible; }
   .magnetic__card { cursor: default; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .magnetic__item, .magnetic__card img, .magnetic__label, .magnetic__close, .magnetic__cta { transition-duration: 1ms !important; }
+  .magnetic__item, .magnetic__photo, .magnetic__logo, .magnetic__label, .magnetic__close, .magnetic__actions { transition-duration: 1ms !important; }
 }
 .case__body { display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem 1.5rem; flex: 1; }
 .case__result { align-self: flex-start; padding: .28rem .6rem; border-radius: 999px; background: rgba(6,189,231,.12); color: var(--blue-dark); font: 600 .66rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
