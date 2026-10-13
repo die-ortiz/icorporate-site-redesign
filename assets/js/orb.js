@@ -2,7 +2,7 @@
 // Cambios respecto al original React: colores de marca por uniform (en vez de rotar el tono),
 // contexto WebGL creado una sola vez, pausa fuera de pantalla, un solo cuadro con movimiento reducido
 // y resolución limitada en pantallas chicas.
-import { Renderer, Program, Triangle, Mesh } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js';
+import { Renderer, Program, Triangle, Mesh } from './vendor/ogl.js';
 
 const hexToRgb = (hex) => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
