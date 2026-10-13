@@ -4,7 +4,7 @@
      atenúa las demás. Flechas izquierda/derecha cambian de tarjeta, Esc cierra.
    - Móvil (< 768 px): sin efecto; el CSS muestra una fila con scroll horizontal y el enlace siempre visible.
    - Movimiento reducido: sin easing; la tarjeta bajo el cursor/foco se expande al instante.
-   La geometría llega al CSS por variables (--w0, --w1, --h0, --h1, --open, --gap en la raíz y --f en cada ítem);
+   Las tarjetas reparten el ancho con flex-grow (--f por ítem; --w1, --h0, --h1, --open, --open-grow, --gap en la raíz);
    no se re-renderiza nada por frame. */
 
 const root = document.querySelector('[data-magnetic]');
@@ -14,31 +14,31 @@ if (root) {
   const desktop = window.matchMedia('(min-width: 768px)');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  const W0 = 78, W1 = 190, H0 = 340, H1 = 410, OPEN_MAX = 520, GAP = 14, INFLUENCE = 220;
+  const W0 = 78, H0 = 340, H1 = 410, OPEN_MAX = 520, GAP = 14, INFLUENCE = 220;
   const current = new Array(n).fill(0);
   const target = new Array(n).fill(0);
   let raf = null;
   let openIndex = -1;
   let settle = null;
-  let g = { w0: W0, gap: GAP, scale: 1 };
+  let g = { slot: W0, gap: GAP, scale: 1 };
 
   const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
   const smooth = (v) => { const t = clamp(v, 0, 1); return t * t * (3 - 2 * t); };
 
-  // Geometría responsive: la tira siempre cabe; la tarjeta abierta ocupa lo que sobra
+  // Geometría responsive: las tarjetas reparten todo el ancho (flex); la abierta toma una proporción cuadrada
+  const PAD = 28;
   const measure = () => {
     const W = root.clientWidth, H = root.clientHeight;
-    const avail = Math.max(280, W - 64);
-    const base = n * W0 + (n - 1) * GAP;
-    const scale = Math.min(1, avail / base);
-    const w0 = W0 * scale, gap = GAP * scale;
-    const w1 = Math.max(w0 + 20, W1 * scale);
-    const open = Math.max(w0 * 2, Math.min(OPEN_MAX, H * 0.86, avail - (n - 1) * (w0 + gap)));
-    g = { w0, gap, scale };
+    const gap = GAP;
+    const avail = Math.max(240, W - PAD * 2 - (n - 1) * gap);
+    const slot = avail / n;
+    const open = Math.min(OPEN_MAX, H * 0.86, avail * 0.6);
+    g = { slot, gap, scale: 1 };
     const s = root.style;
-    s.setProperty('--w0', w0 + 'px'); s.setProperty('--w1', w1 + 'px');
+    s.setProperty('--w1', Math.max(slot * 1.5, 150) + 'px');
     s.setProperty('--h0', Math.min(H0, H * 0.6) + 'px'); s.setProperty('--h1', Math.min(H1, H * 0.72) + 'px');
     s.setProperty('--open', open + 'px'); s.setProperty('--gap', gap + 'px');
+    s.setProperty('--open-grow', (open * (n - 1) / Math.max(1, avail - open)).toFixed(3));
   };
 
   const paint = () => items.forEach((li, i) => {
@@ -79,12 +79,10 @@ if (root) {
   root.addEventListener('pointermove', (e) => {
     if (!desktop.matches || openIndex >= 0 || e.pointerType === 'touch') return;
     const b = root.getBoundingClientRect();
-    const x = e.clientX - b.left;
-    const strip = n * g.w0 + (n - 1) * g.gap;
-    const start = (b.width - strip) / 2;
+    const x = e.clientX - b.left - PAD;
     for (let i = 0; i < n; i++) {
-      const c = start + i * (g.w0 + g.gap) + g.w0 / 2;
-      target[i] = smooth(1 - Math.abs(x - c) / (INFLUENCE * g.scale));
+      const c = i * (g.slot + g.gap) + g.slot / 2;
+      target[i] = smooth(1 - Math.abs(x - c) / Math.max(INFLUENCE * 0.8, g.slot * 1.9));
     }
     if (reduce.matches) { // sin gradiente: solo la más cercana
       const k = target.indexOf(Math.max(...target));
