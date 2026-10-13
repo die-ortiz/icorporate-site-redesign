@@ -5,6 +5,9 @@ Fuente:  scripts/partials/header.{en,es}.html  y  scripts/partials/footer.{en,es
 Destino: mockup/*.html (EN) y mockup/es/*.html (ES): reemplaza <header class="site-header">…</header>
          y <footer class="site-footer">…</footer>.
 
+Redes sociales: en <head> se escribe el bloque Open Graph / Twitter a partir del <title>, la meta description y el
+         canonical de cada página (no hay que mantenerlo a mano). La imagen es OG_IMAGE.
+
 Scripts: al final de <body> se escribe ibot.js + core.js y, además, solo los módulos que la página necesita según
          lo que contiene su HTML (ver FEATURES). Para que una página cargue un módulo nuevo basta con que use su
          marcado; no se editan los <script> a mano.
@@ -18,6 +21,7 @@ Uso:  python3 scripts/sync_chrome.py          # escribe los cambios
 Después de editar una plantilla hay que correrlo; check_site.py lo verifica en --check.
 Si se agrega una página, sumarla a PAGES.
 """
+import html as htmllib
 import os
 import re
 import sys
@@ -44,6 +48,8 @@ FEATURES = {
 SCRIPTS_RE = re.compile(
     r'(?:<!-- scripts:[^>]*-->\n\s*)?<script src="[^"]*ibot\.js" defer></script>\n(?:\s*<script type="module" src="[^"]*"></script>\n?)+',
 )
+OG_IMAGE = "https://icorporatelab.com/assets/img/hero-poster.webp"
+SOCIAL_RE = re.compile(r'<!-- social:[^>]*-->\n(?:\s*<meta (?:property="og:|name="twitter:)[^>]*>\n)+\s*')
 NOTE = ("<!-- chrome:{name}: generado desde scripts/partials/{name}.{lang}.html. "
         "No editar aquí: editar la plantilla y correr scripts/sync_chrome.py -->")
 BLOCKS = {
@@ -68,7 +74,32 @@ def render(html, lang, page):
         html, n = re.subn(pattern, lambda m: note + "\n  " + tpl, html, count=1, flags=re.S)
         if n != 1:
             raise SystemExit(f"no se encontró <{name}> en {page} ({lang})")
-    return render_scripts(html, lang)
+    return render_scripts(render_social(html, lang), lang)
+
+
+def render_social(html, lang):
+    """Open Graph y Twitter Card desde title, description y canonical de la propia página."""
+    body = SOCIAL_RE.sub("", html)
+    title = re.search(r"<title>(.*?)</title>", body, flags=re.S).group(1).strip()
+    desc = re.search(r'<meta name="description" content="([^"]*)"', body).group(1)
+    url = re.search(r'<link rel="canonical" href="([^"]+)"', body).group(1)
+    esc = lambda t: htmllib.escape(htmllib.unescape(t), quote=True)
+    title, desc = esc(title), esc(desc)
+    other = "es_ES" if lang == "en" else "en_US"
+    metas = [
+        ("property", "og:type", "website"), ("property", "og:site_name", "iCorporate"),
+        ("property", "og:title", title), ("property", "og:description", desc), ("property", "og:url", url),
+        ("property", "og:image", OG_IMAGE), ("property", "og:locale", "en_US" if lang == "en" else "es_ES"),
+        ("property", "og:locale:alternate", other),
+        ("name", "twitter:card", "summary_large_image"), ("name", "twitter:title", title),
+        ("name", "twitter:description", desc), ("name", "twitter:image", OG_IMAGE),
+    ]
+    block = ("<!-- social: generado por scripts/sync_chrome.py desde title, description y canonical -->\n"
+             + "".join(f'  <meta {k}="{n}" content="{v}">\n' for k, n, v in metas) + "  ")
+    anchor = re.search(r'<link rel="alternate" hreflang="x-default"[^>]*>\n\s*', body)
+    if not anchor:
+        raise SystemExit("falta hreflang x-default para ubicar el bloque social")
+    return body[:anchor.end()] + block + body[anchor.end():]
 
 
 def render_scripts(html, lang):

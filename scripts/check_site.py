@@ -53,7 +53,9 @@ for page, html in sources.items():
     if not m or m.group(1) != expected_lang:
         err(name, f'<html lang> debería ser "{expected_lang}"')
     for needle, label in (('rel="canonical"', "canonical"), ('hreflang="en"', "hreflang en"),
-                          ('hreflang="es"', "hreflang es"), ('name="description"', "meta description")):
+                          ('hreflang="es"', "hreflang es"), ('name="description"', "meta description"),
+                          ('property="og:title"', "og:title"), ('property="og:image"', "og:image"),
+                          ('name="twitter:card"', "twitter:card")):
         if needle not in html:
             err(name, f"falta {label}")
     if len(re.findall(r"<h1[\s>]", html)) != 1:
@@ -89,6 +91,12 @@ for page, html in sources.items():
                 warn(f"{name}: video opcional sin archivo: {ref}")
             else:
                 err(name, f"archivo inexistente: {ref}")
+
+# marcadores de posición de la raíz (index.html y es/index.html): recursos locales existentes
+for ph in ("index.html", "es/index.html"):
+    for ref in re.findall(r'(?:src|href)="([^"#?:]+\.(?:css|js|ico|png|webp))"', read(ph)):
+        if not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(ph), ref))):
+            err(ph, f"archivo inexistente: {ref}")
 
 # anclas internas
 for page, html in sources.items():
