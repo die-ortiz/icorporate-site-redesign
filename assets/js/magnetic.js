@@ -14,7 +14,7 @@ if (root) {
   const desktop = window.matchMedia('(min-width: 768px)');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  const W0 = 78, H0 = 340, H1 = 410, OPEN_MAX = 520, GAP = 14, INFLUENCE = 220;
+  const W0 = 78, H0 = 360, H1 = 430, OPEN_MAX = 520, GAP = 14, INFLUENCE = 220;
   const current = new Array(n).fill(0);
   const target = new Array(n).fill(0);
   let raf = null;
@@ -36,7 +36,7 @@ if (root) {
     g = { slot, gap, scale: 1 };
     const s = root.style;
     s.setProperty('--w1', Math.max(slot * 1.5, 150) + 'px');
-    s.setProperty('--h0', Math.min(H0, H * 0.6) + 'px'); s.setProperty('--h1', Math.min(H1, H * 0.72) + 'px');
+    s.setProperty('--h0', Math.min(H0, H * 0.68) + 'px'); s.setProperty('--h1', Math.min(H1, H * 0.82) + 'px');
     s.setProperty('--open', open + 'px'); s.setProperty('--gap', gap + 'px');
     s.setProperty('--open-grow', (open * (n - 1) / Math.max(1, avail - open)).toFixed(3));
   };
