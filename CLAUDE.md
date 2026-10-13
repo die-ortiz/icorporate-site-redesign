@@ -49,7 +49,7 @@ scripts/            serve.py, check_site.py, sync_chrome.py (+ partials/), style
 reference/          Material de referencia y originales (no se publica)
 index.html, es/     Marcadores de posición ("new site in progress"); la raíz redirige a /mockup/
 ```
-Al publicar, el contenido de `mockup/` pasa a la raíz y `mockup/es/` a `es/` (ajustando las rutas relativas `../assets` → `assets`). Los scripts: `main.js` (menú, contadores, formularios, carrusel, diagrama de integraciones), `ibot.js` (asistente de demostración), `siderays.js`, `orb.js`.
+Al publicar, el contenido de `mockup/` pasa a la raíz y `mockup/es/` a `es/` (ajustando las rutas relativas `../assets` → `assets`). JS en `assets/js/`, un archivo por función y cada página carga solo lo que usa (los `<script>` los escribe `scripts/sync_chrome.py` según el marcado): `core.js` (cabecera, menús, entrada de secciones; todas las páginas), `stats.js` (cifras), `forms.js` (formularios por correo), `home.js` (carruseles del Home), `cycle.js` (ciclo del evento), `flow.js` (integraciones de Tech), `backgrounds.js` (video, `siderays.js` y `orb.js`), `ibot.js` (asistente).
 
 ## Datos del sitio actual (para reusar)
 - Nombre: iCorporate. Dirección: 1313 Ponce de Leon Blvd, Suite 201, Coral Gables, FL 33134. Tel: +1 954 770 1738.
