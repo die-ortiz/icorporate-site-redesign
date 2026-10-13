@@ -14,6 +14,10 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "reference" / "img-originals"
 DST = ROOT / "assets" / "img"
 
+# Zonas desenfocadas de alta-agm-opening-ceremony.jpg (coordenadas del original de 2000x1333):
+# nombre y cargo del orador en la pantalla y los textos de Amadeus del cartel de la derecha
+EVENTS_BLUR = [(328, 518, 488, 595), (1830, 515, 1905, 570), (1832, 660, 1905, 720), (1845, 730, 1895, 758)]
+
 # salida -> (original, ancho máximo, calidad, opciones)
 JOBS = {
     # Logo de marca, recortado al contenido. "light" = versión oficial para fondos oscuros.
@@ -62,10 +66,10 @@ JOBS = {
     "logo-waga-2026-white.webp": ("logo-waga-2026.png", 285, 92, {"white": 2.6}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
-    "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {}),
+    "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
-    "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {}),
+    "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
 }
 # Íconos PNG (los navegadores los piden en PNG): salida -> (original, lado)
