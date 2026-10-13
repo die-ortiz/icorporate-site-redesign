@@ -417,7 +417,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .magnetic.is-open .magnetic__hint { opacity: 0; }
 /* Variante sin caja: la galería flota directamente sobre el fondo de la sección */
-.magnetic--bare { overflow: visible; background: none; border-radius: 0; color: var(--ink); }
+.magnetic--bare { overflow: visible; background: none; border-radius: 0; color: var(--ink); margin-top: clamp(2.5rem, 6vw, 4.5rem); }
 .magnetic--bare .magnetic__strip { padding-inline: 0; }
 .magnetic--bare .magnetic__item { box-shadow: 0 24px 50px -26px rgba(16,16,16,.55); }
 .magnetic--bare.is-open .magnetic__item { opacity: .45; filter: blur(2px); }
