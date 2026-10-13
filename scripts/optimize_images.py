@@ -98,7 +98,7 @@ def to_white(im, gain=1.25):
     return out
 
 
-def blur_boxes(im, boxes, radius=6, feather=8):
+def blur_boxes(im, boxes, radius=4, feather=8):
     """Desenfoca zonas (x0, y0, x1, y1 en píxeles del original), p. ej. logos de terceros, con borde suave."""
     for x0, y0, x1, y1 in boxes:
         region = im.crop((x0, y0, x1, y1)).filter(ImageFilter.GaussianBlur(radius))
