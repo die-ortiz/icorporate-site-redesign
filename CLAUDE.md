@@ -38,7 +38,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - Formulario de contacto funcional por correo directo (hoy `mailto:` desde `forms.js`; en producción se puede cambiar por un endpoint PHP sin tocar el HTML).
 - Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.
 - Video de fondo (opcional): dejar el original y correr `scripts/optimize_video.sh original.mp4 [hero|events|tech]`; genera `assets/video/<nombre>.mp4` (H.264, 1280 px, ≤ 4 MB, 8-15 s en bucle, sin audio ni texto) y su póster `<nombre>-poster.webp`. Hoy solo existe `hero.mp4` (Home). Si el archivo no existe, la cabecera usa el póster o el fondo oscuro (--dark) y el navegador registra un 404 inofensivo. No se carga con movimiento reducido, ahorro de datos ni pantallas < 768px.
-- Efectos WebGL (`ogl` desde CDN, con respaldo si falla): rayos en la sección de contacto del Home (`siderays.js`) y orbe en la cabecera de Tech Solutions (`orb.js`). Ambos se pausan fuera de pantalla y respetan movimiento reducido.
+- Efectos WebGL (`ogl` alojado en `assets/js/vendor/ogl.js`, con respaldo si falla): rayos en la sección de contacto del Home (`siderays.js`) y orbe en la cabecera de Tech Solutions (`orb.js`). Ambos se pausan fuera de pantalla y respetan movimiento reducido.
 
 ## Estructura y fuentes únicas
 ```
@@ -117,4 +117,4 @@ dist/               Salida de publish.py (ignorada por git)
 - Titular actual (a reemplazar): "Innovative Solutions for a New Era".
 
 ## Referencia técnica
-`reference/SideRays.tsx` es un fondo animado WebGL (librería `ogl`) pensado para React. Ya está portado a `assets/js/siderays.js` (módulo con `ogl` desde CDN); el original queda solo como referencia.
+`reference/SideRays.tsx` es un fondo animado WebGL (librería `ogl`) pensado para React. Ya está portado a `assets/js/siderays.js` (módulo con `ogl` de `assets/js/vendor/`); el original queda solo como referencia.

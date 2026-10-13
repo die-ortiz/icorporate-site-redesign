@@ -1,7 +1,7 @@
 // Port vanilla de reference/SideRays.tsx (WebGL con ogl).
 // Diferencias con el original: el contexto WebGL se crea una sola vez (no se
 // reinicia al cambiar opciones) y el IntersectionObserver solo pausa el loop.
-import { Renderer, Program, Triangle, Mesh } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js';
+import { Renderer, Program, Triangle, Mesh } from './vendor/ogl.js';
 
 const hexToRgb = (hex) => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
