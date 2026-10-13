@@ -376,7 +376,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .magnetic__strip { display: flex; align-items: center; width: 100%; gap: var(--gap); margin: 0; padding: 0 28px; list-style: none; }
 .magnetic__item {
-  --f: 0; --reveal: 0; position: relative; flex: none; overflow: hidden; border-radius: var(--radius); background: var(--dark-2);
+  --f: 0; --reveal: 0; color: #fff; position: relative; flex: none; overflow: hidden; border-radius: var(--radius); background: var(--dark-2);
   flex: calc(1 + var(--f) * 1.5) 1 0; min-width: 0; height: calc(var(--h0) + (var(--h1) - var(--h0)) * var(--f));
   box-shadow: 0 22px 60px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.08);
   transition: filter .6s cubic-bezier(.22,1,.36,1), opacity .6s ease, box-shadow .6s ease;
@@ -416,6 +416,13 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   font-family: var(--font-mono); font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark); transition: opacity .3s ease;
 }
 .magnetic.is-open .magnetic__hint { opacity: 0; }
+/* Variante sin caja: la galería flota directamente sobre el fondo de la sección */
+.magnetic--bare { overflow: visible; background: none; border-radius: 0; color: var(--ink); }
+.magnetic--bare .magnetic__strip { padding-inline: 0; }
+.magnetic--bare .magnetic__item { box-shadow: 0 24px 50px -26px rgba(16,16,16,.55); }
+.magnetic--bare.is-open .magnetic__item { opacity: .45; filter: blur(2px); }
+.magnetic--bare.is-open .magnetic__item.is-open { opacity: 1; filter: none; box-shadow: 0 40px 80px -30px rgba(16,16,16,.6); }
+.magnetic--bare .magnetic__hint { color: var(--ink-soft); background: rgba(255,255,255,.7); border-color: var(--line); }
 @media (max-width: 767px) {
   .magnetic { height: auto; display: block; overflow: visible; background: none; border-radius: 0; }
   .magnetic__strip { overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: .25rem 1rem 1rem 0; margin-right: -1rem; }
