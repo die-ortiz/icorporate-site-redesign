@@ -366,6 +366,84 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .case__mark { position: absolute; left: .9rem; bottom: .8rem; display: block; }
 .case__mark img { display: block; width: 104px; height: auto; filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); }
 .case__mark--wide img { width: 190px; }
+
+/* Galería magnética de casos (magnetic.js): escritorio con efecto "dock" y tarjeta abierta; móvil con scroll horizontal */
+.magnetic {
+  position: relative; isolation: isolate; overflow: hidden; margin-top: 1.1rem; height: clamp(480px, 66vh, 600px);
+  display: flex; align-items: center; justify-content: center; border-radius: var(--radius); color: #fff;
+  background: radial-gradient(circle at 50% 40%, rgba(6,189,231,.14), transparent 55%), var(--dark);
+  --w1: 190px; --h0: 340px; --h1: 410px; --open: 520px; --open-grow: 4; --gap: 14px;
+}
+.magnetic__strip { display: flex; align-items: center; width: 100%; gap: var(--gap); margin: 0; padding: 0 28px; list-style: none; }
+.magnetic__item {
+  --f: 0; --reveal: 0; color: #fff; position: relative; flex: none; overflow: hidden; border-radius: var(--radius); background: var(--dark-2);
+  flex: calc(1 + var(--f) * 1.5) 1 0; min-width: 0; height: calc(var(--h0) + (var(--h1) - var(--h0)) * var(--f));
+  box-shadow: 0 22px 60px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.08);
+  transition: filter .6s cubic-bezier(.22,1,.36,1), opacity .6s ease, box-shadow .6s ease;
+}
+.magnetic.is-settling .magnetic__item { transition: flex-grow .6s cubic-bezier(.22,1,.36,1), height .6s cubic-bezier(.22,1,.36,1), filter .6s cubic-bezier(.22,1,.36,1), opacity .6s ease, box-shadow .6s ease; }
+.magnetic.is-open .magnetic__item { flex: 1 1 0; height: calc(var(--h0) * .88); opacity: .4; filter: blur(3px) brightness(.6); }
+.magnetic.is-open .magnetic__item.is-open { flex: var(--open-grow) 1 0; height: var(--open); opacity: 1; filter: none; z-index: 2; box-shadow: 0 48px 130px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.13); }
+.magnetic__card { position: absolute; inset: 0; display: block; width: 100%; padding: 0; border: 0; color: inherit; background: none; text-align: left; cursor: pointer; font: inherit; }
+.magnetic__card:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
+.magnetic__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform .85s cubic-bezier(.22,1,.36,1); }
+.magnetic__item:hover .magnetic__photo, .magnetic__item.is-open .magnetic__photo { transform: scale(1); }
+.magnetic__logo { position: absolute; z-index: 1; top: 18px; left: 18px; width: 150px; max-width: calc(100% - 36px); height: auto; opacity: var(--reveal); filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); transition: width .5s cubic-bezier(.22,1,.36,1); }
+.magnetic__item.is-open .magnetic__logo { width: 190px; max-width: calc(100% - 90px); opacity: 1; }
+.magnetic__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,16,16,.5) 0, rgba(16,16,16,0) 26%), linear-gradient(180deg, rgba(16,16,16,0) 20%, rgba(16,16,16,.55) 58%, rgba(16,16,16,.92) 100%); }
+.magnetic__label {
+  position: absolute; z-index: 1; left: 18px; bottom: 18px; width: calc(var(--w1) - 36px);
+  opacity: var(--reveal); bottom: calc(6px + var(--reveal) * 104px); transition: bottom .5s cubic-bezier(.22,1,.36,1);
+}
+.magnetic__cat { display: block; margin-bottom: .5rem; font-family: var(--font-mono); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
+.magnetic__title { display: block; font-family: var(--font-head); font-size: 1.05rem; font-weight: 400; line-height: 1.12; letter-spacing: -.02em; }
+.magnetic__result { display: block; margin-top: .6rem; font-size: .85rem; color: var(--on-dark); opacity: 0; transition: opacity .3s ease; }
+.magnetic__num { position: absolute; z-index: 1; left: 0; right: 0; bottom: 12px; text-align: center; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .12em; color: var(--on-dark); opacity: calc(1 - var(--reveal)); pointer-events: none; }
+.magnetic__item.is-open .magnetic__label { opacity: 1; width: calc(100% - 44px); left: 22px; bottom: 82px; }
+.magnetic__item.is-open .magnetic__title { font-size: clamp(1.4rem, 2.6vw, 2.1rem); }
+.magnetic__item.is-open .magnetic__result { opacity: 1; }
+.magnetic__item.is-open .magnetic__num { opacity: 0; }
+.magnetic__close {
+  position: absolute; z-index: 3; top: 16px; right: 16px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25); color: #fff; background: rgba(16,16,16,.5); backdrop-filter: blur(12px); cursor: pointer;
+  opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s;
+}
+.magnetic__close svg { width: 16px; height: 16px; }
+.magnetic__actions { position: absolute; z-index: 3; left: 22px; right: 22px; bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
+.magnetic__ext { white-space: nowrap; font-family: var(--font-mono); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
+.magnetic__ext:hover { color: #fff; }
+/* con el cursor (o el foco) sobre una tarjeta cerrada los botones ya se ven y se pueden pulsar */
+.magnetic:not(.is-open) .magnetic__item:hover .magnetic__actions, .magnetic:not(.is-open) .magnetic__item:focus-within .magnetic__actions { opacity: var(--reveal); visibility: visible; transition-delay: 0s; }
+.magnetic__item.is-open .magnetic__close, .magnetic__item.is-open .magnetic__actions { opacity: 1; visibility: visible; transition-delay: .25s, 0s, 0s; }
+.magnetic__hint {
+  position: absolute; left: 0; right: 0; width: max-content; margin-inline: auto; bottom: 18px; z-index: 4; padding: .5rem .9rem; border-radius: 999px; pointer-events: none;
+  border: 1px solid rgba(255,255,255,.12); background: rgba(16,16,16,.55); backdrop-filter: blur(12px); white-space: nowrap;
+  font-family: var(--font-mono); font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark); transition: opacity .3s ease;
+}
+.magnetic.is-open .magnetic__hint, .magnetic:hover .magnetic__hint { opacity: 0; }
+/* Variante sin caja: la galería flota directamente sobre el fondo de la sección */
+.magnetic--bare { overflow: visible; background: none; border-radius: 0; color: var(--ink); margin-top: -1rem; height: clamp(420px, 58vh, 520px); }
+.magnetic--bare .magnetic__strip { padding-inline: 0; }
+.magnetic--bare .magnetic__item { box-shadow: 0 24px 50px -26px rgba(16,16,16,.55); }
+.magnetic--bare.is-open .magnetic__item { opacity: .45; filter: blur(2px); }
+.magnetic--bare.is-open .magnetic__item.is-open { opacity: 1; filter: none; box-shadow: 0 40px 80px -30px rgba(16,16,16,.6); }
+.magnetic--bare .magnetic__hint { color: var(--ink-soft); background: rgba(255,255,255,.7); border-color: var(--line); }
+@media (max-width: 767px) {
+  .magnetic { height: auto; display: block; overflow: visible; background: none; border-radius: 0; }
+  .magnetic__strip { overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: .25rem 1rem 1rem 0; margin-right: -1rem; }
+  .magnetic__item, .magnetic.is-open .magnetic__item, .magnetic.is-open .magnetic__item.is-open { flex: 0 0 78%; height: 400px; scroll-snap-align: start; opacity: 1; filter: none; }
+  .magnetic__label { --reveal: 1; opacity: 1; width: calc(100% - 36px); bottom: 118px; }
+  .magnetic__logo { --reveal: 1; opacity: 1; }
+  .magnetic__actions { flex-direction: column; align-items: flex-start; }
+  .magnetic__title { font-size: 1.35rem; }
+  .magnetic__result { opacity: 1; }
+  .magnetic__num, .magnetic__close, .magnetic__hint { display: none; }
+  .magnetic__actions { opacity: 1; visibility: visible; }
+  .magnetic__card { cursor: default; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .magnetic__item, .magnetic__photo, .magnetic__logo, .magnetic__label, .magnetic__close, .magnetic__actions { transition-duration: 1ms !important; }
+}
 .case__body { display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem 1.5rem; flex: 1; }
 .case__result { align-self: flex-start; padding: .28rem .6rem; border-radius: 999px; background: rgba(6,189,231,.12); color: var(--blue-dark); font: 600 .66rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 .case__body .sample-tag { align-self: flex-start; margin-left: 0; }
