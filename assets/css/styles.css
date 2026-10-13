@@ -727,6 +727,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .metric-card__media--icon img { width: 92px; height: 92px; object-fit: contain; }
 .metric-card__tag { position: absolute; z-index: 1; top: .9rem; left: .9rem; padding: .35rem .7rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(16,16,16,.55); color: #fff;
   font: 600 .66rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.metric-card__play { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; pointer-events: none; }
+.metric-card__play svg { box-sizing: content-box; padding: 15px 14px 15px 16px; border-radius: 50%; color: #fff; background: rgba(16,16,16,.55); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(8px); }
 .metric-card__body { flex: 1; padding: 1.5rem 1.6rem 0; }
 .metric-card__result { display: grid; gap: 1rem; padding: 1.3rem 1.6rem 1.6rem; }
 .metric-card__hero b { display: block; font-family: var(--font-head); font-size: clamp(2.6rem, 4.6vw, 3.4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums;
