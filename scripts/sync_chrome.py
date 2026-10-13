@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""Mantiene cabecera, mega-menú y footer idénticos en todas las páginas desde UNA fuente.
+
+Fuente:  scripts/partials/header.{en,es}.html  y  scripts/partials/footer.{en,es}.html
+Destino: mockup/*.html (EN) y mockup/es/*.html (ES): reemplaza <header class="site-header">…</header>
+         y <footer class="site-footer">…</footer>.
+
+Variables dentro de las plantillas (lo único que cambia entre páginas):
+  {{CTA_HREF}}   destino de los botones "Book a call" (ancla de contacto de la propia página)
+  {{LANG_HREF}}  enlace a la misma página en el otro idioma
+
+Uso:  python3 scripts/sync_chrome.py          # escribe los cambios
+      python3 scripts/sync_chrome.py --check  # solo verifica; sale con 1 si alguna página difiere
+Después de editar una plantilla hay que correrlo; check_site.py lo verifica en --check.
+Si se agrega una página, sumarla a PAGES.
+"""
+import os
+import re
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# página -> destino de "Book a call" (id de la sección de contacto de esa página)
+PAGES = {
+    "index.html": "#contact",
+    "about.html": "index.html#contact",
+    "tech-solutions.html": "#proposal",
+    "events-management.html": "#proposal",
+    "corporate-branding.html": "#proposal",
+}
+NOTE = ("<!-- chrome:{name}: generado desde scripts/partials/{name}.{lang}.html. "
+        "No editar aquí: editar la plantilla y correr scripts/sync_chrome.py -->")
+BLOCKS = {
+    "header": (r'<header class="site-header">.*?</header>', "header"),
+    "footer": (r'<footer class="site-footer">.*?</footer>', "footer"),
+}
+
+
+def load(name, lang):
+    with open(os.path.join(ROOT, "scripts", "partials", f"{name}.{lang}.html"), encoding="utf-8") as fh:
+        return fh.read().rstrip("\n")
+
+
+def render(html, lang, page):
+    cta = PAGES[page]
+    lang_href = f"es/{page}" if lang == "en" else f"../{page}"
+    for name, (pattern, _) in BLOCKS.items():
+        tpl = load(name, lang).replace("{{CTA_HREF}}", cta).replace("{{LANG_HREF}}", lang_href)
+        note = NOTE.format(name=name, lang=lang)
+        # quita la nota anterior si existe y la vuelve a escribir sobre el bloque
+        html = re.sub(r"<!-- chrome:%s:[^>]*-->\n\s*" % name, "", html)
+        html, n = re.subn(pattern, lambda m: note + "\n  " + tpl, html, count=1, flags=re.S)
+        if n != 1:
+            raise SystemExit(f"no se encontró <{name}> en {page} ({lang})")
+    return html
+
+
+def main():
+    check = "--check" in sys.argv
+    stale = []
+    for lang, folder in (("en", "mockup"), ("es", os.path.join("mockup", "es"))):
+        for page in PAGES:
+            path = os.path.join(ROOT, folder, page)
+            with open(path, encoding="utf-8") as fh:
+                current = fh.read()
+            new = render(current, lang, page)
+            if new != current:
+                stale.append(os.path.join(folder, page))
+                if not check:
+                    with open(path, "w", encoding="utf-8") as fh:
+                        fh.write(new)
+    if check:
+        for p in stale:
+            print(f"{p}: cabecera o footer fuera de sincronía con scripts/partials (correr scripts/sync_chrome.py)")
+        sys.exit(1 if stale else 0)
+    print(f"{len(stale)} páginas actualizadas" if stale else "todo en sincronía")
+
+
+if __name__ == "__main__":
+    main()

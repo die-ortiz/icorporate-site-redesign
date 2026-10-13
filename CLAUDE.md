@@ -45,7 +45,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 mockup/             Sitio de muestra para aprobación (EN)
 mockup/es/          Versión en español, mismos nombres de archivo
 assets/css|js|img|video   Estilos, scripts, imágenes (WebP) y video
-scripts/            optimize_images.py, optimize_video.sh, serve.py
+scripts/            serve.py, check_site.py, sync_chrome.py (+ partials/), style_snapshot.js, optimize_images.py, optimize_video.sh (ver scripts/README.md)
 reference/          Material de referencia y originales (no se publica)
 index.html, es/     Marcadores de posición ("new site in progress"); la raíz redirige a /mockup/
 ```
@@ -64,5 +64,7 @@ Al publicar, el contenido de `mockup/` pasa a la raíz y `mockup/es/` a `es/` (a
 - Probar localmente con `python3 scripts/serve.py` (puerto 8000, sin caché, `/` → `/mockup/`) antes de entregar; hay que reiniciarlo si se cambia `serve.py`.
 - Trabajar en una rama por tema, commitear y mergear a `main` con `--no-ff` cuando el usuario lo apruebe; borrar la rama al mergear. Sin push hasta que se pida.
 - Las páginas de servicio son HTML editado a mano (los generadores eran temporales): editar los archivos directamente.
+- **Cabecera, mega-menú y footer tienen una sola fuente:** `scripts/partials/{header,footer}.{en,es}.html`. No editarlos dentro de las páginas (se sobrescriben). Tras cambiar una plantilla: `python3 scripts/sync_chrome.py`. Lo único que varía entre páginas son `{{CTA_HREF}}` (ancla de "Book a call") y `{{LANG_HREF}}` (cambio de idioma); si se agrega una página, sumarla a `PAGES` en `sync_chrome.py`.
+- Antes de cada commit: `python3 scripts/check_site.py` (enlaces, anclas, imágenes, EN/ES, cabecera/footer sincronizados). Para refactors que no deben cambiar nada visible, comparar con `scripts/style_snapshot.js` (instrucciones en `scripts/README.md`).
 - Responder y comentar en español; el código y los nombres de archivos en inglés.
 - Antes de decidir diseño o textos nuevos, mostrar una propuesta corta.
