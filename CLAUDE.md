@@ -78,7 +78,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `ibot.js` | Asistente de demostración (flotante) | Todas |
 
 ## Convenciones de código
-- **CSS**: una hoja con secciones numeradas. Colores, radios y degradados salen de variables (`--blue`, `--cyan`, `--on-dark`, `--radius`, `--grad-btn`…); no pegar hex sueltos. Nombres tipo BEM (`.bloque__elemento--modificador`). Un solo botón primario (`.btn--primary`, degradado azul a cian con texto oscuro); las variantes por sección no deben redefinirlo. Las reglas de un componente van juntas bajo el comentario de su sección.
+- **CSS**: una hoja con secciones numeradas. Colores, radios y degradados salen de variables (`--blue`, `--cyan`, `--on-dark`, `--radius`, `--grad-btn`…); no pegar hex sueltos. Nombres tipo BEM (`.bloque__elemento--modificador`). Un solo botón primario (`.btn--primary`, cian de marca sólido con texto oscuro); las variantes por sección no deben redefinirlo. Las reglas de un componente van juntas bajo el comentario de su sección.
 - **Radios**: cajas `--radius` (12 px), elementos pequeños 8-10 px, píldoras 999 px.
 - **Tipografía**: H1-H3 en peso 400; etiquetas en JetBrains Mono; texto en Inter.
 - **HTML**: un `<h1>` por página; todo `<img>` con `alt`, `width` y `height`; los `target="_blank"` con `rel="noopener"`; los ids deben ser idénticos en EN y ES.

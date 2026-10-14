@@ -28,7 +28,7 @@
   --blue-deep: #02558f;     /* azul de hover sobre blanco */
   --sample-ink: #7a5b00;    /* texto de las etiquetas de contenido de ejemplo */
   --grad: linear-gradient(90deg, var(--blue), var(--cyan) 55%, var(--lime));
-  --grad-btn: linear-gradient(90deg, var(--blue), var(--cyan)); /* botones primarios y números destacados */
+  --grad-btn: linear-gradient(90deg, var(--blue), var(--cyan)); /* azul a cian: líneas de acento (los botones primarios usan --cyan sólido) */
   --font: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-head: var(--font); --font-mono: var(--font);
   --radius: 12px;
@@ -77,10 +77,9 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
   transition: transform .25s, background .25s, box-shadow .25s, border-color .25s;
 }
 .btn:hover { transform: translateY(-2px); }
-/* Primario: degradado azul a cian de "Book a call" con texto oscuro, en todos los fondos.
-   background-origin/clip en border-box: con el borde transparente de .btn el degradado repetía una franja lima a la izquierda. */
+/* Primario: cian de marca sólido con texto oscuro, en todos los fondos. (Prueba A; el degradado azul-cian vive en --grad-btn y el del titular en --grad.) */
 .btn--primary, .ibot__cta {
-  background: var(--grad-btn); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+  background: var(--cyan);
   color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
 }
 .btn--primary:hover, .ibot__cta:hover { filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
