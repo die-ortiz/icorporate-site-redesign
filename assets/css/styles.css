@@ -80,7 +80,7 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
 /* Primario: degradado azul a cian de "Book a call" con texto oscuro, en todos los fondos.
    background-origin/clip en border-box: con el borde transparente de .btn el degradado repetía una franja lima a la izquierda. */
 .btn--primary, .ibot__cta {
-  background: var(--grad-btn); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
+  background: var(--grad); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
   color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
 }
 .btn--primary:hover, .ibot__cta:hover { filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
