@@ -930,22 +930,15 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .team-card h3 { margin-top: 1.1rem; font-size: 1.1rem; font-weight: 400; }
 .team-card__role { margin-top: .2rem; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-dark); }
 .team-card p { margin-top: .8rem; color: var(--ink-soft); font-size: .92rem; }
-/* Hover de tarjetas de enfoque y de equipo: el mismo de las cajas de contacto de Our office (borde azul y un leve desplazamiento a la derecha).
-   Se usa `translate` (no `transform`) para no pisar la animación de entrada .reveal */
-.type-card, .team-card { transition: border-color .2s, translate .2s; }
-.js .type-card.reveal, .js .team-card.reveal { transition: opacity .8s ease, transform .8s ease, border-color .2s, translate .2s; }
+/* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
+   Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque), de equipo (.team-card) y, en las páginas de servicio, a fases y preguntas.
+   Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */
+.type-card, .team-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
+.js .type-card.reveal, .js .team-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
 @media (hover: hover) {
-  .type-card:hover, .team-card:hover { border-color: rgba(3,127,217,.5); translate: 3px 0; }
+  .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
 }
-@media (prefers-reduced-motion: reduce) { .type-card, .team-card { transition: none; } .type-card:hover, .team-card:hover { translate: none; } }
-/* Páginas de servicio (Tech, Events, Branding): las cajas (tipos/servicios, fases y preguntas) con el hover de las tarjetas de "Technology with measurable impact":
-   suben 4 px, borde cian y sombra. Se usa `translate` para no pisar la entrada .reveal */
-.page-service .type-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
-.js .page-service .type-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
-@media (hover: hover) {
-  .page-service .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
-}
-@media (prefers-reduced-motion: reduce) { .page-service .type-card, .page-service .phase, .page-service .faq details { transition: none; } .page-service .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
+@media (prefers-reduced-motion: reduce) { .type-card, .team-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
 .logo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; margin-top: 2.2rem; align-items: center; }
 @media (min-width: 640px) { .logo-row { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1000px) { .logo-row { grid-template-columns: repeat(7, 1fr); } }
