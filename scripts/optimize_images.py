@@ -8,6 +8,9 @@ sumarla a JOBS y volver a correr:  python3 scripts/optimize_images.py
 Requiere Pillow con soporte WebP.
 """
 from pathlib import Path
+from collections import deque
+
+import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -68,11 +71,13 @@ JOBS = {
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
-    # Retratos del equipo (avatar de 92 px; 160 px cubre pantallas 1.5x sin escalar la fuente)
-    "team-alberto-cortes.webp": ("team-alberto-cortes.png", 160, 90, {"square": "top"}),
-    "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 160, 90, {"square": "top"}),
-    "team-alexandra-ortiz.webp": ("team-alexandra-ortiz.png", 160, 90, {"square": "center"}),
-    "team-maria-piegari.webp":  ("team-maria-piegari.png",  160, 90, {"square": "top"}),
+    # Retratos del equipo (avatar de 92 px) con el fondo reemplazado por el azul de marca (ver make_portrait).
+    # Alberto y Maria salen de la foto del equipo (about-hero-team.jpg, box = recorte en píxeles); Alejandro y Alexandra,
+    # de los recortes entregados (de la misma foto ya reencuadrados), que dieron un contorno más limpio.
+    "team-alberto-cortes.webp":  ("about-hero-team.jpg", 240, 88, {"box": (710, 430, 890, 640),  "portrait": {"rx": 0.34}}),
+    "team-maria-piegari.webp":   ("about-hero-team.jpg", 240, 88, {"box": (325, 430, 505, 640),  "portrait": {"rx": 0.36}}),
+    "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 240, 88, {"portrait": {"rx": 0.39, "cuts": [(0.62, 0.16, 0.82, 0.34)]}}),
+    "team-alexandra-ortiz.webp": ("team-alexandra-ortiz.png", 240, 88, {"portrait": {"cx": 0.62, "rx": 0.30, "cuts": [(0.30, 0.0, 0.85, 0.285), (0.745, 0.55, 1.0, 1.0)]}}),
     "about-hero.webp":      ("about-hero-team.jpg",                      1600, 76, {}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
@@ -118,6 +123,98 @@ def blur_boxes(im, boxes, radius=4, feather=8):
         mask = mask.filter(ImageFilter.GaussianBlur(feather / 2))
         im.paste(region, (x0, y0), mask)
     return im
+
+
+PORTRAIT_BG = (3, 127, 217)  # azul de marca (#037FD9)
+
+
+def _hsv(a):
+    mx = a.max(axis=2) / 255.0
+    mn = a.min(axis=2) / 255.0
+    r, g, b = (a[..., i] / 255.0 for i in range(3))
+    d = mx - mn + 1e-9
+    h = np.zeros_like(mx)
+    m = mx == r
+    h[m] = ((g - b)[m] / d[m]) % 6
+    m = (mx == g) & ~(mx == r)
+    h[m] = ((b - r)[m] / d[m]) + 2
+    m = (mx == b) & ~(mx == r) & ~(mx == g)
+    h[m] = ((r - g)[m] / d[m]) + 4
+    return h * 60, d / (mx + 1e-9), mx
+
+
+def _dilate(m, it=1):
+    for _ in range(it):
+        p = np.pad(m, 1)
+        m = m | p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]
+    return m
+
+
+def make_portrait(im, cx=0.5, rx=0.46, cuts=(), size=240):
+    """Retrato sobre azul de marca a partir de un fotograma con pantalla azul de fondo.
+
+    Sin librerías de IA: se separa el fondo por color (azul saturado + letras blancas pegadas a él), se
+    conserva la persona (componente conexa en una elipse centrada en cx) y se compone sobre PORTRAIT_BG.
+    cx/rx: centro y semiancho (fracción del ancho) de la persona; cuts: rectángulos (x0,y0,x1,y1 en
+    fracciones) que se fuerzan a fondo (restos de letras u otras personas). Sube x3 con suavizado y
+    una máscara de enfoque ligera; la fuente es pequeña, así que no inventa detalle."""
+    im = im.convert("RGB")
+    a = np.asarray(im).astype(float)
+    H, W = a.shape[:2]
+    h, s, v = _hsv(a)
+    blue = (h > 195) & (h < 258) & (s > 0.55) & (v > 0.42)
+    yy, xx = np.mgrid[0:H, 0:W]
+    face = ((xx - W * cx) / (W * 0.19)) ** 2 + ((yy - H * 0.40) / (H * 0.28)) ** 2 < 1
+    torso = (yy > H * 0.62) & (np.abs(xx - W * cx) < W * 0.24)
+    prot = face | torso
+    white = (s < 0.30) & (v > 0.72)
+    grow = blue.copy()
+    for _ in range(16):
+        grow = (_dilate(grow) & white & ~prot) | grow
+    fg = ~grow
+    person = ((xx - W * cx) / (W * rx)) ** 2 + ((yy - H * 0.78) / (H * 0.62)) ** 2 < 1
+    fg &= person
+
+    def cut(m):
+        for x0, y0, x1, y1 in cuts:
+            m[int(H * y0):int(H * y1), int(W * x0):int(W * x1)] = False
+        return m
+    fg = cut(fg)
+    for _ in range(2):
+        fg = ~_dilate(~fg)
+    for _ in range(2):
+        fg = _dilate(fg)
+    fg = cut(fg & person)
+    for _ in range(2):
+        p = np.pad(fg.astype(int), 1)
+        fg = sum(p[i:i + H, j:j + W] for i in range(3) for j in range(3)) >= 5
+    cy, cxp = int(H * 0.45), int(W * cx)
+    seed = (cy, cxp)
+    if not fg[seed]:
+        ys, xs = np.nonzero(fg)
+        k = np.argmin((ys - cy) ** 2 + (xs - cxp) ** 2)
+        seed = (ys[k], xs[k])
+    lab = np.zeros((H, W), bool)
+    q = deque([seed])
+    lab[seed] = True
+    while q:
+        y, x = q.popleft()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < H and 0 <= nx < W and fg[ny, nx] and not lab[ny, nx]:
+                lab[ny, nx] = True
+                q.append((ny, nx))
+    scale = 3
+    big = im.resize((W * scale, H * scale), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.6, percent=70, threshold=2))
+    alpha = Image.fromarray((lab * 255).astype("uint8")).resize(big.size, Image.BICUBIC).filter(ImageFilter.GaussianBlur(scale * 0.7))
+    out = Image.composite(big, Image.new("RGB", big.size, PORTRAIT_BG), alpha)
+    side = min(out.size)
+    left = int(min(max(out.width * cx - side / 2, 0), out.width - side))
+    sq = out.crop((left, 0, left + side, side))
+    # encuadre más cerrado (cara y hombros): 78 % del cuadro, anclado arriba y centrado en la persona
+    inner = int(side * 0.78)
+    ix = (side - inner) // 2
+    return sq.crop((ix, int(side * 0.02), ix + inner, int(side * 0.02) + inner)).resize((size, size), Image.LANCZOS).convert("RGBA")
 
 
 def unmatte(im):
@@ -180,14 +277,16 @@ def main():
     for out, (name, width, quality, opts) in JOBS.items():
         src = SRC / name
         im = Image.open(src).convert("RGBA")
+        if opts.get("box"):
+            im = im.crop(opts["box"])
+        if opts.get("portrait") is not None:
+            im = make_portrait(im, **opts["portrait"])
         if opts.get("blur"):
             im = blur_boxes(im, opts["blur"])
         if opts.get("square"):  # recorte cuadrado (retratos): "top" conserva la parte alta, "center" el centro
             side = min(im.size); left = (im.width - side) // 2
             top = 0 if opts["square"] == "top" else (im.height - side) // 2
             im = im.crop((left, top, left + side, top + side))
-        if opts.get("box"):
-            im = im.crop(opts["box"])
         if opts.get("crop"):
             im = im.crop(im.split()[3].getbbox())
         if opts.get("light"):
