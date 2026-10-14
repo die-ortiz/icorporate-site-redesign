@@ -933,6 +933,14 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .type-card:hover, .team-card:hover { border-color: rgba(3,127,217,.5); translate: 3px 0; }
 }
 @media (prefers-reduced-motion: reduce) { .type-card, .team-card { transition: none; } .type-card:hover, .team-card:hover { translate: none; } }
+/* Tech Solutions: las cajas (servicios, fases y preguntas) con el hover de las tarjetas de "Technology with measurable impact":
+   suben 4 px, borde cian y sombra. Se usa `translate` para no pisar la entrada .reveal */
+.page-tech .type-card, .page-tech .phase, .page-tech .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
+.js .page-tech .type-card.reveal, .js .page-tech .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
+@media (hover: hover) {
+  .page-tech .type-card:hover, .page-tech .phase:hover, .page-tech .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+}
+@media (prefers-reduced-motion: reduce) { .page-tech .type-card, .page-tech .phase, .page-tech .faq details { transition: none; } .page-tech .type-card:hover, .page-tech .phase:hover, .page-tech .faq details:hover { translate: none; } }
 .logo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; margin-top: 2.2rem; align-items: center; }
 @media (min-width: 640px) { .logo-row { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1000px) { .logo-row { grid-template-columns: repeat(7, 1fr); } }
