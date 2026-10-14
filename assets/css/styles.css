@@ -647,16 +647,16 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 @media (max-width: 480px) { .ibot { right: .75rem; bottom: .75rem; } .ibot__panel { width: calc(100vw - 1.5rem); } }
 
 /* Volver arriba: chevron sin fondo justo sobre el lanzador del iBot (56 px, a 1.25rem del borde); se oculta con el chat abierto */
-.to-top { position: fixed; right: calc(1.25rem + 6px); bottom: calc(1.25rem + 56px + .5rem); z-index: 59; width: 44px; height: 44px; display: grid; place-items: center;
-  border: 0; padding: 0; background: none; cursor: pointer; color: var(--blue);
-  /* azul de marca con halo blanco: se ve sobre fondos claros y oscuros */
-  filter: drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 5px rgba(255,255,255,.85)) drop-shadow(0 2px 4px rgba(16,16,16,.35));
+.icorp-up { position: fixed; right: calc(1.25rem + 6px); bottom: calc(1.25rem + 56px + .5rem); z-index: 59; width: 44px; height: 44px; display: grid; place-items: center;
+  border: 0; padding: 0; background: none; cursor: pointer; color: var(--cyan);
+  /* cian de marca; el contorno oscuro va dibujado en el propio SVG para que se distinga sobre fondos claros y oscuros */
+  filter: drop-shadow(0 2px 5px rgba(16,16,16,.3));
   opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .25s, transform .25s, visibility 0s linear .25s; }
-.to-top.is-visible { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.to-top:hover { transform: translateY(-3px); color: var(--blue-dark); }
-.to-top:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 8px; }
-body:has(.ibot.is-open) .to-top { opacity: 0; visibility: hidden; pointer-events: none; }
-@media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+.icorp-up.is-visible { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.icorp-up:hover { transform: translateY(-3px); color: #5fd8f3; }
+.icorp-up:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 8px; }
+body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .icorp-up { transition: none; } }
 
 /* ═══ 11 · PÁGINAS INTERNAS Y COMPONENTES COMPARTIDOS (tipografía theme-a, cabeceras, fases, ciclo del evento, FAQ, integraciones…) ═══ */
 /* Tipografía A (Sora + Inter + JetBrains Mono), activa solo en las páginas con body.theme-a */
