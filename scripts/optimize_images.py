@@ -68,6 +68,9 @@ JOBS = {
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
+    # Retratos del equipo (avatar de 92 px; 160 px cubre pantallas 1.5x sin escalar la fuente)
+    "team-alberto-cortes.webp": ("team-alberto-cortes.png", 160, 90, {"square": "top"}),
+    "team-maria-piegari.webp":  ("team-maria-piegari.png",  160, 90, {"square": "top"}),
     "about-hero.webp":      ("about-hero-team.jpg",                      1600, 76, {}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
@@ -177,6 +180,10 @@ def main():
         im = Image.open(src).convert("RGBA")
         if opts.get("blur"):
             im = blur_boxes(im, opts["blur"])
+        if opts.get("square"):  # recorte cuadrado (retratos): "top" conserva la parte alta, "center" el centro
+            side = min(im.size); left = (im.width - side) // 2
+            top = 0 if opts["square"] == "top" else (im.height - side) // 2
+            im = im.crop((left, top, left + side, top + side))
         if opts.get("box"):
             im = im.crop(opts["box"])
         if opts.get("crop"):
