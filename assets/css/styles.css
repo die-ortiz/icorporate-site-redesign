@@ -825,8 +825,8 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .cycle__star img { width: 26px; height: 26px; }
 .cycle__panel { display: grid; gap: 1.1rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; animation: cycle-in .35s ease both; }
 .cycle__panel[hidden] { display: none; }
-.cycle__main { padding: .9rem .9rem .5rem; }
-.cycle__kicker, .cycle__ai-tag { font-family: var(--font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.cycle__main { padding: 1.7rem; } /* mismo relleno que .cycle__ai: ambas columnas empiezan y terminan a la misma altura */
+.cycle__kicker, .cycle__ai-tag { display: block; font-family: var(--font-mono); font-size: .72rem; font-weight: 700; line-height: 1.2; letter-spacing: .12em; text-transform: uppercase; } /* mismo tamaño e interlineado: las dos etiquetas quedan a la misma altura */
 .cycle__kicker { color: var(--blue-dark); }
 .cycle__main h3 { margin-top: .5rem; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 400; }
 .cycle__list { margin: 1.2rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
@@ -837,16 +837,18 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .cycle__item summary::before { content: ""; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6.5v11M6.5 12h11' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center / 24px no-repeat; transition: transform .25s, background-color .25s; }
 .cycle__item[open] summary::before { transform: rotate(45deg); background-color: var(--blue-dark); }
 .cycle__item p { margin: 0; padding: 0 .2rem 1rem 2.15rem; font-size: .95rem; color: var(--ink-soft); animation: cycle-in .3s ease both; }
-.cycle__ai { position: relative; overflow: hidden; align-self: start; display: flex; flex-direction: column; gap: 1.2rem; padding: 1.7rem; border-radius: calc(var(--radius) - 4px); background: var(--dark); color: #fff; }
+.cycle__ai { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 1.2rem; padding: 1.7rem; border-radius: calc(var(--radius) - 4px); background: var(--dark); color: #fff; }
 /* un solo halo suave, el mismo de las franjas oscuras del sitio (.stats) */
 .cycle__ai::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 55% at 100% 0%, rgba(6,189,231,.18), transparent 70%); }
 .cycle__ai > * { position: relative; }
-.cycle__ai-tag { font-family: var(--font-mono); font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+.cycle__ai-tag { color: var(--lime); }
+/* H4 con el aspecto del H3 de la columna izquierda (mismo tamaño y margen), en cian */
+.cycle__ai-title { margin: -.7rem 0 0; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 400; color: var(--cyan); }
 .cycle__ai ul { margin: 0; padding: 0; list-style: none; }
 .cycle__ai li { position: relative; padding: .95rem 0 .95rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.14); font-size: 1rem; font-weight: 500; line-height: 1.45; }
 .cycle__ai li:first-child { border-top: 1px solid rgba(255,255,255,.14); }
 .cycle__ai li::before { content: ""; position: absolute; left: 0; top: 1.5rem; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
-.cycle__ai-note { margin: .3rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--on-dark); }
+.cycle__ai-note { margin: auto 0 0; font-size: .92rem; line-height: 1.5; color: var(--on-dark); }
 .cycle__link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .2rem; align-self: flex-start; font-size: .9rem; font-weight: 700; color: var(--cyan); text-decoration: none; }
 .cycle__link:hover { text-decoration: underline; text-underline-offset: 4px; }
 /* Pulso en cada uno de los 4 puntos del recorrido (escalonado); el marcador del logo no pulsa */
