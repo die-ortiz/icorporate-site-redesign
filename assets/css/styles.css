@@ -642,12 +642,14 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot__send:hover { background: var(--blue-deep); }
 @media (max-width: 480px) { .ibot { right: .75rem; bottom: .75rem; } .ibot__panel { width: calc(100vw - 1.5rem); } }
 
-/* Volver arriba: va justo sobre el lanzador del iBot (56 px, a 1.25rem del borde); se oculta con el chat abierto */
-.to-top { position: fixed; right: calc(1.25rem + 6px); bottom: calc(1.25rem + 56px + .75rem); z-index: 59; width: 44px; height: 44px; display: grid; place-items: center;
-  border: 0; border-radius: 50%; cursor: pointer; background: var(--grad-btn); color: var(--dark); box-shadow: 0 10px 26px -10px rgba(6,189,231,.75);
-  opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .25s, transform .25s, visibility 0s linear .25s, filter .2s; }
+/* Volver arriba: chevron sin fondo justo sobre el lanzador del iBot (56 px, a 1.25rem del borde); se oculta con el chat abierto */
+.to-top { position: fixed; right: calc(1.25rem + 6px); bottom: calc(1.25rem + 56px + .5rem); z-index: 59; width: 44px; height: 44px; display: grid; place-items: center;
+  border: 0; padding: 0; background: none; cursor: pointer; color: var(--cyan);
+  filter: drop-shadow(0 1px 3px rgba(16,16,16,.6)) drop-shadow(0 0 10px rgba(6,189,231,.35));
+  opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .25s, transform .25s, visibility 0s linear .25s; }
 .to-top.is-visible { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.to-top:hover { filter: brightness(1.1); transform: translateY(-2px); }
+.to-top:hover { transform: translateY(-3px); color: #5fd8f3; }
+.to-top:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 8px; }
 body:has(.ibot.is-open) .to-top { opacity: 0; visibility: hidden; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
 

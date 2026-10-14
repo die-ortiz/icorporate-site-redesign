@@ -3,7 +3,7 @@
    - Mega-menú de escritorio: abre solo con clic (.nav__item.has-sub, .nav__caret); .is-mega en la cabecera.
    - Menú móvil (.menu-toggle + #site-nav).
    - Entrada suave de secciones (.reveal -> .in, con IntersectionObserver).
-   - Botón "volver arriba" (.to-top): lo crea este módulo, aparece al bajar y va sobre el iBot flotante.
+   - Botón "volver arriba" (.to-top): chevron sin fondo; lo crea este módulo, aparece al bajar y va sobre el iBot flotante.
    Sin dependencias de otros archivos de JS. */
 
 // Header: pasa de transparente a sólido de forma continua con el scroll
@@ -95,7 +95,7 @@ if ('IntersectionObserver' in window && reveals.length) {
   btn.type = 'button';
   btn.className = 'to-top';
   btn.setAttribute('aria-label', es ? 'Volver arriba' : 'Back to top');
-  btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 19V6M6 11.5l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" focusable="false"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   document.body.appendChild(btn);
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const update = () => btn.classList.toggle('is-visible', window.scrollY > 600);
