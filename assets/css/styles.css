@@ -842,6 +842,8 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .cycle__ai::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 55% at 100% 0%, rgba(6,189,231,.18), transparent 70%); }
 .cycle__ai > * { position: relative; }
 .cycle__ai-tag { color: var(--lime); }
+/* H4 con el aspecto del H3 de la columna izquierda (mismo tamaño y margen), en cian */
+.cycle__ai-title { margin: -.7rem 0 0; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 400; color: var(--cyan); }
 .cycle__ai ul { margin: 0; padding: 0; list-style: none; }
 .cycle__ai li { position: relative; padding: .95rem 0 .95rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.14); font-size: 1rem; font-weight: 500; line-height: 1.45; }
 .cycle__ai li:first-child { border-top: 1px solid rgba(255,255,255,.14); }
