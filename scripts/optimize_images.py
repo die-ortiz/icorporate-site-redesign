@@ -70,6 +70,7 @@ JOBS = {
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
     # Retratos del equipo (avatar de 92 px; 160 px cubre pantallas 1.5x sin escalar la fuente)
     "team-alberto-cortes.webp": ("team-alberto-cortes.png", 160, 90, {"square": "top"}),
+    "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 160, 90, {"square": "top"}),
     "team-maria-piegari.webp":  ("team-maria-piegari.png",  160, 90, {"square": "top"}),
     "about-hero.webp":      ("about-hero-team.jpg",                      1600, 76, {}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
