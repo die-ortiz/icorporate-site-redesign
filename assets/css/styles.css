@@ -670,9 +670,9 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
     linear-gradient(0deg, rgba(16,16,16,.96) 0%, rgba(16,16,16,.78) 24%, rgba(16,16,16,0) 56%);
 }
 .page-hero--stats .stats--hero { margin-top: 3.2rem; padding-bottom: 1.6rem; }
-.page-hero__photo { margin: 3rem 0 0; border-radius: var(--radius); overflow: hidden; aspect-ratio: 21 / 8; box-shadow: 0 30px 60px -36px rgba(0,0,0,.7); }
-.page-hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
-@media (max-width: 719px) { .page-hero__photo { aspect-ratio: 4 / 3; margin-top: 2.2rem; } .page-hero__photo img { object-position: 50% 62%; } }
+.page-hero__photo { margin: 3rem auto 0; max-width: 1040px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -36px rgba(0,0,0,.7); }
+.page-hero__photo img { display: block; width: 100%; height: auto; }
+@media (max-width: 719px) { .page-hero__photo { margin-top: 2.2rem; } }
 /* Velo más claro con cifras (Events): deja lucir la foto; el pie se mantiene denso para las cifras */
 .page-hero--veil-light.page-hero--stats::after {
   background:
