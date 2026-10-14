@@ -709,11 +709,13 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .page-hero--team .stats--hero .stats__grid { max-width: 960px; padding: 1.3rem 1rem; border-radius: var(--radius);
   background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 24px 60px -34px rgba(0,0,0,.8); }
-/* Transición suave: el hero se funde a blanco hacia la sección siguiente */
-.page-hero--team.page-hero--stats { padding-bottom: 5.5rem; }
-.page-hero--team.page-hero--stats::after { inset: auto 0 -1px 0; height: 121px; z-index: 1;
-  /* oscuro -> azul profundo -> azul pálido -> blanco: sin pasar por grises */
-  background: linear-gradient(180deg, rgba(16,16,16,0) 0%, rgba(14,40,70,.88) 38%, #d9e9f6 78%, #fff 100%); }
+/* Transición: borde limpio entre el hero oscuro y la sección blanca; las cifras lo cabalgan (mitad sobre oscuro, mitad sobre blanco) */
+.page-hero--team.page-hero--stats { padding-bottom: 0; overflow: visible; }
+.page-hero--team.page-hero--stats::after { display: none; }
+.page-hero--team .stats--hero { transform: translateY(2.6rem); }
+.page-hero--team .stats--hero .stats__grid { background: rgba(16,16,16,.94); border-color: rgba(255,255,255,.16);
+  box-shadow: 0 26px 50px -26px rgba(16,16,16,.7); }
+.page-hero--team + .section { padding-top: calc(6rem + 2.6rem); }
 @media (hover: hover) {
   .page-hero--team .page-hero__text:hover { transform: translateY(-6px); box-shadow: 0 44px 90px -44px rgba(6,189,231,.85); }
   .page-hero--team .page-hero__text:hover::before { transform: scaleX(1); }
