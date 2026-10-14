@@ -178,13 +178,18 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .nav.is-open a { color: var(--ink); }
 @media (min-width: 1200px) {
-  .nav, .nav.is-open { display: flex; position: static; flex-direction: row; gap: clamp(1.4rem, 2.4vw, 2.2rem); padding: 0; box-shadow: none; background: none; align-items: center; }
+  .nav, .nav.is-open { display: flex; position: static; flex-direction: row; gap: clamp(1.1rem, 1.5vw, 1.4rem); padding: 0; box-shadow: none; background: none; align-items: center; }
   .nav > a, .nav__item > a { white-space: nowrap; display: inline-flex; align-items: center; min-height: 44px; padding-block: 0; }
   .menu-toggle { display: none; }
   .header-cta { display: inline-flex; white-space: nowrap; }
   .brand { flex: none; }
 }
 
+/* ES: los textos son más largos y el contenedor mide 1200 px a partir de 1240 px; el menú usa letra algo menor para no salirse */
+@media (min-width: 1200px) {
+  html[lang="es"] .nav a { font-size: .9rem; }
+  html[lang="es"] .nav, html[lang="es"] .nav.is-open { gap: 1rem; }
+}
 /* 1200-1439 px: con textos en ES (CTA más largo) el menú completo no cabe con el espaciado normal */
 @media (min-width: 1200px) and (max-width: 1439px) {
   .nav, .nav.is-open { gap: 1rem; }
