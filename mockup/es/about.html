@@ -211,7 +211,7 @@
 
   <main id="main">
     <!-- CABECERA centrada y sobria (texto real del sitio actual) -->
-    <section class="page-hero page-hero--plain page-hero--stats page-hero--proto hp-a">
+    <section class="page-hero page-hero--plain page-hero--stats page-hero--team">
       <div class="container">
         <div class="page-hero__text">
           <ol class="breadcrumb" aria-label="breadcrumb">
@@ -226,7 +226,6 @@
         </div>
         <figure class="page-hero__photo">
           <img src="../../assets/img/about-hero.webp" width="1600" height="1067" alt="El equipo de iCorporate en el escenario de un evento de ACI-LAC/World" fetchpriority="high">
-          <span class="page-hero__chip"><b>20</b><span>años de experiencia</span></span>
         </figure>
       </div>
       <!-- CIFRAS dentro de la cabecera (datos reales del sitio actual) -->
@@ -395,26 +394,5 @@
   <script src="../../assets/js/ibot.js" defer></script>
   <script type="module" src="../../assets/js/core.js"></script>
   <script type="module" src="../../assets/js/stats.js"></script>
-  <script>
-    /* PROTOTIPO · selector de variantes del hero de About (?hero=a|b|c). Se elimina al elegir una opción. */
-    (function () {
-      var hero = document.querySelector('.page-hero--proto');
-      if (!hero) return;
-      var cur = (new URLSearchParams(location.search).get('hero') || 'a').toLowerCase();
-      var set = function (v) {
-        ['a', 'b', 'c'].forEach(function (k) { hero.classList.toggle('hp-' + k, k === v); });
-        bar.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === v)); });
-        var u = new URL(location.href); u.searchParams.set('hero', v); history.replaceState(null, '', u);
-      };
-      var bar = document.createElement('div');
-      bar.setAttribute('style', 'position:fixed;left:16px;bottom:16px;z-index:200;display:flex;gap:6px;padding:6px;border-radius:999px;background:rgba(16,16,16,.88);border:1px solid rgba(255,255,255,.2);font:600 12px/1 system-ui');
-      ['a', 'b', 'c'].forEach(function (v) {
-        var b = document.createElement('button'); b.type = 'button'; b.dataset.v = v; b.textContent = v.toUpperCase();
-        b.setAttribute('style', 'width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;background:#fff;color:#101010');
-        b.addEventListener('click', function () { set(v); }); bar.appendChild(b);
-      });
-      document.body.appendChild(bar); set(['a', 'b', 'c'].indexOf(cur) > -1 ? cur : 'a');
-    })();
-  </script>
 </body>
 </html>
