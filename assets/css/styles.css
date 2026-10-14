@@ -389,11 +389,12 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic__cat { display: block; margin-bottom: .5rem; font-family: var(--font-mono); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
 .magnetic__title { display: block; font-family: var(--font-head); font-size: 1.05rem; font-weight: 400; line-height: 1.12; letter-spacing: -.02em; }
 .magnetic__result { display: block; margin-top: .6rem; font-size: .85rem; color: var(--on-dark); opacity: 0; transition: opacity .3s ease; }
-.magnetic__num { position: absolute; z-index: 1; left: 0; right: 0; bottom: 12px; text-align: center; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .12em; color: var(--on-dark); opacity: calc(1 - var(--reveal)); pointer-events: none; }
+.magnetic__mark { position: absolute; z-index: 1; left: 50%; bottom: 14px; width: min(160px, calc(100% - 28px)); max-height: 44px; height: auto; object-fit: contain; translate: -50% 0;
+  opacity: calc(1 - var(--reveal)); pointer-events: none; filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); }
 .magnetic__item.is-open .magnetic__label { opacity: 1; width: calc(100% - 44px); left: 22px; bottom: 82px; }
 .magnetic__item.is-open .magnetic__title { font-size: clamp(1.4rem, 2.6vw, 2.1rem); }
 .magnetic__item.is-open .magnetic__result { opacity: 1; }
-.magnetic__item.is-open .magnetic__num { opacity: 0; }
+.magnetic__item.is-open .magnetic__mark { opacity: 0; }
 .magnetic__close {
   position: absolute; z-index: 3; top: 16px; right: 16px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 50%;
   border: 1px solid rgba(255,255,255,.25); color: #fff; background: rgba(16,16,16,.5); backdrop-filter: blur(12px); cursor: pointer;
@@ -428,7 +429,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .magnetic__actions { flex-direction: column; align-items: flex-start; }
   .magnetic__title { font-size: 1.35rem; }
   .magnetic__result { opacity: 1; }
-  .magnetic__num, .magnetic__close, .magnetic__hint { display: none; }
+  .magnetic__mark, .magnetic__close, .magnetic__hint { display: none; }
   .magnetic__actions { opacity: 1; visibility: visible; }
   .magnetic__card { cursor: default; }
 }
