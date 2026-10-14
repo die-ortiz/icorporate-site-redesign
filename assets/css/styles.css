@@ -837,13 +837,17 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .cycle__item summary::before { content: ""; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6.5v11M6.5 12h11' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center / 24px no-repeat; transition: transform .25s, background-color .25s; }
 .cycle__item[open] summary::before { transform: rotate(45deg); background-color: var(--blue-dark); }
 .cycle__item p { margin: 0; padding: 0 .2rem 1rem 2.15rem; font-size: .95rem; color: var(--ink-soft); animation: cycle-in .3s ease both; }
-.cycle__ai { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border-radius: calc(var(--radius) - 4px); background: var(--dark); color: #fff; }
-.cycle__ai::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--grad); }
-.cycle__ai-tag { align-self: flex-start; padding: .3rem .7rem; border-radius: 99px; background: rgba(189,204,38,.16); color: var(--lime); }
-.cycle__ai ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .9rem; }
-.cycle__ai li { position: relative; padding-left: 1.3rem; font-size: 1rem; font-weight: 500; line-height: 1.45; }
-.cycle__ai li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; border-radius: 2px; transform: rotate(45deg); background: var(--lime); }
-.cycle__link { display: inline-flex; align-items: center; gap: .45rem; margin-top: auto; align-self: flex-start; font-size: .9rem; font-weight: 700; color: var(--cyan); text-decoration: none; }
+.cycle__ai { position: relative; overflow: hidden; align-self: start; display: flex; flex-direction: column; gap: 1.2rem; padding: 1.7rem; border-radius: calc(var(--radius) - 4px); background: var(--dark); color: #fff; }
+/* un solo halo suave, el mismo de las franjas oscuras del sitio (.stats) */
+.cycle__ai::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 55% at 100% 0%, rgba(6,189,231,.18), transparent 70%); }
+.cycle__ai > * { position: relative; }
+.cycle__ai-tag { font-family: var(--font-mono); font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+.cycle__ai ul { margin: 0; padding: 0; list-style: none; }
+.cycle__ai li { position: relative; padding: .95rem 0 .95rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.14); font-size: 1rem; font-weight: 500; line-height: 1.45; }
+.cycle__ai li:first-child { border-top: 1px solid rgba(255,255,255,.14); }
+.cycle__ai li::before { content: ""; position: absolute; left: 0; top: 1.5rem; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
+.cycle__ai-note { margin: .3rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--on-dark); }
+.cycle__link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .2rem; align-self: flex-start; font-size: .9rem; font-weight: 700; color: var(--cyan); text-decoration: none; }
 .cycle__link:hover { text-decoration: underline; text-underline-offset: 4px; }
 /* Pulso en cada uno de los 4 puntos del recorrido (escalonado); el marcador del logo no pulsa */
 .cycle__tab:nth-child(2)::after { animation-delay: .35s; }
