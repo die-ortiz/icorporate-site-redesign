@@ -68,6 +68,7 @@ JOBS = {
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
+    "about-hero.webp":      ("about-hero-team.jpg",                      1600, 76, {}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
