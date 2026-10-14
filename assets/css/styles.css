@@ -81,7 +81,7 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
    background-origin/clip en border-box: con el borde transparente de .btn el degradado repetía una franja lima a la izquierda. */
 .btn--primary, .ibot__cta {
   background: var(--grad); background-origin: border-box; background-clip: border-box; background-repeat: no-repeat;
-  color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
+  color: #fff; box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
 }
 .btn--primary:hover, .ibot__cta:hover { filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
 .btn--ghost { border-color: rgba(255,255,255,.4); color: #fff; }
@@ -124,7 +124,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .nav a { font-family: var(--font-head); font-size: 1.05rem; font-weight: 600; letter-spacing: .01em; text-transform: capitalize; text-decoration: none; padding: .5rem .2rem; color: var(--hdr-fg); transition: color .15s; }
 .nav a:hover { color: color-mix(in srgb, var(--blue-dark) calc(var(--hdr-fp) * 100%), var(--cyan)); }
 /* El botón del mega-menú vive dentro de .nav: sin esto .nav a (0,1,1) le pintaría el color del texto del menú */
-.nav .mega a.btn--primary, .nav .mega a.btn--primary:hover { color: var(--dark); }
+.nav .mega a.btn--primary, .nav .mega a.btn--primary:hover { color: #fff; }
 /* Menú: cada servicio es un ítem propio; en escritorio abre un mega-menú de borde a borde bajo la cabecera */
 .nav__item { display: flex; flex-direction: column; }
 .nav__caret, .mega { display: none; }
@@ -160,8 +160,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   .nav .mega a.mega__all { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-mono); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); text-decoration: underline; text-underline-offset: 6px; }
   .nav .mega a.mega__all:hover { color: var(--blue-dark); }
   /* .nav a (0,1,1) le quitaba el padding al botón; se restituye y se contiene el brillo dentro de la barra */
-  .nav .mega a.btn { padding: .65rem 1.5rem; min-height: 40px; font-size: .7rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--dark); box-shadow: none; }
-  .nav .mega a.btn:hover { color: var(--dark); box-shadow: 0 8px 20px -10px rgba(3,127,217,.7); }
+  .nav .mega a.btn { padding: .65rem 1.5rem; min-height: 40px; font-size: .7rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #fff; box-shadow: none; }
+  .nav .mega a.btn:hover { color: #fff; box-shadow: 0 8px 20px -10px rgba(3,127,217,.7); }
 }
 .header-actions { display: flex; align-items: center; gap: .8rem; }
 .lang { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-decoration: none; color: var(--hdr-muted); transition: color .15s; }
