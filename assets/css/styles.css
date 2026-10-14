@@ -394,6 +394,9 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic__item.is-open .magnetic__label { opacity: 1; width: calc(100% - 44px); left: 22px; bottom: 82px; }
 .magnetic__item.is-open .magnetic__title { font-size: clamp(1.4rem, 2.6vw, 2.1rem); }
 .magnetic__item.is-open .magnetic__result { opacity: 1; }
+/* Marcas más compactas (WAGA e ITAérea pesan más que los logos apaisados de ALTA): se igualan en presencia visual */
+.magnetic__mark[src*="waga"] { width: min(86px, calc(100% - 28px)); }
+.magnetic__mark[src*="itaerea"] { width: min(104px, calc(100% - 28px)); }
 .magnetic__item.is-open .magnetic__mark { opacity: 0; }
 .magnetic__close {
   position: absolute; z-index: 3; top: 16px; right: 16px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 50%;
