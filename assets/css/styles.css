@@ -948,8 +948,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 @media (prefers-reduced-motion: reduce) { .type-card, .team-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
 .logo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; margin-top: 2.2rem; align-items: center; }
 @media (min-width: 640px) { .logo-row { grid-template-columns: repeat(4, 1fr); } }
-@media (min-width: 1000px) { .logo-row { grid-template-columns: repeat(8, 1fr); } }
-.logo-row img { width: 100%; max-width: 150px; height: 80px; margin-inline: auto; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .25s, opacity .25s; }
+@media (min-width: 1000px) { .logo-row { grid-template-columns: repeat(4, 1fr); gap: 2.4rem 3rem; max-width: 960px; } }
+.logo-row img { width: 100%; max-width: 170px; height: 90px; margin-inline: auto; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .25s, opacity .25s; }
 .logo-row img:hover { filter: none; opacity: 1; }
 .office { display: grid; gap: 1.1rem; margin-top: 1.8rem; }
 .office a { display: flex; align-items: center; gap: .9rem; padding: 1rem 1.2rem; border-radius: 10px; border: 1px solid var(--line); background: #fff; text-decoration: none; font-weight: 600; color: var(--ink); transition: border-color .2s, transform .2s; overflow-wrap: anywhere; }
