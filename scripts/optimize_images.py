@@ -30,6 +30,7 @@ JOBS = {
     # Logos de clientes (se muestran a ~150x100; 300x200 cubre pantallas 2x)
     "client-alta.webp":    ("Logo_alta.png",    300, 88, {}),
     "client-aci-lac.webp": ("Logo_Acilac.png",  300, 88, {}),
+    "client-aci-world.webp": ("Logo_AciWorld.png", 300, 88, {"trim": True}),
     "client-iata.webp":    ("Logo_Iata.png",    300, 88, {}),
     "client-sita.webp":    ("Logo_sita.png",    300, 88, {}),
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
@@ -40,6 +41,7 @@ JOBS = {
     # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
     "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
     "client-aci-lac-white.webp": ("Logo_Acilac.png",  300, 90, {"white": True}),
+    "client-aci-world-white.webp": ("Logo_AciWorld.png", 300, 90, {"white": True, "trim": True}),
     "client-iata-white.webp":    ("Logo_Iata.png",    300, 90, {"white": True}),
     "client-sita-white.webp":    ("Logo_sita.png",    300, 90, {"white": True}),
     "client-heico-white.webp":   ("Logo_Heico.png",   300, 90, {"white": True}),
