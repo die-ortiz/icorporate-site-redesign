@@ -35,6 +35,7 @@ JOBS = {
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
     "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {}),
     "client-aviatdo.webp": ("aviatdo.png",       300, 88, {"unmatte": True}),
+    "client-exolum.webp":  ("Logo_Exolum.jpg",  300, 88, {"box": (40, 60, 460, 190), "unmatte": True}),
     # Versiones blancas (carrusel sobre fondo oscuro): la luminosidad pasa a transparencia,
     # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
     "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
@@ -314,7 +315,7 @@ def main():
         if opts.get("trim"):
             im = im.crop(im.split()[3].getbbox())
         im = resize(im, width)
-        has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False) or opts.get("solid", False)
+        has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False) or opts.get("solid", False) or opts.get("unmatte", False)
         if not has_alpha:
             im = im.convert("RGB")
         im.save(DST / out, "WEBP", quality=quality, method=6)
