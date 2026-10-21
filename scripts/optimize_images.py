@@ -35,6 +35,7 @@ JOBS = {
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
     "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {}),
     "client-aviatdo.webp": ("aviatdo.png",       300, 88, {"unmatte": True}),
+    "client-exolum.webp":  ("Logo_Exolum.jpg",  300, 88, {"box": (40, 60, 460, 190), "unmatte": True}),
     # Versiones blancas (carrusel sobre fondo oscuro): la luminosidad pasa a transparencia,
     # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
     "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
@@ -44,6 +45,7 @@ JOBS = {
     "client-heico-white.webp":   ("Logo_Heico.png",   300, 90, {"white": True}),
     "client-itaerea-white.webp": ("Logo_Itaerea.png", 300, 90, {"white": True}),
     "client-aviatdo-white.webp": ("aviatdo.png",      300, 90, {"white": True}),
+    "client-exolum-white.webp":  ("Logo_Exolum.jpg",  300, 90, {"box": (40, 60, 460, 190), "solid": True}),
     # Fotografías
     "apps-home.webp":       ("icorporate_apps_home.jpg",               1000, 78, {}),
     "branding-objects.webp": ("Imagen_corporate_branding_objetos.jpg",  800, 78, {}),
@@ -108,6 +110,17 @@ def to_white(im, gain=1.25):
     lum = Image.merge("RGB", (r, g, b)).convert("L")
     dark = lum.point(lambda v: min(255, int((255 - v) * gain)))
     new_alpha = ImageChops.multiply(alpha, dark)
+    out = Image.new("RGBA", im.size, (255, 255, 255, 0))
+    out.putalpha(new_alpha)
+    return out
+
+
+def to_white_solid(im):
+    """Logo a color sobre fondo blanco -> blanco sólido sobre transparente: alpha según cuánto se
+    aleja cada píxel del blanco (canal mínimo), así los tonos claros y saturados (cian, verde) no quedan huecos."""
+    r, g, b, alpha = im.split()
+    low = ImageChops.darker(ImageChops.darker(r, g), b)
+    new_alpha = ImageChops.multiply(alpha, low.point(lambda v: min(255, int((255 - v) * 2.2))))
     out = Image.new("RGBA", im.size, (255, 255, 255, 0))
     out.putalpha(new_alpha)
     return out
@@ -295,12 +308,14 @@ def main():
             im = clear_background(im)
         if opts.get("unmatte"):
             im = unmatte(im)
+        if opts.get("solid"):
+            im = to_white_solid(im)
         if opts.get("white"):
             im = to_white(im) if opts["white"] is True else to_white(im, opts["white"])
         if opts.get("trim"):
             im = im.crop(im.split()[3].getbbox())
         im = resize(im, width)
-        has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False)
+        has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False) or opts.get("solid", False) or opts.get("unmatte", False)
         if not has_alpha:
             im = im.convert("RGB")
         im.save(DST / out, "WEBP", quality=quality, method=6)
