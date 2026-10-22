@@ -78,6 +78,9 @@ JOBS = {
     "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True}),
     # el mismo iPhone con la pantalla vaciada (transparente, conserva la isla): detrás se pone un degradado en CSS.
     # coordenadas sobre la salida de 520 px: (izq, arriba, der, abajo, radio) de la pantalla y de la isla
+    # capturas reales de la app de ALTA para las pantallas de los teléfonos de atrás (Tech Solutions)
+    "svc-app-alta-home.webp":   ("agenda-forum-app.jpeg",               360, 82, {}),
+    "svc-app-alta-agenda.webp": ("alta-app.jpeg",                       360, 82, {}),
     "svc-phone-frame.webp": ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True,
                                                                                  "screenhole": {"screen": (26, 24, 494, 1062, 64), "island": (189, 37, 331, 77, 20)}}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
