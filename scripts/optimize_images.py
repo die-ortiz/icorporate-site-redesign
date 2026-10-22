@@ -30,6 +30,7 @@ JOBS = {
     # Logos de clientes (se muestran a ~150x100; 300x200 cubre pantallas 2x)
     "client-alta.webp":    ("Logo_alta.png",    300, 88, {}),
     "client-aci-lac.webp": ("Logo_Acilac.png",  300, 88, {}),
+    "client-aci-world.webp": ("Logo_AciWorld.png", 300, 88, {"trim": True}),
     "client-iata.webp":    ("Logo_Iata.png",    300, 88, {}),
     "client-sita.webp":    ("Logo_sita.png",    300, 88, {}),
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
@@ -40,6 +41,7 @@ JOBS = {
     # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
     "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
     "client-aci-lac-white.webp": ("Logo_Acilac.png",  300, 90, {"white": True}),
+    "client-aci-world-white.webp": ("Logo_AciWorld.png", 300, 90, {"white": True, "trim": True}),
     "client-iata-white.webp":    ("Logo_Iata.png",    300, 90, {"white": True}),
     "client-sita-white.webp":    ("Logo_sita.png",    300, 90, {"white": True}),
     "client-heico-white.webp":   ("Logo_Heico.png",   300, 90, {"white": True}),
@@ -80,7 +82,7 @@ JOBS = {
     "team-maria-piegari.webp":   ("about-hero-team.jpg", 240, 88, {"box": (325, 430, 505, 640),  "portrait": {"rx": 0.36}}),
     "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 240, 88, {"portrait": {"rx": 0.39, "cuts": [(0.62, 0.16, 0.82, 0.34)]}}),
     "team-alexandra-ortiz.webp": ("team-alexandra-ortiz.png", 240, 88, {"portrait": {"cx": 0.62, "rx": 0.30, "cuts": [(0.30, 0.0, 0.85, 0.285), (0.745, 0.55, 1.0, 1.0)]}}),
-    "about-hero.webp":      ("about-hero-team.jpg",                      1600, 76, {}),
+    "about-hero.webp":      ("about-hero-team-icorporate.jpg",           1600, 76, {}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
