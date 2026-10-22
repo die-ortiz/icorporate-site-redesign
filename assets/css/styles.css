@@ -913,9 +913,12 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-card::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(16,16,16,.25) 0%, rgba(16,16,16,0) 35%, rgba(16,16,16,.7) 100%); }
 .svc-card__bg { position: absolute; inset: 0; z-index: -2; transform: scale(1.12); }
 .svc-card--bots .svc-card__bg { background: repeating-radial-gradient(circle at 75% 30%, rgba(255,255,255,.16) 0 2px, transparent 2px 24px), radial-gradient(70% 60% at 80% 30%, var(--cyan), transparent 70%), linear-gradient(160deg, var(--dark) 0%, var(--blue-deep) 100%); }
-.svc-card--apps .svc-card__bg { background: repeating-linear-gradient(115deg, rgba(255,255,255,.12) 0 2px, transparent 2px 28px), radial-gradient(70% 55% at 25% 75%, var(--cyan), transparent 70%), linear-gradient(200deg, var(--dark) 0%, var(--blue) 120%); }
-.svc-card--web .svc-card__bg { background: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px) 0 0 / 30px 30px, linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px) 0 0 / 30px 30px, radial-gradient(60% 50% at 75% 80%, var(--lime), transparent 70%), linear-gradient(150deg, var(--dark) 0%, var(--blue-deep) 100%); }
-.svc-card--events .svc-card__bg { background: repeating-conic-gradient(from 0deg at 30% 70%, rgba(255,255,255,.14) 0deg 3deg, transparent 3deg 15deg), radial-gradient(65% 55% at 30% 70%, var(--blue), transparent 70%), radial-gradient(40% 35% at 85% 15%, var(--lime), transparent 70%), linear-gradient(180deg, var(--dark) 0%, var(--blue-deep) 130%); }
+.svc-card img.svc-card__bg { width: 100%; height: 100%; object-fit: cover; }
+.svc-card--apps img.svc-card__bg { object-position: 50% 30%; }
+.svc-card--web img.svc-card__bg { object-position: 0 0; }
+.svc-card--events img.svc-card__bg { object-position: 40% 50%; }
+.svc-card--photo::after { background: linear-gradient(180deg, rgba(16,16,16,.6) 0%, rgba(16,16,16,.2) 40%, rgba(16,16,16,.85) 100%); }
+.svc-card__mascot { position: absolute; top: 4.2rem; right: 1.2rem; z-index: -1; width: 38%; max-width: 130px; height: auto; filter: drop-shadow(0 0 24px var(--cyan)); }
 @keyframes svc-scale { from { transform: scale(1); } to { transform: scale(1.2); } }
 @media (prefers-reduced-motion: no-preference) { .svc-card__bg { animation: svc-scale 4s ease infinite alternate; } }
 .svc-card h3 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 400; line-height: 1.2; letter-spacing: -.01em; text-transform: uppercase; overflow-wrap: anywhere; }

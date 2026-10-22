@@ -73,6 +73,7 @@ JOBS = {
     "logo-waga-2026-white.webp": ("logo-waga-2026.png", 285, 92, {"white": 2.6}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
+    "event-tech.webp":      ("icorporate_event_tech_home.jpg",          725, 80, {}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
     # Retratos del equipo (avatar de 92 px) con el fondo reemplazado por el azul de marca (ver make_portrait).
