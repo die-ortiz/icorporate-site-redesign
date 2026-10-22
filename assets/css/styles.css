@@ -39,7 +39,7 @@
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body {
   margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font);
-  font-size: 1rem; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; overflow-x: clip; /* clip no crea contenedor de scroll: necesario para animation-timeline: view() */
+  font-size: 1rem; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
@@ -905,21 +905,19 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .faq details p { padding: 0 1.3rem 1.2rem; color: var(--ink-soft); }
 
 /* Tarjetas de servicio con viñetas (p. ej. Tech Solutions) */
-/* Tarjetas de servicio con fondo abstracto (Tech Solutions, "What we build"): el fondo escala con el scroll (solo si el navegador lo soporta y sin movimiento reducido) */
+/* Tarjetas de servicio con fondo abstracto (Tech Solutions, "What we build"): el fondo "respira" (zoom 1 a 1.2 en bucle de 4 s, solo sin movimiento reducido) */
 .svc-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
 @media (min-width: 720px) { .svc-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1100px) { .svc-cards { grid-template-columns: repeat(4, 1fr); } }
-.svc-card { position: relative; isolation: isolate; overflow: clip; /* clip (no hidden): hidden crea un contenedor de scroll y congelaría view() */ display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; min-height: 26rem; padding: 1.5rem; border-radius: var(--radius); background: var(--dark); color: #fff; }
+.svc-card { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; min-height: 26rem; padding: 1.5rem; border-radius: var(--radius); background: var(--dark); color: #fff; }
 .svc-card::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(16,16,16,.25) 0%, rgba(16,16,16,0) 35%, rgba(16,16,16,.7) 100%); }
 .svc-card__bg { position: absolute; inset: 0; z-index: -2; transform: scale(1.12); }
 .svc-card--bots .svc-card__bg { background: repeating-radial-gradient(circle at 75% 30%, rgba(255,255,255,.16) 0 2px, transparent 2px 24px), radial-gradient(70% 60% at 80% 30%, var(--cyan), transparent 70%), linear-gradient(160deg, var(--dark) 0%, var(--blue-deep) 100%); }
 .svc-card--apps .svc-card__bg { background: repeating-linear-gradient(115deg, rgba(255,255,255,.12) 0 2px, transparent 2px 28px), radial-gradient(70% 55% at 25% 75%, var(--cyan), transparent 70%), linear-gradient(200deg, var(--dark) 0%, var(--blue) 120%); }
 .svc-card--web .svc-card__bg { background: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px) 0 0 / 30px 30px, linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px) 0 0 / 30px 30px, radial-gradient(60% 50% at 75% 80%, var(--lime), transparent 70%), linear-gradient(150deg, var(--dark) 0%, var(--blue-deep) 100%); }
 .svc-card--events .svc-card__bg { background: repeating-conic-gradient(from 0deg at 30% 70%, rgba(255,255,255,.14) 0deg 3deg, transparent 3deg 15deg), radial-gradient(65% 55% at 30% 70%, var(--blue), transparent 70%), radial-gradient(40% 35% at 85% 15%, var(--lime), transparent 70%), linear-gradient(180deg, var(--dark) 0%, var(--blue-deep) 130%); }
-@keyframes svc-scale { from { transform: scale(1.7); } to { transform: scale(1); } }
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) { .svc-card__bg { transform: none; animation: svc-scale linear both; animation-timeline: view(); } }
-}
+@keyframes svc-scale { from { transform: scale(1); } to { transform: scale(1.2); } }
+@media (prefers-reduced-motion: no-preference) { .svc-card__bg { animation: svc-scale 4s ease infinite alternate; } }
 .svc-card h3 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 400; line-height: 1.2; letter-spacing: -.01em; text-transform: uppercase; overflow-wrap: anywhere; }
 .svc-card__body { display: grid; gap: 1.1rem; }
 .svc-card__body p { font-size: .93rem; color: rgba(255,255,255,.88); }
