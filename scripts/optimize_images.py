@@ -74,6 +74,12 @@ JOBS = {
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     "event-tech.webp":      ("icorporate_event_tech_home.jpg",          725, 80, {}),
+    # captura de la app de WAGA 2026 en un iPhone, recortada al teléfono y sin el fondo blanco (celular del frente en Tech Solutions)
+    "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True}),
+    # el mismo iPhone con la pantalla vaciada (transparente, conserva la isla): detrás se pone un degradado en CSS.
+    # coordenadas sobre la salida de 520 px: (izq, arriba, der, abajo, radio) de la pantalla y de la isla
+    "svc-phone-frame.webp": ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True,
+                                                                                 "screenhole": {"screen": (26, 24, 494, 1062, 64), "island": (189, 37, 331, 77, 20)}}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
     # Retratos del equipo (avatar de 92 px) con el fondo reemplazado por el azul de marca (ver make_portrait).
@@ -279,6 +285,24 @@ def clear_background(im):
     return out
 
 
+def punch_screen(im, screen, island):
+    """Vacía la pantalla de un teléfono (alpha 0 dentro del rectángulo redondeado), conservando la isla.
+    El borde se suaviza con una máscara a 4x para que no se vea dentado."""
+    from PIL import ImageDraw
+    k = 4
+    mask = Image.new("L", (im.width * k, im.height * k), 0)
+    d = ImageDraw.Draw(mask)
+    l, t, r, b, rad = (v * k for v in screen)
+    d.rounded_rectangle((l, t, r, b), radius=rad, fill=255)
+    il, it, ir, ib, irad = (v * k for v in island)
+    d.rounded_rectangle((il, it, ir, ib), radius=irad, fill=0)
+    mask = mask.resize(im.size, Image.LANCZOS)
+    alpha = ImageChops.multiply(im.split()[3], mask.point(lambda v: 255 - v))
+    im = im.copy()
+    im.putalpha(alpha)
+    return im
+
+
 def resize(im, width):
     if im.width <= width:
         return im
@@ -318,6 +342,8 @@ def main():
         if opts.get("trim"):
             im = im.crop(im.split()[3].getbbox())
         im = resize(im, width)
+        if opts.get("screenhole"):
+            im = punch_screen(im, **opts["screenhole"])
         has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False) or opts.get("solid", False) or opts.get("unmatte", False)
         if not has_alpha:
             im = im.convert("RGB")
