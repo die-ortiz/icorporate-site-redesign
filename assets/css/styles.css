@@ -916,7 +916,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-card--apps .svc-card__bg { background: repeating-linear-gradient(115deg, rgba(255,255,255,.12) 0 2px, transparent 2px 28px), radial-gradient(70% 55% at 25% 75%, var(--cyan), transparent 70%), linear-gradient(200deg, var(--dark) 0%, var(--blue) 120%); }
 .svc-card--web .svc-card__bg { background: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px) 0 0 / 30px 30px, linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px) 0 0 / 30px 30px, radial-gradient(60% 50% at 75% 80%, var(--lime), transparent 70%), linear-gradient(150deg, var(--dark) 0%, var(--blue-deep) 100%); }
 .svc-card--events .svc-card__bg { background: repeating-conic-gradient(from 0deg at 30% 70%, rgba(255,255,255,.14) 0deg 3deg, transparent 3deg 15deg), radial-gradient(65% 55% at 30% 70%, var(--blue), transparent 70%), radial-gradient(40% 35% at 85% 15%, var(--lime), transparent 70%), linear-gradient(180deg, var(--dark) 0%, var(--blue-deep) 130%); }
-@keyframes svc-scale { from { transform: scale(1.24); } to { transform: scale(1.04); } }
+@keyframes svc-scale { from { transform: scale(1.7); } to { transform: scale(1); } }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) { .svc-card__bg { transform: none; animation: svc-scale linear both; animation-timeline: view(); } }
 }
