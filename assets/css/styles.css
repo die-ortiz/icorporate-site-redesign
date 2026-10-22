@@ -932,6 +932,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-phone--3 { left: 7.2rem; top: 10rem; }
 .svc-phone__frame { position: relative; display: block; width: 100%; height: 100%; }
 .svc-phone__screen { position: absolute; inset: 1.8% 4.2% 1.9%; border-radius: 13.7% / 6.2%; }
+.svc-phone__screen img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .svc-phone__screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.12) 100%); }
 .svc-phone--1 .svc-phone__screen { background: linear-gradient(170deg, var(--lime) 0%, var(--cyan) 100%); }
 .svc-phone--2 .svc-phone__screen { background: linear-gradient(170deg, var(--cyan) 0%, var(--blue) 100%); }
