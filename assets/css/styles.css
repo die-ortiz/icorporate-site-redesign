@@ -918,22 +918,23 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-card--events img.svc-card__bg { object-position: 40% 50%; }
 .svc-card--photo::after { background: linear-gradient(180deg, rgba(16,16,16,.6) 0%, rgba(16,16,16,.2) 40%, rgba(16,16,16,.85) 100%); }
 .svc-card__mascot { position: absolute; top: 4.2rem; right: 1.2rem; z-index: -1; width: 38%; max-width: 130px; height: auto; filter: drop-shadow(0 0 24px var(--cyan)); }
-/* Caja de Apps: cuatro iPhone escalonados. El marco es la foto real del teléfono (pantalla vaciada); detrás va un degradado como pantalla.
-   El del frente es la captura de la app de WAGA 2026. Medidas en rem para que no dependan del ancho de la tarjeta. */
-.svc-card--apps .svc-card__bg { background: radial-gradient(70% 55% at 30% 75%, var(--blue), transparent 70%), linear-gradient(200deg, var(--dark) 0%, var(--blue-deep) 130%); }
+/* Caja de Apps: tres iPhone escalonados y centrados. El marco es la foto real del teléfono (pantalla vaciada); detrás va un degradado como pantalla.
+   El del frente es la captura de la app de WAGA 2026. El zoom del fondo se aplica a una capa aparte (::before) para que los teléfonos no crezcan ni se salgan.
+   Medidas en rem para que no dependan del ancho de la tarjeta. */
+.svc-card--apps .svc-card__bg { animation: none; transform: none; }
+.svc-card--apps .svc-card__bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 55% at 30% 75%, var(--blue), transparent 70%), linear-gradient(200deg, var(--dark) 0%, var(--blue-deep) 130%); transform: scale(1.1); }
+@media (prefers-reduced-motion: no-preference) { .svc-card--apps .svc-card__bg::before { animation: svc-scale 4s ease infinite alternate; } }
 .svc-card--apps::after { background: linear-gradient(180deg, rgba(16,16,16,.35) 0%, rgba(16,16,16,0) 30%, rgba(16,16,16,.8) 100%); }
-.svc-phones__stack { --ph: 17rem; position: absolute; top: 0; bottom: 0; left: 50%; width: calc(var(--ph) * .478 + 9.6rem); transform: translateX(-50%); }
+.svc-phones__stack { --ph: 16rem; position: absolute; top: 0; bottom: 0; left: 50%; width: calc(var(--ph) * .478 + 7.2rem); transform: translateX(-50%); }
 .svc-phone { position: absolute; height: var(--ph); aspect-ratio: 520 / 1087; filter: drop-shadow(-.6rem .9rem 1.1rem rgba(0,0,0,.5)); }
-.svc-phone--1 { left: 0;      top: 8.5rem; }
-.svc-phone--2 { left: 3.2rem; top: 9.9rem; }
-.svc-phone--3 { left: 6.4rem; top: 11.3rem; }
-.svc-phone--4 { left: 9.6rem; top: 12.7rem; }
+.svc-phone--1 { left: 0;      top: 8rem; }
+.svc-phone--2 { left: 3.6rem; top: 9rem; }
+.svc-phone--3 { left: 7.2rem; top: 10rem; }
 .svc-phone__frame { position: relative; display: block; width: 100%; height: 100%; }
 .svc-phone__screen { position: absolute; inset: 1.8% 4.2% 1.9%; border-radius: 13.7% / 6.2%; }
 .svc-phone__screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.12) 100%); }
-.svc-phone--1 .svc-phone__screen { background: linear-gradient(170deg, var(--paper) 0%, var(--cyan) 100%); }
+.svc-phone--1 .svc-phone__screen { background: linear-gradient(170deg, var(--lime) 0%, var(--cyan) 100%); }
 .svc-phone--2 .svc-phone__screen { background: linear-gradient(170deg, var(--cyan) 0%, var(--blue) 100%); }
-.svc-phone--3 .svc-phone__screen { background: linear-gradient(170deg, var(--lime) 0%, var(--cyan) 100%); }
 @keyframes svc-scale { from { transform: scale(1); } to { transform: scale(1.2); } }
 @media (prefers-reduced-motion: no-preference) { .svc-card__bg { animation: svc-scale 4s ease infinite alternate; } }
 .svc-card h3 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 400; line-height: 1.2; letter-spacing: -.01em; text-transform: uppercase; overflow-wrap: anywhere; }
