@@ -905,8 +905,44 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .faq details p { padding: 0 1.3rem 1.2rem; color: var(--ink-soft); }
 
 /* Tarjetas de servicio con viñetas (p. ej. Tech Solutions) */
-@media (min-width: 720px) { .type-cards--4 { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1100px) { .type-cards--4 { grid-template-columns: repeat(4, 1fr); } }
+/* Tarjetas de servicio con fondo abstracto (Tech Solutions, "What we build"): el fondo "respira" (zoom 1 a 1.2 en bucle de 4 s, solo sin movimiento reducido) */
+.svc-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
+@media (min-width: 720px) { .svc-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .svc-cards { grid-template-columns: repeat(4, 1fr); } }
+.svc-card { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; min-height: 26rem; padding: 1.5rem; border-radius: var(--radius); background: var(--dark); color: #fff; }
+.svc-card::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(16,16,16,.25) 0%, rgba(16,16,16,0) 35%, rgba(16,16,16,.7) 100%); }
+.svc-card__bg { position: absolute; inset: 0; z-index: -2; transform: scale(1.12); }
+.svc-card--bots .svc-card__bg { background: repeating-radial-gradient(circle at 75% 30%, rgba(255,255,255,.16) 0 2px, transparent 2px 24px), radial-gradient(70% 60% at 80% 30%, var(--cyan), transparent 70%), linear-gradient(160deg, var(--dark) 0%, var(--blue-deep) 100%); }
+.svc-card img.svc-card__bg { width: 100%; height: 100%; object-fit: cover; }
+.svc-card--web img.svc-card__bg { object-position: 0 0; }
+.svc-card--events img.svc-card__bg { object-position: 40% 50%; }
+.svc-card--photo::after { background: linear-gradient(180deg, rgba(16,16,16,.6) 0%, rgba(16,16,16,.2) 40%, rgba(16,16,16,.85) 100%); }
+.svc-card__mascot { position: absolute; top: 4.2rem; right: 1.2rem; z-index: -1; width: 38%; max-width: 130px; height: auto; filter: drop-shadow(0 0 24px var(--cyan)); }
+/* Caja de Apps: tres iPhone escalonados y centrados. El marco es la foto real del teléfono (pantalla vaciada); detrás va un degradado como pantalla.
+   El del frente es la captura de la app de WAGA 2026. El zoom del fondo se aplica a una capa aparte (::before) para que los teléfonos no crezcan ni se salgan.
+   Medidas en rem para que no dependan del ancho de la tarjeta. */
+.svc-card--apps .svc-card__bg { animation: none; transform: none; }
+.svc-card--apps .svc-card__bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 55% at 30% 75%, var(--blue), transparent 70%), linear-gradient(200deg, var(--dark) 0%, var(--blue-deep) 130%); transform: scale(1.1); }
+@media (prefers-reduced-motion: no-preference) { .svc-card--apps .svc-card__bg::before { animation: svc-scale 4s ease infinite alternate; } }
+.svc-card--apps::after { background: linear-gradient(180deg, rgba(16,16,16,.35) 0%, rgba(16,16,16,0) 30%, rgba(16,16,16,.8) 100%); }
+.svc-phones__stack { --ph: 16rem; position: absolute; top: 0; bottom: 0; left: 50%; width: calc(var(--ph) * .478 + 7.2rem); transform: translateX(-50%); }
+.svc-phone { position: absolute; height: var(--ph); aspect-ratio: 520 / 1087; filter: drop-shadow(-.6rem .9rem 1.1rem rgba(0,0,0,.5)); }
+.svc-phone--1 { left: 0;      top: 8rem; }
+.svc-phone--2 { left: 3.6rem; top: 9rem; }
+.svc-phone--3 { left: 7.2rem; top: 10rem; }
+.svc-phone__frame { position: relative; display: block; width: 100%; height: 100%; }
+.svc-phone__screen { position: absolute; inset: 1.8% 4.2% 1.9%; border-radius: 13.7% / 6.2%; }
+.svc-phone__screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.12) 100%); }
+.svc-phone--1 .svc-phone__screen { background: linear-gradient(170deg, var(--lime) 0%, var(--cyan) 100%); }
+.svc-phone--2 .svc-phone__screen { background: linear-gradient(170deg, var(--cyan) 0%, var(--blue) 100%); }
+@keyframes svc-scale { from { transform: scale(1); } to { transform: scale(1.2); } }
+@media (prefers-reduced-motion: no-preference) { .svc-card__bg { animation: svc-scale 4s ease infinite alternate; } }
+.svc-card h3 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 400; line-height: 1.2; letter-spacing: -.01em; text-transform: uppercase; overflow-wrap: anywhere; }
+.svc-card__body { display: grid; gap: 1.1rem; }
+.svc-card__body p { font-size: .93rem; color: rgba(255,255,255,.88); }
+.svc-card__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 1.1rem 0 0; list-style: none; border-top: 1px solid rgba(255,255,255,.55); }
+.svc-card__tags li { padding: .2rem .8rem; border-radius: 999px; background: rgba(255,255,255,.2); backdrop-filter: blur(6px); font: 500 .72rem/1.5 var(--font-mono); letter-spacing: .02em; }
+
 .type-card ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
 .type-card li { position: relative; padding-left: 1.1rem; font-size: .9rem; color: var(--ink-soft); }
 .type-card li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
