@@ -1068,14 +1068,13 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .links-404 a:hover { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
 
 /* Vitrina de Tech Solutions: titular grande, palabra fantasma y dispositivos solapados con parallax suave (showcase.js) */
-.showcase { position: relative; isolation: isolate; overflow: hidden; color: #fff; padding: 5rem 0 4.5rem; background: radial-gradient(60% 55% at 78% 45%, rgba(3,127,217,.2), transparent 70%), var(--dark); }
-.showcase::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(6,189,231,.5), transparent); }
+.showcase { position: relative; isolation: isolate; overflow: hidden; color: #fff; padding: 2.5rem 0 4.5rem; background: radial-gradient(60% 55% at 78% 50%, rgba(3,127,217,.16), transparent 70%), var(--dark); }
 .showcase [data-depth] { translate: var(--px, 0) var(--py, 0); will-change: translate; }
 .showcase__ghost { position: absolute; z-index: -1; left: -1vw; bottom: -.12em; font: 400 clamp(6rem, 21vw, 21rem)/1 var(--font-head); letter-spacing: -.03em; color: rgba(255,255,255,.045); white-space: nowrap; pointer-events: none; user-select: none; }
 .showcase__inner { position: relative; display: grid; gap: 2rem; } /* los dispositivos se anclan al contenedor, no a la sección */
 .showcase__head { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1.2rem; }
 .showcase__head .eyebrow { color: var(--cyan); flex-wrap: wrap; }
-.showcase__title { margin: 0; font-size: clamp(3rem, 7.6vw, 7.6rem); line-height: .98; font-weight: 400; letter-spacing: -.02em; }
+.showcase__title { margin: 0; font-size: clamp(1.9rem, 4.4vw, 3.2rem); line-height: 1.08; font-weight: 400; } /* un escalón bajo el H1 de la cabecera */
 .showcase__brace { color: var(--cyan); }
 .showcase__devices { position: relative; z-index: 2; height: 25rem; }
 .showcase__browser { position: absolute; right: 0; top: 3rem; width: 80%; max-width: 32rem; overflow: hidden; border-radius: var(--radius); background: #fff; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 30px 80px rgba(0,0,0,.55); rotate: -3deg; }
@@ -1091,8 +1090,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .showcase__lead { margin: 0; max-width: 34ch; color: var(--on-dark); font-size: clamp(1.02rem, 1.8vw, 1.2rem); }
 .showcase__foot .page-hero__actions { justify-content: flex-start; margin-top: 1.6rem; }
 @media (min-width: 900px) {
-  .showcase { min-height: min(100svh, 52rem); padding: 6.5rem 0 5rem; display: grid; align-content: center; }
-  .showcase__inner { min-height: 36rem; grid-template-rows: auto 1fr; align-content: space-between; }
+  .showcase { padding: 0 0 5rem; }
+  .showcase__inner { min-height: 34rem; align-content: center; gap: 1.6rem; }
   .showcase__devices { position: absolute; z-index: 2; right: 0; top: 0; width: min(42rem, 52%); height: 34rem; }
   .showcase__browser { top: 6rem; width: 82%; max-width: none; }
   .showcase__phone { --ph: 24rem; }
