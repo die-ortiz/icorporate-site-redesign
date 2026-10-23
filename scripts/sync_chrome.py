@@ -38,7 +38,7 @@ PAGES = {
 }
 # módulo -> patrón del marcado que lo hace necesario (core.js e ibot.js van siempre)
 FEATURES = {
-    "backgrounds.js": r'hero__video|data-siderays|data-orb|data-grid',
+    "backgrounds.js": r'hero__video|data-siderays|data-orb|data-tunnel',
     "cycle.js": r'data-cycle',
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
     "forms.js": r'id="(?:contact|proposal)-form"',

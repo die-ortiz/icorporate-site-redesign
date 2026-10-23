@@ -142,9 +142,9 @@ for c in sorted(set(re.findall(r"\.([a-zA-Z][\w-]*)", css))):
         continue
     warn(f"clase CSS sin uso: .{c}")
 refs = all_html + css + js
-# módulos de JS que ninguna página carga (siderays.js, orb.js y grid.js se importan desde backgrounds.js)
+# módulos de JS que ninguna página carga (siderays.js, orb.js y tunnel.js se importan desde backgrounds.js)
 for js_file in sorted(os.listdir("assets/js")):
-    if js_file.endswith(".js") and js_file not in ("siderays.js", "orb.js", "grid.js") and js_file not in all_html:
+    if js_file.endswith(".js") and js_file not in ("siderays.js", "orb.js", "tunnel.js") and js_file not in all_html:
         warn(f"módulo JS sin cargar en ninguna página: assets/js/{js_file}")
 for img in sorted(os.listdir("assets/img")):
     if not img.startswith(".") and img not in refs:
