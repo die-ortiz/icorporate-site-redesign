@@ -939,6 +939,15 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 /* Efectos de carga discretos de Tech Solutions (cabecera, cajas) y Corporate Branding (cabecera, tarjetas) y, con `.process-fx` en una sección, los del proceso (título, fases en cascada y línea que se dibuja) también en otras páginas. Solo con movimiento permitido; se apoyan en .reveal/.in (core.js) y en animaciones al cargar. */
 @keyframes tech-rise { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes tech-fade { from { opacity: 0; } to { opacity: 1; } }
+/* Home: carga discreta del hero. Título, subtítulo y botones entran en cascada, el póster se asienta (sin fundido, para no retrasar el LCP) y los logos de clientes aparecen al final. */
+@keyframes hero-settle { from { transform: scale(1.05); } to { transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .page-home .hero__text > * { animation: tech-rise .8s cubic-bezier(.22, 1, .36, 1) both; }
+  .page-home .hero__text > :nth-child(2) { animation-delay: .15s; }
+  .page-home .hero__text > :nth-child(3) { animation-delay: .3s; }
+  .page-home .hero__poster { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
+  .page-home .trust { animation: tech-fade 1s ease .6s both; }
+}
 @media (prefers-reduced-motion: no-preference) {
   /* cabecera: entrada escalonada (migas, título, subtítulo, botones) y el orbe aparece con un fundido */
   :is(.page-tech, .page-branding) .page-hero .container > * { animation: tech-rise .8s cubic-bezier(.22, 1, .36, 1) both; }
