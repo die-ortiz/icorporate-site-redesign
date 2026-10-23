@@ -24,7 +24,7 @@
     'margin-bottom', 'margin-left', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
     'border-top-width', 'border-top-color', 'border-top-left-radius', 'box-shadow', 'opacity', 'gap',
     'grid-template-columns', 'flex-direction', 'justify-content', 'align-items', 'z-index', 'overflow-x', 'filter'];
-  const MOVING = '.marquee, .wall, .flow, .hero__video, canvas, [data-siderays], [data-orb], .ibot';
+  const MOVING = '.marquee, .wall, .flow, .hero__video, canvas, [data-siderays], .ibot';
   // elementos que cambian solos de estado (carrusel del destacado): se omiten por completo
   const SKIP = '.flagship__slides, .flagship__dots, .ibot';
 
