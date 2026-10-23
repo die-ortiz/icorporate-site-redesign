@@ -3,6 +3,7 @@
    - Mega-menú de escritorio: abre solo con clic (.nav__item.has-sub, .nav__caret); .is-mega en la cabecera.
    - Menú móvil (.menu-toggle + #site-nav).
    - Entrada suave de secciones (.reveal -> .in, con IntersectionObserver).
+   - Animaciones infinitas fuera de pantalla: se pausan (.is-paused) hasta que el elemento vuelve a verse.
    - Botón "volver arriba" (.icorp-up): chevron cian, sin fondo ni borde; lo crea este módulo, aparece al bajar y va sobre el iBot flotante.
    Sin dependencias de otros archivos de JS. */
 
@@ -13,9 +14,11 @@ if (header) {
   const FLIP_ON = 0.46, FLIP_OFF = 0.42; // punto de equilibrio de contraste (0.44) con histéresis
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   let flipped = false;
+  let lastP = '';
   const update = () => {
     const p = clamp01(window.scrollY / RANGE);
-    header.style.setProperty('--scroll-p', p.toFixed(3));
+    const v = p.toFixed(3);
+    if (v !== lastP) { header.style.setProperty('--scroll-p', v); lastP = v; } // fuera del rango no se escribe: evita recalcular estilos en cada scroll
     if (!flipped && p >= FLIP_ON) flipped = true;
     else if (flipped && p <= FLIP_OFF) flipped = false;
     header.classList.toggle('is-scrolled', flipped);
@@ -104,3 +107,10 @@ if ('IntersectionObserver' in window && reveals.length) {
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce.matches ? 'auto' : 'smooth' }));
   update();
 })();
+
+// Pausa las animaciones infinitas de los elementos que no están en pantalla (menos trabajo de estilo/pintado al hacer scroll)
+const animated = document.querySelectorAll('.grad-text, .cycle__tab, .svc-card, .flow, .showcase, .marquee, .wall');
+if (animated.length && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-paused', !e.isIntersecting)), { rootMargin: '120px 0px' });
+  animated.forEach((el) => { el.classList.add('is-paused'); io.observe(el); });
+}
