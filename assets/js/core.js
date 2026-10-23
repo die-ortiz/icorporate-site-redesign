@@ -109,7 +109,7 @@ if ('IntersectionObserver' in window && reveals.length) {
 })();
 
 // Pausa las animaciones infinitas de los elementos que no están en pantalla (menos trabajo de estilo/pintado al hacer scroll)
-const animated = document.querySelectorAll('.grad-text, .cycle__tab, .svc-card, .flow, .showcase, .marquee, .wall');
+const animated = document.querySelectorAll('.grad-text, .cycle__tab, .svc-card, .flow, .marquee, .wall');
 if (animated.length && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-paused', !e.isIntersecting)), { rootMargin: '120px 0px' });
   animated.forEach((el) => { el.classList.add('is-paused'); io.observe(el); });
