@@ -1067,6 +1067,42 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .links-404 a { color: #fff; text-decoration: none; }
 .links-404 a:hover { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
 
+/* Vitrina de Tech Solutions: titular grande, palabra fantasma y dispositivos solapados con parallax suave (showcase.js) */
+.showcase { position: relative; isolation: isolate; overflow: hidden; color: #fff; padding: 5rem 0 4.5rem; background: radial-gradient(60% 55% at 78% 45%, rgba(3,127,217,.2), transparent 70%), var(--dark); }
+.showcase::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(6,189,231,.5), transparent); }
+.showcase [data-depth] { translate: var(--px, 0) var(--py, 0); will-change: translate; }
+.showcase__ghost { position: absolute; z-index: -1; left: -1vw; bottom: -.12em; font: 400 clamp(6rem, 21vw, 21rem)/1 var(--font-head); letter-spacing: -.03em; color: rgba(255,255,255,.045); white-space: nowrap; pointer-events: none; user-select: none; }
+.showcase__inner { display: grid; gap: 2rem; }
+.showcase__head { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+.showcase__head .eyebrow { color: var(--cyan); flex-wrap: wrap; }
+.showcase__title { margin: 0; font-size: clamp(3rem, 7.6vw, 7.6rem); line-height: .98; font-weight: 400; letter-spacing: -.02em; }
+.showcase__brace { color: var(--cyan); }
+.showcase__devices { position: relative; z-index: 2; height: 25rem; }
+.showcase__browser { position: absolute; right: 0; top: 3rem; width: 80%; max-width: 32rem; overflow: hidden; border-radius: var(--radius); background: #fff; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 30px 80px rgba(0,0,0,.55); rotate: -3deg; }
+.showcase__bar { height: 1.7rem; background: var(--line); }
+.showcase__bar::before { content: ""; display: block; width: .5rem; height: .5rem; margin: .6rem 0 0 .8rem; border-radius: 50%; background: rgba(16,16,16,.28); box-shadow: .9rem 0 rgba(16,16,16,.28), 1.8rem 0 rgba(16,16,16,.28); }
+.showcase__browser img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0; }
+.showcase__phone { --ph: 19rem; position: absolute; }
+.showcase__phone--a { left: 8%; top: 0; rotate: -9deg; }
+.showcase__phone--b { --ph: 21rem; right: 10%; top: 3.5rem; rotate: 7deg; }
+.showcase__chip { position: absolute; left: 30%; bottom: .5rem; display: flex; align-items: center; gap: .6rem; padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px; font-size: .85rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+.showcase__chip img { width: 2.2rem; height: 2.2rem; }
+.showcase__foot { position: relative; z-index: 3; }
+.showcase__lead { margin: 0; max-width: 34ch; color: var(--on-dark); font-size: clamp(1.02rem, 1.8vw, 1.2rem); }
+.showcase__foot .page-hero__actions { justify-content: flex-start; margin-top: 1.6rem; }
+@media (min-width: 900px) {
+  .showcase { min-height: min(100svh, 52rem); padding: 6.5rem 0 5rem; display: grid; align-content: center; }
+  .showcase__inner { min-height: 36rem; grid-template-rows: auto 1fr; align-content: space-between; }
+  .showcase__devices { position: absolute; z-index: 2; right: 0; top: 4rem; width: min(42rem, 52%); height: 34rem; }
+  .showcase__browser { top: 6rem; width: 82%; max-width: none; }
+  .showcase__phone { --ph: 24rem; }
+  .showcase__phone--b { --ph: 27rem; top: 4.5rem; }
+  .showcase__chip { left: 26%; bottom: 1rem; font-size: .92rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .showcase__chip { animation: svc-pulse 5s ease infinite alternate; }
+}
+
 /* Integraciones a pantalla completa: titular centrado, logos a los lados, iBot al centro y conexiones animadas */
 .flow-full { position: relative; overflow: hidden; color: #fff; padding: clamp(3rem, 6vw, 4.5rem) 0; min-height: min(100svh, 860px); display: grid; align-content: center;
   background:

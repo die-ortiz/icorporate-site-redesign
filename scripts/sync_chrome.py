@@ -43,6 +43,7 @@ FEATURES = {
     "cycle.js": r'data-cycle',
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
     "forms.js": r'id="(?:contact|proposal)-form"',
+    "showcase.js": r'data-showcase',
     "magnetic.js": r'data-magnetic',
     "home.js": r'class="(?:[^"]* )?(?:marquee|wall)(?: [^"]*)?"|data-flagship-slides',
     "stats.js": r'class="(?:[^"]* )?stat(?: [^"]*)?"|data-count',
