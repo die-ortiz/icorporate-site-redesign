@@ -1067,6 +1067,15 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .links-404 a { color: #fff; text-decoration: none; }
 .links-404 a:hover { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
 
+/* Bloque fijo (Tech Solutions): la cabecera queda fija a pantalla completa y la vitrina sube y la tapa con el borde superior redondeado */
+.pin-stack { position: relative; }
+.page-hero--pin { position: sticky; top: 0; z-index: 0; display: grid; align-content: center; min-height: 100svh; padding: 7rem 0 5rem; }
+.page-hero--pin > .container { opacity: calc(1 - var(--pin, 0) * 1.3); translate: 0 calc(var(--pin, 0) * -3rem); }
+.pin-stack .showcase { z-index: 1; border-radius: calc(var(--radius) * 2.5) calc(var(--radius) * 2.5) 0 0; border-top: 1px solid rgba(255,255,255,.12);
+  background: radial-gradient(60% 55% at 78% 50%, rgba(3,127,217,.16), transparent 70%), color-mix(in srgb, var(--dark), #fff 4%);
+  box-shadow: 0 -30px 80px rgba(0,0,0,.55); padding-top: 3rem; }
+@media (prefers-reduced-motion: reduce) { .page-hero--pin { position: relative; } }
+
 /* Vitrina de Tech Solutions: titular grande, palabra fantasma y dispositivos solapados con parallax suave (showcase.js) */
 .showcase { position: relative; isolation: isolate; overflow: hidden; color: #fff; padding: 2.5rem 0 4.5rem; background: radial-gradient(60% 55% at 78% 50%, rgba(3,127,217,.16), transparent 70%), var(--dark); }
 .showcase [data-depth] { translate: var(--px, 0) var(--py, 0); will-change: translate; }

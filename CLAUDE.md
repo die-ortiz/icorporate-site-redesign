@@ -76,6 +76,8 @@ dist/               Salida de publish.py (ignorada por git)
 | `cycle.js` | Ciclo del evento (`[data-cycle]`) | Events |
 | `flow.js` | Diagrama de integraciones (`.flow`) | Tech |
 | `backgrounds.js` | Video de fondo, rayos y túnel (importa `siderays.js` y `tunnel.js`) | Home, Tech, Events |
+| `showcase.js` | Parallax de la vitrina de Tech (`[data-showcase]`, `data-depth`) | Tech |
+| `pin.js` | Cabecera fija a pantalla completa (`[data-pin]`): atenúa su contenido mientras la sección siguiente la tapa | Tech |
 | `ibot.js` | Asistente de demostración (flotante) | Todas |
 
 ## Convenciones de código

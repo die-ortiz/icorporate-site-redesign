@@ -206,7 +206,9 @@
 
   <main id="main">
     <!-- CABECERA (centrada) -->
-    <section class="page-hero page-hero--tunnel">
+    <!-- BLOQUE FIJO: la cabecera queda fija a pantalla completa y la vitrina sube y la tapa (.pin-stack; assets/js/pin.js atenúa el contenido) -->
+    <div class="pin-stack">
+    <section class="page-hero page-hero--tunnel page-hero--pin" data-pin>
       <!-- Fondo: túnel de datos WebGL (assets/js/tunnel.js); sin WebGL o con movimiento reducido queda estático/oscuro. -->
       <div class="tunnel-bg" data-tunnel aria-hidden="true"></div>
       <!-- Video opcional: se activa solo si existe assets/video/tech.mp4 (ver scripts/optimize_video.sh) -->
@@ -255,6 +257,7 @@
         </div>
       </div>
     </section>
+    </div>
 
     <!-- LOS 4 SERVICIOS (nombres reales del sitio actual; descripciones y viñetas de ejemplo) -->
     <section class="section" id="services-list">
@@ -481,6 +484,7 @@
   <script type="module" src="../assets/js/backgrounds.js"></script>
   <script type="module" src="../assets/js/flow.js"></script>
   <script type="module" src="../assets/js/forms.js"></script>
+  <script type="module" src="../assets/js/pin.js"></script>
   <script type="module" src="../assets/js/showcase.js"></script>
   <script type="module" src="../assets/js/stats.js"></script>
 </body>
