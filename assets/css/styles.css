@@ -709,39 +709,24 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .page-hero h1 { font-size: clamp(2.1rem, 5vw, 3.8rem); font-weight: 400; max-width: 20ch; margin-inline: auto; }
 .page-hero__sub { margin: 1.4rem auto 0; max-width: 54ch; color: var(--on-dark); font-size: clamp(1.02rem, 2vw, 1.2rem); }
 .page-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2.2rem; }
-/* Hero con foto del equipo (About): foto a ancho completo, recortada al equipo, y tarjeta de texto que cubre su borde inferior */
-.page-hero--team { padding-top: 0; }
-.page-hero--team > .container { width: 100%; display: flex; flex-direction: column; }
-.page-hero--team .page-hero__photo { order: -1; margin: 0; position: relative; }
-.page-hero--team .page-hero__photo img { display: block; width: 100%; height: clamp(380px, 38vw, 760px); object-fit: cover; object-position: 50% 48%; } /* alto ligado al ancho: el recorte siempre incluye la pantalla, el escenario y la audiencia */
-.page-hero--team .page-hero__photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(16,16,16,.7) 0%, rgba(16,16,16,0) 26%), linear-gradient(0deg, rgba(16,16,16,.5) 0%, rgba(16,16,16,0) 32%); }
-.page-hero--team .page-hero__text { position: relative; z-index: 2; width: min(100% - 2rem, 820px); margin: clamp(-5rem, -4vw, -1.25rem) auto 0; padding: 2rem 2rem 5.6rem;
-  border: 1px solid transparent; border-radius: var(--radius); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  /* cristal oscuro con borde de degradado de marca muy fino */
+/* Hero de About: foto a pantalla completa (sala del ALTA AGM) con velo oscuro, título centrado sobre la foto y las cifras en una franja que cabalga el borde inferior */
+.page-hero--team { padding: 0; min-height: clamp(640px, 100vh, 960px); display: flex; flex-direction: column; overflow: visible; }
+.page-hero--team > .container { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-top: 7rem; padding-bottom: 2.2rem; }
+.page-hero--team .page-hero__photo { position: absolute; inset: 0; z-index: -1; margin: 0; overflow: hidden; }
+.page-hero--team .page-hero__photo img { position: absolute; left: 0; bottom: 0; display: block; width: 100%; height: 120%; object-fit: cover; object-position: 50% 100%; } /* 120 %: acerca la foto y sube el escenario para que el texto quede sobre la audiencia */
+.page-hero--team .page-hero__photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(rgba(16,16,16,.66), rgba(16,16,16,.66)) padding-box,
-    linear-gradient(135deg, rgba(6,189,231,.7), rgba(255,255,255,.1) 40%, rgba(3,127,217,.55)) border-box;
-  box-shadow: 0 40px 90px -50px rgba(6,189,231,.55);
-  transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; }
-.page-hero--team .page-hero__text::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--grad-btn); transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
-/* Cifras: franja de cristal montada sobre el borde inferior de la tarjeta */
-.page-hero--team .stats--hero { position: relative; z-index: 3; margin-top: -4.2rem; padding-bottom: 0; }
+    radial-gradient(70% 42% at 50% 66%, rgba(16,16,16,.85), rgba(16,16,16,0) 82%),
+    linear-gradient(180deg, rgba(16,16,16,.78) 0%, rgba(16,16,16,.3) 34%, rgba(16,16,16,.78) 100%); }
+@media (max-width: 719px) { .page-hero--team .page-hero__photo::after { background: linear-gradient(180deg, rgba(16,16,16,.8) 0%, rgba(16,16,16,.62) 45%, rgba(16,16,16,.8) 100%); } } /* en móvil el texto cae sobre la pantalla de la foto: velo más fuerte */
+.page-hero--team .page-hero__text { position: relative; z-index: 2; }
+.page-hero--team h1, .page-hero--team .page-hero__sub { text-shadow: 0 2px 22px rgba(16,16,16,.75); }
+.page-hero--team .stats--hero { position: relative; z-index: 3; margin-top: 0; padding-bottom: 0; transform: translateY(3.2rem); }
 .page-hero--team .stats--hero .stats__grid { max-width: 960px; padding: 1.3rem 1rem; border-radius: var(--radius);
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 24px 60px -34px rgba(0,0,0,.8); }
-/* Transición: borde limpio entre el hero oscuro y la sección blanca; las cifras lo cabalgan (mitad sobre oscuro, mitad sobre blanco) */
-.page-hero--team.page-hero--stats { padding-bottom: 0; overflow: visible; }
-.page-hero--team.page-hero--stats::after { display: none; }
-.page-hero--team .stats--hero { transform: translateY(2.6rem); }
-.page-hero--team .stats--hero .stats__grid { background: rgba(16,16,16,.94); border-color: rgba(255,255,255,.16);
+  background: rgba(16,16,16,.94); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 26px 50px -26px rgba(16,16,16,.7); }
-.page-hero--team + .section { padding-top: calc(6rem + 2.6rem); }
-@media (hover: hover) {
-  .page-hero--team .page-hero__text:hover { transform: translateY(-6px); box-shadow: 0 44px 90px -44px rgba(6,189,231,.85); }
-  .page-hero--team .page-hero__text:hover::before { transform: scaleX(1); }
-}
-@media (prefers-reduced-motion: reduce) { .page-hero--team .page-hero__text, .page-hero--team .page-hero__text::before { transition: none; } .page-hero--team .page-hero__text:hover { transform: none; } }
+.page-hero--team.page-hero--stats::after { display: none; }
+.page-hero--team + .section { padding-top: calc(6rem + 3.2rem); }
 
 /* Etiqueta visible de contenido de ejemplo */
 .sample-tag {
