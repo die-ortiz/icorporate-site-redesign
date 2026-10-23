@@ -1,6 +1,8 @@
 // Port vanilla de reference/SideRays.tsx (WebGL con ogl).
 // Diferencias con el original: el contexto WebGL se crea una sola vez (no se
 // reinicia al cambiar opciones) y el IntersectionObserver solo pausa el loop.
+// Rendimiento: los rayos son suaves, así que se dibujan a 1x (0.6x en pantallas chicas, a 30 fps) en vez de hasta 2x;
+// backgrounds.js crea el contexto solo cuando la sección está por entrar en pantalla.
 import { Renderer, Program, Triangle, Mesh } from './vendor/ogl.js';
 
 const hexToRgb = (hex) => {
@@ -90,7 +92,7 @@ export function initSideRays(container, opts = {}) {
 
   let renderer;
   try {
-    renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 2), alpha: true });
+    renderer = new Renderer({ dpr: 1, alpha: true });
   } catch (e) {
     return null; // sin WebGL: queda el fondo CSS
   }
@@ -124,8 +126,9 @@ export function initSideRays(container, opts = {}) {
     program: new Program(gl, { vertex: VERT, fragment: FRAG, uniforms }),
   });
 
+  const small = () => window.innerWidth < 768;
   const updateSize = () => {
-    renderer.dpr = Math.min(window.devicePixelRatio, 2);
+    renderer.dpr = small() ? 0.6 : 1;
     const { clientWidth: w, clientHeight: h } = container;
     renderer.setSize(w, h);
     uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
@@ -135,7 +138,11 @@ export function initSideRays(container, opts = {}) {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let raf = null;
+  let last = 0;
+  const FRAME = small() ? 1000 / 30 : 0; // en móvil, 30 fps
   const loop = (t) => {
+    if (t - last < FRAME) { raf = requestAnimationFrame(loop); return; }
+    last = t;
     uniforms.iTime.value = t * 0.001;
     renderer.render({ scene: mesh });
     raf = requestAnimationFrame(loop);

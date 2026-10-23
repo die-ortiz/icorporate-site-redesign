@@ -21,13 +21,20 @@ if (heroVideo) {
 }
 
 // Fondos de rayos (WebGL). Si falla, queda el degradado CSS.
+// El contexto se crea solo cuando la sección está por entrar en pantalla (compilar el shader no compite con la carga).
 const rayEls = document.querySelectorAll('[data-siderays]');
 if (rayEls.length) {
-  import('./siderays.js')
-    .then(({ initSideRays }) => {
-      rayEls.forEach((el) => initSideRays(el, { origin: el.dataset.origin || 'top-right', intensity: Number(el.dataset.intensity || 2) }));
-    })
+  const init = (el) => import('./siderays.js')
+    .then(({ initSideRays }) => initSideRays(el, { origin: el.dataset.origin || 'top-right', intensity: Number(el.dataset.intensity || 2) }))
     .catch(() => {});
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { io.unobserve(e.target); init(e.target); }
+    }), { rootMargin: '400px 0px' });
+    rayEls.forEach((el) => io.observe(el));
+  } else {
+    rayEls.forEach(init);
+  }
 }
 
 // Túnel de datos (WebGL) en la cabecera de Tech Solutions. Si falla, queda el fondo oscuro.
