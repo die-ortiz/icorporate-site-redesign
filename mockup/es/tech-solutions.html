@@ -206,7 +206,7 @@
 
   <main id="main">
     <!-- CABECERA (centrada) -->
-    <!-- BLOQUE FIJO: la cabecera queda fija a pantalla completa y la vitrina sube y la tapa (.pin-stack; assets/js/pin.js atenúa el contenido) -->
+    <!-- BLOQUE FIJO: la cabecera queda fija a pantalla completa y la sección siguiente (What we build) sube y la tapa (.pin-stack; assets/js/pin.js atenúa el contenido de la cabecera) -->
     <div class="pin-stack">
     <section class="page-hero page-hero--tunnel page-hero--pin" data-pin>
       <!-- Fondo: túnel de datos WebGL (assets/js/tunnel.js); sin WebGL o con movimiento reducido queda estático/oscuro. -->
@@ -226,42 +226,6 @@
       </div>
     </section>
 
-    <!-- VITRINA: titular grande con palabra fantasma y dispositivos solapados (assets/js/showcase.js: parallax con data-depth) -->
-    <section class="showcase" id="showcase" data-showcase>
-      <div class="showcase__ghost" aria-hidden="true" data-depth="-0.5" data-axis="x">Software</div>
-      <div class="container showcase__inner">
-        <div class="showcase__head reveal">
-          <span class="eyebrow">Todo conectado <span class="sample-tag" title="Texto ficticio solo para ilustración visual">Contenido de ejemplo</span></span>
-          <h2 class="showcase__title">Tecnología<br><span class="showcase__brace">{</span>inteligente<span class="showcase__brace">}</span></h2>
-        </div>
-        <div class="showcase__devices reveal" data-d="1" aria-hidden="true">
-          <div class="showcase__browser" data-depth="0.35">
-            <div class="showcase__bar"></div>
-            <img src="../../assets/img/tech-itask.webp" width="1200" height="572" alt="" loading="lazy" decoding="async">
-          </div>
-          <span class="svc-phone showcase__phone" data-depth="0.8"><i class="svc-phone__screen"><img src="../../assets/img/svc-app-alta-agenda.webp" width="360" height="780" alt="" loading="lazy" decoding="async"></i><img class="svc-phone__frame" src="../../assets/img/svc-phone-frame.webp" width="520" height="1076" alt="" loading="lazy" decoding="async"></span>
-          <div class="showcase__chat" data-depth="1.3">
-            <div class="showcase__chat-head"><img src="../../assets/img/ibot-icon-clear.webp" width="300" height="300" alt="" loading="lazy" decoding="async"><b>iBot</b><i class="showcase__dot"></i></div>
-            <p class="showcase__msg showcase__msg--user">¿Dónde retiro mi credencial?</p>
-            <p class="showcase__msg showcase__msg--bot">Mesa B, planta baja. Tu QR ya está listo ✓</p>
-          </div>
-        </div>
-        <div class="showcase__foot reveal" data-d="2">
-          <p class="showcase__lead">Un solo sistema, no herramientas sueltas: el bot responde, la app avisa y el panel muestra el resultado.</p>
-          <div class="page-hero__actions">
-            <a class="btn btn--primary" href="#services-list">Mirá lo que construimos</a>
-            <a class="btn btn--ghost" href="#proposal">Hablemos</a>
-          </div>
-        </div>
-        <div class="showcase__notes reveal" data-d="2" aria-hidden="true">
-          <div class="showcase__note" data-depth="0.8"><i class="showcase__dot" aria-hidden="true"></i><span><b>Lead calificado</b><em>iBot · 2 s</em></span></div>
-          <div class="showcase__note" data-depth="1.2"><i class="showcase__dot" aria-hidden="true"></i><span><b>Factura enviada</b><em>Automático · 09:41</em></span></div>
-          <div class="showcase__note" data-depth="0.5"><i class="showcase__dot" aria-hidden="true"></i><span><b>Pedido sincronizado</b><em>ERP ↔ Web · en vivo</em></span></div>
-        </div>
-      </div>
-    </section>
-    </div>
-
     <!-- LOS 4 SERVICIOS (nombres reales del sitio actual; descripciones y viñetas de ejemplo) -->
     <section class="section" id="services-list">
       <div class="container">
@@ -277,6 +241,7 @@
         </div>
       </div>
     </section>
+    </div>
 
     <!-- INTEGRACIONES a pantalla completa (EJEMPLO: herramientas ilustrativas; los logos son los oficiales de cada marca, confirmar que sean integraciones reales) -->
     <section class="flow-full" id="integrations">
@@ -488,7 +453,6 @@
   <script type="module" src="../../assets/js/flow.js"></script>
   <script type="module" src="../../assets/js/forms.js"></script>
   <script type="module" src="../../assets/js/pin.js"></script>
-  <script type="module" src="../../assets/js/showcase.js"></script>
   <script type="module" src="../../assets/js/stats.js"></script>
 </body>
 </html>
