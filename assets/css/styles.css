@@ -1096,7 +1096,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .showcase__lead { margin: 0; max-width: 34ch; color: var(--on-dark); font-size: clamp(1.02rem, 1.8vw, 1.2rem); }
 .showcase__foot .page-hero__actions { justify-content: flex-start; margin-top: 1.6rem; }
 @media (min-width: 900px) {
-  .showcase { padding: 0 0 5rem; }
+  .showcase { padding: 1.5rem 0 5rem; }
   .showcase__inner { min-height: 42rem; align-content: start; padding-top: 2.5rem; gap: 1.6rem; }
   .showcase__devices { position: absolute; z-index: 2; right: 0; top: 3rem; width: min(46rem, 58%); height: 34rem; }
   .showcase__browser { top: 6rem; width: 82%; max-width: none; }
