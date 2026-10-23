@@ -1087,16 +1087,25 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .showcase__chip { position: absolute; left: 30%; bottom: .5rem; display: flex; align-items: center; gap: .6rem; padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px; font-size: .85rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
 .showcase__chip img { width: 2.2rem; height: 2.2rem; }
 .showcase__foot { position: relative; z-index: 3; }
+.showcase__notes { display: none; }
+.showcase__note { display: flex; align-items: center; gap: .8rem; width: max-content; padding: .7rem 1.1rem .7rem .9rem; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(0,0,0,.35); }
+.showcase__note b { display: block; font-size: .88rem; font-weight: 600; line-height: 1.2; }
+.showcase__note em { display: block; margin-top: .15rem; font: 500 .68rem/1.2 var(--font-mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark-muted); }
+.showcase__dot { flex: none; width: .6rem; height: .6rem; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+.showcase__note:nth-child(2) .showcase__dot { background: var(--lime); box-shadow: 0 0 12px var(--lime); }
 .showcase__lead { margin: 0; max-width: 34ch; color: var(--on-dark); font-size: clamp(1.02rem, 1.8vw, 1.2rem); }
 .showcase__foot .page-hero__actions { justify-content: flex-start; margin-top: 1.6rem; }
 @media (min-width: 900px) {
   .showcase { padding: 0 0 5rem; }
-  .showcase__inner { min-height: 34rem; align-content: center; gap: 1.6rem; }
-  .showcase__devices { position: absolute; z-index: 2; right: 0; top: 0; width: min(42rem, 52%); height: 34rem; }
+  .showcase__inner { min-height: 42rem; align-content: start; padding-top: 2.5rem; gap: 1.6rem; }
+  .showcase__devices { position: absolute; z-index: 2; right: 0; top: 3rem; width: min(46rem, 58%); height: 34rem; }
   .showcase__browser { top: 6rem; width: 82%; max-width: none; }
   .showcase__phone { --ph: 24rem; }
   .showcase__phone--b { --ph: 27rem; top: 4.5rem; }
   .showcase__chip { left: 26%; bottom: 1rem; font-size: .92rem; }
+  .showcase__notes { position: absolute; z-index: 3; left: 0; bottom: 0; display: flex; flex-direction: column; gap: .7rem; }
+  .showcase__note:nth-child(2) { margin-left: 2.4rem; }
+  .showcase__note:nth-child(3) { margin-left: .8rem; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .showcase__chip { animation: svc-pulse 5s ease infinite alternate; }
