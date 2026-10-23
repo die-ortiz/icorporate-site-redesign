@@ -38,7 +38,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - Formulario de contacto funcional por correo directo (hoy `mailto:` desde `forms.js`; en producción se puede cambiar por un endpoint PHP sin tocar el HTML).
 - Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.
 - Video de fondo (opcional): dejar el original y correr `scripts/optimize_video.sh original.mp4 [hero|events|tech]`; genera `assets/video/<nombre>.mp4` (H.264, 1280 px, ≤ 4 MB, 8-15 s en bucle, sin audio ni texto) y su póster `<nombre>-poster.webp`. Hoy solo existe `hero.mp4` (Home). Si el archivo no existe, la cabecera usa el póster o el fondo oscuro (--dark) y el navegador registra un 404 inofensivo. No se carga con movimiento reducido, ahorro de datos ni pantallas < 768px.
-- Efectos WebGL (`ogl` alojado en `assets/js/vendor/ogl.js`, con respaldo si falla): rayos en la sección de contacto del Home (`siderays.js`) y orbe en la cabecera de Tech Solutions (`orb.js`). Ambos se pausan fuera de pantalla y respetan movimiento reducido.
+- Efectos WebGL (`ogl` alojado en `assets/js/vendor/ogl.js`, con respaldo si falla): rayos en la sección de contacto del Home (`siderays.js`) y túnel de datos en la cabecera de Tech Solutions (`tunnel.js`: entrada con salto de velocidad, acelera sobre los botones, se apaga con el scroll). Ambos se pausan fuera de pantalla y respetan movimiento reducido.
 
 ## Estructura y fuentes únicas
 ```
@@ -74,7 +74,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `home.js` | Carrusel de logos, muro de testimonios, carrusel del destacado | Home |
 | `cycle.js` | Ciclo del evento (`[data-cycle]`) | Events |
 | `flow.js` | Diagrama de integraciones (`.flow`) | Tech |
-| `backgrounds.js` | Video de fondo, rayos y orbe (importa `siderays.js` y `orb.js`) | Home, Tech, Events |
+| `backgrounds.js` | Video de fondo, rayos y túnel (importa `siderays.js` y `tunnel.js`) | Home, Tech, Events |
 | `ibot.js` | Asistente de demostración (flotante) | Todas |
 
 ## Convenciones de código

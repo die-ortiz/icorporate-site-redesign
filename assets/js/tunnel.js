@@ -2,7 +2,7 @@
 // avanzan en perspectiva desde un punto de fuga detrás del titular. Entra con un salto de velocidad que se
 // asienta, acelera al pasar el cursor por un botón de la cabecera, se estira y se apaga con el scroll,
 // y el cursor inclina el punto de fuga (parallax).
-// Misma política que orb.js: contexto único, pausa fuera de pantalla, un cuadro estático con movimiento
+// Política común de los fondos WebGL: contexto único, pausa fuera de pantalla, un cuadro estático con movimiento
 // reducido y resolución limitada en pantallas chicas. Sin WebGL queda el fondo oscuro.
 import { Renderer, Program, Triangle, Mesh } from './vendor/ogl.js';
 
