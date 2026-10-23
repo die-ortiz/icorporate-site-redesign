@@ -63,6 +63,9 @@ h3 { font-weight: 400; }
 @media (prefers-reduced-motion: no-preference) {
   .grad-text { background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.7) 50%, transparent 58%) 160% 0 / 250% 100% no-repeat, var(--grad); -webkit-background-clip: text; background-clip: text; animation: grad-shimmer 6s ease-in-out infinite; }
 }
+/* Animaciones infinitas fuera de pantalla: core.js marca .is-paused y se detienen hasta volver a verse */
+.is-paused, .is-paused *, .is-paused::before, .is-paused::after, .is-paused *::before, .is-paused *::after { animation-play-state: paused !important; }
+
 /* ═══ 02 · BASE: tipografía por rol, etiquetas y utilidades ═══ */
 /* Roles tipográficos: titulares, etiquetas técnicas y acento. Por defecto todo usa --font. */
 h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
@@ -609,7 +612,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .ibot__launcher:hover { transform: translateY(-2px) scale(1.05); }
 /* Pulso: dos ondas cian (relleno y aro) que se expanden detrás del ícono, desfasadas; se detienen con el chat abierto */
-.ibot__launcher::before, .ibot__launcher::after { content: ""; position: absolute; inset: 6px; z-index: -1; border-radius: 50%; animation: ibot-ring 2s ease-out infinite; }
+.ibot__launcher::before, .ibot__launcher::after { content: ""; position: absolute; inset: 6px; z-index: -1; border-radius: 50%; animation: ibot-ring 2s ease-out 5; } /* 5 ondas y reposo: una animación infinita en un elemento fijo mantiene al compositor trabajando en todas las páginas */
 .ibot__launcher::before { background: rgba(6,189,231,.75); }
 .ibot__launcher::after { border: 3px solid var(--cyan); animation-delay: 1s; }
 .ibot.is-open .ibot__launcher::before, .ibot.is-open .ibot__launcher::after { animation: none; opacity: 0; }
@@ -1147,16 +1150,14 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .flow__mid > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .flow__path { fill: none; stroke: rgba(255,255,255,.18); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .flow__hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: flex; flex-direction: column; align-items: center; }
-.flow__tile--hub { position: relative; width: 92px; height: 92px; border: 0; border-radius: 50%; background: none; box-shadow: none; }
-.flow__tile--hub img { width: 100%; height: 100%; object-fit: contain; background: none; padding: 0; border-radius: 0; filter: drop-shadow(0 0 14px rgba(6,189,231,.45)); animation: ibot-pulse 2.8s ease-in-out infinite; }
+.flow__tile--hub { position: relative; isolation: isolate; width: 92px; height: 92px; border: 0; border-radius: 50%; background: none; box-shadow: none; }
+.flow__tile--hub img { width: 100%; height: 100%; object-fit: contain; background: none; padding: 0; border-radius: 0; filter: drop-shadow(0 0 14px rgba(6,189,231,.45)); }
+.flow__tile--hub::before { content: ""; position: absolute; inset: -55%; z-index: -1; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, rgba(6,189,231,.5), rgba(6,189,231,.18) 55%, transparent 100%); animation: ibot-pulse 2.8s ease-in-out infinite; }
 /* Pulso del halo cian del iBot (sin caja): el brillo respira y un anillo circular se expande y se desvanece */
 .flow__tile--hub::after { content: ""; position: absolute; inset: 6%; border-radius: 50%; border: 2px solid rgba(6,189,231,.55); pointer-events: none; animation: ibot-ring 2.8s ease-out infinite; }
-@keyframes ibot-pulse {
-  0%, 100% { filter: drop-shadow(0 0 10px rgba(6,189,231,.35)) drop-shadow(0 0 28px rgba(6,189,231,.25)); }
-  50%      { filter: drop-shadow(0 0 18px rgba(6,189,231,.75)) drop-shadow(0 0 56px rgba(6,189,231,.55)); }
-}
+@keyframes ibot-pulse { 0%, 100% { opacity: .55; scale: .9; } 50% { opacity: 1; scale: 1.12; } } /* solo opacity y scale: las anima el compositor, sin repintar */
 @keyframes ibot-ring { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.9); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .flow__tile--hub img, .flow__tile--hub::after { animation: none; } .flow__tile--hub::after { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .flow__tile--hub::before, .flow__tile--hub::after { animation: none; } .flow__tile--hub::after { opacity: 0; } }
 .flow__hub .flow__label { top: calc(100% + 12px); color: var(--cyan); }
 @media (max-width: 520px) {
   .flow { min-height: 270px; }
