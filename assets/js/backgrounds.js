@@ -31,9 +31,15 @@ if (rayEls.length) {
 }
 
 // Túnel de datos (WebGL) en la cabecera de Tech Solutions. Si falla, queda el fondo oscuro.
+// Se inicia cuando la página terminó de cargar y el hilo principal está libre: compilar el shader no compite con el primer pintado.
 const tunnelEls = document.querySelectorAll('[data-tunnel]');
 if (tunnelEls.length) {
-  import('./tunnel.js')
-    .then(({ initTunnel }) => tunnelEls.forEach((el) => initTunnel(el)))
-    .catch(() => {});
+  const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+  const start = () => idle(() => {
+    import('./tunnel.js')
+      .then(({ initTunnel }) => tunnelEls.forEach((el) => initTunnel(el)))
+      .catch(() => {});
+  }, { timeout: 1500 });
+  if (document.readyState === 'complete') start();
+  else window.addEventListener('load', start, { once: true });
 }
