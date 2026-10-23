@@ -914,9 +914,10 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-card__bg { position: absolute; inset: 0; z-index: -2; transform: scale(1.12); }
 .svc-card--bots .svc-card__bg { background: repeating-radial-gradient(circle at 75% 30%, rgba(255,255,255,.16) 0 2px, transparent 2px 24px), radial-gradient(70% 60% at 80% 30%, var(--cyan), transparent 70%), linear-gradient(160deg, var(--dark) 0%, var(--blue-deep) 100%); }
 .svc-card img.svc-card__bg { width: 100%; height: 100%; object-fit: cover; }
-.svc-card--web img.svc-card__bg { object-position: 0 0; }
-.svc-card--events img.svc-card__bg { object-position: 40% 50%; }
+.svc-card--web img.svc-card__bg { object-position: 50% 0; }
+.svc-card--events img.svc-card__bg { object-position: 50% 45%; }
 .svc-card--photo::after { background: linear-gradient(180deg, rgba(16,16,16,.6) 0%, rgba(16,16,16,.2) 40%, rgba(16,16,16,.85) 100%); }
+.svc-card--web::after { background: linear-gradient(180deg, rgba(16,16,16,.6) 0%, rgba(16,16,16,.5) 40%, rgba(16,16,16,.9) 100%); } /* la captura de la web es clara: velo más fuerte para el texto blanco */
 .svc-card__mascot { position: absolute; top: 4.2rem; right: 1.2rem; z-index: -1; width: 38%; max-width: 130px; height: auto; filter: drop-shadow(0 0 24px var(--cyan)); }
 /* Caja de Apps: tres iPhone escalonados y centrados. El marco es la foto real del teléfono (pantalla vaciada); detrás va un degradado como pantalla.
    El del frente es la captura de la app de WAGA 2026. El zoom del fondo se aplica a una capa aparte (::before) para que los teléfonos no crezcan ni se salgan.

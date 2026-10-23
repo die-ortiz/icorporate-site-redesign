@@ -73,7 +73,9 @@ JOBS = {
     "logo-waga-2026-white.webp": ("logo-waga-2026.png", 285, 92, {"white": 2.6}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
-    "event-tech.webp":      ("icorporate_event_tech_home.jpg",          725, 80, {}),
+    # Tech Solutions, cajas de servicios: foto de la sala del ALTA AGM (Event Tech) y captura de la web del foro (Web Solutions)
+    "svc-event-conference.webp": ("event-solution.jpeg",                    640, 80, {}),
+    "svc-web-alta.webp":        ("screencapture-forum-alta-aero-2026-10-22-21_08_03.jpg", 720, 80, {}),
     # captura de la app de WAGA 2026 en un iPhone, recortada al teléfono y sin el fondo blanco (celular del frente en Tech Solutions)
     "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True}),
     # el mismo iPhone con la pantalla vaciada (transparente, conserva la isla): detrás se pone un degradado en CSS.
