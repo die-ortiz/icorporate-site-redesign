@@ -969,7 +969,12 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   :is(.page-tech, .page-branding, .page-events) .page-hero .container > :nth-child(2) { animation-delay: .1s; }
   :is(.page-tech, .page-branding, .page-events) .page-hero .container > :nth-child(3) { animation-delay: .25s; }
   :is(.page-tech, .page-branding, .page-events) .page-hero .container > :nth-child(4) { animation-delay: .4s; }
-  .page-tech .tunnel-bg { animation: tech-fade 1.8s ease both; }
+  .page-404 .page-hero .container > * { animation: tech-rise .8s cubic-bezier(.22, 1, .36, 1) both; }
+  .page-404 .page-hero .container > :nth-child(2) { animation-delay: .1s; }
+  .page-404 .page-hero .container > :nth-child(3) { animation-delay: .25s; }
+  .page-404 .page-hero .container > :nth-child(4) { animation-delay: .4s; }
+  .page-404 .page-hero .container > :nth-child(5) { animation-delay: .55s; }
+  :is(.page-tech, .page-404) .tunnel-bg { animation: tech-fade 1.8s ease both; }
   .page-branding .page-hero__img { animation: tech-fade 1.6s ease both; }
   /* títulos de sección: de desenfocado a nítido al entrar */
   .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal { filter: blur(6px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
@@ -1053,6 +1058,14 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
     radial-gradient(70% 85% at 50% 48%, rgba(16,16,16,.16) 0%, rgba(16,16,16,.1) 30%, rgba(16,16,16,.04) 65%, rgba(16,16,16,0) 100%),
     linear-gradient(0deg, rgba(16,16,16,.14) 0%, rgba(16,16,16,.06) 18%, rgba(16,16,16,0) 40%);
 }
+
+/* Página 404: cabecera a pantalla completa con el túnel de Tech de fondo */
+.page-hero--404 { display: grid; align-items: center; min-height: 100svh; padding: 8rem 0 4rem; }
+.eyebrow--404 { color: var(--cyan); margin-bottom: 1.2rem; }
+.links-404 { margin-top: 2.6rem; display: flex; flex-direction: column; align-items: center; gap: .8rem; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark-muted); }
+.links-404 ul { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; }
+.links-404 a { color: #fff; text-decoration: none; }
+.links-404 a:hover { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
 
 /* Integraciones a pantalla completa: titular centrado, logos a los lados, iBot al centro y conexiones animadas */
 .flow-full { position: relative; overflow: hidden; color: #fff; padding: clamp(3rem, 6vw, 4.5rem) 0; min-height: min(100svh, 860px); display: grid; align-content: center;

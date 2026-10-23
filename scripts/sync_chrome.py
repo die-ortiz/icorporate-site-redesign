@@ -35,6 +35,7 @@ PAGES = {
     "tech-solutions.html": "#proposal",
     "events-management.html": "#proposal",
     "corporate-branding.html": "#proposal",
+    "404.html": "index.html#contact",
 }
 # módulo -> patrón del marcado que lo hace necesario (core.js e ibot.js van siempre)
 FEATURES = {

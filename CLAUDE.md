@@ -29,11 +29,12 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 | Nosotros | Equipo, enfoque, oficina en Coral Gables | Hecha (EN/ES) |
 | Casos | Listado y detalle (WAGA, ALTA, ACI-LAC, etc.) | **Pendiente** |
 | Contacto | Formulario (correo directo) y "Book a call" | Es una sección del Home (`#contact`) y de cada servicio (`#proposal`) |
+| 404 | Error con el túnel de Tech de fondo y enlaces a las páginas principales (`noindex`, fuera del sitemap) | Hecha (EN/ES); falta configurar `ErrorDocument` al publicar |
 | Blog | Fase posterior | No iniciar |
 
 ## Requisitos transversales
 - Responsive mobile-first, carga rápida, accesibilidad básica.
-- SEO por página: title, meta description, schema.org, hreflang EN/ES, canonical y Open Graph/Twitter (este último lo escribe `sync_chrome.py`; la imagen es `hero-poster.webp`, 1280×732: conviene una de 1200×630 para redes). `sitemap.xml` y `robots.txt` los genera `publish.py`.
+- SEO por página: title, meta description, schema.org, hreflang EN/ES, canonical y Open Graph/Twitter (este último lo escribe `sync_chrome.py`; la imagen es `hero-poster.webp`, 1280×732: conviene una de 1200×630 para redes). `sitemap.xml` y `robots.txt` los genera `publish.py`. La 404 sale de `publish.py` con rutas desde la raíz (`/assets/…`) y solo funciona al configurar `ErrorDocument 404 /404.html` (y `/es/404.html` en `es/`; ver docstring de `publish.py`).
 - Un CTA primario consistente ("Book a call"), sin salidas a sitios externos. Excepciones acordadas: (1) el botón "Learn more about iBot" de Tech Solutions abre `https://icorporatelab.com/service-ibot-2/` (WordPress actual) en pestaña nueva; pasar a ruta interna cuando esa página se migre. (2) La tienda de merchandising (iCorporate Events Store, PromoPlace: `https://www.promoplace.com/icorporate-events`) se enlaza desde la sección `#materials` de Corporate Branding, el mega-menú de Corporate Branding y el footer, siempre en pestaña nueva con `rel="noopener"`. Pendiente: URLs por categoría y confirmar "1,000s" y "desde $0.53" antes de publicar. (3) Las tarjetas de casos del Home enlazan al sitio de cada evento (ALTA AGM, WAGA, ITAérea) en pestaña nueva.
 - Formulario de contacto funcional por correo directo (hoy `mailto:` desde `forms.js`; en producción se puede cambiar por un endpoint PHP sin tocar el HTML).
 - Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.

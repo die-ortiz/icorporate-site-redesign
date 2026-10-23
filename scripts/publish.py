@@ -9,7 +9,10 @@ Qué hace:
   mockup/es/*.html     -> <out>/es/         (rutas ../../assets/ pasan a ../assets/)
   assets/              -> <out>/assets/     (sin .gitkeep ni archivos ocultos)
   favicon.ico          -> <out>/favicon.ico
-  sitemap.xml, robots.txt generados desde las páginas (con hreflang EN/ES)
+  sitemap.xml, robots.txt generados desde las páginas (con hreflang EN/ES; la 404 no entra)
+  404.html y es/404.html salen con rutas desde la raíz (/assets/…, /es/…), porque el servidor las muestra
+  bajo cualquier URL. Apache: `ErrorDocument 404 /404.html` en la raíz y `ErrorDocument 404 /es/404.html`
+  en es/.htaccess; nginx: `error_page 404 /404.html;` y `location /es/ { error_page 404 /es/404.html; }`.
 Qué NO publica: reference/ (originales y material de trabajo), scripts/, CLAUDE.md, los marcadores de
 posición de la raíz (index.html y es/) y los comentarios internos de generación.
 Antes de escribir corre check_site.py; después comprueba que cada recurso local y cada ancla existan en
@@ -17,6 +20,7 @@ la carpeta resultante. Sale con 1 si algo falla. No sube nada: ese paso lo hace 
 """
 import glob
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -24,6 +28,18 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = "https://icorporatelab.com"
+
+
+def absolutize(html, folder):
+    """La 404 se sirve bajo cualquier URL: las rutas relativas pasan a ser desde la raíz del sitio."""
+    def fix(m):
+        ref = m.group(2)
+        if re.match(r"(https?:|mailto:|tel:|data:|#|/)", ref):
+            return m.group(0)
+        path = posixpath.normpath(posixpath.join(folder, ref.split("#")[0].split("?")[0]))
+        suffix = ref[len(ref.split("#")[0].split("?")[0]):]
+        return f'{m.group(1)}="/{path}{suffix}"'
+    return re.sub(r'\b(src|href)="([^"]*)"', fix, html)
 
 
 def main():
@@ -49,13 +65,15 @@ def main():
             html = html.replace(old, new)
             html = re.sub(r"<!-- (?:chrome|social|scripts):[^>]*-->\n\s*", "", html)  # comentarios internos
             name = os.path.basename(src)
+            if name == "404.html":
+                html = absolutize(html, "es/" if lang == "es" else "")
             dest = os.path.join(out, "es" if lang == "es" else "", name)
             with open(dest, "w", encoding="utf-8") as fh:
                 fh.write(html)
             pages.append((lang, name))
 
     # sitemap.xml con alternates EN/ES y robots.txt
-    names = sorted({n for _, n in pages})
+    names = sorted({n for _, n in pages if n != "404.html"})
     def loc(lang, n):
         path = "" if n == "index.html" and lang == "en" else n
         return f"{DOMAIN}/{'es/' if lang == 'es' else ''}{path}"
@@ -88,13 +106,17 @@ def main():
         for ref in re.findall(r'(?:src|href)="([^"#?]+)(?:#[^"]*)?"', html):
             if re.match(r"(https?:|mailto:|tel:|data:)", ref):
                 continue
-            if not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(f), ref))):
+            base = out if ref.startswith("/") else os.path.dirname(f)
+            if not os.path.exists(os.path.normpath(os.path.join(base, ref.lstrip("/") if ref.startswith("/") else ref))):
                 problems.append(f"{rel}: recurso inexistente {ref}")
         for href in re.findall(r'href="([^"]*#[^"]+)"', html):
             if re.match(r"(https?:|mailto:|tel:)", href):
                 continue
             path, anchor = href.split("#", 1)
-            target = f if path == "" else os.path.normpath(os.path.join(os.path.dirname(f), path))
+            if path.startswith("/"):
+                target = os.path.normpath(os.path.join(out, path.lstrip("/")))
+            else:
+                target = f if path == "" else os.path.normpath(os.path.join(os.path.dirname(f), path))
             if target in ids and anchor not in ids[target][1]:
                 problems.append(f"{rel}: ancla inexistente {href}")
     # los videos de fondo son opcionales
