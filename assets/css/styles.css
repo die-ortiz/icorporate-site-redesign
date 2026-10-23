@@ -952,13 +952,16 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .page-home .hero__text > :nth-child(3) { animation-delay: .3s; }
   .page-home .hero__poster { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
   .page-home .trust { animation: tech-fade 1s ease .6s both; }
+  /* Events Management: misma carga que el hero del Home (la cascada del texto sale de la regla compartida de arriba) */
+  .page-events .page-hero__img { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
+  .page-events .stats--hero { animation: tech-fade 1s ease .6s both; }
 }
 @media (prefers-reduced-motion: no-preference) {
   /* cabecera: entrada escalonada (migas, título, subtítulo, botones) y el orbe aparece con un fundido */
-  :is(.page-tech, .page-branding) .page-hero .container > * { animation: tech-rise .8s cubic-bezier(.22, 1, .36, 1) both; }
-  :is(.page-tech, .page-branding) .page-hero .container > :nth-child(2) { animation-delay: .1s; }
-  :is(.page-tech, .page-branding) .page-hero .container > :nth-child(3) { animation-delay: .25s; }
-  :is(.page-tech, .page-branding) .page-hero .container > :nth-child(4) { animation-delay: .4s; }
+  :is(.page-tech, .page-branding, .page-events) .page-hero .container > * { animation: tech-rise .8s cubic-bezier(.22, 1, .36, 1) both; }
+  :is(.page-tech, .page-branding, .page-events) .page-hero .container > :nth-child(2) { animation-delay: .1s; }
+  :is(.page-tech, .page-branding, .page-events) .page-hero .container > :nth-child(3) { animation-delay: .25s; }
+  :is(.page-tech, .page-branding, .page-events) .page-hero .container > :nth-child(4) { animation-delay: .4s; }
   .page-tech .orb { animation: tech-fade 1.8s ease both; }
   .page-branding .page-hero__img { animation: tech-fade 1.6s ease both; }
   /* títulos de sección: de desenfocado a nítido al entrar */
