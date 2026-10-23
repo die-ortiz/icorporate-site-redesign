@@ -1072,7 +1072,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .showcase::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(6,189,231,.5), transparent); }
 .showcase [data-depth] { translate: var(--px, 0) var(--py, 0); will-change: translate; }
 .showcase__ghost { position: absolute; z-index: -1; left: -1vw; bottom: -.12em; font: 400 clamp(6rem, 21vw, 21rem)/1 var(--font-head); letter-spacing: -.03em; color: rgba(255,255,255,.045); white-space: nowrap; pointer-events: none; user-select: none; }
-.showcase__inner { display: grid; gap: 2rem; }
+.showcase__inner { position: relative; display: grid; gap: 2rem; } /* los dispositivos se anclan al contenedor, no a la sección */
 .showcase__head { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1.2rem; }
 .showcase__head .eyebrow { color: var(--cyan); flex-wrap: wrap; }
 .showcase__title { margin: 0; font-size: clamp(3rem, 7.6vw, 7.6rem); line-height: .98; font-weight: 400; letter-spacing: -.02em; }
@@ -1093,7 +1093,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 @media (min-width: 900px) {
   .showcase { min-height: min(100svh, 52rem); padding: 6.5rem 0 5rem; display: grid; align-content: center; }
   .showcase__inner { min-height: 36rem; grid-template-rows: auto 1fr; align-content: space-between; }
-  .showcase__devices { position: absolute; z-index: 2; right: 0; top: 4rem; width: min(42rem, 52%); height: 34rem; }
+  .showcase__devices { position: absolute; z-index: 2; right: 0; top: 0; width: min(42rem, 52%); height: 34rem; }
   .showcase__browser { top: 6rem; width: 82%; max-width: none; }
   .showcase__phone { --ph: 24rem; }
   .showcase__phone--b { --ph: 27rem; top: 4.5rem; }
