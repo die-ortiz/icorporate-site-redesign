@@ -955,6 +955,13 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   /* Events Management: misma carga que el hero del Home (la cascada del texto sale de la regla compartida de arriba) */
   .page-events .page-hero__img { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
   .page-events .stats--hero { animation: tech-fade 1s ease .6s both; }
+  /* About: misma carga (texto en cascada, foto que se asienta y cifras al final) */
+  .page-about .page-hero__text > * { animation: tech-rise .8s cubic-bezier(.22, 1, .36, 1) both; }
+  .page-about .page-hero__text > :nth-child(2) { animation-delay: .1s; }
+  .page-about .page-hero__text > :nth-child(3) { animation-delay: .25s; }
+  .page-about .page-hero__text > :nth-child(4) { animation-delay: .4s; }
+  .page-about .page-hero__photo img { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
+  .page-about .stats--hero { animation: tech-fade 1s ease .6s both; }
 }
 @media (prefers-reduced-motion: no-preference) {
   /* cabecera: entrada escalonada (migas, título, subtítulo, botones) y el orbe aparece con un fundido */
