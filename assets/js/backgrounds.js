@@ -2,7 +2,8 @@
    - Video de fondo del hero (.hero__video con data-src): solo si hay archivo, sin movimiento reducido,
      sin ahorro de datos y en pantallas >= 768 px.
    - [data-siderays]: rayos WebGL (importa ./siderays.js); si falla queda el degradado CSS.
-   - [data-orb]: orbe WebGL de Tech Solutions (importa ./orb.js); si falla queda el fondo oscuro. */
+   - [data-orb]: orbe WebGL (importa ./orb.js); si falla queda el fondo oscuro.
+   - [data-grid]: malla de señales WebGL de Tech Solutions (importa ./grid.js); si falla queda el fondo oscuro. */
 
 // Video de fondo del hero: solo si hay archivo, sin movimiento reducido, sin ahorro de datos y en pantallas >= 768px
 const heroVideo = document.querySelector('.hero__video');
@@ -35,5 +36,13 @@ const orbEls = document.querySelectorAll('[data-orb]');
 if (orbEls.length) {
   import('./orb.js')
     .then(({ initOrb }) => orbEls.forEach((el) => initOrb(el)))
+    .catch(() => {});
+}
+
+// Malla de señales (WebGL) en la cabecera de Tech Solutions. Si falla, queda el fondo oscuro.
+const gridEls = document.querySelectorAll('[data-grid]');
+if (gridEls.length) {
+  import('./grid.js')
+    .then(({ initGrid }) => gridEls.forEach((el) => initGrid(el)))
     .catch(() => {});
 }
