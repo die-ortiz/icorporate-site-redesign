@@ -58,6 +58,11 @@ h3 { font-weight: 400; }
 .title { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; margin-top: 1rem; max-width: 18ch; }
 .lead { color: var(--ink-soft); font-size: 1.1rem; max-width: 56ch; margin-top: 1.1rem; }
 .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: var(--font-accent, inherit); font-style: var(--accent-style, normal); }
+/* Brillo (shimmer) sobre el texto en degradado: una franja clara cruza el texto en ~2,7 s y descansa ~3 s. Solo con movimiento permitido. */
+@keyframes grad-shimmer { 0% { background-position: 160% 0, 0 0; } 45%, 100% { background-position: -60% 0, 0 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .grad-text { background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.7) 50%, transparent 58%) 160% 0 / 250% 100% no-repeat, var(--grad); -webkit-background-clip: text; background-clip: text; animation: grad-shimmer 6s ease-in-out infinite; }
+}
 /* ═══ 02 · BASE: tipografía por rol, etiquetas y utilidades ═══ */
 /* Roles tipográficos: titulares, etiquetas técnicas y acento. Por defecto todo usa --font. */
 h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
