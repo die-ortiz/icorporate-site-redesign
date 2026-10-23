@@ -974,7 +974,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .page-404 .page-hero .container > :nth-child(3) { animation-delay: .25s; }
   .page-404 .page-hero .container > :nth-child(4) { animation-delay: .4s; }
   .page-404 .page-hero .container > :nth-child(5) { animation-delay: .55s; }
-  :is(.page-tech, .page-404) .tunnel-bg { animation: tech-fade 1.8s ease both; }
+  :is(.page-tech, .page-404) .tunnel-bg canvas { animation: tech-fade 1.6s ease both; } /* el canvas se crea tras la carga: aparece con un fundido */
   .page-branding .page-hero__img { animation: tech-fade 1.6s ease both; }
   /* títulos de sección: de desenfocado a nítido al entrar */
   .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal { filter: blur(6px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
@@ -1070,7 +1070,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 /* Bloque fijo (Tech Solutions): la cabecera queda fija a pantalla completa y la vitrina sube y la tapa con el borde superior redondeado */
 .pin-stack { position: relative; }
 .page-hero--pin { position: sticky; top: 0; z-index: 0; display: grid; align-content: center; min-height: 100svh; padding: 7rem 0 5rem; }
-.page-hero--pin > .container { opacity: calc(1 - var(--pin, 0) * 1.3); translate: 0 calc(var(--pin, 0) * -3rem); }
 .pin-stack .showcase { z-index: 1; border-radius: calc(var(--radius) * 2.5) calc(var(--radius) * 2.5) 0 0; border-top: 1px solid rgba(255,255,255,.12);
   background: radial-gradient(60% 55% at 78% 50%, rgba(3,127,217,.16), transparent 70%), color-mix(in srgb, var(--dark), #fff 4%);
   box-shadow: 0 -30px 80px rgba(0,0,0,.55); padding-top: 3rem; }
@@ -1093,11 +1092,11 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .showcase__phone { --ph: 19rem; position: absolute; }
 .showcase__phone--a { left: 8%; top: 0; rotate: -9deg; }
 .showcase__phone--b { --ph: 21rem; right: 10%; top: 3.5rem; rotate: 7deg; }
-.showcase__chip { position: absolute; left: 30%; bottom: .5rem; display: flex; align-items: center; gap: .6rem; padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px; font-size: .85rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+.showcase__chip { position: absolute; left: 30%; bottom: .5rem; display: flex; align-items: center; gap: .6rem; padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px; font-size: .85rem; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
 .showcase__chip img { width: 2.2rem; height: 2.2rem; }
 .showcase__foot { position: relative; z-index: 3; }
 .showcase__notes { display: none; }
-.showcase__note { display: flex; align-items: center; gap: .8rem; width: max-content; padding: .7rem 1.1rem .7rem .9rem; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(0,0,0,.35); }
+.showcase__note { display: flex; align-items: center; gap: .8rem; width: max-content; padding: .7rem 1.1rem .7rem .9rem; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 14px 34px rgba(0,0,0,.35); }
 .showcase__note b { display: block; font-size: .88rem; font-weight: 600; line-height: 1.2; }
 .showcase__note em { display: block; margin-top: .15rem; font: 500 .68rem/1.2 var(--font-mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark-muted); }
 .showcase__dot { flex: none; width: .6rem; height: .6rem; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
@@ -1112,6 +1111,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .showcase__phone { --ph: 24rem; }
   .showcase__phone--b { --ph: 27rem; top: 4.5rem; }
   .showcase__chip { left: 26%; bottom: 1rem; font-size: .92rem; }
+  .showcase__chip, .showcase__note { backdrop-filter: blur(10px); } /* solo en pantallas grandes: el desenfoque sobre elementos en movimiento es costoso en móvil */
   .showcase__notes { position: absolute; z-index: 3; left: 0; bottom: 0; display: flex; flex-direction: column; gap: .7rem; }
   .showcase__note:nth-child(2) { margin-left: 2.4rem; }
   .showcase__note:nth-child(3) { margin-left: .8rem; }

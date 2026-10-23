@@ -29,6 +29,7 @@ uniform float flow;   // tiempo de avance (integrado con la velocidad actual)
 uniform float fade;   // 1 = visible, 0 = apagado (scroll)
 uniform vec2 iResolution;
 uniform vec2 look;
+uniform float layers; // 3 en escritorio, 2 en pantallas chicas (menos trabajo por píxel)
 uniform vec3 cyan;
 uniform vec3 blue;
 uniform vec3 lime;
@@ -70,7 +71,7 @@ void main() {
   vec3 col = vec3(0.0);
   col += layer(q, 70.0, 1.0, 0.16, 0.12);
   col += layer(q, 130.0, 2.0, 0.24, 0.16);
-  col += layer(q, 220.0, 3.0, 0.34, 0.22);
+  if (layers > 2.5) col += layer(q, 220.0, 3.0, 0.34, 0.22);
 
   // resplandor en el punto de fuga, detrás del titular
   col += blue * exp(-r * 3.2) * 0.22 + cyan * exp(-r * 9.0) * 0.12;
@@ -108,6 +109,7 @@ export function initTunnel(container, opts = {}) {
     fade: { value: 1 },
     iResolution: { value: [1, 1] },
     look: { value: [0, 0] },
+    layers: { value: 3 },
     cyan: { value: hexToRgb(o.cyan) },
     blue: { value: hexToRgb(o.blue) },
     lime: { value: hexToRgb(o.lime) },
@@ -118,9 +120,14 @@ export function initTunnel(container, opts = {}) {
   });
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small = () => window.innerWidth < 768;
+  let heroH = 1;
   const updateSize = () => {
-    const dpr = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+    // los trazos son suaves: no hace falta resolución retina (el costo crece con los píxeles); en móvil, 0.6x
+    const dpr = small() ? 0.6 : 1;
     const { clientWidth: w, clientHeight: h } = container;
+    heroH = h;
+    uniforms.layers.value = small() ? 2 : 3;
     renderer.dpr = dpr;
     renderer.setSize(w, h);
     uniforms.iResolution.value = [w * dpr, h * dpr];
@@ -156,18 +163,21 @@ export function initTunnel(container, opts = {}) {
 
   // Scroll: 0 con la cabecera entera a la vista, 1 cuando ya salió
   let scrolled = 0;
+  let visible = false;
+  let raf = null;
   const onScroll = () => {
-    scrolled = Math.min(Math.max(window.scrollY / Math.max(container.clientHeight * 0.8, 1), 0), 1); // la cabecera puede quedar fija (sticky): se mide desde el tope de la página
+    scrolled = Math.min(Math.max(window.scrollY / Math.max(heroH * 0.8, 1), 0), 1); // la cabecera puede quedar fija (sticky): se mide desde el tope de la página
+    if (visible && scrolled < 1 && raf === null) { last = performance.now(); raf = requestAnimationFrame(loop); } // vuelve a verse: se reanuda
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 
   const ENTRY = 10; // salto inicial de velocidad, se asienta en ~1.5 s
-  let raf = null;
+  const FRAME = small() ? 1000 / 30 : 0; // en móvil, 30 fps
   let last = 0;
   let age = 0;
   let boost = 0; // aceleración extra suavizada (cursor sobre botón)
   const loop = (t) => {
+    if (scrolled >= 1) { raf = null; return; } // tapado por la sección siguiente: el loop se detiene
+    if (t - last < FRAME) { raf = requestAnimationFrame(loop); return; }
     const dt = Math.min((t - last) * 0.001, 0.05);
     last = t;
     age += dt;
@@ -179,15 +189,19 @@ export function initTunnel(container, opts = {}) {
     uniforms.flow.value += dt * speed;
     uniforms.fade.value = 1 - scrolled * 0.9;
     uniforms.iTime.value = t * 0.001;
-    if (scrolled < 1) renderer.render({ scene: mesh }); // tapado por la sección siguiente: no se redibuja
+    renderer.render({ scene: mesh });
     raf = requestAnimationFrame(loop);
   };
 
   // Pausa el loop fuera de pantalla sin destruir el contexto.
   new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && raf === null) { last = performance.now(); raf = requestAnimationFrame(loop); }
-    else if (!entry.isIntersecting && raf !== null) { cancelAnimationFrame(raf); raf = null; }
+    visible = entry.isIntersecting;
+    if (visible && raf === null && scrolled < 1) { last = performance.now(); raf = requestAnimationFrame(loop); }
+    else if (!visible && raf !== null) { cancelAnimationFrame(raf); raf = null; }
   }, { threshold: 0.05 }).observe(container);
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   return { renderer, uniforms };
 }

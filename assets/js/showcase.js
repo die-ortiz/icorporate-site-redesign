@@ -15,19 +15,22 @@ if (sections.length && !window.matchMedia('(prefers-reduced-motion: reduce)').ma
     }));
     let raf = null;
     let visible = false;
+    let center = 0; // posición del centro de la sección en la página (se mide al cargar y al cambiar de tamaño, no por fotograma)
+    const measure = () => { center = section.getBoundingClientRect().top + window.scrollY + section.offsetHeight / 2; };
 
     const update = () => {
       raf = null;
-      const r = section.getBoundingClientRect();
       // 1 con la sección entrando por abajo, 0 centrada, -1 saliendo por arriba
-      const p = Math.max(-1, Math.min(1, (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight));
+      const p = Math.max(-1, Math.min(1, (center - window.scrollY - window.innerHeight / 2) / window.innerHeight));
       const amp = window.innerWidth < 900 ? 50 : 110; // menos recorrido en pantallas chicas
       items.forEach(({ el, depth, prop }) => el.style.setProperty(prop, `${(p * depth * amp).toFixed(1)}px`));
     };
     const request = () => { if (visible && raf === null) raf = requestAnimationFrame(update); };
 
+    measure();
+    window.addEventListener('load', () => { measure(); request(); }, { once: true });
     window.addEventListener('scroll', request, { passive: true });
-    window.addEventListener('resize', request);
+    window.addEventListener('resize', () => { measure(); request(); });
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) request();
