@@ -206,7 +206,9 @@
 
   <main id="main">
     <!-- CABECERA (centrada) -->
-    <section class="page-hero page-hero--tunnel">
+    <!-- BLOQUE FIJO: la cabecera queda fija a pantalla completa y la vitrina sube y la tapa (.pin-stack; assets/js/pin.js atenúa el contenido) -->
+    <div class="pin-stack">
+    <section class="page-hero page-hero--tunnel page-hero--pin" data-pin>
       <!-- Fondo: túnel de datos WebGL (assets/js/tunnel.js); sin WebGL o con movimiento reducido queda estático/oscuro. -->
       <div class="tunnel-bg" data-tunnel aria-hidden="true"></div>
       <!-- Video opcional: se activa solo si existe assets/video/tech.mp4 (ver scripts/optimize_video.sh) -->
@@ -224,6 +226,39 @@
       </div>
     </section>
 
+    <!-- VITRINA: titular grande con palabra fantasma y dispositivos solapados (assets/js/showcase.js: parallax con data-depth) -->
+    <section class="showcase" id="showcase" data-showcase>
+      <div class="showcase__ghost" aria-hidden="true" data-depth="-0.5" data-axis="x">Software</div>
+      <div class="container showcase__inner">
+        <div class="showcase__head reveal">
+          <span class="eyebrow">Technology in action <span class="sample-tag" title="Fictional text for visual illustration only">Example content</span></span>
+          <h2 class="showcase__title"><span class="showcase__brace">{</span>Smart<span class="showcase__brace">}</span><br>technology</h2>
+        </div>
+        <div class="showcase__devices reveal" data-d="1" aria-hidden="true">
+          <div class="showcase__browser" data-depth="0.35">
+            <div class="showcase__bar"></div>
+            <img src="../assets/img/svc-web-alta.webp" width="720" height="962" alt="" loading="lazy" decoding="async">
+          </div>
+          <span class="svc-phone showcase__phone showcase__phone--a" data-depth="0.7"><i class="svc-phone__screen"><img src="../assets/img/svc-app-alta-home.webp" width="360" height="780" alt="" loading="lazy" decoding="async"></i><img class="svc-phone__frame" src="../assets/img/svc-phone-frame.webp" width="520" height="1076" alt="" loading="lazy" decoding="async"></span>
+          <span class="svc-phone showcase__phone showcase__phone--b" data-depth="1"><img class="svc-phone__frame" src="../assets/img/svc-app-waga.webp" width="520" height="1076" alt="" loading="lazy" decoding="async"></span>
+          <div class="showcase__chip" data-depth="1.4"><img src="../assets/img/ibot-icon-clear.webp" width="300" height="300" alt="" loading="lazy" decoding="async"><span>Hi! How can I help?</span></div>
+        </div>
+        <div class="showcase__foot reveal" data-d="2">
+          <p class="showcase__lead">Bots, apps and websites that work together: fewer manual tasks, faster answers and tools your team actually uses.</p>
+          <div class="page-hero__actions">
+            <a class="btn btn--primary" href="#services-list">See what we build</a>
+            <a class="btn btn--ghost" href="#proposal">Let's talk</a>
+          </div>
+        </div>
+        <div class="showcase__notes reveal" data-d="2" aria-hidden="true">
+          <div class="showcase__note" data-depth="0.8"><i class="showcase__dot" aria-hidden="true"></i><span><b>Lead qualified</b><em>iBot · 2 s</em></span></div>
+          <div class="showcase__note" data-depth="1.2"><i class="showcase__dot" aria-hidden="true"></i><span><b>Invoice sent</b><em>Automated · 09:41</em></span></div>
+          <div class="showcase__note" data-depth="0.5"><i class="showcase__dot" aria-hidden="true"></i><span><b>Order synced</b><em>ERP ↔ Web · live</em></span></div>
+        </div>
+      </div>
+    </section>
+    </div>
+
     <!-- LOS 4 SERVICIOS (nombres reales del sitio actual; descripciones y viñetas de ejemplo) -->
     <section class="section" id="services-list">
       <div class="container">
@@ -233,7 +268,7 @@
         </div>
         <div class="svc-cards">
           <article class="svc-card svc-card--bots reveal"><div class="svc-card__bg" aria-hidden="true"></div><img class="svc-card__mascot" src="../assets/img/ibot-icon-clear.webp" width="300" height="300" alt="" loading="lazy" decoding="async"><h3>Bot Assistant & Automation</h3><div class="svc-card__body"><p>Assistants that answer, qualify and route, and automations that remove repetitive work.</p><ul class="svc-card__tags"><li>WhatsApp</li><li>Web chat</li><li>Lead routing</li><li>Zapier</li></ul></div></article>
-          <article class="svc-card svc-card--apps reveal"><div class="svc-card__bg svc-phones" aria-hidden="true"><div class="svc-phones__stack"><span class="svc-phone svc-phone--1"><i class="svc-phone__screen"><img src="../assets/img/svc-app-alta-home.webp" width="360" height="780" alt="" loading="lazy" decoding="async"></i><img class="svc-phone__frame" src="../assets/img/svc-phone-frame.webp" width="520" height="1087" alt="" loading="lazy" decoding="async"></span><span class="svc-phone svc-phone--2"><i class="svc-phone__screen"><img src="../assets/img/svc-app-alta-agenda.webp" width="360" height="780" alt="" loading="lazy" decoding="async"></i><img class="svc-phone__frame" src="../assets/img/svc-phone-frame.webp" width="520" height="1087" alt="" loading="lazy" decoding="async"></span><span class="svc-phone svc-phone--3"><img class="svc-phone__frame" src="../assets/img/svc-app-waga.webp" width="520" height="1087" alt="" loading="lazy" decoding="async"></span></div></div><h3>Apps & Business Tools</h3><div class="svc-card__body"><p>Custom apps and internal tools built around how your team works.</p><ul class="svc-card__tags"><li>iOS & Android</li><li>Web apps</li><li>Dashboards</li><li>Integrations</li></ul></div></article>
+          <article class="svc-card svc-card--apps reveal"><div class="svc-card__bg svc-phones" aria-hidden="true"><div class="svc-phones__stack"><span class="svc-phone svc-phone--1"><i class="svc-phone__screen"><img src="../assets/img/svc-app-alta-home.webp" width="360" height="780" alt="" loading="lazy" decoding="async"></i><img class="svc-phone__frame" src="../assets/img/svc-phone-frame.webp" width="520" height="1076" alt="" loading="lazy" decoding="async"></span><span class="svc-phone svc-phone--2"><i class="svc-phone__screen"><img src="../assets/img/svc-app-alta-agenda.webp" width="360" height="780" alt="" loading="lazy" decoding="async"></i><img class="svc-phone__frame" src="../assets/img/svc-phone-frame.webp" width="520" height="1076" alt="" loading="lazy" decoding="async"></span><span class="svc-phone svc-phone--3"><img class="svc-phone__frame" src="../assets/img/svc-app-waga.webp" width="520" height="1076" alt="" loading="lazy" decoding="async"></span></div></div><h3>Apps & Business Tools</h3><div class="svc-card__body"><p>Custom apps and internal tools built around how your team works.</p><ul class="svc-card__tags"><li>iOS & Android</li><li>Web apps</li><li>Dashboards</li><li>Integrations</li></ul></div></article>
           <article class="svc-card svc-card--web svc-card--photo reveal"><img class="svc-card__bg" src="../assets/img/svc-web-alta.webp" width="720" height="962" alt="" loading="lazy" decoding="async"><h3>Web Solutions</h3><div class="svc-card__body"><p>Fast, clear websites designed to convert and easy to maintain.</p><ul class="svc-card__tags"><li>Conference website</li><li>EN / ES</li><li>Hotel booking tool</li><li>Conference register</li></ul></div></article>
           <article class="svc-card svc-card--events svc-card--photo reveal"><img class="svc-card__bg" src="../assets/img/svc-event-conference.webp" width="640" height="1138" alt="" loading="lazy" decoding="async"><h3>Event Tech Solutions</h3><div class="svc-card__body"><p>The technology around your events, from registration to live data.</p><ul class="svc-card__tags"><li>Event apps</li><li>Check-in</li><li>Live translation</li><li>Checkpoints</li></ul></div></article>
         </div>
@@ -449,6 +484,8 @@
   <script type="module" src="../assets/js/backgrounds.js"></script>
   <script type="module" src="../assets/js/flow.js"></script>
   <script type="module" src="../assets/js/forms.js"></script>
+  <script type="module" src="../assets/js/pin.js"></script>
+  <script type="module" src="../assets/js/showcase.js"></script>
   <script type="module" src="../assets/js/stats.js"></script>
 </body>
 </html>

@@ -157,8 +157,7 @@ export function initTunnel(container, opts = {}) {
   // Scroll: 0 con la cabecera entera a la vista, 1 cuando ya salió
   let scrolled = 0;
   const onScroll = () => {
-    const r = container.getBoundingClientRect();
-    scrolled = Math.min(Math.max(-r.top / Math.max(r.height * 0.8, 1), 0), 1);
+    scrolled = Math.min(Math.max(window.scrollY / Math.max(container.clientHeight * 0.8, 1), 0), 1); // la cabecera puede quedar fija (sticky): se mide desde el tope de la página
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -180,7 +179,7 @@ export function initTunnel(container, opts = {}) {
     uniforms.flow.value += dt * speed;
     uniforms.fade.value = 1 - scrolled * 0.9;
     uniforms.iTime.value = t * 0.001;
-    renderer.render({ scene: mesh });
+    if (scrolled < 1) renderer.render({ scene: mesh }); // tapado por la sección siguiente: no se redibuja
     raf = requestAnimationFrame(loop);
   };
 

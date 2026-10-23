@@ -77,13 +77,13 @@ JOBS = {
     "svc-event-conference.webp": ("event-solution.jpeg",                    640, 80, {}),
     "svc-web-alta.webp":        ("screencapture-forum-alta-aero-2026-10-22-21_08_03.jpg", 720, 80, {}),
     # captura de la app de WAGA 2026 en un iPhone, recortada al teléfono y sin el fondo blanco (celular del frente en Tech Solutions)
-    "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True}),
+    "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True, "cutbottom": 11}),
     # el mismo iPhone con la pantalla vaciada (transparente, conserva la isla): detrás se pone un degradado en CSS.
     # coordenadas sobre la salida de 520 px: (izq, arriba, der, abajo, radio) de la pantalla y de la isla
     # capturas reales de la app de ALTA para las pantallas de los teléfonos de atrás (Tech Solutions)
     "svc-app-alta-home.webp":   ("agenda-forum-app.jpeg",               360, 82, {}),
     "svc-app-alta-agenda.webp": ("alta-app.jpeg",                       360, 82, {}),
-    "svc-phone-frame.webp": ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True,
+    "svc-phone-frame.webp": ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True, "cutbottom": 11,
                                                                                  "screenhole": {"screen": (26, 24, 494, 1062, 64), "island": (189, 37, 331, 77, 20)}}),
     "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
@@ -347,6 +347,8 @@ def main():
         if opts.get("trim"):
             im = im.crop(im.split()[3].getbbox())
         im = resize(im, width)
+        if opts.get("cutbottom"):  # filas finales (px de salida) con restos de sombra/reflejo del original
+            im = im.crop((0, 0, im.width, im.height - opts["cutbottom"]))
         if opts.get("screenhole"):
             im = punch_screen(im, **opts["screenhole"])
         has_alpha = src.suffix.lower() == ".png" or opts.get("clearbg", False) or opts.get("solid", False) or opts.get("unmatte", False)
