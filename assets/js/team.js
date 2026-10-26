@@ -1,7 +1,8 @@
 /* team.js · About. Equipo en "spotlight" ([data-team]): una persona por vez, elegida con las miniaturas
    (.team-spot__thumb, patrón de pestañas: flechas del teclado, Inicio y Fin) o con las flechas del escenario.
-   - Avanza solo cada 7 s mientras se ve en pantalla; se pausa con el mouse o el foco encima y se detiene al primer
-     uso manual. Sin avance automático con prefers-reduced-motion.
+   - Avanza solo cada 7 s mientras se ve en pantalla. Se pausa solo con el mouse sobre los controles (miniaturas, flechas,
+     redes) o con el foco del teclado adentro: el bloque ocupa casi toda la pantalla y pausar con el mouse en cualquier
+     parte lo dejaba siempre quieto. Un uso manual reinicia la cuenta. Sin avance automático con prefers-reduced-motion.
    - Al entrar en pantalla por primera vez agrega .is-in: arranca la entrada escalonada (nombre, cargo, bio) del CSS.
    - Sin JS (o si este módulo falla) se ven todas las personas una debajo de otra.
    Sin dependencias de otros archivos de JS. */
@@ -12,7 +13,7 @@ if (spot) {
   const thumbs = [...spot.querySelectorAll('.team-spot__thumb')];
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let current = Math.max(0, slides.findIndex((s) => s.classList.contains('is-active')));
-  let timer = null, auto = !reduced, visible = false, hovered = false;
+  let timer = null, visible = false, hovered = false, focused = false;
 
   const show = (i, focus) => {
     current = (i + slides.length) % slides.length;
@@ -30,8 +31,8 @@ if (spot) {
   };
 
   const stop = () => { clearInterval(timer); timer = null; };
-  const play = () => { stop(); if (auto && visible && !hovered) timer = setInterval(() => show(current + 1), 7000); };
-  const manual = (i, focus) => { auto = false; stop(); show(i, focus); };
+  const play = () => { stop(); if (!reduced && visible && !hovered && !focused) timer = setInterval(() => show(current + 1), 7000); };
+  const manual = (i, focus) => { show(i, focus); play(); };
 
   thumbs.forEach((t, k) => {
     t.addEventListener('click', () => manual(k));
@@ -44,10 +45,13 @@ if (spot) {
   spot.querySelector('.team-spot__nav--prev').addEventListener('click', () => manual(current - 1));
   spot.querySelector('.team-spot__nav--next').addEventListener('click', () => manual(current + 1));
 
-  spot.addEventListener('pointerenter', () => { hovered = true; stop(); });
-  spot.addEventListener('pointerleave', () => { hovered = false; play(); });
-  spot.addEventListener('focusin', () => { hovered = true; stop(); });
-  spot.addEventListener('focusout', (e) => { if (!spot.contains(e.relatedTarget)) { hovered = false; play(); } });
+  spot.querySelectorAll('.team-spot__thumbs, .team-spot__nav, .team-spot__social').forEach((el) => {
+    el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovered = true; stop(); } });
+    el.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovered = false; play(); } });
+  });
+  // solo el foco de teclado pausa: un clic en una miniatura también deja el foco adentro y no debe frenar el avance
+  spot.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) { focused = true; stop(); } });
+  spot.addEventListener('focusout', (e) => { if (!spot.contains(e.relatedTarget)) { focused = false; play(); } });
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
     if (visible) { spot.classList.add('is-in'); play(); } else stop();
