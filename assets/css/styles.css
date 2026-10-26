@@ -1097,7 +1097,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .team-spot__text h3 { font: 400 clamp(1.9rem, 4vw, 3rem)/1.1 var(--font-head); letter-spacing: -.02em; color: #fff; }
 .team-spot__role { margin-top: .7rem; font: 500 .78rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
 .team-spot__bio { margin-top: 1.2rem; max-width: 46ch; font-size: 1rem; line-height: 1.65; color: var(--on-dark); }
-.team-spot__photo { position: relative; margin: 0; justify-self: center; height: min(52svh, 460px); max-width: 100%; aspect-ratio: 460 / 585; }
+.team-spot__photo { position: relative; margin: 0; justify-self: center; height: min(46svh, 420px); max-width: 100%; aspect-ratio: 460 / 585; }
 /* retrato recortado (fondo transparente): un contorno cian muy sutil y un brillo suave lo separan del fondo oscuro (la ropa oscura se perdería) */
 .team-spot__photo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%;
   filter: drop-shadow(0 0 1px rgba(6,189,231,.35)) drop-shadow(0 0 32px rgba(6,189,231,.28)); }
@@ -1149,12 +1149,12 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 }
 @media (min-width: 720px) {
   .team-spot { --band: 104px; }
-  /* pantalla completa: título + escenario ocupan el alto de la ventana; el retrato (plano medio) sube desde detrás de la banda */
-  .team-spot { --gutter: max(5.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(100svh, 640px); }
-  .team-spot__head { padding-top: 6.5rem; }
+  /* casi pantalla completa: título + escenario ocupan el 86 % del alto de la ventana; el retrato (plano medio) sube desde detrás de la banda */
+  .team-spot { --gutter: max(5.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(86svh, 600px); }
+  .team-spot__head { padding-top: 5.5rem; }
   .team-spot__stage { flex: 1; }
   .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 0 var(--gutter); }
-  .team-spot__photo { align-self: end; height: min(100svh - 16rem, 820px); }
+  .team-spot__photo { align-self: end; height: min(86svh - 15rem, 720px); }
   .team-spot__thumbs { justify-content: center; }
   .team-spot__thumb { flex: 0 1 160px; }
 }
