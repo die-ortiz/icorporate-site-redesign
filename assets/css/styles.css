@@ -1126,12 +1126,12 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
    después el cargo con su línea cian y al final la bio. Solo opacity y transform; al salir, todo se va junto y rápido */
 .js .team-spot__text > *, .js .team-spot__photo { opacity: 0; transition: opacity .25s ease, transform .3s ease; }
 .js .team-spot__text > * { transform: translateY(22px); }
-.js .team-spot__photo { transform: translateX(28px) scale(.97); }
+.js .team-spot__photo { transform: translate3d(80px, 28px, 0) scale(.9); transform-origin: 50% 100%; }
 .js .team-spot__role::before { content: ""; display: inline-block; width: 28px; height: 1px; margin: 0 .7rem .25em 0; vertical-align: middle; background: var(--cyan);
   transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__text > *, .js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { opacity: 1; transform: none;
   transition: opacity .7s ease, transform .9s cubic-bezier(.16, 1, .3, 1); }
-.js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { transition-delay: .05s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { transition: opacity 1s ease .05s, transform 1.4s cubic-bezier(.16, 1, .3, 1) .05s; } /* el retrato entra de más lejos y frena suave */
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__text h3 { transition-delay: .15s; }
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__role { transition-delay: .4s; }
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__role::before { transform: none; transition: transform .7s cubic-bezier(.16, 1, .3, 1) .6s; }
