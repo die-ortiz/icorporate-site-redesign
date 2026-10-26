@@ -1089,7 +1089,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .team-spot { --band: 112px; --gutter: max(1rem, (100% - var(--container)) / 2); position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
 /* Bloque de borde a borde (fuera de .container) con el título de la sección adentro; --gutter alinea el texto con el resto de la página */
 .team-spot__head { padding: 4rem var(--gutter) 0; }
-.team-spot__head .title { margin-top: .6rem; max-width: none; font-size: clamp(1.5rem, 2.6vw, 2.1rem); color: var(--on-dark); }
+.team-spot__head .title { margin-top: .7rem; max-width: none; font-size: clamp(2rem, 4.2vw, 3.2rem); color: var(--on-dark); }
 .team-spot__stage { position: relative; }
 .team-spot::before { content: ""; position: absolute; z-index: -1; right: 0; top: -5%; width: 64%; height: 110%; pointer-events: none;
   background: radial-gradient(closest-side, rgba(3,127,217,.55), rgba(6,189,231,.18) 55%, transparent); }
@@ -1122,11 +1122,20 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .js .team-spot__slide.is-active { visibility: visible; transition-delay: 0s; }
 .js .team-spot.is-ready .team-spot__thumbs { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: var(--band); margin: 0; align-items: center; }
 .js .team-spot.is-ready .team-spot__text { padding-bottom: calc(var(--band) + 1.5rem); }
-.js .team-spot__text, .js .team-spot__photo { opacity: 0; transition: opacity .45s ease, transform .55s cubic-bezier(.2, .8, .2, 1); }
-.js .team-spot__text { transform: translateX(-18px); }
-.js .team-spot__photo { transform: translateX(24px) scale(.98); }
-.js .team-spot__slide.is-active .team-spot__text, .js .team-spot__slide.is-active .team-spot__photo { opacity: 1; transform: none; }
-.js .team-spot__slide.is-active .team-spot__photo { transition-delay: .08s; }
+/* Entrada escalonada (cuando el bloque entra en pantalla, .is-in, y en cada cambio de persona): primero el retrato y el nombre,
+   después el cargo con su línea cian y al final la bio. Solo opacity y transform; al salir, todo se va junto y rápido */
+.js .team-spot__text > *, .js .team-spot__photo { opacity: 0; transition: opacity .25s ease, transform .3s ease; }
+.js .team-spot__text > * { transform: translateY(22px); }
+.js .team-spot__photo { transform: translateX(28px) scale(.97); }
+.js .team-spot__role::before { content: ""; display: inline-block; width: 28px; height: 1px; margin: 0 .7rem .25em 0; vertical-align: middle; background: var(--cyan);
+  transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__text > *, .js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { opacity: 1; transform: none;
+  transition: opacity .7s ease, transform .9s cubic-bezier(.16, 1, .3, 1); }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { transition-delay: .05s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__text h3 { transition-delay: .15s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__role { transition-delay: .4s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__role::before { transform: none; transition: transform .7s cubic-bezier(.16, 1, .3, 1) .6s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__bio { transition-delay: .6s; }
 .js .team-spot__nav { position: absolute; z-index: 2; top: calc(50% - var(--band) / 2); display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
   background: rgba(16,16,16,.45); color: #fff; cursor: pointer; transition: background .2s, border-color .2s; }
 .js .team-spot__nav:hover { background: rgba(6,189,231,.2); border-color: var(--cyan); }
@@ -1149,7 +1158,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .team-spot__thumbs { justify-content: center; }
   .team-spot__thumb { flex: 0 1 160px; }
 }
-@media (prefers-reduced-motion: reduce) { .js .team-spot__text, .js .team-spot__photo { transition: none; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .js .team-spot__text > *, .js .team-spot__photo, .js .team-spot__role::before { transition: none !important; transform: none; } }
 /* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
    Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque) y, en las páginas de servicio, a fases y preguntas.
    Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */

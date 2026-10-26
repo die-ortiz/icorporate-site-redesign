@@ -2,6 +2,7 @@
    (.team-spot__thumb, patrón de pestañas: flechas del teclado, Inicio y Fin) o con las flechas del escenario.
    - Avanza solo cada 7 s mientras se ve en pantalla; se pausa con el mouse o el foco encima y se detiene al primer
      uso manual. Sin avance automático con prefers-reduced-motion.
+   - Al entrar en pantalla por primera vez agrega .is-in: arranca la entrada escalonada (nombre, cargo, bio) del CSS.
    - Sin JS (o si este módulo falla) se ven todas las personas una debajo de otra.
    Sin dependencias de otros archivos de JS. */
 
@@ -47,7 +48,10 @@ if (spot) {
   spot.addEventListener('pointerleave', () => { hovered = false; play(); });
   spot.addEventListener('focusin', () => { hovered = true; stop(); });
   spot.addEventListener('focusout', (e) => { if (!spot.contains(e.relatedTarget)) { hovered = false; play(); } });
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) play(); else stop(); }, { threshold: 0.35 }).observe(spot);
+  new IntersectionObserver(([e]) => {
+    visible = e.isIntersecting;
+    if (visible) { spot.classList.add('is-in'); play(); } else stop();
+  }, { threshold: 0.35 }).observe(spot);
 
   spot.classList.add('is-ready');
 }
