@@ -1089,12 +1089,12 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .team-spot { --band: 112px; --gutter: max(1rem, (100% - var(--container)) / 2); position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
 /* Bloque de borde a borde (fuera de .container) con el título de la sección adentro; --gutter alinea el texto con el resto de la página */
 .team-spot__head { padding: 4rem var(--gutter) 0; }
-.team-spot__head .title { margin-top: .7rem; max-width: none; font-size: clamp(2rem, 4.2vw, 3.2rem); color: var(--on-dark); }
+.team-spot__head .title { margin-top: .7rem; max-width: none; font-size: clamp(2rem, 4.2vw, 3.2rem); color: var(--on-dark-muted); } /* contexto: tenue; el protagonista es el nombre */
 .team-spot__stage { position: relative; }
 .team-spot::before { content: ""; position: absolute; z-index: -1; right: 0; top: -5%; width: 64%; height: 110%; pointer-events: none;
   background: radial-gradient(closest-side, rgba(3,127,217,.55), rgba(6,189,231,.18) 55%, transparent); }
 .team-spot__slide { display: grid; gap: 1.5rem; align-items: center; padding: 2rem var(--gutter) 0; }
-.team-spot__text h3 { font: 400 clamp(1.9rem, 4vw, 3rem)/1.1 var(--font-head); letter-spacing: -.02em; color: #fff; }
+.team-spot__text h3 { font: 400 clamp(2.4rem, 5.2vw, 4rem)/1.05 var(--font-head); letter-spacing: -.025em; color: #fff; }
 .team-spot__role { margin-top: .7rem; font: 500 .78rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
 .team-spot__bio { margin-top: 1.2rem; max-width: 46ch; font-size: 1rem; line-height: 1.65; color: var(--on-dark); }
 .team-spot__photo { position: relative; margin: 0; justify-self: center; height: min(52svh, 470px); max-width: 100%; aspect-ratio: 460 / 585; }
