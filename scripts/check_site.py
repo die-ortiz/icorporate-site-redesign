@@ -136,7 +136,7 @@ all_html = "".join(sources.values()) + read("index.html") + read("es/index.html"
 js = "".join(read(f) for f in glob.glob("assets/js/*.js"))
 used = {c for cls in re.findall(r'class="([^"]+)"', all_html) for c in cls.split()}
 # clases que arma el JS por concatenación (p. ej. 'ibot__msg--' + who)
-dynamic_prefixes = ("ibot__msg--", "ibot__row--")
+dynamic_prefixes = ("ibot__msg--",)
 for c in sorted(set(re.findall(r"\.([a-zA-Z][\w-]*)", css))):
     if re.match(r"\d", c) or c in used or c in js or c.startswith(dynamic_prefixes):
         continue
