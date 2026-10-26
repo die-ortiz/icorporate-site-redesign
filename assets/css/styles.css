@@ -611,7 +611,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .ibot__launcher:hover { transform: translateY(-2px) scale(1.05); }
 /* Pulso: dos ondas cian (relleno y aro) que se expanden detrás del ícono, desfasadas; se detienen con el chat abierto */
-.ibot__launcher::before, .ibot__launcher::after { content: ""; position: absolute; inset: 6px; z-index: -1; border-radius: 50%; animation: ibot-ring 2s ease-out 5; } /* 5 ondas y reposo: una animación infinita en un elemento fijo mantiene al compositor trabajando en todas las páginas */
+.ibot__launcher::before, .ibot__launcher::after { content: ""; position: absolute; inset: 6px; z-index: -1; border-radius: 50%; animation: ibot-ring 2s ease-out infinite; } /* pulso continuo: solo transform y opacity, los anima el compositor sin repintar */
 .ibot__launcher::before { background: rgba(6,189,231,.75); }
 .ibot__launcher::after { border: 3px solid var(--cyan); animation-delay: 1s; }
 .ibot.is-open .ibot__launcher::before, .ibot.is-open .ibot__launcher::after { animation: none; opacity: 0; }
