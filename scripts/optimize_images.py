@@ -98,8 +98,8 @@ JOBS = {
     # Retrato de EJEMPLO del spotlight del equipo (About), el mismo en las cuatro personas hasta tener los retratos reales.
     # diego-cutout.png es diego.jpeg sin fondo (rembg, modelo u2net_human_seg; herramienta de desarrollo, no va al sitio),
     # con el borde achicado ~2 px y el color del borde tomado del interior para que no quede halo blanco del fondo original.
-    # box = de la cabeza a la cadera (las manos quedan bajo la banda de miniaturas) (el escenario es de pantalla completa), en píxeles del original de 720x1280
-    "team-spot-sample.webp":  ("diego-cutout.png", 480, 82, {"box": (120, 120, 600, 920)}),
+    # box = de la cabeza a la cintura (plano medio, como la referencia) (el escenario es de pantalla completa), en píxeles del original de 720x1280
+    "team-spot-sample.webp":  ("diego-cutout.png", 460, 82, {"box": (130, 115, 590, 700)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
