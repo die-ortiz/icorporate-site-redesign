@@ -20,6 +20,8 @@ DST = ROOT / "assets" / "img"
 # Zonas desenfocadas de alta-agm-opening-ceremony.jpg (coordenadas del original de 2000x1333):
 # nombre y cargo del orador en la pantalla y los textos de Amadeus del cartel de la derecha
 EVENTS_BLUR = [(328, 518, 488, 595), (1830, 515, 1905, 570), (1832, 660, 1905, 720), (1845, 730, 1895, 758)]
+# foto-aboutus.jpg (2048x1365): textos de Amadeus del cartel de la izquierda y nombre y cargo del orador en la pantalla
+ABOUT_BLUR = [(70, 460, 200, 525), (55, 625, 210, 710), (90, 728, 170, 762), (1078, 462, 1222, 542)]
 
 # salida -> (original, ancho máximo, calidad, opciones)
 JOBS = {
@@ -93,7 +95,7 @@ JOBS = {
     "team-maria-piegari.webp":   ("about-hero-team.jpg", 240, 88, {"box": (325, 430, 505, 640),  "portrait": {"rx": 0.36}}),
     "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 240, 88, {"portrait": {"rx": 0.39, "cuts": [(0.62, 0.16, 0.82, 0.34)]}}),
     "team-alexandra-ortiz.webp": ("team-alexandra-ortiz.png", 240, 88, {"portrait": {"cx": 0.62, "rx": 0.30, "cuts": [(0.30, 0.0, 0.85, 0.285), (0.745, 0.55, 1.0, 1.0)]}}),
-    "about-hero.webp":      ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
+    "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
