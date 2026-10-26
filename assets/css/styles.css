@@ -121,7 +121,11 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   /* sin position: el menú móvil desplegado se ancla a toda la cabecera (ancho completo), no a la caja del contenedor */
   display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 72px;
   padding: 0 1.25rem;
+  /* aire arriba mientras la cabecera es transparente: baja --hdr-top y vuelve a 0 a medida que el fondo se solidifica (solo transform) */
+  --hdr-top: 14px; transform: translateY(calc((1 - var(--hdr-p)) * var(--hdr-top))); transition: transform .2s ease-out;
 }
+/* con menú abierto, sin transform: si no, la barra pasaría a ser la referencia del mega-menú y del menú móvil (anclados a toda la cabecera) */
+.site-header.is-open .header-bar, .site-header.is-mega .header-bar { transform: none; }
 /* Logo: fundido cruzado entre la versión clara (sobre oscuro) y la oscura (sobre blanco) */
 .brand { position: relative; display: flex; align-items: center; }
 .brand img { height: 40px; width: auto; }
