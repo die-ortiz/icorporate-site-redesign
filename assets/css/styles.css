@@ -655,15 +655,35 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot__close { flex: none; width: 40px; height: 40px; border: 0; border-radius: 10px; background: var(--dark-2); color: var(--on-dark); cursor: pointer; display: grid; place-items: center; transition: background .2s, color .2s; }
 .ibot__close:hover { background: rgba(255,255,255,.12); color: #fff; }
 .ibot__close:focus-visible, .ibot__chip:focus-visible, .ibot__send:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
-.ibot__log { flex: 1; overflow-y: auto; padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: .6rem; background: var(--dark); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent; }
-.ibot__msg { max-width: 86%; padding: .7rem .95rem; border-radius: var(--radius); font-size: .92rem; line-height: 1.5; overflow-wrap: anywhere; }
-.ibot__msg--bot { align-self: flex-start; background: var(--dark-2); color: #ececec; border-bottom-left-radius: 4px; }
-.ibot__msg--user { align-self: flex-end; background: var(--cyan); color: var(--dark); border-bottom-right-radius: 4px; }
-.ibot__msg.is-typing { color: var(--on-dark-muted); letter-spacing: .15em; }
+.ibot__log { flex: 1; overflow-y: auto; padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: .75rem; background: var(--dark); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent; }
+/* Bienvenida: avatar grande en un anillo --grad con halo cian que respira (ibot-pulse: solo opacity y scale); se detiene con el chat cerrado */
+.ibot__welcome { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .6rem 0 1.1rem; text-align: center; }
+.ibot__halo { position: relative; isolation: isolate; width: 112px; height: 112px; margin-bottom: .75rem; padding: 3px; border-radius: 50%; background: var(--grad); }
+.ibot__halo::before { content: ""; position: absolute; inset: -18px; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgba(6,189,231,.4), rgba(6,189,231,.12) 60%, transparent); animation: ibot-pulse 2.8s ease-in-out infinite; }
+.ibot__halo img { padding: 16px; border-radius: 50%; background: radial-gradient(circle at 50% 35%, var(--dark-2), var(--dark) 75%); }
+.ibot:not(.is-open) .ibot__halo::before { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .ibot__halo::before { animation: none; } }
+@media (max-height: 720px) { .ibot__welcome { padding: .2rem 0 .7rem; } .ibot__halo { width: 84px; height: 84px; margin-bottom: .5rem; } .ibot__halo img { padding: 12px; } }
+.ibot__welcome strong { font: 400 1.25rem/1.2 var(--font-head); color: #fff; }
+.ibot__welcome p { margin: 0; font-size: .85rem; color: var(--on-dark-muted); }
+/* Filas: avatar chico al pie de cada respuesta del iBot; los mensajes del usuario a la derecha */
+.ibot__row { display: flex; align-items: flex-end; gap: .5rem; max-width: 90%; }
+.ibot__row--bot { align-self: flex-start; }
+.ibot__row--user { align-self: flex-end; }
+.ibot__mini { flex: none; width: 28px; height: 28px; padding: 3px; border-radius: 50%; background: var(--dark-2); box-shadow: 0 0 0 1px rgba(6,189,231,.35); }
+.ibot__msg { min-width: 0; padding: .7rem .95rem .55rem; border-radius: 16px; font-size: .92rem; line-height: 1.5; overflow-wrap: anywhere; }
+.ibot__msg--bot { background: var(--dark-2); color: #ececec; border-bottom-left-radius: 4px; }
+.ibot__msg--user { background: var(--cyan); color: var(--dark); border-bottom-right-radius: 4px; }
+.ibot__msg.is-typing { padding-bottom: .7rem; color: var(--on-dark-muted); letter-spacing: .15em; }
+.ibot__time { display: flex; align-items: center; justify-content: flex-end; gap: .3rem; margin-top: .3rem; font: 500 .66rem/1 var(--font-mono); letter-spacing: .04em; color: var(--on-dark-muted); }
+.ibot__msg--user .ibot__time { color: rgba(16,16,16,.62); }
+.ibot__read { display: inline-flex; }
 .ibot__cta { display: flex; width: fit-content; margin-top: .7rem; padding: .6rem 1rem; border-radius: 999px; text-decoration: none; font: 500 .7rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
-.ibot__chips { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0 1rem .9rem; }
+.ibot__chips { display: flex; gap: .45rem; padding: 0 2.5rem .9rem 1rem; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
+  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); } /* una sola fila deslizable: deja el alto a la conversación; el fundido indica que hay más */
+.ibot__chips::-webkit-scrollbar { display: none; }
 .ibot__chips[hidden] { display: none; }
-.ibot__chip { padding: .5rem .85rem; min-height: 40px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: transparent; color: var(--on-dark); font: 500 .8rem/1.2 var(--font); cursor: pointer; text-align: left; transition: border-color .2s, color .2s, background .2s; }
+.ibot__chip { flex: none; white-space: nowrap; padding: .5rem .85rem; min-height: 40px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: transparent; color: var(--on-dark); font: 500 .8rem/1.2 var(--font); cursor: pointer; text-align: left; transition: border-color .2s, color .2s, background .2s; }
 .ibot__chip:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(6,189,231,.08); }
 .ibot__form { display: flex; gap: .6rem; padding: .85rem 1rem 1rem; border-top: 1px solid rgba(255,255,255,.08); background: var(--dark); }
 .ibot__input { flex: 1; min-width: 0; height: 46px; padding: 0 1.1rem; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; background: var(--dark-2); font: 500 .92rem var(--font); color: #fff; transition: border-color .2s; }

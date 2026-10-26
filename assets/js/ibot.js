@@ -8,7 +8,7 @@
     en: {
       launcher: 'Open iBot chat', close: 'Close chat', title: 'iBot', status: 'Online',
       greeting: 'Hi! How can I help you?', placeholder: 'Type your question...', send: 'Send',
-      typing: 'iBot is typing', log: 'Conversation with iBot',
+      typing: 'iBot is typing', log: 'Conversation with iBot', welcome: 'Your iCorporate assistant', read: 'Read',
       chips: ['What services do you offer?', 'I want to book a call', 'Tell me about event tech'],
       cta: 'Book a call',
       replies: {
@@ -21,7 +21,7 @@
     es: {
       launcher: 'Abrir el chat de iBot', close: 'Cerrar el chat', title: 'iBot', status: 'En línea',
       greeting: '¡Hola! ¿En qué puedo ayudarte?', placeholder: 'Escribí tu consulta...', send: 'Enviar',
-      typing: 'iBot está escribiendo', log: 'Conversación con iBot',
+      typing: 'iBot está escribiendo', log: 'Conversación con iBot', welcome: 'Tu asistente de iCorporate', read: 'Leído',
       chips: ['¿Qué servicios ofrecen?', 'Quiero agendar una llamada', 'Contame sobre tecnología para eventos'],
       cta: 'Agendá una llamada',
       replies: {
@@ -38,6 +38,7 @@
   const base = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
   const CLEAR_SRC = base ? new URL('../img/ibot-icon-clear.webp', base).href : '';
   const ICON_CLEAR = `<img src="${CLEAR_SRC}" alt="" width="300" height="300" decoding="async">`;
+  const TICK = '<svg viewBox="0 0 18 12" width="14" height="10" aria-hidden="true" focusable="false"><path d="M1 6.5l3 3L10.5 2M7 9.5l1 1L16.5 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const SEND = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M21.5 3.5L10 14M21.5 3.5l-6.5 17-3.5-7.5L4 9.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const CLOSE = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
@@ -68,7 +69,14 @@
   const form = $('.ibot__form'), input = $('.ibot__input'), chips = $('.ibot__chips');
 
   const scroll = () => { log.scrollTop = log.scrollHeight; };
-  const add = (text, who, withCta) => {
+  // Bienvenida: avatar grande en un anillo con el degradado de marca; es parte del registro y sube con la conversación
+  log.insertAdjacentHTML('beforeend', `<div class="ibot__welcome"><span class="ibot__halo">${ICON_CLEAR}</span><strong>${T.title}</strong><p>${T.welcome}</p></div>`);
+  const clock = () => new Date().toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
+  // Cada mensaje va en una fila (.ibot__row): las del iBot llevan el avatar chico; todas, la hora (las del usuario, con el tilde de leído)
+  const add = (text, who, withCta, withTime = true) => {
+    const row = document.createElement('div');
+    row.className = 'ibot__row ibot__row--' + who;
+    if (who === 'bot') row.insertAdjacentHTML('beforeend', `<span class="ibot__mini">${ICON_CLEAR}</span>`);
     const m = document.createElement('div');
     m.className = 'ibot__msg ibot__msg--' + who;
     m.textContent = text;
@@ -78,7 +86,9 @@
       a.addEventListener('click', () => setOpen(false));
       m.appendChild(a);
     }
-    log.appendChild(m); scroll();
+    if (withTime) m.insertAdjacentHTML('beforeend', `<time class="ibot__time">${clock()}${who === 'user' ? `<span class="ibot__read" role="img" aria-label="${T.read}">${TICK}</span>` : ''}</time>`);
+    row.appendChild(m);
+    log.appendChild(row); scroll();
     return m;
   };
 
@@ -92,8 +102,8 @@
 
   const reply = (q) => {
     const kind = intent(q);
-    const typing = add('…', 'bot'); typing.setAttribute('aria-label', T.typing); typing.classList.add('is-typing');
-    setTimeout(() => { typing.remove(); add(T.replies[kind], 'bot', kind === 'call'); }, 650);
+    const typing = add('…', 'bot', false, false); typing.setAttribute('aria-label', T.typing); typing.classList.add('is-typing');
+    setTimeout(() => { typing.parentNode.remove(); add(T.replies[kind], 'bot', kind === 'call'); }, 650);
   };
 
   const send = (text) => {
@@ -110,6 +120,7 @@
     chips.appendChild(b);
   });
   add(T.greeting, 'bot');
+  log.scrollTop = 0; // al abrir se ve la bienvenida completa; desde el primer mensaje, el registro sigue al último
 
   form.addEventListener('submit', (e) => { e.preventDefault(); send(input.value); input.value = ''; });
 
