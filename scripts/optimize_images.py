@@ -96,9 +96,10 @@ JOBS = {
     "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 240, 88, {"portrait": {"rx": 0.39, "cuts": [(0.62, 0.16, 0.82, 0.34)]}}),
     "team-alexandra-ortiz.webp": ("team-alexandra-ortiz.png", 240, 88, {"portrait": {"cx": 0.62, "rx": 0.30, "cuts": [(0.30, 0.0, 0.85, 0.285), (0.745, 0.55, 1.0, 1.0)]}}),
     # Retrato de EJEMPLO del spotlight del equipo (About), el mismo en las cuatro personas hasta tener los retratos reales.
-    # diego-cutout.png es diego.jpeg sin fondo (rembg, modelo u2net_human_seg; herramienta de desarrollo, no va al sitio).
-    # box = de la cintura para arriba, 4:5, en píxeles del original de 720x1280
-    "team-spot-sample.webp":  ("diego-cutout.png", 450, 82, {"box": (135, 120, 585, 682)}),
+    # diego-cutout.png es diego.jpeg sin fondo (rembg, modelo u2net_human_seg; herramienta de desarrollo, no va al sitio),
+    # con el borde achicado ~2 px y el color del borde tomado del interior para que no quede halo blanco del fondo original.
+    # box = de la cabeza a la cadera (las manos quedan bajo la banda de miniaturas) (el escenario es de pantalla completa), en píxeles del original de 720x1280
+    "team-spot-sample.webp":  ("diego-cutout.png", 480, 82, {"box": (120, 120, 600, 920)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
