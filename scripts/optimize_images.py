@@ -51,7 +51,6 @@ JOBS = {
     # Fotografías
     "apps-home.webp":       ("icorporate_apps_home.jpg",               1000, 78, {}),
     "branding-objects.webp": ("Imagen_corporate_branding_objetos.jpg",  800, 78, {}),
-    "ibot-icon.webp":       ("icono-ibot.jpg",                          160, 90, {}),
     "integration-drive.webp": ("logo-drive.png", 128, 90, {}),
     "integration-docs.webp": ("logo-docs.png", 128, 90, {}),
     "integration-gmail.webp": ("logo-gmail.png", 128, 90, {}),
