@@ -95,6 +95,12 @@ JOBS = {
     "team-maria-piegari.webp":   ("about-hero-team.jpg", 240, 88, {"box": (325, 430, 505, 640),  "portrait": {"rx": 0.36}}),
     "team-alejandro-ortiz.webp": ("team-alejandro-ortiz.png", 240, 88, {"portrait": {"rx": 0.39, "cuts": [(0.62, 0.16, 0.82, 0.34)]}}),
     "team-alexandra-ortiz.webp": ("team-alexandra-ortiz.png", 240, 88, {"portrait": {"cx": 0.62, "rx": 0.30, "cuts": [(0.30, 0.0, 0.85, 0.285), (0.745, 0.55, 1.0, 1.0)]}}),
+    # Retratos PROVISORIOS del spotlight del equipo (About): de la cintura para arriba, recortados de la foto grupal (4:5).
+    # Baja resolución: reemplazar por retratos de una sesión propia (>= 1200 px de alto) cuando lleguen.
+    "team-spot-alberto-cortes.webp":  ("about-hero-team.jpg", 480, 80, {"box": (698, 445, 898, 695)}),
+    "team-spot-maria-piegari.webp":   ("about-hero-team.jpg", 480, 80, {"box": (315, 440, 515, 690)}),
+    "team-spot-alejandro-ortiz.webp": ("about-hero-team.jpg", 480, 80, {"box": (908, 442, 1108, 692)}),
+    "team-spot-alexandra-ortiz.webp": ("about-hero-team.jpg", 480, 80, {"box": (1012, 468, 1212, 718)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),

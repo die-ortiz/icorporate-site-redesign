@@ -1082,26 +1082,65 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 @media (min-width: 1100px) { .type-cards--5 { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 720px) and (max-width: 1099px) { .type-cards--5 { grid-template-columns: repeat(2, 1fr); } }
 
-/* Nosotros: equipo, clientes y oficina */
-.team-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
-@media (min-width: 640px) { .team-cards { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .team-cards { grid-template-columns: repeat(4, 1fr); } }
-.team-card { padding: 1.8rem 1.4rem; text-align: center; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-.team-card__avatar { width: 92px; height: 92px; margin: 0 auto; padding: 3px; border-radius: 50%; background: var(--grad); }
-.team-card__avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--blue); }
-.team-card__avatar span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: var(--dark-2); color: #fff; font-family: var(--font-head); font-size: 1.5rem; font-weight: 600; letter-spacing: .02em; }
-.team-card h3 { margin-top: 1.1rem; font-size: 1.1rem; font-weight: 400; }
-.team-card__role { margin-top: .2rem; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-dark); }
-.team-card p { margin-top: .8rem; color: var(--ink-soft); font-size: .92rem; }
-/* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
-   Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque), de equipo (.team-card) y, en las páginas de servicio, a fases y preguntas.
-   Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */
-.type-card, .team-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
-.js .type-card.reveal, .js .team-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
-@media (hover: hover) {
-  .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+/* Nosotros: equipo en "spotlight" (una persona por vez) con miniaturas; team.js alterna las personas ([data-team]).
+   Escenario oscuro de marca con un brillo azul y cian detrás del retrato; el texto y el retrato se funden con un leve
+   desplazamiento. Sin JS se ven todas las personas una debajo de otra. */
+.team-spot { margin-top: 2.5rem; }
+.team-spot__stage { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius); background: var(--dark); color: #fff; }
+.team-spot__stage::before { content: ""; position: absolute; z-index: -1; right: -10%; top: -20%; width: 70%; height: 140%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(3,127,217,.55), rgba(6,189,231,.18) 55%, transparent); }
+.team-spot__slide { display: grid; gap: 1.5rem; align-items: center; padding: 2rem 1.4rem 0; }
+.team-spot__text h3 { font: 400 clamp(1.9rem, 4vw, 3rem)/1.1 var(--font-head); letter-spacing: -.02em; color: #fff; }
+.team-spot__role { margin-top: .7rem; font: 500 .78rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
+.team-spot__bio { margin-top: 1.2rem; max-width: 46ch; font-size: 1rem; line-height: 1.65; color: var(--on-dark); }
+.team-spot__photo { position: relative; margin: 0; justify-self: center; width: min(320px, 78%); aspect-ratio: 4 / 5;
+  /* fundido en los cuatro bordes (dos degradados que se intersecan): disimula a los vecinos de los recortes provisorios */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 72%, transparent), linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent, #000 14%, #000 72%, transparent), linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); mask-composite: intersect; }
+.team-spot__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.team-spot__nav { display: none; }
+.team-spot__thumbs { position: relative; display: flex; gap: .6rem; margin-top: 1.2rem; overflow-x: auto; scrollbar-width: none; padding: .3rem .1rem .4rem; }
+.team-spot__thumbs::-webkit-scrollbar { display: none; }
+.team-spot__thumb { flex: 1 0 150px; display: flex; flex-direction: column; align-items: center; gap: .15rem; padding: .7rem .5rem; border: 1px solid transparent; border-radius: var(--radius);
+  background: none; color: var(--ink); font: inherit; text-align: center; cursor: pointer; opacity: .55; transition: opacity .25s, border-color .25s, background .25s; }
+.team-spot__thumb:hover { opacity: .85; }
+.team-spot__thumb[aria-selected="true"] { opacity: 1; border-color: var(--line); background: var(--mist); }
+.team-spot__thumb:focus-visible, .team-spot__nav:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.team-spot__avatar { width: 56px; height: 56px; margin-bottom: .45rem; padding: 2px; border-radius: 50%; background: var(--line); transition: background .25s; }
+.team-spot__thumb[aria-selected="true"] .team-spot__avatar { background: var(--grad); }
+.team-spot__avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--blue); }
+.team-spot__name { font-size: .92rem; font-weight: 500; }
+.team-spot__small { font: 500 .66rem/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+/* Con JS: todas las personas en la misma celda; solo la activa se ve; las flechas aparecen */
+.js .team-spot__stage { display: grid; }
+.js .team-spot__slide { grid-area: 1 / 1; visibility: hidden; transition: visibility 0s linear .5s; }
+.js .team-spot__slide.is-active { visibility: visible; transition-delay: 0s; }
+.js .team-spot__text, .js .team-spot__photo { opacity: 0; transition: opacity .45s ease, transform .55s cubic-bezier(.2, .8, .2, 1); }
+.js .team-spot__text { transform: translateX(-18px); }
+.js .team-spot__photo { transform: translateX(24px) scale(.98); }
+.js .team-spot__slide.is-active .team-spot__text, .js .team-spot__slide.is-active .team-spot__photo { opacity: 1; transform: none; }
+.js .team-spot__slide.is-active .team-spot__photo { transition-delay: .08s; }
+.js .team-spot__nav { position: absolute; z-index: 2; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
+  background: rgba(16,16,16,.45); color: #fff; cursor: pointer; transition: background .2s, border-color .2s; }
+.js .team-spot__nav:hover { background: rgba(6,189,231,.2); border-color: var(--cyan); }
+.team-spot__nav--prev { left: .8rem; }
+.team-spot__nav--next { right: .8rem; }
+.js .team-spot:not(.is-ready) .team-spot__nav { display: none; }
+@media (max-width: 719px) { .js .team-spot__nav { top: auto; bottom: 1rem; margin-top: 0; } }
+@media (min-width: 720px) {
+  .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 3rem 4.5rem 0 5rem; min-height: 440px; }
+  .team-spot__photo { align-self: end; width: min(360px, 100%); }
 }
-@media (prefers-reduced-motion: reduce) { .type-card, .team-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
+@media (prefers-reduced-motion: reduce) { .js .team-spot__text, .js .team-spot__photo { transition: none; transform: none; } }
+/* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
+   Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque) y, en las páginas de servicio, a fases y preguntas.
+   Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */
+.type-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
+.js .type-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
+@media (hover: hover) {
+  .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+}
+@media (prefers-reduced-motion: reduce) { .type-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
 .logo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; margin-top: 2.2rem; align-items: center; }
 @media (min-width: 640px) { .logo-row { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1000px) { .logo-row { gap: 2.4rem 3rem; max-width: 780px; margin-inline: auto; } }

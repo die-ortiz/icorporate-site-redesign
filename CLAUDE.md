@@ -77,6 +77,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `flow.js` | Diagrama de integraciones (`.flow`) | Tech |
 | `backgrounds.js` | Video de fondo, rayos y túnel (importa `siderays.js` y `tunnel.js`) | Home, Tech, Events |
 | `splash.js` | Splash de entrada (`[data-splash]`): telón con logo y línea de carga, una vez por sesión; lo activa el script del `<head>` (`.has-splash`) | Home |
+| `team.js` | Equipo en "spotlight" (`[data-team]`): una persona por vez con miniaturas, flechas y avance automático | About |
 | `pin.js` | Cabecera fija a pantalla completa (`[data-pin]`): atenúa su contenido mientras la sección siguiente la tapa | Tech |
 | `ibot.js` | Asistente de demostración (flotante) | Todas |
 
