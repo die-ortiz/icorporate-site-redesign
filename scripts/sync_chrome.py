@@ -45,6 +45,7 @@ FEATURES = {
     "forms.js": r'id="(?:contact|proposal)-form"',
     "pin.js": r'data-pin',
     "splash.js": r'data-splash',
+    "team.js": r'data-team',
     "magnetic.js": r'data-magnetic',
     "home.js": r'class="(?:[^"]* )?(?:marquee|wall)(?: [^"]*)?"|data-flagship-slides',
     "stats.js": r'class="(?:[^"]* )?stat(?: [^"]*)?"|data-count',

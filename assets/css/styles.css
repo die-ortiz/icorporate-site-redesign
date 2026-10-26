@@ -51,6 +51,7 @@ h3 { font-weight: 400; }
 
 .container { width: min(100% - 2rem, var(--container)); margin-inline: auto; }
 .section { padding: 6rem 0; }
+.section--bleed { padding: 0; } /* la sección entera es un bloque de borde a borde (equipo de About) */
 .eyebrow {
   display: inline-flex; align-items: center; gap: .6rem; font-size: .72rem; font-weight: 700;
   letter-spacing: .18em; text-transform: uppercase; color: var(--blue-dark);
@@ -1082,26 +1083,95 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 @media (min-width: 1100px) { .type-cards--5 { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 720px) and (max-width: 1099px) { .type-cards--5 { grid-template-columns: repeat(2, 1fr); } }
 
-/* Nosotros: equipo, clientes y oficina */
-.team-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
-@media (min-width: 640px) { .team-cards { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .team-cards { grid-template-columns: repeat(4, 1fr); } }
-.team-card { padding: 1.8rem 1.4rem; text-align: center; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-.team-card__avatar { width: 92px; height: 92px; margin: 0 auto; padding: 3px; border-radius: 50%; background: var(--grad); }
-.team-card__avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--blue); }
-.team-card__avatar span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: var(--dark-2); color: #fff; font-family: var(--font-head); font-size: 1.5rem; font-weight: 600; letter-spacing: .02em; }
-.team-card h3 { margin-top: 1.1rem; font-size: 1.1rem; font-weight: 400; }
-.team-card__role { margin-top: .2rem; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-dark); }
-.team-card p { margin-top: .8rem; color: var(--ink-soft); font-size: .92rem; }
-/* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
-   Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque), de equipo (.team-card) y, en las páginas de servicio, a fases y preguntas.
-   Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */
-.type-card, .team-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
-.js .type-card.reveal, .js .team-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
-@media (hover: hover) {
-  .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+/* Nosotros: equipo en "spotlight" (una persona por vez) con miniaturas; team.js alterna las personas ([data-team]).
+   Escenario oscuro de marca con un brillo azul y cian detrás del retrato; el texto y el retrato se funden con un leve
+   desplazamiento. Sin JS se ven todas las personas una debajo de otra. */
+.team-spot { --band: 112px; --gutter: max(1rem, (100% - var(--container)) / 2); position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
+/* Bloque de borde a borde (fuera de .container) con el título de la sección adentro; --gutter alinea el texto con el resto de la página */
+.team-spot__head { padding: 4rem var(--gutter) 0; }
+.team-spot__head .title { margin-top: .7rem; max-width: none; font-size: clamp(2rem, 4.2vw, 3.2rem); color: var(--on-dark-muted); } /* contexto: tenue; el protagonista es el nombre */
+.team-spot__stage { position: relative; }
+.team-spot::before { content: ""; position: absolute; z-index: -1; right: 0; top: -5%; width: 64%; height: 110%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(3,127,217,.55), rgba(6,189,231,.18) 55%, transparent); }
+.team-spot__slide { display: grid; gap: 1.5rem; align-items: center; padding: 2rem var(--gutter) 0; }
+.team-spot__text h3 { font: 400 clamp(2.4rem, 5.2vw, 4rem)/1.05 var(--font-head); letter-spacing: -.025em; color: #fff; }
+.team-spot__role { margin-top: .7rem; font: 500 .78rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
+.team-spot__bio { margin-top: 1.2rem; max-width: 46ch; font-size: 1rem; line-height: 1.65; color: var(--on-dark); }
+/* LinkedIn, Instagram y correo de cada persona (botones de .social, un poco más chicos); hoy apuntan a las cuentas de la empresa */
+.team-spot__social { margin-top: 1.6rem; gap: .55rem; }
+.team-spot__social a { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.12); }
+.team-spot__photo { position: relative; margin: 0; justify-self: center; height: min(52svh, 470px); max-width: 100%; aspect-ratio: 460 / 585; }
+/* retrato recortado (fondo transparente): un contorno cian muy sutil y un brillo suave lo separan del fondo oscuro (la ropa oscura se perdería) */
+.team-spot__photo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%;
+  filter: drop-shadow(0 0 1px rgba(6,189,231,.35)) drop-shadow(0 0 32px rgba(6,189,231,.28)); }
+.team-spot__nav { display: none; }
+/* Banda de miniaturas: oscuro semitransparente; con JS se apoya sobre la parte baja del escenario y el retrato sigue por detrás */
+.team-spot__thumbs { position: relative; display: flex; gap: .4rem; margin-top: .6rem; padding: .55rem .8rem; overflow-x: auto; scrollbar-width: none;
+  background: rgba(16,16,16,.58); border-top: 1px solid rgba(255,255,255,.1); } /* sin backdrop-filter: en móvil se dibujaba mal y la transparencia sola alcanza */
+.team-spot__thumbs::-webkit-scrollbar { display: none; }
+.team-spot__thumb { flex: 1 0 128px; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .45rem .4rem; border: 1px solid transparent; border-radius: 10px;
+  background: none; color: #fff; font: inherit; text-align: center; cursor: pointer; opacity: .6; transition: opacity .25s, border-color .25s, background .25s; }
+.team-spot__thumb:hover { opacity: .9; }
+.team-spot__thumb[aria-selected="true"] { opacity: 1; border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.08); }
+.team-spot__thumb:focus-visible, .team-spot__nav:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.team-spot__avatar { width: 46px; height: 46px; margin-bottom: .35rem; padding: 2px; border-radius: 50%; background: rgba(255,255,255,.2); transition: background .25s; }
+.team-spot__thumb[aria-selected="true"] .team-spot__avatar { background: var(--grad); }
+.team-spot__avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--blue); }
+.team-spot__name { font-size: .84rem; font-weight: 500; }
+.team-spot__small { font: 500 .6rem/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--on-dark-muted); }
+/* Con JS: todas las personas en la misma celda; solo la activa se ve; las flechas aparecen y la banda se apoya sobre el escenario */
+.js .team-spot__stage { display: grid; }
+.js .team-spot__slide { grid-area: 1 / 1; visibility: hidden; transition: visibility 0s linear .5s; }
+.js .team-spot__slide.is-active { visibility: visible; transition-delay: 0s; }
+.js .team-spot.is-ready .team-spot__thumbs { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: var(--band); margin: 0; align-items: center; }
+.js .team-spot.is-ready .team-spot__text { padding-bottom: calc(var(--band) + 1.5rem); }
+/* Entrada escalonada (cuando el bloque entra en pantalla, .is-in, y en cada cambio de persona): primero el retrato y el nombre,
+   después el cargo con su línea cian y al final la bio. Solo opacity y transform; al salir, todo se va junto y rápido */
+.js .team-spot__text > *, .js .team-spot__photo { opacity: 0; transition: opacity .25s ease, transform .3s ease; }
+.js .team-spot__text > * { transform: translateY(22px); }
+.js .team-spot__photo { transform: translate3d(80px, 28px, 0) scale(.9); transform-origin: 50% 100%; }
+.js .team-spot__role::before { content: ""; display: inline-block; width: 28px; height: 1px; margin: 0 .7rem .25em 0; vertical-align: middle; background: var(--cyan);
+  transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__text > *, .js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { opacity: 1; transform: none;
+  transition: opacity .7s ease, transform .9s cubic-bezier(.16, 1, .3, 1); }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__photo { transition: opacity 1.6s ease-in-out .1s, transform 2.2s cubic-bezier(.25, .8, .25, 1) .1s; } /* el retrato entra de más lejos, lento y parejo, y frena suave */
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__text h3 { transition-delay: .15s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__role { transition-delay: .4s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__role::before { transform: none; transition: transform .7s cubic-bezier(.16, 1, .3, 1) .6s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__bio { transition-delay: .6s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__social { transition-delay: .8s; }
+.js .team-spot__nav { position: absolute; z-index: 2; top: calc(50% - var(--band) / 2); display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
+  background: rgba(16,16,16,.45); color: #fff; cursor: pointer; transition: background .2s, border-color .2s; }
+.js .team-spot__nav:hover { background: rgba(6,189,231,.2); border-color: var(--cyan); }
+.team-spot__nav--prev { left: max(.8rem, var(--gutter) - 5rem); }
+.team-spot__nav--next { right: max(.8rem, var(--gutter) - 5rem); }
+.js .team-spot:not(.is-ready) .team-spot__nav { display: none; }
+@media (max-width: 719px) {
+  .js .team-spot.is-ready .team-spot__text { padding-bottom: 0; }
+  .js .team-spot.is-ready .team-spot__slide { padding-bottom: calc(var(--band) - 3rem); }
+  .js .team-spot__nav { top: auto; bottom: calc(var(--band) + .8rem); margin-top: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .type-card, .team-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .team-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
+@media (min-width: 720px) {
+  .team-spot { --band: 104px; }
+  /* casi pantalla completa: título + escenario ocupan el 86 % del alto de la ventana; el retrato (plano medio) sube desde detrás de la banda */
+  .team-spot { --gutter: max(5.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(86svh, 600px); }
+  .team-spot__head { padding-top: 5.5rem; padding-bottom: 1.5rem; }
+  .team-spot__stage { flex: 1; }
+  .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 0 var(--gutter); }
+  .team-spot__photo { align-self: end; height: min(86svh - 9rem, 800px); margin-top: -6rem; } /* sube por detrás de la zona del título (a la derecha no hay texto) sin agrandar el bloque */
+  .team-spot__thumbs { justify-content: center; }
+  .team-spot__thumb { flex: 0 1 160px; }
+}
+@media (prefers-reduced-motion: reduce) { .js .team-spot__text > *, .js .team-spot__photo, .js .team-spot__role::before { transition: none !important; transform: none; } }
+/* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
+   Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque) y, en las páginas de servicio, a fases y preguntas.
+   Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */
+.type-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
+.js .type-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
+@media (hover: hover) {
+  .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+}
+@media (prefers-reduced-motion: reduce) { .type-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
 .logo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; margin-top: 2.2rem; align-items: center; }
 @media (min-width: 640px) { .logo-row { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1000px) { .logo-row { gap: 2.4rem 3rem; max-width: 780px; margin-inline: auto; } }
