@@ -33,11 +33,9 @@
     },
   }[lang];
 
-  // Ícono oficial del iBot (assets/img/ibot-icon.webp). Se resuelve relativo a este script para servir en EN y ES.
+  // Ícono oficial del iBot, versión sin fondo (transparente): se usa en el lanzador y en la cabecera del panel.
+  // Se resuelve relativo a este script para servir en EN y ES.
   const base = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
-  const ICON_SRC = base ? new URL('../img/ibot-icon.webp', base).href : '';
-  const ICON = `<img src="${ICON_SRC}" alt="" width="160" height="160" decoding="async">`;
-  // Lanzador flotante: versión sin fondo (transparente) para que el ícono flote sobre la página
   const CLEAR_SRC = base ? new URL('../img/ibot-icon-clear.webp', base).href : '';
   const ICON_CLEAR = `<img src="${CLEAR_SRC}" alt="" width="300" height="300" decoding="async">`;
   const SEND = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M21.5 3.5L10 14M21.5 3.5l-6.5 17-3.5-7.5L4 9.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -48,7 +46,7 @@
   root.innerHTML = `
     <section class="ibot__panel" id="ibot-panel" role="dialog" aria-label="${T.title}" inert>
       <header class="ibot__head">
-        <span class="ibot__avatar">${ICON}</span>
+        <span class="ibot__avatar">${ICON_CLEAR}</span>
         <span class="ibot__who"><strong>${T.title}</strong><span><i aria-hidden="true"></i>${T.status}</span></span>
         <button class="ibot__close" type="button" aria-label="${T.close}">${CLOSE}</button>
       </header>
