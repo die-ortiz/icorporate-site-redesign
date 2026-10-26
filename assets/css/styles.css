@@ -1154,7 +1154,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .team-spot__head { padding-top: 6.5rem; }
   .team-spot__stage { flex: 1; }
   .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 0 var(--gutter); }
-  .team-spot__photo { align-self: end; height: min(100svh - 11rem, 820px); }
+  .team-spot__photo { align-self: end; height: min(100svh - 16rem, 820px); }
   .team-spot__thumbs { justify-content: center; }
   .team-spot__thumb { flex: 0 1 160px; }
 }
