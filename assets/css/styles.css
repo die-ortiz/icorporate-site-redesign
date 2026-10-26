@@ -32,6 +32,7 @@
   --font: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-head: var(--font); --font-mono: var(--font);
   --radius: 12px;
+  --radius-xl: 22px; /* paneles flotantes (iBot) */
   --container: 1200px;
 }
 
@@ -86,11 +87,11 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
 }
 .btn:hover { transform: translateY(-2px); }
 /* Primario: cian de marca sólido con texto oscuro, en todos los fondos. (Prueba A; el degradado azul-cian vive en --grad-btn y el del titular en --grad.) */
-.btn--primary, .ibot__cta {
+.btn--primary {
   background: var(--cyan);
   color: var(--dark); box-shadow: 0 10px 30px -10px rgba(6,189,231,.75);
 }
-.btn--primary:hover, .ibot__cta:hover { filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
+.btn--primary:hover { filter: brightness(1.08); box-shadow: 0 14px 34px -10px rgba(6,189,231,.8); }
 .btn--ghost { border-color: rgba(255,255,255,.4); color: #fff; }
 .btn--ghost:hover { background: rgba(255,255,255,.1); border-color: #fff; }
 .btn--sm { padding: .75rem 1.15rem; font-size: .7rem; min-height: 44px; }
@@ -636,41 +637,83 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot.is-open .ibot__launcher { background: var(--dark); box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 12px 28px -10px rgba(0,0,0,.6); }
 .ibot.is-open .ibot__launcher-icon { opacity: 0; transform: rotate(90deg) scale(.6); }
 .ibot.is-open .ibot__launcher-x { opacity: 1; transform: none; }
-/* Panel: oscuro de marca (--dark) con la línea --grad bajo la cabecera; mensajes del usuario y "enviar" en cian sólido, como .btn--primary */
+/* Panel "aurora": vidrio oscuro (--dark translúcido + desenfoque solo con el chat abierto) y tres luces de marca que se mueven
+   lento arriba. Las luces son degradados radiales (sin filter: blur) y solo animan transform: el compositor las mueve sin
+   repintar; se pausan con el chat cerrado y no se animan con movimiento reducido. Dos estados: bienvenida y .is-chatting */
 .ibot__panel {
-  width: min(380px, calc(100vw - 2.5rem)); height: min(560px, calc(100svh - 8.5rem)); display: flex; flex-direction: column;
-  background: var(--dark); color: #fff; border-radius: var(--radius); overflow: hidden;
-  box-shadow: 0 30px 70px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08);
-  transform-origin: bottom right; opacity: 0; visibility: hidden; transform: translateY(14px) scale(.96);
-  transition: opacity .22s ease, transform .25s ease, visibility 0s linear .25s;
+  position: relative; isolation: isolate; width: min(390px, calc(100vw - 2.5rem)); height: min(600px, calc(100svh - 8.5rem));
+  display: flex; flex-direction: column; color: #fff; background: rgba(16,16,16,.9); border-radius: var(--radius-xl); overflow: hidden;
+  box-shadow: 0 40px 90px -30px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.1), inset 0 1px 0 rgba(255,255,255,.06);
+  transform-origin: calc(100% - 28px) calc(100% + 40px); opacity: 0; visibility: hidden; transform: translateY(18px) scale(.6);
+  transition: opacity .2s ease, transform .4s cubic-bezier(.2, .9, .3, 1.15), visibility 0s linear .4s;
 }
-.ibot.is-open .ibot__panel { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.ibot__head { position: relative; display: flex; align-items: center; gap: .75rem; padding: .9rem 1rem; background: var(--dark); }
-.ibot__head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--grad); }
-.ibot__avatar { flex: none; width: 42px; height: 42px; }
-.ibot__who { display: flex; flex-direction: column; gap: .2rem; line-height: 1.2; flex: 1; min-width: 0; }
-.ibot__who strong { font: 400 1.05rem/1.2 var(--font-head); }
-.ibot__who span { display: inline-flex; align-items: center; gap: .45rem; font: 500 .68rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark-muted); }
-.ibot__who i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 3px rgba(189,204,38,.22); }
-.ibot__close { flex: none; width: 40px; height: 40px; border: 0; border-radius: 10px; background: var(--dark-2); color: var(--on-dark); cursor: pointer; display: grid; place-items: center; transition: background .2s, color .2s; }
-.ibot__close:hover { background: rgba(255,255,255,.12); color: #fff; }
-.ibot__close:focus-visible, .ibot__chip:focus-visible, .ibot__send:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
-.ibot__log { flex: 1; overflow-y: auto; padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: .6rem; background: var(--dark); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent; }
-.ibot__msg { max-width: 86%; padding: .7rem .95rem; border-radius: var(--radius); font-size: .92rem; line-height: 1.5; overflow-wrap: anywhere; }
-.ibot__msg--bot { align-self: flex-start; background: var(--dark-2); color: #ececec; border-bottom-left-radius: 4px; }
-.ibot__msg--user { align-self: flex-end; background: var(--cyan); color: var(--dark); border-bottom-right-radius: 4px; }
-.ibot__msg.is-typing { color: var(--on-dark-muted); letter-spacing: .15em; }
-.ibot__cta { display: flex; width: fit-content; margin-top: .7rem; padding: .6rem 1rem; border-radius: 999px; text-decoration: none; font: 500 .7rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
-.ibot__chips { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0 1rem .9rem; }
-.ibot__chips[hidden] { display: none; }
-.ibot__chip { padding: .5rem .85rem; min-height: 40px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: transparent; color: var(--on-dark); font: 500 .8rem/1.2 var(--font); cursor: pointer; text-align: left; transition: border-color .2s, color .2s, background .2s; }
-.ibot__chip:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(6,189,231,.08); }
-.ibot__form { display: flex; gap: .6rem; padding: .85rem 1rem 1rem; border-top: 1px solid rgba(255,255,255,.08); background: var(--dark); }
-.ibot__input { flex: 1; min-width: 0; height: 46px; padding: 0 1.1rem; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; background: var(--dark-2); font: 500 .92rem var(--font); color: #fff; transition: border-color .2s; }
+.ibot.is-open .ibot__panel { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; background: rgba(16,16,16,.8); -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4); }
+.ibot__aurora { position: absolute; z-index: -1; left: -20%; right: -20%; top: -150px; height: 380px; pointer-events: none; transition: opacity .5s, transform .6s cubic-bezier(.2, .8, .2, 1); }
+.ibot__aurora i { position: absolute; border-radius: 50%; animation: ibot-drift 10s ease-in-out infinite alternate; }
+.ibot__aurora i:nth-child(1) { left: 4%; top: 30%; width: 300px; height: 230px; background: radial-gradient(closest-side, rgba(3,127,217,.75), transparent); }
+.ibot__aurora i:nth-child(2) { left: 34%; top: 22%; width: 260px; height: 210px; background: radial-gradient(closest-side, rgba(6,189,231,.6), transparent); animation-duration: 8s; animation-direction: alternate-reverse; }
+.ibot__aurora i:nth-child(3) { left: 60%; top: 40%; width: 200px; height: 170px; background: radial-gradient(closest-side, rgba(189,204,38,.42), transparent); animation-duration: 12s; }
+@keyframes ibot-drift { to { transform: translate3d(34px, -22px, 0) scale(1.18); } }
+.ibot__panel.is-chatting .ibot__aurora { opacity: .5; transform: translateY(-110px); }
+.ibot:not(.is-open) .ibot__aurora i, .ibot:not(.is-open) .ibot__orb { animation-play-state: paused; }
+/* Cabecera: en la bienvenida, solo la píldora de estado y cerrar; en conversación aparece la identidad (avatar + nombre) */
+.ibot__head { display: flex; align-items: center; gap: .6rem; padding: .85rem .9rem .85rem 1rem; transition: border-color .3s, background .3s; border-bottom: 1px solid transparent; }
+.ibot__id { display: none; align-items: center; gap: .6rem; }
+.ibot__avatar { flex: none; width: 34px; height: 34px; padding: 4px; border-radius: 50%; background: var(--dark-2); box-shadow: 0 0 0 1px rgba(6,189,231,.45); }
+.ibot__id strong { font: 400 1rem/1 var(--font-head); }
+.ibot__status { display: inline-flex; align-items: center; gap: .45rem; padding: .38rem .7rem .38rem .55rem; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1); font: 500 .66rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark); }
+.ibot__status i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 3px rgba(189,204,38,.22); }
+.ibot__panel.is-chatting .ibot__head { border-bottom-color: rgba(255,255,255,.07); background: rgba(16,16,16,.35); }
+.ibot__panel.is-chatting .ibot__id { display: inline-flex; }
+.ibot__panel.is-chatting .ibot__status { padding: 0; background: none; border: 0; color: var(--lime); }
+.ibot__close { flex: none; margin-left: auto; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(255,255,255,.08); color: var(--on-dark); cursor: pointer; display: grid; place-items: center; transition: background .2s, color .2s, transform .2s; }
+.ibot__close:hover { background: rgba(255,255,255,.16); color: #fff; transform: rotate(90deg); }
+.ibot__close:focus-visible, .ibot__tile:focus-visible, .ibot__send:focus-visible, .ibot__card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.ibot__log { flex: 1; overflow-y: auto; padding: .4rem 1rem 1rem; display: flex; flex-direction: column; gap: .7rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent; }
+/* Bienvenida: avatar flotando sobre la aurora, saludo en Sora y 4 tarjetas de sugerencia; desaparece al empezar a conversar */
+.ibot__welcome { display: flex; flex-direction: column; align-items: center; text-align: center; margin: auto 0; padding: .4rem 0 .2rem; }
+.ibot__orb { width: 96px; height: 96px; padding: 16px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, var(--dark-2), var(--dark) 75%);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 20px 50px -12px rgba(6,189,231,.75); animation: ibot-float 4s ease-in-out infinite; }
+@keyframes ibot-float { 50% { transform: translateY(-5px); } }
+.ibot__hello { margin: 1.1rem 0 .35rem; font: 400 1.35rem/1.3 var(--font-head); letter-spacing: -.01em; }
+.ibot__intro { margin: 0; max-width: 30ch; font-size: .86rem; line-height: 1.5; color: var(--on-dark-muted); }
+.ibot__suggest { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; width: 100%; margin-top: 1.3rem; }
+.ibot__tile { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; min-height: 84px; padding: .8rem .85rem; border: 1px solid rgba(255,255,255,.09); border-radius: 14px;
+  background: rgba(255,255,255,.05); color: #ececec; font: 500 .82rem/1.3 var(--font); text-align: left; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
+.ibot__tile svg { color: var(--cyan); }
+.ibot__tile:hover { border-color: rgba(6,189,231,.55); background: rgba(6,189,231,.1); transform: translateY(-2px); }
+.ibot__panel.is-chatting .ibot__welcome { display: none; }
+/* Mensajes: entran con un leve ascenso; hora en mono; los del usuario en cian sólido (como .btn--primary) */
+.ibot__msg { max-width: 84%; padding: .65rem .9rem .5rem; border-radius: 18px; font-size: .9rem; line-height: 1.5; overflow-wrap: anywhere; animation: ibot-in .35s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes ibot-in { from { opacity: 0; transform: translateY(10px) scale(.97); } }
+.ibot__msg--bot { align-self: flex-start; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.08); color: #ececec; border-bottom-left-radius: 6px; transform-origin: bottom left; }
+.ibot__msg--user { align-self: flex-end; background: var(--cyan); color: var(--dark); border-bottom-right-radius: 6px; transform-origin: bottom right; }
+.ibot__time { display: flex; align-items: center; justify-content: flex-end; gap: .3rem; margin-top: .3rem; font: 500 .64rem/1 var(--font-mono); letter-spacing: .04em; color: var(--on-dark-muted); }
+.ibot__msg--user .ibot__time { color: rgba(16,16,16,.6); }
+.ibot__read { display: inline-flex; }
+.ibot__typing { display: flex; gap: .3rem; padding: .85rem 1rem; }
+.ibot__typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: ibot-dot 1.2s ease-in-out infinite; }
+.ibot__typing i:nth-child(2) { animation-delay: .15s; }
+.ibot__typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes ibot-dot { 0%, 60%, 100% { opacity: .45; transform: none; } 30% { opacity: 1; transform: translateY(-4px); } }
+/* Tarjeta de acceso directo dentro de una respuesta (agendar llamada, casos) */
+.ibot__card { display: flex; align-items: center; gap: .7rem; margin-top: .65rem; padding: .65rem .75rem; border: 1px solid rgba(6,189,231,.4); border-radius: 14px; background: rgba(6,189,231,.1); color: #fff; text-decoration: none; transition: background .2s, border-color .2s; }
+.ibot__card:hover { background: rgba(6,189,231,.18); border-color: var(--cyan); }
+.ibot__card-icon { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--cyan); color: var(--dark); }
+.ibot__card b { display: block; font-weight: 600; font-size: .86rem; }
+.ibot__card small { display: block; font-size: .76rem; color: var(--on-dark-muted); }
+.ibot__card > svg { margin-left: auto; color: var(--cyan); transition: transform .2s; }
+.ibot__card:hover > svg { transform: translateX(3px); }
+/* Caja de texto flotante: píldora de vidrio; al escribir, borde y halo cian */
+.ibot__composer { display: flex; align-items: center; gap: .5rem; margin: 0 .85rem .85rem; padding: .3rem .3rem .3rem 1.1rem; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; background: rgba(255,255,255,.06); transition: border-color .2s, box-shadow .2s; }
+.ibot__composer:focus-within { border-color: rgba(6,189,231,.7); box-shadow: 0 0 0 4px rgba(6,189,231,.14); }
+.ibot__input { flex: 1; min-width: 0; height: 40px; padding: 0; border: 0; background: none; font: 500 .9rem var(--font); color: #fff; }
+.ibot__input:focus { outline: 0; }
 .ibot__input::placeholder { color: var(--on-dark-muted); }
-.ibot__input:focus-visible { outline: 0; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(6,189,231,.22); }
-.ibot__send { flex: none; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--cyan); color: var(--dark); cursor: pointer; display: grid; place-items: center; transition: filter .2s, transform .2s; }
+.ibot__send { flex: none; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--cyan); color: var(--dark); cursor: pointer; display: grid; place-items: center; transition: filter .2s, transform .2s; }
 .ibot__send:hover { filter: brightness(1.08); transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) { .ibot__aurora i, .ibot__orb, .ibot__msg, .ibot__typing i { animation: none; } .ibot__panel { transition: opacity .2s, visibility 0s linear .2s; transform: none; } }
+@media (max-height: 700px) { .ibot__orb { width: 72px; height: 72px; padding: 12px; } .ibot__hello { margin-top: .8rem; font-size: 1.15rem; } .ibot__suggest { margin-top: .9rem; } .ibot__tile { min-height: 0; flex-direction: row; align-items: center; } }
 @media (max-width: 480px) { .ibot { right: .75rem; bottom: .75rem; } .ibot__panel { width: calc(100vw - 1.5rem); } }
 
 /* Volver arriba: chevron sin fondo justo sobre el lanzador del iBot (56 px, a 1.25rem del borde); se oculta con el chat abierto */
