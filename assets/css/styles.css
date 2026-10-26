@@ -1139,8 +1139,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .js .team-spot__nav { position: absolute; z-index: 2; top: calc(50% - var(--band) / 2); display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
   background: rgba(16,16,16,.45); color: #fff; cursor: pointer; transition: background .2s, border-color .2s; }
 .js .team-spot__nav:hover { background: rgba(6,189,231,.2); border-color: var(--cyan); }
-.team-spot__nav--prev { left: max(.8rem, var(--gutter) - 3.5rem); }
-.team-spot__nav--next { right: max(.8rem, var(--gutter) - 3.5rem); }
+.team-spot__nav--prev { left: max(.8rem, var(--gutter) - 5rem); }
+.team-spot__nav--next { right: max(.8rem, var(--gutter) - 5rem); }
 .js .team-spot:not(.is-ready) .team-spot__nav { display: none; }
 @media (max-width: 719px) {
   .js .team-spot.is-ready .team-spot__text { padding-bottom: 0; }
@@ -1150,7 +1150,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 @media (min-width: 720px) {
   .team-spot { --band: 104px; }
   /* pantalla completa: título + escenario ocupan el alto de la ventana; el retrato (plano medio) sube desde detrás de la banda */
-  .team-spot { --gutter: max(4.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(100svh, 640px); }
+  .team-spot { --gutter: max(5.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(100svh, 640px); }
   .team-spot__head { padding-top: 6.5rem; }
   .team-spot__stage { flex: 1; }
   .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 0 var(--gutter); }
