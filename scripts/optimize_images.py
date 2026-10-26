@@ -100,6 +100,8 @@ JOBS = {
     # con el borde achicado ~2 px y el color del borde tomado del interior para que no quede halo blanco del fondo original.
     # box = de la cabeza a la cintura (plano medio, como la referencia) (el escenario es de pantalla completa), en píxeles del original de 720x1280
     "team-spot-sample.webp":  ("diego-cutout.png", 460, 82, {"box": (130, 115, 590, 700)}),
+    # Miniatura de Diego Ortiz (IT Advisor): cara y hombros del mismo recorte; el fondo azul lo pone el CSS del avatar
+    "team-diego-ortiz.webp":  ("diego-cutout.png", 240, 88, {"box": (255, 120, 495, 360)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
