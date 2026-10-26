@@ -1093,11 +1093,10 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .team-spot__text h3 { font: 400 clamp(1.9rem, 4vw, 3rem)/1.1 var(--font-head); letter-spacing: -.02em; color: #fff; }
 .team-spot__role { margin-top: .7rem; font: 500 .78rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
 .team-spot__bio { margin-top: 1.2rem; max-width: 46ch; font-size: 1rem; line-height: 1.65; color: var(--on-dark); }
-.team-spot__photo { position: relative; margin: 0; justify-self: center; width: min(320px, 78%); aspect-ratio: 4 / 5;
-  /* fundido arriba y a los costados (dos degradados que se intersecan): disimula a los vecinos de los recortes provisorios; abajo lo tapa la banda */
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%), linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent, #000 14%), linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); mask-composite: intersect; }
-.team-spot__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.team-spot__photo { position: relative; margin: 0; justify-self: center; width: min(320px, 82%); aspect-ratio: 4 / 5; }
+/* retrato recortado (fondo transparente): un contorno cian sutil y un brillo suave lo separan del fondo oscuro (la ropa oscura se perdería) */
+.team-spot__photo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%;
+  filter: drop-shadow(0 0 1px rgba(6,189,231,.55)) drop-shadow(0 0 28px rgba(6,189,231,.28)); }
 .team-spot__nav { display: none; }
 /* Banda de miniaturas: oscuro semitransparente; con JS se apoya sobre la parte baja del escenario y el retrato sigue por detrás */
 .team-spot__thumbs { position: relative; display: flex; gap: .4rem; margin-top: .6rem; padding: .55rem .8rem; overflow-x: auto; scrollbar-width: none; border-radius: var(--radius);
@@ -1138,7 +1137,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 @media (min-width: 720px) {
   .team-spot { --band: 104px; }
   .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 3rem 4.5rem 0 5rem; min-height: 520px; }
-  .team-spot__photo { align-self: end; width: min(380px, 100%); }
+  .team-spot__photo { align-self: end; width: min(400px, 100%); }
   .team-spot__thumbs { justify-content: center; }
   .team-spot__thumb { flex: 0 1 160px; }
 }
