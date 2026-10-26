@@ -1097,6 +1097,9 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .team-spot__text h3 { font: 400 clamp(2.4rem, 5.2vw, 4rem)/1.05 var(--font-head); letter-spacing: -.025em; color: #fff; }
 .team-spot__role { margin-top: .7rem; font: 500 .78rem/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
 .team-spot__bio { margin-top: 1.2rem; max-width: 46ch; font-size: 1rem; line-height: 1.65; color: var(--on-dark); }
+/* LinkedIn, Instagram y correo de cada persona (botones de .social, un poco más chicos); hoy apuntan a las cuentas de la empresa */
+.team-spot__social { margin-top: 1.6rem; gap: .55rem; }
+.team-spot__social a { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.12); }
 .team-spot__photo { position: relative; margin: 0; justify-self: center; height: min(52svh, 470px); max-width: 100%; aspect-ratio: 460 / 585; }
 /* retrato recortado (fondo transparente): un contorno cian muy sutil y un brillo suave lo separan del fondo oscuro (la ropa oscura se perdería) */
 .team-spot__photo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%;
@@ -1136,6 +1139,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__role { transition-delay: .4s; }
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__role::before { transform: none; transition: transform .7s cubic-bezier(.16, 1, .3, 1) .6s; }
 .js .team-spot.is-in .team-spot__slide.is-active .team-spot__bio { transition-delay: .6s; }
+.js .team-spot.is-in .team-spot__slide.is-active .team-spot__social { transition-delay: .8s; }
 .js .team-spot__nav { position: absolute; z-index: 2; top: calc(50% - var(--band) / 2); display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
   background: rgba(16,16,16,.45); color: #fff; cursor: pointer; transition: background .2s, border-color .2s; }
 .js .team-spot__nav:hover { background: rgba(6,189,231,.2); border-color: var(--cyan); }
@@ -1151,7 +1155,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .team-spot { --band: 104px; }
   /* casi pantalla completa: título + escenario ocupan el 86 % del alto de la ventana; el retrato (plano medio) sube desde detrás de la banda */
   .team-spot { --gutter: max(5.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(86svh, 600px); }
-  .team-spot__head { padding-top: 5.5rem; }
+  .team-spot__head { padding-top: 5.5rem; padding-bottom: 1.5rem; }
   .team-spot__stage { flex: 1; }
   .team-spot__slide { grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 0 var(--gutter); }
   .team-spot__photo { align-self: end; height: min(86svh - 9rem, 800px); margin-top: -6rem; } /* sube por detrás de la zona del título (a la derecha no hay texto) sin agrandar el bloque */
