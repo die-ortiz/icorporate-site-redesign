@@ -1067,11 +1067,28 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .type-card ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
 .type-card li { position: relative; padding-left: 1.1rem; font-size: .9rem; color: var(--ink-soft); }
 .type-card li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
-.demo-band { display: grid; gap: 1.6rem; align-items: center; padding: 2.2rem; border-radius: var(--radius); color: #fff; background: linear-gradient(135deg, var(--dark), var(--dark-2)); }
-@media (min-width: 820px) { .demo-band { grid-template-columns: 1.4fr auto; padding: 2.6rem 3rem; } }
-.demo-band .eyebrow { color: var(--cyan); }
-.demo-band h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 400; max-width: 22ch; }
-.demo-band p { margin-top: .8rem; color: var(--on-dark); max-width: 52ch; }
+/* Cierre de About: sección oscura de borde a borde con tres luces de marca que se mueven lento (azul, cian, lima; degradados
+   radiales que solo animan transform, pausados fuera de pantalla por core.js), título grande con el degradado de marca,
+   las caras del equipo y dos acciones: Book a call y correo */
+.closing { position: relative; isolation: isolate; overflow: hidden; padding: 6.5rem 0 7rem; background: var(--dark); color: #fff; text-align: center; }
+.closing__aurora { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.closing__aurora i { position: absolute; border-radius: 50%; animation: closing-drift 14s ease-in-out infinite alternate; }
+.closing__aurora i:nth-child(1) { left: 2%; top: 5%; width: min(60vw, 760px); height: 460px; background: radial-gradient(closest-side, rgba(3,127,217,.5), transparent); }
+.closing__aurora i:nth-child(2) { left: 34%; top: 22%; width: min(48vw, 620px); height: 400px; background: radial-gradient(closest-side, rgba(6,189,231,.32), transparent); animation-duration: 11s; animation-direction: alternate-reverse; }
+.closing__aurora i:nth-child(3) { left: 60%; top: 42%; width: min(34vw, 440px); height: 320px; background: radial-gradient(closest-side, rgba(189,204,38,.2), transparent); animation-duration: 17s; }
+@keyframes closing-drift { to { transform: translate3d(8%, -10%, 0) scale(1.15); } }
+.closing__inner { display: flex; flex-direction: column; align-items: center; }
+.closing__title { margin-top: 1rem; max-width: 16ch; text-wrap: balance; font: 400 clamp(2.4rem, 6.4vw, 4.8rem)/1.04 var(--font-head); letter-spacing: -.03em; }
+.closing__lead { margin-top: 1.2rem; font-size: 1.1rem; color: var(--on-dark); }
+.closing__team { display: flex; align-items: center; gap: .9rem; margin-top: 2.2rem; padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); text-align: left; }
+.closing__faces { display: flex; flex: none; }
+.closing__faces img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--dark); background: var(--blue); object-fit: cover; }
+.closing__faces img + img { margin-left: -10px; }
+.closing__team p { font-size: .88rem; line-height: 1.35; color: var(--on-dark); }
+.closing__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; }
+@media (min-width: 900px) { .closing { padding: 8rem 0 8.5rem; } }
+@media (prefers-reduced-motion: reduce) { .closing__aurora i { animation: none; } }
 
 /* Cabecera sin foto (p. ej. Corporate Branding) */
 .page-hero--plain {
