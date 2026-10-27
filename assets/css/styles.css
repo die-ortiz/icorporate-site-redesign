@@ -264,42 +264,42 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 
 
 /* ═══ 06 · HOME: servicios, clientes, cifras, casos, testimonios y proceso ═══ */
-/* Sección Our services: tres tarjetas con foto */
-.pillars { display: grid; gap: 1.25rem; margin-top: 3rem; }
-@media (min-width: 820px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
-.pillar {
-  display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius); text-decoration: none;
-  background: #fff; border: 1px solid var(--line); box-shadow: 0 18px 40px -30px rgba(16,16,16,.5);
-  transition: transform .3s, box-shadow .3s, border-color .3s;
+/* Sección Our services: tres tarjetas oscuras apiladas. Cada una queda fija arriba al bajar (position: sticky, con un
+   escalón de 18 px para que se vean los bordes del mazo) y la siguiente sube y la tapa; stack.js achica y oscurece apenas
+   la que queda debajo (solo transform y opacity). Texto a la izquierda con el color de acento de cada servicio, foto a la
+   derecha; en móvil la foto va arriba */
+.stack { display: grid; gap: 1.5rem; margin: 3rem 0 0; padding: 0; list-style: none; }
+.stack__item { --accent: var(--cyan); position: sticky; top: 96px; }
+.stack__item--events { --accent: var(--blue); top: calc(96px + 18px); }
+.stack__item--branding { --accent: var(--lime); top: calc(96px + 36px); }
+.stack__card { position: relative; display: grid; overflow: hidden; border-radius: var(--radius); background: var(--dark); color: #fff; text-decoration: none;
+  transform-origin: 50% 0; box-shadow: 0 -20px 40px -28px rgba(16,16,16,.5), 0 30px 60px -40px rgba(16,16,16,.6); }
+.stack__card::before { content: ""; position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); }
+.stack__card::after { content: ""; position: absolute; z-index: 3; inset: 0; background: var(--dark); opacity: var(--stack-dim, 0); pointer-events: none; }
+.stack__text { display: flex; flex-direction: column; align-items: flex-start; padding: 1.8rem 1.6rem 2rem; }
+.stack__num { font: 500 .8rem/1 var(--font-mono); letter-spacing: .1em; color: var(--accent); }
+.stack__card h3 { margin-top: 1rem; font: 400 clamp(1.9rem, 3.4vw, 2.8rem)/1.08 var(--font-head); letter-spacing: -.02em; color: #fff; }
+.stack__card p { margin-top: .9rem; max-width: 38ch; color: var(--on-dark); font-size: 1.02rem; line-height: 1.6; }
+.stack__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1.3rem 0 1.8rem; padding: 0; list-style: none; }
+.stack__tags li { padding: .38rem .7rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+/* "Explore": botón fantasma (.btn--ghost) al pie del texto; toda la tarjeta es el enlace, así que reacciona al hover de la tarjeta */
+.stack__go { margin-top: auto; }
+.stack__card:hover .stack__go { background: rgba(255,255,255,.1); border-color: #fff; transform: translateY(-2px); }
+.stack__media { position: relative; order: -1; aspect-ratio: 16 / 10; overflow: hidden; background: var(--dark-2); }
+.stack__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+.stack__item--tech .stack__media img { object-position: 0 0; }
+.stack__item--branding .stack__media img { object-position: 38% 50%; }
+.stack__card:hover .stack__media img { transform: scale(1.04); }
+.stack__card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+@media (min-width: 900px) {
+  .stack { gap: 2.5rem; }
+  .stack__card { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); min-height: min(500px, calc(100svh - 170px)); }
+  .stack__text { padding: 3rem 3rem 2.8rem; }
+  .stack__media { order: 0; aspect-ratio: auto; }
+  /* foto separada del borde, con sus propias esquinas, como una pieza apoyada en la tarjeta */
+  .stack__media { margin: .9rem .9rem .9rem 0; border-radius: 8px; }
 }
-/* Hover igual al de las tarjetas de impacto: sube 4 px, borde cian y sombra. `translate` (no `transform`) para no chocar con la entrada .reveal,
-   que además pisaba esta transición y hacía que el borde y la sombra cambiaran de golpe */
-.pillar { transition: translate .3s, box-shadow .3s, border-color .3s; }
-.js .pillar.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
-.pillar:hover { translate: 0 -4px; border-color: rgba(6,189,231,.5); box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); }
-@media (prefers-reduced-motion: reduce) { .pillar, .js .pillar.reveal { transition: none; } .pillar:hover { translate: none; } }
-.pillar__photo { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--dark-2); }
-.pillar__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
-.pillar__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(16,16,16,.3), transparent 50%); }
-.pillar:hover .pillar__photo img { transform: scale(1.05); }
-/* Tomas de producto con fondo blanco: se muestran completas sobre fondo claro */
-.pillar__photo--light { background: #eef3f9; }
-.pillar__photo--light img { object-fit: contain; padding: 4%; mix-blend-mode: multiply; }
-.pillar__photo--light::after { display: none; }
-.pillar__body { display: flex; flex-direction: column; gap: .5rem; padding: 1.4rem 1.6rem 1.6rem; flex: 1; }
-.pillar h2 { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; font-size: 1.35rem; font-weight: 400; letter-spacing: -0.01em; }
-.pillar__icon { flex: none; display: block; width: 34px; height: 34px; color: var(--blue-dark); transition: transform .3s, color .3s; }
-.pillar__icon svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.pillar:hover .pillar__icon { transform: translateY(-3px); color: var(--blue); }
-.pillar p { color: var(--ink-soft); font-size: .96rem; }
-.pillar__go { margin-top: auto; padding-top: .9rem; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-dark); }
-.pillar__go::after { content: " →"; transition: margin .25s; }
-.pillar:hover .pillar__go::after { margin-left: 5px; }
-
-/* Captura de producto sobre fondo oscuro (iTask en la tarjeta de Tech Solutions): se muestra completa */
-.pillar__photo--dark { background: #161616; }
-.pillar__photo--dark img { object-fit: contain; }
-.pillar__photo--dark::after { background: linear-gradient(to top, rgba(16,16,16,.18), transparent 40%); }
+@media (prefers-reduced-motion: reduce) { .stack__media img, .stack__go { transition: none; } .stack__card:hover .stack__media img { transform: none; } }
 
 /* Carrusel de clientes dentro del hero: ancho completo, logos blancos, bucle continuo */
 .trust { position: relative; margin-top: 1.5rem; }

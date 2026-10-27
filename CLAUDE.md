@@ -79,6 +79,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `splash.js` | Splash de entrada (`[data-splash]`): telón con logo y línea de carga, una vez por sesión; lo activa el script del `<head>` (`.has-splash`) | Home |
 | `clock.js` | Hora local en vivo (`[data-clock="Zona/IANA"]`): la de Miami en la tarjeta de la oficina | About |
 | `team.js` | Equipo en "spotlight" (`[data-team]`): una persona por vez con miniaturas, flechas y avance automático | About |
+| `stack.js` | Servicios del Home apilados (`[data-stack]`): achica y oscurece apenas la tarjeta que tapa la siguiente | Home |
 | `pin.js` | Cabecera fija a pantalla completa (`[data-pin]`): atenúa su contenido mientras la sección siguiente la tapa | Tech |
 | `ibot.js` | Asistente de demostración (flotante) | Todas |
 

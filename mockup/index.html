@@ -270,31 +270,44 @@
           <span class="eyebrow">Our services</span>
           <h2 class="title">Three ways we make your idea shine.</h2>
         </div>
-        <div class="pillars" role="list" aria-label="Our three services">
-          <a class="pillar reveal" data-d="0" href="tech-solutions.html">
-            <span class="pillar__photo pillar__photo--dark" aria-hidden="true"><img src="../assets/img/tech-itask.webp" width="1200" height="572" alt="" loading="lazy" decoding="async"></span>
-            <div class="pillar__body">
-            <h2><span class="pillar__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/><rect x="6" y="6" width="12" height="12" rx="2.5"/><rect x="10" y="10" width="4" height="4" rx=".8"/></svg></span><span>Tech Solutions</span></h2>
-            <p>Bots, apps and platforms that remove manual work.</p>
-            <span class="pillar__go">Explore</span>
-          </div>
-          </a>
-          <a class="pillar reveal" data-d="1" href="events-management.html">
-            <span class="pillar__photo" aria-hidden="true"><img src="../assets/img/events-card.webp" width="800" height="533" alt="" loading="lazy" decoding="async"></span>
-            <div class="pillar__body">
-            <h2><span class="pillar__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 13.2l.9 1.9 2.1.3-1.5 1.5.4 2.1-1.9-1-1.9 1 .4-2.1-1.5-1.5 2.1-.3z"/></svg></span><span>Events Management</span></h2>
-            <p>Summits and conferences planned and run end to end.</p>
-            <span class="pillar__go">Explore</span>
-          </div>
-          </a>
-          <a class="pillar reveal" data-d="2" href="corporate-branding.html">
-            <span class="pillar__photo pillar__photo--light" aria-hidden="true"><img src="../assets/img/branding-objects.webp" width="800" height="603" alt="" loading="lazy" decoding="async"></span>
-            <div class="pillar__body">
-              <h2><span class="pillar__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M11 3.5l1.7 4.8 4.8 1.7-4.8 1.7L11 16.5l-1.7-4.8L4.5 10l4.8-1.7z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><span>Corporate Branding</span></h2>
-              <p>Identity and materials consistent at every touchpoint.</p>
-              <span class="pillar__go">Explore</span>
-            </div>
-          </a>
+        <ol class="stack" data-stack aria-label="Our three services">
+          <li class="stack__item stack__item--tech">
+            <a class="stack__card" href="tech-solutions.html">
+              <div class="stack__text">
+                <span class="stack__num" aria-hidden="true">01</span>
+                <h3>Tech Solutions</h3>
+                <p>Bots, apps and platforms that remove manual work.</p>
+                <ul class="stack__tags"><li>Bots &amp; automation</li><li>Business apps</li><li>Web platforms</li><li>Event tech</li></ul>
+                <span class="btn btn--ghost stack__go">Explore</span>
+              </div>
+              <div class="stack__media"><img src="../assets/img/tech-itask.webp" width="1200" height="572" alt="" loading="lazy" decoding="async"></div>
+            </a>
+          </li>
+          <li class="stack__item stack__item--events">
+            <a class="stack__card" href="events-management.html">
+              <div class="stack__text">
+                <span class="stack__num" aria-hidden="true">02</span>
+                <h3>Events Management</h3>
+                <p>Summits and conferences planned and run end to end.</p>
+                <ul class="stack__tags"><li>Conferences &amp; summits</li><li>Strategy &amp; design</li><li>Production &amp; logistics</li><li>On-site operation</li></ul>
+                <span class="btn btn--ghost stack__go">Explore</span>
+              </div>
+              <div class="stack__media"><img src="../assets/img/events-card.webp" width="800" height="533" alt="" loading="lazy" decoding="async"></div>
+            </a>
+          </li>
+          <li class="stack__item stack__item--branding">
+            <a class="stack__card" href="corporate-branding.html">
+              <div class="stack__text">
+                <span class="stack__num" aria-hidden="true">03</span>
+                <h3>Corporate Branding</h3>
+                <p>Identity and materials consistent at every touchpoint.</p>
+                <ul class="stack__tags"><li>Visual identity</li><li>Design</li><li>Video</li><li>Branded materials</li></ul>
+                <span class="btn btn--ghost stack__go">Explore</span>
+              </div>
+              <div class="stack__media"><img src="../assets/img/branding-hero.webp" width="1800" height="1200" alt="" loading="lazy" decoding="async"></div>
+            </a>
+          </li>
+        </ol>
         </div>
       </div>
     </section>
@@ -657,6 +670,7 @@
   <script type="module" src="../assets/js/home.js"></script>
   <script type="module" src="../assets/js/magnetic.js"></script>
   <script type="module" src="../assets/js/splash.js"></script>
+  <script type="module" src="../assets/js/stack.js"></script>
   <script type="module" src="../assets/js/stats.js"></script>
 </body>
 </html>
