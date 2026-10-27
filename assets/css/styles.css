@@ -930,6 +930,33 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .cases--mist { background: var(--mist); }
 
 /* Tipos de evento */
+/* Principios (About, #approach): tres pasos numerados sin cajas, unidos por una línea fina que se llena de azul a cian
+   cuando la lista entra en pantalla (.reveal.in de core.js); cada número se enciende cuando la línea llega a él.
+   Solo transform y opacity; con movimiento reducido aparece llena. En móvil la línea es vertical, a la izquierda */
+.principles { position: relative; display: grid; gap: 2.4rem; margin: 3rem 0 0; padding: 0 0 0 3.4rem; list-style: none; }
+.principles::before, .principles::after { content: ""; position: absolute; left: 1.05rem; top: .4rem; bottom: .4rem; width: 2px; background: var(--line); }
+.principles::after { background: linear-gradient(180deg, var(--blue), var(--cyan)); transform: scaleY(0); transform-origin: top; transition: transform 1.6s cubic-bezier(.4, 0, .2, 1) .2s; }
+.principles.in::after { transform: none; }
+.principles__item { position: relative; }
+.principles__num { position: absolute; left: -3.4rem; top: -.15rem; z-index: 1; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  background: var(--paper); border: 1px solid var(--line); font: 500 .72rem/1 var(--font-mono); color: var(--ink-soft); transition: color .4s, border-color .4s, box-shadow .4s; }
+.principles.in .principles__num { color: var(--blue-dark); border-color: var(--cyan); box-shadow: 0 0 0 5px rgba(6,189,231,.12); }
+.principles.in .principles__item:nth-child(1) .principles__num { transition-delay: .3s; }
+.principles.in .principles__item:nth-child(2) .principles__num { transition-delay: .95s; }
+.principles.in .principles__item:nth-child(3) .principles__num { transition-delay: 1.6s; }
+.principles h3 { font: 400 clamp(1.4rem, 2.4vw, 1.9rem)/1.15 var(--font-head); letter-spacing: -.01em; }
+.principles p { margin-top: .7rem; max-width: 36ch; color: var(--ink-soft); line-height: 1.6; }
+.principles .principles__proof { margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid var(--line);
+  font: 500 .72rem/1.4 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--blue-dark); }
+.principles__proof::before { content: "→"; margin-right: .5rem; color: var(--cyan); }
+@media (min-width: 820px) {
+  .principles { grid-template-columns: repeat(3, 1fr); gap: 3rem; padding: 4.2rem 0 0; }
+  .principles::before, .principles::after { left: 0; right: 0; top: 1.1rem; bottom: auto; width: auto; height: 2px; }
+  .principles::after { background: var(--grad-btn); transform: scaleX(0); transform-origin: left; }
+  .principles.in::after { transform: none; }
+  .principles__num { left: 0; top: -4.2rem; }
+}
+@media (prefers-reduced-motion: reduce) { .principles::after { transition: none; transform: none; } .principles__num { transition: none !important; } }
 .type-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
 @media (min-width: 820px) { .type-cards { grid-template-columns: repeat(3, 1fr); } }
 .type-card { padding: 1.6rem; border-radius: var(--radius); border: 1px solid var(--line); background: #fff; }
