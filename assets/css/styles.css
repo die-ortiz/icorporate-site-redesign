@@ -1075,11 +1075,11 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .js .page-tech .svc-card.reveal:nth-child(2) { transition-delay: .08s; }
   .js .page-tech .svc-card.reveal:nth-child(3) { transition-delay: .16s; }
   .js .page-tech .svc-card.reveal:nth-child(4) { transition-delay: .24s; }
-  /* Corporate Branding: las 5 tarjetas de servicios en cascada (el retraso no afecta al hover) */
-  .js .page-branding .type-card.reveal:nth-child(2) { transition-delay: .08s, .08s, 0s, 0s, 0s; }
-  .js .page-branding .type-card.reveal:nth-child(3) { transition-delay: .16s, .16s, 0s, 0s, 0s; }
-  .js .page-branding .type-card.reveal:nth-child(4) { transition-delay: .24s, .24s, 0s, 0s, 0s; }
-  .js .page-branding .type-card.reveal:nth-child(5) { transition-delay: .32s, .32s, 0s, 0s, 0s; }
+  /* Corporate Branding: las 5 celdas del bento en cascada (el retraso no afecta al hover) */
+  .js .bento__item.reveal:nth-child(2) { transition-delay: .08s, .08s, 0s, 0s, 0s; }
+  .js .bento__item.reveal:nth-child(3) { transition-delay: .16s, .16s, 0s, 0s, 0s; }
+  .js .bento__item.reveal:nth-child(4) { transition-delay: .24s, .24s, 0s, 0s, 0s; }
+  .js .bento__item.reveal:nth-child(5) { transition-delay: .32s, .32s, 0s, 0s, 0s; }
   /* proceso: fases en cascada (el retraso no afecta al hover) y la línea de color se dibuja de izquierda a derecha */
   .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(2) { transition-delay: .1s, .1s, 0s, 0s, 0s; }
   .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s, 0s; }
@@ -1124,8 +1124,86 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
     radial-gradient(55% 80% at 0% 100%, rgba(3,127,217,.35), transparent 70%),
     var(--dark);
 }
-@media (min-width: 1100px) { .type-cards--5 { grid-template-columns: repeat(5, 1fr); } }
-@media (min-width: 720px) and (max-width: 1099px) { .type-cards--5 { grid-template-columns: repeat(2, 1fr); } }
+/* Bento de Corporate Branding (#what): Identidad visual en una celda alta y las otras cuatro en una grilla de 2x2. Cada celda
+   lleva arriba una mini ilustración hecha con CSS (paleta y tipografías de marca, sin imágenes) que se anima apenas al pasar
+   el mouse, y abajo el texto con los entregables como píldoras. Animaciones solo de transform y opacity */
+.bento { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
+@media (min-width: 720px) { .bento { grid-template-columns: repeat(2, 1fr); } .bento__item--identity { grid-column: 1 / -1; } }
+@media (min-width: 1100px) { .bento { grid-template-columns: 1.15fr 1fr 1fr; } .bento__item--identity { grid-column: 1; grid-row: span 2; } }
+.bento__item { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
+  transition: translate .3s, border-color .3s, box-shadow .3s; }
+.js .bento__item.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, border-color .3s, box-shadow .3s; }
+.bento__item:hover { translate: 0 -4px; border-color: rgba(6,189,231,.45); box-shadow: 0 24px 50px -30px rgba(16,16,16,.45); }
+.bento__art { position: relative; display: grid; place-items: center; height: 170px; overflow: hidden; background: var(--mist); border-bottom: 1px solid var(--line); }
+.bento__item--identity .bento__art { flex: 1; min-height: 240px; height: auto; }
+.bento__art :where(i, b, span) { display: block; }
+.bento__art :where(*), .bento__art :where(*)::before { transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .5s; }
+.bento__body { padding: 1.4rem 1.5rem 1.5rem; }
+.bento__body h3 { font: 400 1.35rem/1.2 var(--font-head); }
+.bento__item--identity .bento__body h3 { font-size: 1.7rem; }
+.bento__body p { margin-top: .5rem; color: var(--ink-soft); font-size: .95rem; line-height: 1.55; }
+.bento__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.bento__tags li { padding: .35rem .65rem; border-radius: 999px; background: var(--mist); border: 1px solid var(--line); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--blue-dark); }
+/* Identidad: abanico de muestras de color, "Aa" en Sora y una marca de ejemplo */
+.art-identity { grid-template-columns: auto auto; gap: 2.2rem; background: radial-gradient(70% 80% at 30% 50%, rgba(6,189,231,.14), transparent 70%), var(--mist); }
+.art-id__fan { position: relative; width: 120px; height: 150px; }
+.art-id__fan i { position: absolute; left: 30px; bottom: 0; width: 60px; height: 140px; border-radius: 10px; transform-origin: 50% 100%; box-shadow: 0 10px 24px -14px rgba(16,16,16,.6); }
+.art-id__fan i:nth-child(1) { background: var(--dark); transform: rotate(-24deg); }
+.art-id__fan i:nth-child(2) { background: var(--blue); transform: rotate(-8deg); }
+.art-id__fan i:nth-child(3) { background: var(--cyan); transform: rotate(8deg); }
+.art-id__fan i:nth-child(4) { background: var(--lime); transform: rotate(24deg); }
+.bento__item--identity:hover .art-id__fan i:nth-child(1) { transform: rotate(-36deg); }
+.bento__item--identity:hover .art-id__fan i:nth-child(2) { transform: rotate(-12deg); }
+.bento__item--identity:hover .art-id__fan i:nth-child(3) { transform: rotate(12deg); }
+.bento__item--identity:hover .art-id__fan i:nth-child(4) { transform: rotate(36deg); }
+.art-id__type { font: 400 5.5rem/1 var(--font-head); letter-spacing: -.04em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.art-id__mark { position: absolute; right: 1.2rem; bottom: 1.2rem; width: 38px; height: 38px; border-radius: 10px; background: var(--dark); display: grid; place-items: center; }
+.art-id__mark i { width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--cyan); }
+.bento__item--identity:hover .art-id__mark { transform: rotate(90deg); }
+/* Diseño: una página maquetada (barra, imagen, líneas y dos bloques) */
+.art-ds__page { position: relative; width: 150px; height: 120px; padding: 12px; border-radius: 8px; background: var(--paper); box-shadow: 0 16px 34px -20px rgba(16,16,16,.5);
+  display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: min-content; gap: 6px; transform: rotate(-4deg); }
+.art-ds__bar { grid-column: 1 / -1; height: 8px; width: 40%; border-radius: 4px; background: var(--dark); }
+.art-ds__img { grid-column: 1 / -1; height: 34px; border-radius: 5px; background: var(--grad-btn); transform-origin: left; }
+.art-ds__l { grid-column: 1 / -1; height: 5px; border-radius: 3px; background: var(--line); }
+.art-ds__l--s { width: 60%; }
+.art-ds__box { height: 14px; border-radius: 4px; background: rgba(189,204,38,.55); }
+.art-ds__box + .art-ds__box { background: rgba(3,127,217,.25); }
+.bento__item--design:hover .art-ds__page { transform: rotate(0deg) scale(1.05); }
+.bento__item--design:hover .art-ds__img { transform: scaleX(.85); }
+/* Contenido: comillas grandes y líneas de texto que se completan */
+.art-content { grid-template-columns: auto 150px; gap: 1rem; }
+.art-ct__q { font: 400 6rem/.6 var(--font-head); color: var(--cyan); transform: translateY(18px); }
+.art-ct__lines { display: grid; gap: 9px; width: 150px; }
+.art-ct__lines i { height: 7px; border-radius: 4px; background: var(--ink-soft); opacity: .35; transform-origin: left; }
+.art-ct__lines i:nth-child(2) { transform: scaleX(.85); }
+.art-ct__lines i:nth-child(3) { transform: scaleX(.92); background: var(--blue); opacity: .7; }
+.art-ct__lines i:nth-child(4) { transform: scaleX(.45); }
+.bento__item--content:hover .art-ct__lines i { transform: none; }
+.bento__item--content:hover .art-ct__q { transform: translateY(12px) scale(1.08); }
+/* Video: cuadro oscuro con play y barra de tiempo que avanza */
+.art-vd__frame { position: relative; width: 170px; height: 100px; border-radius: 10px; background: linear-gradient(135deg, var(--dark), var(--dark-2)); box-shadow: 0 16px 34px -18px rgba(16,16,16,.7); overflow: hidden; }
+.art-vd__play { position: absolute; left: 50%; top: 44%; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%; background: var(--cyan); }
+.art-vd__play::before { content: ""; position: absolute; left: 15px; top: 11px; border-style: solid; border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--dark); }
+.art-vd__track { position: absolute; left: 12px; right: 12px; bottom: 12px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.2); overflow: hidden; }
+.art-vd__track b { height: 100%; background: var(--grad-btn); transform: scaleX(.3); transform-origin: left; transition-duration: 1.2s; }
+.bento__item--video:hover .art-vd__track b { transform: scaleX(.85); }
+.bento__item--video:hover .art-vd__play { transform: scale(1.12); }
+/* Materiales: credencial de evento colgando y una bolsa */
+.art-materials { grid-template-columns: auto auto; gap: 1.6rem; align-items: end; padding-bottom: 1.4rem; }
+.art-mt__badge { position: relative; width: 74px; height: 104px; padding: 26px 10px 0; border-radius: 8px; background: var(--paper); box-shadow: 0 14px 30px -16px rgba(16,16,16,.55);
+  transform: rotate(-6deg); transform-origin: 50% -30px; }
+.art-mt__strap { position: absolute; left: 50%; top: -34px; width: 12px; height: 38px; margin-left: -6px; background: var(--blue); border-radius: 2px; }
+.art-mt__band { position: absolute; left: 0; right: 0; top: 0; height: 18px; border-radius: 8px 8px 0 0; background: var(--grad-btn); }
+.art-mt__face { width: 26px; height: 26px; margin: 0 auto 8px; border-radius: 50%; background: var(--line); }
+.art-mt__l { height: 5px; margin-top: 5px; border-radius: 3px; background: var(--dark); opacity: .7; }
+.art-mt__l--s { width: 60%; margin-inline: auto; opacity: .3; }
+.art-mt__bag { position: relative; width: 70px; height: 66px; border-radius: 6px 6px 10px 10px; background: var(--lime); box-shadow: 0 14px 30px -16px rgba(16,16,16,.55); }
+.art-mt__bag i { position: absolute; left: 50%; top: -18px; width: 32px; height: 26px; margin-left: -16px; border: 4px solid var(--dark); border-bottom: 0; border-radius: 16px 16px 0 0; opacity: .8; }
+.bento__item--materials:hover .art-mt__badge { transform: rotate(5deg); }
+.bento__item--materials:hover .art-mt__bag { transform: translateY(-4px); }
+@media (max-width: 519px) { .art-identity { gap: .6rem; } .art-id__fan { scale: .8; } .art-id__type { font-size: 4.2rem; } .bento__item--identity .bento__art { min-height: 210px; } }
+@media (prefers-reduced-motion: reduce) { .bento__item, .bento__art *, .bento__art *::before { transition: none !important; } .bento__item:hover { translate: none; } }
 
 /* Nosotros: equipo en "spotlight" (una persona por vez) con miniaturas; team.js alterna las personas ([data-team]).
    Escenario oscuro de marca con un brillo azul y cian detrás del retrato; el texto y el retrato se funden con un leve
