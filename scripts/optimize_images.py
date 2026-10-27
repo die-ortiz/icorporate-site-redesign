@@ -29,16 +29,16 @@ JOBS = {
     # (opción {"light": True} recolorea texto oscuro a blanco, solo como respaldo)
     "logo.webp":       ("image001-scaled.png", 480, 90, {"crop": True}),
     "logo-light.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 480, 90, {"crop": True}),
-    # Logos de clientes (se muestran a ~150x100; 300x200 cubre pantallas 2x)
-    "client-alta.webp":    ("Logo_alta.png",    300, 88, {}),
-    "client-aci-lac.webp": ("Logo_Acilac.png",  300, 88, {}),
-    "client-aci-world.webp": ("Logo_AciWorld.png", 300, 88, {"trim": True}),
-    "client-iata.webp":    ("Logo_Iata.png",    300, 88, {}),
-    "client-sita.webp":    ("Logo_sita.png",    300, 88, {}),
-    "client-heico.webp":   ("Logo_Heico.png",   300, 88, {}),
-    "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {}),
-    "client-aviatdo.webp": ("aviatdo.png",       300, 88, {"unmatte": True}),
-    "client-exolum.webp":  ("Logo_Exolum.jpg",  300, 88, {"box": (40, 60, 460, 190), "unmatte": True}),
+    # Logos de clientes de la grilla de About: "fit" los deja en un lienzo de 300x150 con peso visual parejo (fit_logo)
+    "client-alta.webp":    ("Logo_alta.png",    300, 88, {"fit": True}),
+    "client-aci-lac.webp": ("Logo_Acilac.png",  300, 88, {"fit": 1.7}),
+    "client-aci-world.webp": ("Logo_AciWorld.png", 300, 88, {"fit": 1.5}),
+    "client-iata.webp":    ("Logo_Iata.png",    300, 88, {"fit": True}),
+    "client-sita.webp":    ("Logo_sita.png",    300, 88, {"fit": True}),
+    "client-heico.webp":   ("Logo_Heico.png",   300, 88, {"fit": True}),
+    "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {"fit": True}),
+    "client-aviatdo.webp": ("aviatdo.png",       300, 88, {"unmatte": True, "fit": True}),
+    "client-exolum.webp":  ("Logo_Exolum.jpg",  300, 88, {"box": (40, 60, 460, 190), "unmatte": True, "fit": True}),
     # Versiones blancas (carrusel sobre fondo oscuro): la luminosidad pasa a transparencia,
     # así se conservan los detalles internos del logo y el fondo blanco opaco desaparece
     "client-alta-white.webp":    ("Logo_alta.png",    300, 90, {"white": True}),
@@ -324,6 +324,23 @@ def resize(im, width):
     return im.convert("RGBa").resize((width, h), Image.LANCZOS).convert("RGBA")
 
 
+def fit_logo(im, cw=300, ch=150, area=9000, maxw=270, maxh=118, boost=1.0):
+    """Logo normalizado para grillas: recorta al contenido, borra el casi transparente (restos de fondos casi blancos),
+    lo escala para que todos tengan el mismo peso visual (área de tinta parecida, no el mismo ancho) y lo centra en un
+    lienzo fijo de cw x ch. Un logo con trazo denso (HEICO, SITA) queda algo más chico que uno de trazo fino."""
+    a = im.split()[3].point(lambda v: 0 if v < 10 else v)
+    im.putalpha(a)
+    im = im.crop(a.getbbox())
+    w, h = im.size
+    density = sum(im.split()[3].getdata()) / (255 * w * h)
+    target = area * boost * (0.35 / max(density, 0.08)) ** 0.7
+    k = min((target / (w * h)) ** 0.5, maxw / w, maxh / h)
+    im = resize(im, max(1, round(w * k)))
+    canvas = Image.new("RGBA", (cw, ch), (255, 255, 255, 0))
+    canvas.alpha_composite(im, ((cw - im.width) // 2, (ch - im.height) // 2))
+    return canvas
+
+
 def main():
     DST.mkdir(parents=True, exist_ok=True)
     total_in = total_out = 0
@@ -354,7 +371,10 @@ def main():
             im = to_white(im) if opts["white"] is True else to_white(im, opts["white"])
         if opts.get("trim"):
             im = im.crop(im.split()[3].getbbox())
-        im = resize(im, width)
+        if opts.get("fit"):  # logos de la grilla de clientes (About): mismo lienzo y peso visual parejo; un número agranda (letra chica)
+            im = fit_logo(im, boost=1.0 if opts["fit"] is True else opts["fit"])
+        else:
+            im = resize(im, width)
         if opts.get("cutbottom"):  # filas finales (px de salida) con restos de sombra/reflejo del original
             im = im.crop((0, 0, im.width, im.height - opts["cutbottom"]))
         if opts.get("screenhole"):
