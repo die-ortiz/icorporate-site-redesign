@@ -280,11 +280,11 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .stack__num { font: 500 .8rem/1 var(--font-mono); letter-spacing: .1em; color: var(--accent); }
 .stack__card h3 { margin-top: 1rem; font: 400 clamp(1.9rem, 3.4vw, 2.8rem)/1.08 var(--font-head); letter-spacing: -.02em; color: #fff; }
 .stack__card p { margin-top: .9rem; max-width: 38ch; color: var(--on-dark); font-size: 1.02rem; line-height: 1.6; }
-.stack__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1.3rem 0 0; padding: 0; list-style: none; }
+.stack__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1.3rem 0 1.8rem; padding: 0; list-style: none; }
 .stack__tags li { padding: .38rem .7rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
-.stack__go { margin-top: auto; padding-top: 1.8rem; font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.stack__go::after { content: " →"; color: var(--accent); transition: margin .25s; }
-.stack__card:hover .stack__go::after { margin-left: 6px; }
+/* "Explore": botón fantasma (.btn--ghost) al pie del texto; toda la tarjeta es el enlace, así que reacciona al hover de la tarjeta */
+.stack__go { margin-top: auto; }
+.stack__card:hover .stack__go { background: rgba(255,255,255,.1); border-color: #fff; transform: translateY(-2px); }
 .stack__media { position: relative; order: -1; aspect-ratio: 16 / 10; overflow: hidden; background: var(--dark-2); }
 .stack__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
 .stack__item--tech .stack__media img { object-position: 0 0; }
@@ -299,7 +299,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   /* foto separada del borde, con sus propias esquinas, como una pieza apoyada en la tarjeta */
   .stack__media { margin: .9rem .9rem .9rem 0; border-radius: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { .stack__media img, .stack__go::after { transition: none; } .stack__card:hover .stack__media img { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .stack__media img, .stack__go { transition: none; } .stack__card:hover .stack__media img { transform: none; } }
 
 /* Carrusel de clientes dentro del hero: ancho completo, logos blancos, bucle continuo */
 .trust { position: relative; margin-top: 1.5rem; }
