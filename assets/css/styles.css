@@ -1208,7 +1208,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 /* Nosotros: equipo en "spotlight" (una persona por vez) con miniaturas; team.js alterna las personas ([data-team]).
    Escenario oscuro de marca con un brillo azul y cian detrás del retrato; el texto y el retrato se funden con un leve
    desplazamiento. Sin JS se ven todas las personas una debajo de otra. */
-.team-spot { --band: 112px; --gutter: max(1rem, (100% - var(--container)) / 2); position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
+.team-spot { --band: 136px; --gutter: max(1rem, (100% - var(--container)) / 2); position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
 /* Bloque de borde a borde (fuera de .container) con el título de la sección adentro; --gutter alinea el texto con el resto de la página */
 .team-spot__head { padding: 4rem var(--gutter) 0; }
 .team-spot__head .title { margin-top: .7rem; max-width: none; font-size: clamp(2rem, 4.2vw, 3.2rem); color: var(--on-dark-muted); } /* contexto: tenue; el protagonista es el nombre */
@@ -1276,7 +1276,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .js .team-spot__nav { top: auto; bottom: calc(var(--band) + .8rem); margin-top: 0; }
 }
 @media (min-width: 720px) {
-  .team-spot { --band: 104px; }
+  .team-spot { --band: 124px; } /* alto para cargos de dos líneas en las miniaturas */
   /* casi pantalla completa: título + escenario ocupan el 86 % del alto de la ventana; el retrato (plano medio) sube desde detrás de la banda */
   .team-spot { --gutter: max(5.5rem, (100% - var(--container)) / 2 + 2rem); display: flex; flex-direction: column; min-height: max(86svh, 600px); }
   .team-spot__head { padding-top: 5.5rem; padding-bottom: 1.5rem; }
