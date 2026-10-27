@@ -264,42 +264,54 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 
 
 /* ═══ 06 · HOME: servicios, clientes, cifras, casos, testimonios y proceso ═══ */
-/* Sección Our services: tres tarjetas con foto */
-.pillars { display: grid; gap: 1.25rem; margin-top: 3rem; }
-@media (min-width: 820px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
-.pillar {
-  display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius); text-decoration: none;
-  background: #fff; border: 1px solid var(--line); box-shadow: 0 18px 40px -30px rgba(16,16,16,.5);
-  transition: transform .3s, box-shadow .3s, border-color .3s;
+/* Sección Our services: tres paneles con foto a sangre que se expanden. En escritorio el panel activo (mouse o foco; el
+   primero si no hay ninguno) se ensancha y muestra descripción, subservicios y "Explore"; los otros quedan con número y
+   nombre. Cada servicio tiene su color de acento (línea superior y número). En móvil son tres tarjetas altas con todo a la vista */
+.panels { display: grid; gap: 1rem; margin: 3rem 0 0; padding: 0; list-style: none; }
+.panel { position: relative; overflow: hidden; min-height: 440px; border-radius: var(--radius); background: var(--dark); --accent: var(--cyan); }
+.panel--events { --accent: var(--blue); }
+.panel--branding { --accent: var(--lime); }
+.panel__link { position: absolute; inset: 0; isolation: isolate; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6rem; color: #fff; text-decoration: none; }
+.panel__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .5s; }
+.panel--tech .panel__img { object-position: 0 0; }
+.panel--branding .panel__img { object-position: 38% 50%; }
+.panel__link::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(16,16,16,.97) 15%, rgba(16,16,16,.82) 60%, rgba(16,16,16,.45)); } /* móvil: el texto ocupa más alto */
+.panel__link::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); transform: scaleX(.18); transform-origin: left; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+.panel__num { position: absolute; left: 1.6rem; top: 1.5rem; font: 500 .8rem/1 var(--font-mono); letter-spacing: .1em; color: var(--accent); }
+.panel__body { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+.panel h3 { font: 400 clamp(1.6rem, 2.4vw, 2.1rem)/1.1 var(--font-head); letter-spacing: -.02em; color: #fff; }
+.panel__more { min-height: 0; overflow: hidden; }
+.panel__desc { display: block; margin-top: .7rem; max-width: 34ch; color: var(--on-dark); font-size: .98rem; line-height: 1.55; }
+.panel__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.panel__tags li { padding: .35rem .65rem; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); font: 500 .64rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: #fff; }
+.panel__go { display: inline-block; margin-top: 1.2rem; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.panel__go::after { content: " →"; color: var(--accent); transition: margin .25s; }
+.panel__link:hover .panel__go::after { margin-left: 5px; }
+.panel__link:hover .panel__img { transform: scale(1.04); }
+.panel__link:focus-visible { outline: 2px solid var(--cyan); outline-offset: -4px; border-radius: var(--radius); }
+@media (min-width: 960px) {
+  .panels { display: flex; height: 540px; }
+  .panel { flex: 1 1 0; min-width: 0; min-height: 0; transition: flex-grow .7s cubic-bezier(.2, .8, .2, 1); }
+  /* la entrada .reveal también usa transition: se suma el ancho y el retraso escalonado no lo afecta */
+  .js .panel.reveal { transition: opacity .8s ease, transform .8s ease, flex-grow .7s cubic-bezier(.2, .8, .2, 1); }
+  .js .panel.reveal[data-d="1"] { transition-delay: .1s, .1s, 0s; }
+  .js .panel.reveal[data-d="2"] { transition-delay: .2s, .2s, 0s; }
+  .panel__link { padding: 2rem; }
+  .panel__link::after { background: linear-gradient(to top, rgba(16,16,16,.95) 10%, rgba(16,16,16,.55) 55%, rgba(16,16,16,.3)); }
+  .panel__num { left: 2rem; top: 1.8rem; }
+  .panel__body { grid-template-rows: auto 0fr; transition: grid-template-rows .6s cubic-bezier(.2, .8, .2, 1); }
+  /* ancho fijo del contenido que se despliega: no se reacomoda mientras el panel se ensancha */
+  .panel__more > * { width: min(28rem, 100%); }
+  .panel__more { width: 28rem; opacity: 0; transition: opacity .3s; }
+  .panel__img { opacity: .55; }
+  /* panel activo: con el mouse o el foco encima, o el primero si no hay ninguno */
+  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) { flex-grow: 2.3; }
+  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__body { grid-template-rows: auto 1fr; }
+  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__more { opacity: 1; transition-delay: .25s; }
+  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__img { opacity: 1; }
+  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__link::before { transform: none; }
 }
-/* Hover igual al de las tarjetas de impacto: sube 4 px, borde cian y sombra. `translate` (no `transform`) para no chocar con la entrada .reveal,
-   que además pisaba esta transición y hacía que el borde y la sombra cambiaran de golpe */
-.pillar { transition: translate .3s, box-shadow .3s, border-color .3s; }
-.js .pillar.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
-.pillar:hover { translate: 0 -4px; border-color: rgba(6,189,231,.5); box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); }
-@media (prefers-reduced-motion: reduce) { .pillar, .js .pillar.reveal { transition: none; } .pillar:hover { translate: none; } }
-.pillar__photo { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--dark-2); }
-.pillar__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
-.pillar__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(16,16,16,.3), transparent 50%); }
-.pillar:hover .pillar__photo img { transform: scale(1.05); }
-/* Tomas de producto con fondo blanco: se muestran completas sobre fondo claro */
-.pillar__photo--light { background: #eef3f9; }
-.pillar__photo--light img { object-fit: contain; padding: 4%; mix-blend-mode: multiply; }
-.pillar__photo--light::after { display: none; }
-.pillar__body { display: flex; flex-direction: column; gap: .5rem; padding: 1.4rem 1.6rem 1.6rem; flex: 1; }
-.pillar h2 { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; font-size: 1.35rem; font-weight: 400; letter-spacing: -0.01em; }
-.pillar__icon { flex: none; display: block; width: 34px; height: 34px; color: var(--blue-dark); transition: transform .3s, color .3s; }
-.pillar__icon svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.pillar:hover .pillar__icon { transform: translateY(-3px); color: var(--blue); }
-.pillar p { color: var(--ink-soft); font-size: .96rem; }
-.pillar__go { margin-top: auto; padding-top: .9rem; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-dark); }
-.pillar__go::after { content: " →"; transition: margin .25s; }
-.pillar:hover .pillar__go::after { margin-left: 5px; }
-
-/* Captura de producto sobre fondo oscuro (iTask en la tarjeta de Tech Solutions): se muestra completa */
-.pillar__photo--dark { background: #161616; }
-.pillar__photo--dark img { object-fit: contain; }
-.pillar__photo--dark::after { background: linear-gradient(to top, rgba(16,16,16,.18), transparent 40%); }
+@media (prefers-reduced-motion: reduce) { .panel, .panel__body, .panel__more, .panel__img, .panel__link::before { transition: none !important; } .panel__link:hover .panel__img { transform: none; } }
 
 /* Carrusel de clientes dentro del hero: ancho completo, logos blancos, bucle continuo */
 .trust { position: relative; margin-top: 1.5rem; }
