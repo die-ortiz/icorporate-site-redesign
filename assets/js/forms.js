@@ -1,54 +1,48 @@
 /* forms.js · formularios por correo directo (mailto), sin servicios externos. Cargar donde haya formulario.
-   - #contact-form (Home): el asunto, destinatario y mensajes salen de data-* del propio <form>.
-   - #proposal-form (páginas de servicio): arma el cuerpo con todos los campos etiquetados.
+   - #contact-form (Home) y #proposal-form (páginas de servicio) comparten el esquema: nombre, correo, empresa, píldoras,
+     texto largo y pedido de llamada. Asunto, destinatario y mensajes salen de data-* del propio <form>.
+   - [data-copy]: botón que copia un texto (el correo en las vías de contacto).
    En producción se puede reemplazar por un endpoint PHP sin tocar el HTML (cambiar solo el submit). */
 
-// Formulario de contacto (Home): correo directo. Campos: nombre, correo, empresa, servicio (píldoras), mensaje y, si se
-// marcó, el pedido de llamada (día y franja en hora de Miami, de slots.js). Arma un mailto y abre el correo del usuario.
-// (En producción se puede reemplazar por un endpoint PHP en el servidor sin tocar el HTML.)
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-  const status = contactForm.querySelector('.contact__status');
-  const labelOf = (name) => {
-    const el = contactForm.elements[name];
-    const node = el && (el.labels ? el.labels[0] : null);
-    return node ? node.textContent : (contactForm.querySelector(`[name="${name}"]`)?.closest('fieldset')?.querySelector('legend')?.textContent || name);
-  };
-  const checked = (name) => contactForm.querySelector(`input[name="${name}"]:checked`);
-  contactForm.addEventListener('submit', (e) => {
+// Formularios de contacto (#contact-form en el Home, #proposal-form en cada servicio): correo directo con el mismo esquema.
+// Campos con nombre: texto (con su <label>), píldoras de radio (con la <legend> de su grupo) y, si se marcó, el pedido de
+// llamada (día y franja en hora de Miami, de slots.js). El campo de texto largo (message o brief) va al final del cuerpo.
+// Arma un mailto y abre el correo del usuario. (En producción, un endpoint PHP en el servidor sin tocar el HTML.)
+const mailForm = (form) => {
+  const status = form.querySelector('.contact__status');
+  const long = form.querySelector('textarea[name]');
+  const legendOf = (el) => el.closest('fieldset')?.querySelector('legend')?.textContent || el.name;
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const f = contactForm.elements;
-    const required = [f.name, f.email, f.message];
     let firstBad = null;
-    required.forEach((el) => {
+    form.querySelectorAll('[required]').forEach((el) => {
       const bad = !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value.trim()));
       el.setAttribute('aria-invalid', String(bad));
       if (bad && !firstBad) firstBad = el;
     });
     if (firstBad) {
-      status.textContent = contactForm.dataset.err; status.classList.add('is-error'); firstBad.focus();
+      status.textContent = form.dataset.err; status.classList.add('is-error'); firstBad.focus();
       return;
     }
-    const name = f.name.value.trim();
-    const service = checked('service');
-    const lines = [
-      `${labelOf('name')}: ${name}`,
-      `${labelOf('company')}: ${f.company.value.trim()}`,
-      `${labelOf('email')}: ${f.email.value.trim()}`,
-      `${labelOf('service')}: ${service ? service.value : ''}`,
-    ];
-    if (f.call && f.call.checked) {
-      const day = checked('day'); const win = checked('window');
-      lines.push(`${f.call.labels[0].textContent}: ${day ? day.dataset.label : '-'} · ${win ? win.value : '-'} (Miami, ET)`);
+    const lines = [];
+    form.querySelectorAll('input[name], select[name]').forEach((el) => {
+      if (['day', 'window', 'call'].includes(el.name)) return;
+      if (el.type === 'radio') { if (el.checked) lines.push(`${legendOf(el)}: ${el.value}`); return; }
+      if (el.value.trim()) lines.push(`${el.labels[0].textContent}: ${el.value.trim()}`);
+    });
+    const call = form.elements.call;
+    if (call && call.checked) {
+      const day = form.querySelector('input[name="day"]:checked'); const win = form.querySelector('input[name="window"]:checked');
+      lines.push(`${call.labels[0].textContent}: ${day ? day.dataset.label : '-'} · ${win ? win.value : '-'} (Miami, ET)`);
     }
-    lines.push('', f.message.value.trim());
-    const subject = `${contactForm.dataset.subject} - ${name}`;
-    const href = `mailto:${contactForm.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
-    status.textContent = contactForm.dataset.ok; status.classList.remove('is-error');
-    window.location.href = href;
+    const name = form.elements.name.value.trim();
+    const body = `${lines.join('\n')}\n\n${long ? long.value.trim() : ''}`;
+    status.textContent = form.dataset.ok; status.classList.remove('is-error');
+    window.location.href = `mailto:${form.dataset.to}?subject=${encodeURIComponent(`${form.dataset.subject} - ${name}`)}&body=${encodeURIComponent(body)}`;
   });
-  contactForm.addEventListener('input', (e) => { if (e.target.getAttribute && e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
-}
+  form.addEventListener('input', (e) => { if (e.target.getAttribute && e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
+};
+['contact-form', 'proposal-form'].forEach((id) => { const form = document.getElementById(id); if (form) mailForm(form); });
 
 // Botón "copiar" de las vías de contacto ([data-copy]): copia el texto y lo confirma un momento en su etiqueta
 document.querySelectorAll('[data-copy]').forEach((btn) => btn.addEventListener('click', async () => {
@@ -57,33 +51,3 @@ document.querySelectorAll('[data-copy]').forEach((btn) => btn.addEventListener('
   btn.setAttribute('aria-label', btn.dataset.copied); btn.classList.add('is-copied');
   setTimeout(() => { btn.setAttribute('aria-label', label); btn.classList.remove('is-copied'); }, 1600);
 }));
-
-// Formulario de propuesta (páginas de servicio): correo directo con todos los campos etiquetados
-const proposalForm = document.getElementById('proposal-form');
-if (proposalForm) {
-  const status = proposalForm.querySelector('.contact__status');
-  proposalForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const required = [...proposalForm.querySelectorAll('[required]')];
-    let firstBad = null;
-    required.forEach((el) => {
-      const bad = !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value.trim()));
-      el.setAttribute('aria-invalid', String(bad));
-      if (bad && !firstBad) firstBad = el;
-    });
-    if (firstBad) {
-      status.textContent = proposalForm.dataset.err; status.classList.add('is-error'); firstBad.focus();
-      return;
-    }
-    const lines = [...proposalForm.querySelectorAll('input, select, textarea')]
-      .filter((el) => el.name && el.value.trim() && el.name !== 'brief')
-      .map((el) => `${el.labels[0].textContent}: ${el.value.trim()}`);
-    const brief = proposalForm.elements.brief.value.trim();
-    const name = proposalForm.elements.name.value.trim();
-    const subject = `${proposalForm.dataset.subject} - ${name}`;
-    const body = `${lines.join('\n')}\n\n${brief}`;
-    status.textContent = proposalForm.dataset.ok; status.classList.remove('is-error');
-    window.location.href = `mailto:${proposalForm.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-  proposalForm.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
-}
