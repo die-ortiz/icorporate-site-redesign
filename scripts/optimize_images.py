@@ -29,6 +29,8 @@ JOBS = {
     # (opción {"light": True} recolorea texto oscuro a blanco, solo como respaldo)
     "logo.webp":       ("image001-scaled.png", 480, 90, {"crop": True}),
     "logo-light.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 480, 90, {"crop": True}),
+    # Logo del splash del Home: se muestra a ~380 px de ancho, esta versión cubre pantallas 2x
+    "splash-logo.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 760, 90, {"crop": True}),
     # Logos de clientes de la grilla de About: "fit" los deja en un lienzo de 300x150 con peso visual parejo (fit_logo)
     "client-alta.webp":    ("Logo_alta.png",    300, 88, {"fit": True}),
     "client-aci-lac.webp": ("Logo_Acilac.png",  300, 88, {"fit": 1.7}),
