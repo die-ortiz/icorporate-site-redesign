@@ -337,23 +337,32 @@
           <span class="contact__badge">Hablemos</span>
           <h2>Contanos qué necesitás.</h2>
           <p>Compartinos lo básico y te respondemos con un enfoque y próximos pasos.</p>
-          <ol class="next-steps">
-            <li><span><b>Revisamos tu brief</b> y te hacemos las preguntas que falten.</span></li>
-            <li><span><b>Coordinamos una llamada corta</b> para alinear objetivos y alcance.</span></li>
-            <li><span><b>Recibís una propuesta</b> con enfoque, cronograma y presupuesto.</span></li>
-          </ol>
+          <ul class="channels">
+            <li><a class="channel channel--call" href="#pf-call" data-want-call><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span><b>Agendá una llamada</b><small>Elegís día y horario · 30 min</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a class="channel" href="https://wa.me/19547701738?text=Hola%20iCorporate%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .4-.1.6l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.1.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-.6.3-1.6.4-3.2-.4a8.3 8.3 0 0 1-3.4-3.4c-.8-1.6-.7-2.6-.4-3.2z"/></svg><span><b>WhatsApp</b><small>+1 954 770 1738</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li class="channel channel--mail"><a href="mailto:info@icorporateevents.com"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 6 8-6"/></svg><span><b>Correo</b><small>info@icorporateevents.com</small></span></a><button class="channel__copy" type="button" data-copy="info@icorporateevents.com" data-copied="Copiado" aria-label="Copiar correo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></li>
+          </ul>
+          <p class="contact__sla"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Respondemos en menos de 2 días hábiles.</p>
         </div>
         <form class="contact__form reveal" data-d="1" id="proposal-form" novalidate
               data-to="info@icorporateevents.com" data-subject="Solicitud de Tech Solutions" data-ok="¡Gracias! Se debería abrir tu aplicación de correo con la solicitud lista para enviar." data-err="Completá tu nombre, correo y brief.">
-          <div class="field"><label for="pf-name">Nombre completo</label><input id="pf-name" name="name" type="text" autocomplete="name" placeholder="Ana García" required></div>
-          <div class="field"><label for="pf-company">Empresa</label><input id="pf-company" name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa"></div>
+          <p class="contact__form-title field--full">O envianos tu pedido</p>
+          <div class="field"><label for="pf-name">Nombre</label><input id="pf-name" name="name" type="text" autocomplete="name" placeholder="Ana García" required></div>
           <div class="field"><label for="pf-email">Correo electrónico</label><input id="pf-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required></div>
-          <div class="field"><label for="pf-phone">Teléfono</label><input id="pf-phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000"></div>
-          <div class="field"><label for="pf-need">¿Qué necesitás?</label><select id="pf-need" name="need"><option value="" selected>Seleccioná una opción</option><option>Asistente o automatización</option><option>App o herramienta de negocio</option><option>Sitio web</option><option>Tecnología para eventos</option><option>Todavía no lo sé</option></select></div>
-          <div class="field"><label for="pf-time">Plazo</label><select id="pf-time" name="timeline"><option value="" selected>Seleccioná un plazo</option><option>Lo antes posible</option><option>En 1 a 3 meses</option><option>En 3 a 6 meses</option><option>Solo estoy explorando</option></select></div>
-          <div class="field field--full"><label for="pf-brief">Brief</label><textarea id="pf-brief" name="brief" rows="4" placeholder="Contanos sobre tu proyecto: objetivos, usuarios, herramientas que usan hoy…" required></textarea></div>
+          <div class="field field--full"><label for="pf-company">Empresa (opcional)</label><input id="pf-company" name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa"></div>
+          <fieldset class="field field--full chips"><legend>¿Qué necesitás?</legend><div class="chips__list"><label class="chip"><input type="radio" name="need" value="Asistente o automatización"><span>Asistente o automatización</span></label><label class="chip"><input type="radio" name="need" value="App o herramienta de negocio"><span>App o herramienta de negocio</span></label><label class="chip"><input type="radio" name="need" value="Sitio web"><span>Sitio web</span></label><label class="chip"><input type="radio" name="need" value="Tecnología para eventos"><span>Tecnología para eventos</span></label><label class="chip"><input type="radio" name="need" value="Todavía no lo sé"><span>Todavía no lo sé</span></label></div></fieldset>
+          <div class="field field--full"><label for="pf-brief">Brief</label><textarea id="pf-brief" name="brief" rows="3" placeholder="Contanos sobre tu proyecto: objetivos, usuarios, herramientas que usan hoy…" required></textarea></div>
+          <div class="field--full slot" data-slot>
+            <label class="slot__toggle"><input id="pf-call" name="call" type="checkbox"><span>Quiero agendar una llamada de 30 minutos</span></label>
+            <div class="slot__panel">
+              <fieldset class="slot__group"><legend>Elegí un día</legend><div class="slot__days" data-slot-days></div></fieldset>
+              <fieldset class="slot__group"><legend>Franja horaria</legend><div class="chips__list"><label class="chip"><input type="radio" name="window" value="9:00-12:00"><span>Mañana · 9:00–12:00</span></label><label class="chip"><input type="radio" name="window" value="14:00-17:00"><span>Tarde · 14:00–17:00</span></label></div></fieldset>
+              <p class="slot__tz" data-slot-tz>Horario de Miami (ET).</p>
+            </div>
+          </div>
           <div class="field--full contact__actions">
             <button class="btn btn--primary" type="submit">Enviar solicitud</button>
+            <span class="contact__note">Llega directo al equipo</span>
             <p class="contact__status" role="status" aria-live="polite"></p>
           </div>
         </form>
@@ -453,6 +462,7 @@
   <script type="module" src="../../assets/js/flow.js"></script>
   <script type="module" src="../../assets/js/forms.js"></script>
   <script type="module" src="../../assets/js/pin.js"></script>
+  <script type="module" src="../../assets/js/slots.js"></script>
   <script type="module" src="../../assets/js/stats.js"></script>
 </body>
 </html>

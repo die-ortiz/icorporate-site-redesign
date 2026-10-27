@@ -1027,11 +1027,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .feature-quote .quote__who span { color: var(--on-dark-muted); }
 .feature-quote .quote__who em { color: var(--cyan); }
 
-/* Pasos tras enviar la propuesta */
-.next-steps { margin: 1.8rem 0 0; padding: 0; list-style: none; counter-reset: ns; display: grid; gap: 1rem; }
-.next-steps li { counter-increment: ns; display: flex; gap: .9rem; align-items: baseline; color: var(--on-dark); }
-.next-steps li::before { content: counter(ns); flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; font-weight: 700; font-size: .8rem; }
-.next-steps b { color: #fff; }
 
 /* Preguntas frecuentes */
 .faq { margin-top: 2.2rem; display: grid; gap: .7rem; max-width: 860px; }
