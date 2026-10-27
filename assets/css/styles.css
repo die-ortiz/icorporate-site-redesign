@@ -1190,12 +1190,40 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .logo-grid li { padding: .9rem 1.1rem; }
 }
 @media (prefers-reduced-motion: reduce) { .logo-grid li:hover img { transform: none; } }
-.office { display: grid; gap: 1.1rem; margin-top: 1.8rem; }
-.office a { display: flex; align-items: center; gap: .9rem; padding: 1rem 1.2rem; border-radius: 10px; border: 1px solid var(--line); background: #fff; text-decoration: none; font-weight: 600; color: var(--ink); transition: border-color .2s, transform .2s; overflow-wrap: anywhere; }
-.office a:hover { border-color: rgba(3,127,217,.5); transform: translateX(3px); }
-.office svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.office__address { display: flex; align-items: flex-start; gap: .9rem; padding: 1rem 1.2rem; border-radius: 10px; border: 1px solid var(--line); background: #fff; font-weight: 600; font-style: normal; }
-.office__address svg { flex: none; width: 24px; height: 24px; fill: none; stroke: var(--blue-dark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-top: .1rem; }
+/* Oficina (About): tarjeta oscura de marca. Arriba, mapa de puntos de Florida y el Caribe (office-map.svg, sale de
+   scripts/make_office_map.py) con el pin de Coral Gables latiendo, coordenadas y la hora de Miami en vivo (clock.js);
+   abajo, dirección, teléfono y correo en filas y las acciones "Book a call" y "Cómo llegar" (Google Maps, pestaña nueva) */
+.office-card { position: relative; overflow: hidden; margin-top: 1.8rem; border-radius: var(--radius); background: var(--dark); color: #fff;
+  box-shadow: 0 30px 70px -35px rgba(16,16,16,.6); }
+.office-card__map { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: radial-gradient(60% 70% at 53% 50%, rgba(3,127,217,.32), transparent 70%); }
+/* el SVG es 600x504: con margin-top de -9% (del ancho) el pin queda en el centro vertical de la franja de 16:10 */
+.office-card__map img { display: block; width: 100%; height: auto; margin-top: -9%; }
+.office-card__map::after { content: ""; position: absolute; inset: auto 0 0; height: 35%; background: linear-gradient(transparent, var(--dark)); pointer-events: none; }
+/* posición de Coral Gables que imprime make_office_map.py (left) y su altura corregida por el recorte de arriba (top) */
+.office-card__pin { position: absolute; left: 53.3%; top: 50.1%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(6,189,231,.25), 0 0 18px rgba(6,189,231,.9); }
+.office-card__pin::before, .office-card__pin::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--cyan); animation: office-ping 2.4s cubic-bezier(.2, .7, .3, 1) infinite; }
+.office-card__pin::after { animation-delay: 1.2s; }
+@keyframes office-ping { from { transform: scale(1); opacity: .9; } to { transform: scale(5.5); opacity: 0; } }
+.office-card__coords, .office-card__clock { position: absolute; top: 1rem; font: 500 .66rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.office-card__coords { left: 1.2rem; color: var(--on-dark-muted); }
+.office-card__clock { right: 1rem; padding: .45rem .7rem; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1); color: var(--on-dark); }
+.office-card__clock time { color: var(--cyan); }
+.office-card__list { margin: 0; padding: 0 1.4rem; list-style: none; }
+.office-card__row { display: flex; align-items: flex-start; gap: .9rem; padding: 1rem 0; border-top: 1px solid rgba(255,255,255,.08); font-style: normal; font-weight: 500; line-height: 1.5; color: #fff; text-decoration: none; }
+.office-card__list li:first-child .office-card__row { border-top: 0; padding-top: .2rem; }
+.office-card svg { flex: none; width: 22px; height: 22px; fill: none; stroke: var(--cyan); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.office-card__go { margin-left: auto; align-self: center; opacity: 0; transform: translateX(-6px); transition: opacity .2s, transform .2s; }
+a.office-card__row:hover, a.office-card__row:focus-visible { color: var(--cyan); }
+a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .office-card__go { opacity: 1; transform: none; }
+.office-card__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.4rem; padding: 1.1rem 1.4rem 1.4rem; border-top: 1px solid rgba(255,255,255,.08); }
+.office-card__directions { display: inline-flex; align-items: center; gap: .4rem; font-weight: 500; color: var(--on-dark); text-decoration: none; transition: color .2s; }
+.office-card__directions svg { width: 16px; height: 16px; transition: transform .2s; }
+.office-card__directions:hover { color: var(--cyan); }
+.office-card__directions:hover svg { transform: translate(2px, -2px); }
+@media (max-width: 519px) { .office-card__clock { top: auto; right: auto; bottom: .8rem; left: 1.2rem; z-index: 1; } } /* en móvil no entra junto a las coordenadas */
+@media (min-width: 900px) { .office-card { margin-top: 0; } }
+@media (prefers-reduced-motion: reduce) { .office-card__pin::before, .office-card__pin::after { animation: none; opacity: 0; } }
 
 /* Túnel de datos WebGL (Tech Solutions): cubre toda la cabecera */
 .tunnel-bg { position: absolute; inset: 0; z-index: -3; pointer-events: none; }

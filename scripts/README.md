@@ -13,6 +13,7 @@ el sitio publicado es HTML/CSS/JS estático.
 | `style_snapshot.js` | Captura estilos computados de todas las páginas a 3 anchos, para comprobar que un refactor no cambia nada visible. | Antes y después de refactorizar CSS/HTML. Ver instrucciones en el archivo. |
 | `publish.py` | Genera `dist/` listo para subir: rutas ajustadas, `assets/`, `sitemap.xml`, `robots.txt`; corre `check_site.py` antes y verifica recursos y anclas después. | Al preparar una publicación (no sube nada). |
 | `optimize_images.py` | Genera WebP en `assets/img/` desde los originales de `reference/img-originals/`. | Al agregar o cambiar una imagen. Revisar con `git status` que no se modifique `favicon-32.png` sin motivo. |
+| `make_office_map.py` | Genera `assets/img/office-map.svg` (mapa de puntos de Florida y el Caribe de la tarjeta de la oficina) e imprime la posición del pin de Coral Gables. | Solo si se cambia el encuadre, la densidad o las costas del mapa; actualizar luego `left`/`top` de `.office-card__pin`. |
 | `optimize_video.sh` | Genera `assets/video/<nombre>.mp4` y su póster. | Al agregar un video de fondo. |
 
 ## Flujo recomendado para un cambio
