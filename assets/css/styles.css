@@ -607,18 +607,19 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .slot:has(.slot__toggle input:checked) .slot__panel { display: grid; }
 .slot:has(.slot__toggle input:checked) { border-color: var(--cyan); }
 .slot__group { margin: 0; padding: 0; border: 0; min-width: 0; }
-.slot__days { display: grid; grid-template-columns: repeat(5, 1fr); gap: .4rem; }
+.slot__days { display: flex; flex-wrap: wrap; gap: .5rem; }
 .slot__day { position: relative; cursor: pointer; }
 .slot__day input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-.slot__day span { display: grid; place-items: center; gap: .1rem; padding: .5rem .2rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); text-align: center; transition: background-color .2s, border-color .2s; }
+/* días en círculos: día de la semana arriba y número grande */
+.slot__day span { display: grid; place-content: center; justify-items: center; gap: .15rem; width: 58px; height: 58px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); text-align: center; transition: background-color .2s, border-color .2s, transform .2s; }
 .slot__day small { font: 500 .62rem/1 var(--font-mono); text-transform: uppercase; color: var(--ink-soft); }
-.slot__day b { font-size: .82rem; font-weight: 600; white-space: nowrap; }
-.slot__day:hover span { border-color: #c4cfdc; }
+.slot__day b { font-size: 1.05rem; font-weight: 600; line-height: 1; }
+.slot__day:hover span { border-color: #c4cfdc; transform: translateY(-2px); }
 .slot__day input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; }
 .slot__day input:checked + span small { color: rgba(255,255,255,.8); }
 .slot__day input:focus-visible + span { outline: 3px solid var(--cyan); outline-offset: 1px; }
 .slot__tz { margin: 0; font-size: .82rem; color: var(--ink-soft); }
-@media (max-width: 479px) { .slot__days { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 479px) { .slot__day span { width: 52px; height: 52px; } }
 .contact__note { font-size: .8rem; color: var(--ink-soft); }
 .contact__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
 .contact__status { margin: 0; font-size: .9rem; font-weight: 600; color: var(--blue-dark); }

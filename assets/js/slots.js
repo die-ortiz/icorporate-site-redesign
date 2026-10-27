@@ -1,6 +1,7 @@
 /* slots.js · Pedido de llamada en el formulario de contacto del Home ([data-slot]). No es una reserva: el visitante pide
    un día hábil y una franja (mañana o tarde, en hora de Miami) y el equipo confirma por correo o WhatsApp.
-   - Genera los próximos 10 días hábiles como opciones ([data-slot-days]), en el idioma de la página.
+   - Genera los próximos 10 días hábiles como opciones redondas ([data-slot-days]: día de la semana y número; el mes va
+     en texto para lectores de pantalla y en el title), en el idioma de la página.
    - Muestra la franja elegida convertida a la zona horaria del visitante ([data-slot-tz]) cuando no es la de Miami.
    - [data-want-call] (la tarjeta "Book a call" del contacto) marca el pedido de llamada y lleva el foco al formulario.
    El panel se abre con CSS (:has(:checked)); sin JS no hay días para elegir y el formulario sigue funcionando.
@@ -18,7 +19,9 @@ if (slot) {
   // próximos 10 días hábiles a partir de mañana (fecha de Miami)
   const today = new Date(new Date().toLocaleString('en-US', { timeZone: TZ }));
   const fmtDay = new Intl.DateTimeFormat(lang, { weekday: 'short' });
-  const fmtNum = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short' });
+  const fmtNum = new Intl.DateTimeFormat(lang, { day: 'numeric' });
+  const fmtMonth = new Intl.DateTimeFormat(lang, { month: 'long' });
+  const fmtFull = new Intl.DateTimeFormat(lang, { weekday: 'short', day: 'numeric', month: 'short' });
   const d = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   for (let n = 0; n < 10;) {
     d.setDate(d.getDate() + 1);
@@ -26,12 +29,14 @@ if (slot) {
     const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const label = document.createElement('label');
     label.className = 'slot__day';
-    label.innerHTML = '<input type="radio" name="day"><span><small></small><b></b></span>';
+    label.innerHTML = '<input type="radio" name="day"><span><small></small><b></b><i class="sr-only"></i></span>';
     const input = label.querySelector('input');
     input.value = iso;
-    input.dataset.label = `${fmtDay.format(d)} ${fmtNum.format(d)}`;
+    input.dataset.label = fmtFull.format(d);
+    label.title = fmtFull.format(d);
     label.querySelector('small').textContent = fmtDay.format(d);
     label.querySelector('b').textContent = fmtNum.format(d);
+    label.querySelector('i').textContent = fmtMonth.format(d);
     days.appendChild(label);
     n++;
   }
