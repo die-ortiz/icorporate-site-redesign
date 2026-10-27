@@ -1224,9 +1224,9 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 a.office-card__row:hover, a.office-card__row:focus-visible { color: var(--cyan); }
 a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .office-card__go { opacity: 1; transform: none; }
 .office-card__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.4rem; padding: 1.1rem 1.4rem 1.4rem; border-top: 1px solid rgba(255,255,255,.08); }
-.office-card__directions { display: inline-flex; align-items: center; gap: .4rem; font-weight: 500; color: var(--on-dark); text-decoration: none; transition: color .2s; }
-.office-card__directions svg { width: 16px; height: 16px; transition: transform .2s; }
-.office-card__directions:hover { color: var(--cyan); }
+/* "Cómo llegar": botón fantasma (.btn--ghost) con la flecha de enlace externo */
+.office-card__directions { gap: .45rem; }
+.office-card__directions svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .2s; }
 .office-card__directions:hover svg { transform: translate(2px, -2px); }
 @media (max-width: 519px) { .office-card__clock { top: auto; right: auto; bottom: .8rem; left: 1.2rem; z-index: 1; } } /* en móvil no entra junto a las coordenadas */
 @media (min-width: 900px) { .office-card { margin-top: 0; } }
