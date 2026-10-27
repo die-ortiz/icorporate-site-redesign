@@ -45,6 +45,7 @@ FEATURES = {
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
     "forms.js": r'id="(?:contact|proposal)-form"',
     "pin.js": r'data-pin',
+    "slots.js": r'data-slot',
     "stack.js": r'data-stack',
     "splash.js": r'data-splash',
     "team.js": r'data-team',

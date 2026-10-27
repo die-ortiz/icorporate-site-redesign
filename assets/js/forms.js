@@ -3,15 +3,22 @@
    - #proposal-form (páginas de servicio): arma el cuerpo con todos los campos etiquetados.
    En producción se puede reemplazar por un endpoint PHP sin tocar el HTML (cambiar solo el submit). */
 
-// Formulario de contacto: correo directo. Arma un mailto con los datos y abre el correo del usuario.
+// Formulario de contacto (Home): correo directo. Campos: nombre, correo, empresa, servicio (píldoras), mensaje y, si se
+// marcó, el pedido de llamada (día y franja en hora de Miami, de slots.js). Arma un mailto y abre el correo del usuario.
 // (En producción se puede reemplazar por un endpoint PHP en el servidor sin tocar el HTML.)
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   const status = contactForm.querySelector('.contact__status');
+  const labelOf = (name) => {
+    const el = contactForm.elements[name];
+    const node = el && (el.labels ? el.labels[0] : null);
+    return node ? node.textContent : (contactForm.querySelector(`[name="${name}"]`)?.closest('fieldset')?.querySelector('legend')?.textContent || name);
+  };
+  const checked = (name) => contactForm.querySelector(`input[name="${name}"]:checked`);
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const f = contactForm.elements;
-    const required = [f.first, f.email, f.message];
+    const required = [f.name, f.email, f.message];
     let firstBad = null;
     required.forEach((el) => {
       const bad = !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value.trim()));
@@ -22,16 +29,19 @@ if (contactForm) {
       status.textContent = contactForm.dataset.err; status.classList.add('is-error'); firstBad.focus();
       return;
     }
-    const name = `${f.first.value.trim()} ${f.last.value.trim()}`.trim();
+    const name = f.name.value.trim();
+    const service = checked('service');
     const lines = [
-      `${f.first.labels[0].textContent}: ${name}`,
-      `${f.company.labels[0].textContent}: ${f.company.value.trim()}`,
-      `${f.phone.labels[0].textContent}: ${f.phone.value.trim()}`,
-      `${f.email.labels[0].textContent}: ${f.email.value.trim()}`,
-      `${f.by.labels[0].textContent}: ${f.by.value}`,
-      `${f.service.labels[0].textContent}: ${f.service.value}`,
-      '', f.message.value.trim(),
+      `${labelOf('name')}: ${name}`,
+      `${labelOf('company')}: ${f.company.value.trim()}`,
+      `${labelOf('email')}: ${f.email.value.trim()}`,
+      `${labelOf('service')}: ${service ? service.value : ''}`,
     ];
+    if (f.call && f.call.checked) {
+      const day = checked('day'); const win = checked('window');
+      lines.push(`${f.call.labels[0].textContent}: ${day ? day.dataset.label : '-'} · ${win ? win.value : '-'} (Miami, ET)`);
+    }
+    lines.push('', f.message.value.trim());
     const subject = `${contactForm.dataset.subject} - ${name}`;
     const href = `mailto:${contactForm.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
     status.textContent = contactForm.dataset.ok; status.classList.remove('is-error');
@@ -39,6 +49,14 @@ if (contactForm) {
   });
   contactForm.addEventListener('input', (e) => { if (e.target.getAttribute && e.target.getAttribute('aria-invalid') === 'true') e.target.setAttribute('aria-invalid', 'false'); });
 }
+
+// Botón "copiar" de las vías de contacto ([data-copy]): copia el texto y lo confirma un momento en su etiqueta
+document.querySelectorAll('[data-copy]').forEach((btn) => btn.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(btn.dataset.copy); } catch { return; }
+  const label = btn.getAttribute('aria-label');
+  btn.setAttribute('aria-label', btn.dataset.copied); btn.classList.add('is-copied');
+  setTimeout(() => { btn.setAttribute('aria-label', label); btn.classList.remove('is-copied'); }, 1600);
+}));
 
 // Formulario de propuesta (páginas de servicio): correo directo con todos los campos etiquetados
 const proposalForm = document.getElementById('proposal-form');
