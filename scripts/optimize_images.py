@@ -101,6 +101,9 @@ JOBS = {
     # box = de la cabeza a la cintura (plano medio, como la referencia) (el escenario es de pantalla completa), en píxeles del original de 720x1280
     "team-spot-sample.webp":  ("diego-cutout.png", 460, 82, {"box": (130, 115, 590, 700)}),
     # Miniatura de Diego Ortiz (IT Advisor): cara y hombros del mismo recorte; el fondo azul lo pone el CSS del avatar
+    # Mapa de la tarjeta de la oficina (About): OpenStreetMap estándar, zoom 15, centrado en 1313 Ponce de Leon Blvd
+    # (25.75924, -80.25887; 12 tiles bajados una vez). Lleva atribución visible "© OpenStreetMap" en la tarjeta (ODbL).
+    "office-map.webp":      ("office-map-osm.png", 640, 80, {"box": (60, 37, 700, 437), "darkmap": True}),
     "team-diego-ortiz.webp":  ("diego-cutout.png", 240, 88, {"box": (255, 120, 495, 360)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
@@ -324,6 +327,30 @@ def resize(im, width):
     return im.convert("RGBa").resize((width, h), Image.LANCZOS).convert("RGBA")
 
 
+def _opened(mask, k):
+    """Apertura morfológica de una máscara booleana: borra manchas de menos de k px (paradas, veredas punteadas)."""
+    m = Image.fromarray((mask * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(k)).filter(ImageFilter.MaxFilter(k))
+    return np.array(m) > 127
+
+
+def dark_map(im):
+    """Recolorea un mapa de OpenStreetMap (estilo estándar) a la paleta oscura de marca, por clase de color:
+    tierra y edificios casi negros, calles grises, avenidas (amarillas/naranjas en OSM) en cian apagado,
+    parques y agua apenas teñidos y rótulos claros."""
+    a = np.array(im.convert("RGB")).astype(np.float32)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    lum = .299 * r + .587 * g + .114 * b
+    v = 16 + (255 - lum) * .22
+    o = np.stack([v, v, v + 2], -1)
+    o[(g > r + 8) & (g > b)] = (18, 30, 24)
+    o[_opened((b > r + 25) & (b > g), 7)] = (12, 38, 66)
+    o[a.min(-1) >= 248] = (52, 55, 60)
+    o[_opened((r > 200) & (g > 160) & (r - b > 45), 3)] = (24, 120, 150)
+    text = lum < 125
+    o[text] = np.stack([215 - lum[text] * .5] * 3, -1)
+    return Image.fromarray(o.clip(0, 255).astype(np.uint8)).convert("RGBA")
+
+
 def fit_logo(im, cw=300, ch=150, area=9000, maxw=270, maxh=118, boost=1.0):
     """Logo normalizado para grillas: recorta al contenido, borra el casi transparente (restos de fondos casi blancos),
     lo escala para que todos tengan el mismo peso visual (área de tinta parecida, no el mismo ancho) y lo centra en un
@@ -361,6 +388,8 @@ def main():
             im = im.crop(im.split()[3].getbbox())
         if opts.get("light"):
             im = to_light(im)
+        if opts.get("darkmap"):
+            im = dark_map(im)
         if opts.get("clearbg"):
             im = clear_background(im)
         if opts.get("unmatte"):
