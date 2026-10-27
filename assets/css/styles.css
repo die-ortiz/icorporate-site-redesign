@@ -264,54 +264,42 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 
 
 /* ═══ 06 · HOME: servicios, clientes, cifras, casos, testimonios y proceso ═══ */
-/* Sección Our services: tres paneles con foto a sangre que se expanden. En escritorio el panel activo (mouse o foco; el
-   primero si no hay ninguno) se ensancha y muestra descripción, subservicios y "Explore"; los otros quedan con número y
-   nombre. Cada servicio tiene su color de acento (línea superior y número). En móvil son tres tarjetas altas con todo a la vista */
-.panels { display: grid; gap: 1rem; margin: 3rem 0 0; padding: 0; list-style: none; }
-.panel { position: relative; overflow: hidden; min-height: 440px; border-radius: var(--radius); background: var(--dark); --accent: var(--cyan); }
-.panel--events { --accent: var(--blue); }
-.panel--branding { --accent: var(--lime); }
-.panel__link { position: absolute; inset: 0; isolation: isolate; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6rem; color: #fff; text-decoration: none; }
-.panel__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .5s; }
-.panel--tech .panel__img { object-position: 0 0; }
-.panel--branding .panel__img { object-position: 38% 50%; }
-.panel__link::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(16,16,16,.97) 15%, rgba(16,16,16,.82) 60%, rgba(16,16,16,.45)); } /* móvil: el texto ocupa más alto */
-.panel__link::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); transform: scaleX(.18); transform-origin: left; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
-.panel__num { position: absolute; left: 1.6rem; top: 1.5rem; font: 500 .8rem/1 var(--font-mono); letter-spacing: .1em; color: var(--accent); }
-.panel__body { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
-.panel h3 { font: 400 clamp(1.6rem, 2.4vw, 2.1rem)/1.1 var(--font-head); letter-spacing: -.02em; color: #fff; }
-.panel__more { min-height: 0; overflow: hidden; }
-.panel__desc { display: block; margin-top: .7rem; max-width: 34ch; color: var(--on-dark); font-size: .98rem; line-height: 1.55; }
-.panel__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
-.panel__tags li { padding: .35rem .65rem; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); font: 500 .64rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: #fff; }
-.panel__go { display: inline-block; margin-top: 1.2rem; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.panel__go::after { content: " →"; color: var(--accent); transition: margin .25s; }
-.panel__link:hover .panel__go::after { margin-left: 5px; }
-.panel__link:hover .panel__img { transform: scale(1.04); }
-.panel__link:focus-visible { outline: 2px solid var(--cyan); outline-offset: -4px; border-radius: var(--radius); }
-@media (min-width: 960px) {
-  .panels { display: flex; height: 540px; }
-  .panel { flex: 1 1 0; min-width: 0; min-height: 0; transition: flex-grow .7s cubic-bezier(.2, .8, .2, 1); }
-  /* la entrada .reveal también usa transition: se suma el ancho y el retraso escalonado no lo afecta */
-  .js .panel.reveal { transition: opacity .8s ease, transform .8s ease, flex-grow .7s cubic-bezier(.2, .8, .2, 1); }
-  .js .panel.reveal[data-d="1"] { transition-delay: .1s, .1s, 0s; }
-  .js .panel.reveal[data-d="2"] { transition-delay: .2s, .2s, 0s; }
-  .panel__link { padding: 2rem; }
-  .panel__link::after { background: linear-gradient(to top, rgba(16,16,16,.95) 10%, rgba(16,16,16,.55) 55%, rgba(16,16,16,.3)); }
-  .panel__num { left: 2rem; top: 1.8rem; }
-  .panel__body { grid-template-rows: auto 0fr; transition: grid-template-rows .6s cubic-bezier(.2, .8, .2, 1); }
-  /* ancho fijo del contenido que se despliega: no se reacomoda mientras el panel se ensancha */
-  .panel__more > * { width: min(28rem, 100%); }
-  .panel__more { width: 28rem; opacity: 0; transition: opacity .3s; }
-  .panel__img { opacity: .55; }
-  /* panel activo: con el mouse o el foco encima, o el primero si no hay ninguno */
-  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) { flex-grow: 2.3; }
-  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__body { grid-template-rows: auto 1fr; }
-  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__more { opacity: 1; transition-delay: .25s; }
-  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__img { opacity: 1; }
-  :is(.panel:hover, .panel:focus-within, .panels:not(:hover):not(:focus-within) .panel:first-child) .panel__link::before { transform: none; }
+/* Sección Our services: tres tarjetas oscuras apiladas. Cada una queda fija arriba al bajar (position: sticky, con un
+   escalón de 18 px para que se vean los bordes del mazo) y la siguiente sube y la tapa; stack.js achica y oscurece apenas
+   la que queda debajo (solo transform y opacity). Texto a la izquierda con el color de acento de cada servicio, foto a la
+   derecha; en móvil la foto va arriba */
+.stack { display: grid; gap: 1.5rem; margin: 3rem 0 0; padding: 0; list-style: none; }
+.stack__item { --accent: var(--cyan); position: sticky; top: 96px; }
+.stack__item--events { --accent: var(--blue); top: calc(96px + 18px); }
+.stack__item--branding { --accent: var(--lime); top: calc(96px + 36px); }
+.stack__card { position: relative; display: grid; overflow: hidden; border-radius: var(--radius); background: var(--dark); color: #fff; text-decoration: none;
+  transform-origin: 50% 0; box-shadow: 0 -20px 40px -28px rgba(16,16,16,.5), 0 30px 60px -40px rgba(16,16,16,.6); }
+.stack__card::before { content: ""; position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); }
+.stack__card::after { content: ""; position: absolute; z-index: 3; inset: 0; background: var(--dark); opacity: var(--stack-dim, 0); pointer-events: none; }
+.stack__text { display: flex; flex-direction: column; align-items: flex-start; padding: 1.8rem 1.6rem 2rem; }
+.stack__num { font: 500 .8rem/1 var(--font-mono); letter-spacing: .1em; color: var(--accent); }
+.stack__card h3 { margin-top: 1rem; font: 400 clamp(1.9rem, 3.4vw, 2.8rem)/1.08 var(--font-head); letter-spacing: -.02em; color: #fff; }
+.stack__card p { margin-top: .9rem; max-width: 38ch; color: var(--on-dark); font-size: 1.02rem; line-height: 1.6; }
+.stack__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1.3rem 0 0; padding: 0; list-style: none; }
+.stack__tags li { padding: .38rem .7rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+.stack__go { margin-top: auto; padding-top: 1.8rem; font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.stack__go::after { content: " →"; color: var(--accent); transition: margin .25s; }
+.stack__card:hover .stack__go::after { margin-left: 6px; }
+.stack__media { position: relative; order: -1; aspect-ratio: 16 / 10; overflow: hidden; background: var(--dark-2); }
+.stack__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+.stack__item--tech .stack__media img { object-position: 0 0; }
+.stack__item--branding .stack__media img { object-position: 38% 50%; }
+.stack__card:hover .stack__media img { transform: scale(1.04); }
+.stack__card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+@media (min-width: 900px) {
+  .stack { gap: 2.5rem; }
+  .stack__card { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); min-height: min(500px, calc(100svh - 170px)); }
+  .stack__text { padding: 3rem 3rem 2.8rem; }
+  .stack__media { order: 0; aspect-ratio: auto; }
+  /* foto separada del borde, con sus propias esquinas, como una pieza apoyada en la tarjeta */
+  .stack__media { margin: .9rem .9rem .9rem 0; border-radius: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { .panel, .panel__body, .panel__more, .panel__img, .panel__link::before { transition: none !important; } .panel__link:hover .panel__img { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .stack__media img, .stack__go::after { transition: none; } .stack__card:hover .stack__media img { transform: none; } }
 
 /* Carrusel de clientes dentro del hero: ancho completo, logos blancos, bucle continuo */
 .trust { position: relative; margin-top: 1.5rem; }
