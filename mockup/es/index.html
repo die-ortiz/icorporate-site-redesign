@@ -566,8 +566,13 @@
         <div class="contact__info reveal">
           <span class="contact__badge">Contacto</span>
           <h2>Construyamos lo que viene.</h2>
-          <p>Contanos sobre tu proyecto. Un especialista te contactará para coordinar una primera llamada.</p>
-          <a class="contact__mail" href="mailto:info@icorporateevents.com"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 7.5l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>info@icorporateevents.com</span></a>
+          <p>Elegí cómo preferís hablar con nosotros.</p>
+          <ul class="channels">
+            <li><a class="channel channel--call" href="#cf-call" data-want-call><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span><b>Agendá una llamada</b><small>Elegís día y horario · 30 min</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a class="channel" href="https://wa.me/19547701738?text=Hola%20iCorporate%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .4-.1.6l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.1.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-.6.3-1.6.4-3.2-.4a8.3 8.3 0 0 1-3.4-3.4c-.8-1.6-.7-2.6-.4-3.2z"/></svg><span><b>WhatsApp</b><small>+1 954 770 1738</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li class="channel channel--mail"><a href="mailto:info@icorporateevents.com"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 6 8-6"/></svg><span><b>Correo</b><small>info@icorporateevents.com</small></span></a><button class="channel__copy" type="button" data-copy="info@icorporateevents.com" data-copied="Copiado" aria-label="Copiar correo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></li>
+          </ul>
+          <p class="contact__sla"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Respondemos en menos de 2 días hábiles.</p>
           <div class="social contact__social" aria-label="Seguinos">
             <a href="https://www.linkedin.com/company/icorporatemarketing/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4.98 3.5a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM3.3 8.9h3.4V20H3.3zM9 8.9h3.2v1.5h.05c.45-.85 1.55-1.75 3.2-1.75 3.4 0 4.05 2.2 4.05 5.1V20h-3.4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.1 1.4-2.1 2.85V20H9z" fill="currentColor"/></svg></a>
             <a href="https://www.instagram.com/icorporatemarketing/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.15" fill="currentColor"/></svg></a>
@@ -576,17 +581,23 @@
         </div>
         <form class="contact__form reveal" data-d="1" id="contact-form" novalidate
               data-to="info@icorporateevents.com" data-subject="Consulta desde el sitio" data-ok="¡Gracias! Se debería abrir tu aplicación de correo con el mensaje listo para enviar." data-err="Completá tu nombre, correo y mensaje.">
-          <div class="field"><label for="cf-first">Nombre</label><input id="cf-first" name="first" type="text" autocomplete="given-name" placeholder="Ana" required></div>
-          <div class="field"><label for="cf-last">Apellido</label><input id="cf-last" name="last" type="text" autocomplete="family-name" placeholder="García"></div>
-          <div class="field"><label for="cf-company">Empresa</label><input id="cf-company" name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa"></div>
-          <div class="field"><label for="cf-phone">Teléfono</label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000"></div>
+          <p class="contact__form-title field--full">O dejanos un mensaje</p>
+          <div class="field"><label for="cf-name">Nombre</label><input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Ana García" required></div>
           <div class="field"><label for="cf-email">Correo electrónico</label><input id="cf-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required></div>
-          <div class="field"><label for="cf-by">Prefiero que me contacten por</label><select id="cf-by" name="by"><option>Correo</option><option>Teléfono</option><option>WhatsApp</option></select></div>
-          <div class="field field--full"><label for="cf-service">¿Qué servicios necesitás?</label>
-            <select id="cf-service" name="service"><option value="" selected>Seleccioná un servicio</option><option>Tech Solutions</option><option>Events Management</option><option>Corporate Branding</option><option>Todavía no lo sé</option></select></div>
-          <div class="field field--full"><label for="cf-msg">Mensaje</label><textarea id="cf-msg" name="message" rows="4" placeholder="Contanos sobre tu proyecto" required></textarea></div>
+          <div class="field field--full"><label for="cf-company">Empresa (opcional)</label><input id="cf-company" name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa"></div>
+          <fieldset class="field field--full chips"><legend>¿Qué necesitás?</legend><div class="chips__list"><label class="chip"><input type="radio" name="service" value="Tech Solutions"><span>Tech Solutions</span></label><label class="chip"><input type="radio" name="service" value="Events Management"><span>Events Management</span></label><label class="chip"><input type="radio" name="service" value="Corporate Branding"><span>Corporate Branding</span></label><label class="chip"><input type="radio" name="service" value="Todavía no sé"><span>Todavía no sé</span></label></div></fieldset>
+          <div class="field field--full"><label for="cf-msg">Mensaje</label><textarea id="cf-msg" name="message" rows="3" placeholder="Contanos sobre tu proyecto" required></textarea></div>
+          <div class="field--full slot" data-slot>
+            <label class="slot__toggle"><input id="cf-call" name="call" type="checkbox"><span>Quiero agendar una llamada de 30 minutos</span></label>
+            <div class="slot__panel">
+              <fieldset class="slot__group"><legend>Elegí un día</legend><div class="slot__days" data-slot-days></div></fieldset>
+              <fieldset class="slot__group"><legend>Franja horaria</legend><div class="chips__list"><label class="chip"><input type="radio" name="window" value="9:00-12:00"><span>Mañana · 9:00–12:00</span></label><label class="chip"><input type="radio" name="window" value="14:00-17:00"><span>Tarde · 14:00–17:00</span></label></div></fieldset>
+              <p class="slot__tz" data-slot-tz>Horario de Miami (ET).</p>
+            </div>
+          </div>
           <div class="field--full contact__actions">
             <button class="btn btn--primary" type="submit">Enviar mensaje</button>
+            <span class="contact__note">Llega directo al equipo</span>
             <p class="contact__status" role="status" aria-live="polite"></p>
           </div>
         </form>
@@ -669,6 +680,7 @@
   <script type="module" src="../../assets/js/forms.js"></script>
   <script type="module" src="../../assets/js/home.js"></script>
   <script type="module" src="../../assets/js/magnetic.js"></script>
+  <script type="module" src="../../assets/js/slots.js"></script>
   <script type="module" src="../../assets/js/splash.js"></script>
   <script type="module" src="../../assets/js/stack.js"></script>
   <script type="module" src="../../assets/js/stats.js"></script>
