@@ -696,6 +696,25 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot.is-open .ibot__launcher { background: var(--dark); box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 12px 28px -10px rgba(0,0,0,.6); }
 .ibot.is-open .ibot__launcher-icon { opacity: 0; transform: rotate(90deg) scale(.6); }
 .ibot.is-open .ibot__launcher-x { opacity: 1; transform: none; }
+/* Preview: globo oscuro a la izquierda del ícono (no tapa el botón de volver arriba), con cola hacia el ícono; entra
+   deslizándose desde él. En móvil queda solo el saludo, sin atajos */
+.ibot__peek { position: absolute; right: calc(56px + .8rem); bottom: 4px; width: max-content; max-width: min(270px, calc(100vw - 56px - 3rem)); padding: .85rem 2.4rem .85rem 1rem;
+  border-radius: 18px 18px 6px 18px; background: var(--dark); color: #fff; box-shadow: 0 0 0 1px rgba(6,189,231,.35), 0 18px 40px -14px rgba(0,0,0,.6);
+  pointer-events: auto; transform-origin: right bottom; opacity: 0; transform: translateX(12px) scale(.92); transition: opacity .3s ease, transform .45s cubic-bezier(.2, .9, .3, 1.15); }
+.ibot.has-peek .ibot__peek { opacity: 1; transform: none; }
+.ibot__peek::after { content: ""; position: absolute; right: -6px; bottom: 10px; width: 12px; height: 12px; background: var(--dark); transform: rotate(45deg);
+  box-shadow: 1px -1px 0 rgba(6,189,231,.35); clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.ibot__peek-msg { display: block; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; font: 400 .95rem/1.35 var(--font-head); }
+.ibot__peek-close { position: absolute; top: .45rem; right: .45rem; width: 26px; height: 26px; border: 0; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255,255,255,.08); color: var(--on-dark-muted); cursor: pointer; transition: background .2s, color .2s; }
+.ibot__peek-close:hover { background: rgba(255,255,255,.16); color: #fff; }
+.ibot__peek-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; margin-right: -1.4rem; }
+.ibot__peek-chip { padding: .45rem .8rem; border: 1px solid rgba(6,189,231,.5); border-radius: 999px; background: rgba(6,189,231,.1); color: #fff; cursor: pointer;
+  font: 500 .8rem/1 var(--font); white-space: nowrap; transition: background .2s, border-color .2s; }
+.ibot__peek-chip:hover { background: rgba(6,189,231,.22); border-color: var(--cyan); }
+.ibot__peek-msg:focus-visible, .ibot__peek-close:focus-visible, .ibot__peek-chip:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+@media (max-width: 480px) { .ibot__peek-chips { display: none; } .ibot__peek-msg { font-size: .88rem; } }
+@media (prefers-reduced-motion: reduce) { .ibot__peek { transform: none; transition: opacity .2s; } }
 /* Panel "aurora": vidrio oscuro (--dark translúcido + desenfoque solo con el chat abierto) y tres luces de marca que se mueven
    lento arriba. Las luces son degradados radiales (sin filter: blur) y solo animan transform: el compositor las mueve sin
    repintar; se pausan con el chat cerrado y no se animan con movimiento reducido. Dos estados: bienvenida y .is-chatting */

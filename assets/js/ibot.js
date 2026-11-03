@@ -3,6 +3,9 @@
 // se reemplaza por el snippet del proveedor del iBot (el widget real es un servicio alojado externo).
 // Dos estados del panel: bienvenida (aurora, avatar grande, saludo y 4 tarjetas de sugerencia) y conversación
 // (.is-chatting: cabecera compacta con identidad, mensajes con hora y aurora atenuada). Estilos en la sección 10.
+// Preview (.ibot__peek): globo a la izquierda del ícono con un saludo y dos atajos, para que se note que el iBot existe.
+// Sale una vez por sesión (sessionStorage 'icorp-ibot-peek') a los 6 s o al bajar media pantalla, nunca con el splash
+// del Home en curso ni con el chat abierto; se va al cerrarlo, al abrir el chat o al usar un atajo.
 (() => {
   const lang = (document.documentElement.lang || 'en').slice(0, 2) === 'es' ? 'es' : 'en';
 
@@ -15,6 +18,8 @@
       // [intención, etiqueta de la tarjeta, texto que se envía]
       chips: [['call', 'Book a call', 'I want to book a call'], ['services', 'What you offer', 'What services do you offer?'],
         ['events', 'Event technology', 'Tell me about event tech'], ['cases', 'Aviation cases', 'What have you done in aviation?']],
+      peek: 'Hi 👋 How can I help you?', peekClose: 'Dismiss',
+      peekChips: [['Book a call', 'I want to book a call'], ['See services', 'What services do you offer?']],
       cards: { call: ['Book a call', 'We’ll reach out to find a time'], cases: ['Featured cases', 'ALTA, ACI-LAC, ITAérea and more'] },
       replies: {
         services: 'We work across three areas: Tech Solutions (bots, apps and web platforms), Events Management (summits and conferences, end to end) and Corporate Branding (identity and materials).',
@@ -31,6 +36,8 @@
       typing: 'iBot está escribiendo', log: 'Conversación con iBot', read: 'Leído',
       chips: [['call', 'Agendar una llamada', 'Quiero agendar una llamada'], ['services', 'Qué servicios ofrecen', '¿Qué servicios ofrecen?'],
         ['events', 'Tecnología para eventos', 'Contame sobre tecnología para eventos'], ['cases', 'Casos en aviación', '¿Qué hicieron en aviación?']],
+      peek: 'Hola 👋 ¿En qué puedo ayudarte?', peekClose: 'Cerrar',
+      peekChips: [['Agendar una llamada', 'Quiero agendar una llamada'], ['Ver servicios', '¿Qué servicios ofrecen?']],
       cards: { call: ['Agendá una llamada', 'Te contactamos para coordinar un horario'], cases: ['Casos destacados', 'ALTA, ACI-LAC, ITAérea y más'] },
       replies: {
         services: 'Trabajamos en tres áreas: Tech Solutions (bots, apps y plataformas web), Events Management (cumbres y conferencias, de punta a punta) y Corporate Branding (identidad y materiales).',
@@ -85,6 +92,11 @@
         <button class="ibot__send" type="submit" aria-label="${T.send}">${SEND}</button>
       </form>
     </section>
+    <div class="ibot__peek" hidden>
+      <button class="ibot__peek-msg" type="button" aria-controls="ibot-panel">${T.peek}</button>
+      <button class="ibot__peek-close" type="button" aria-label="${T.peekClose}">${svg('M6 6l12 12M18 6L6 18', 14)}</button>
+      <div class="ibot__peek-chips"></div>
+    </div>
     <button class="ibot__launcher" type="button" aria-expanded="false" aria-controls="ibot-panel" aria-label="${T.launcher}">
       <span class="ibot__launcher-icon">${ICON_CLEAR}</span>
       <span class="ibot__launcher-x">${CLOSE}</span>
@@ -158,6 +170,7 @@
     launcher.setAttribute('aria-expanded', String(open));
     launcher.setAttribute('aria-label', open ? T.close : T.launcher);
     panel.inert = !open;
+    if (open) hidePeek();
     if (open) setTimeout(() => input.focus(), 120); else if (document.activeElement && panel.contains(document.activeElement)) launcher.focus();
   }
   launcher.addEventListener('click', () => setOpen(!root.classList.contains('is-open')));
@@ -165,6 +178,36 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && root.classList.contains('is-open')) { setOpen(false); launcher.focus(); }
   });
+  // Preview: una vez por sesión, a los 6 s o al bajar media pantalla (lo que pase primero)
+  const peek = $('.ibot__peek');
+  const seen = () => { try { return sessionStorage.getItem('icorp-ibot-peek'); } catch (e) { return '1'; } };
+  const hidePeek = () => {
+    root.classList.remove('has-peek');
+    try { sessionStorage.setItem('icorp-ibot-peek', '1'); } catch (e) {}
+    setTimeout(() => { if (!root.classList.contains('has-peek')) peek.hidden = true; }, 300);
+  };
+  T.peekChips.forEach(([label, text]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ibot__peek-chip'; b.textContent = label;
+    b.addEventListener('click', () => { setOpen(true); send(text); });
+    $('.ibot__peek-chips').appendChild(b);
+  });
+  $('.ibot__peek-msg').addEventListener('click', () => setOpen(true));
+  $('.ibot__peek-close').addEventListener('click', hidePeek);
+  if (!seen()) {
+    let timer;
+    const show = () => {
+      if (document.documentElement.classList.contains('has-splash')) { timer = setTimeout(show, 500); return; }
+      clearTimeout(timer); removeEventListener('scroll', onScroll);
+      if (seen() || root.classList.contains('is-open')) return;
+      peek.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('has-peek')));
+    };
+    const onScroll = () => { if (scrollY > innerHeight / 2) show(); };
+    timer = setTimeout(show, 6000);
+    addEventListener('scroll', onScroll, { passive: true });
+  }
+
   // Botones externos (p. ej. "Abrir el asistente" en la página Tech Solutions)
   document.addEventListener('click', (e) => {
     if (e.target.closest('[data-open-ibot]')) { e.preventDefault(); setOpen(true); }
