@@ -807,6 +807,11 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 @media (prefers-reduced-motion: reduce) { .icorp-up { transition: none; } }
 
 /* ═══ 11 · PÁGINAS INTERNAS Y COMPONENTES COMPARTIDOS (tipografía theme-a, cabeceras, fases, ciclo del evento, FAQ, integraciones…) ═══ */
+/* Fuentes alojadas en el sitio (assets/fonts/, licencia SIL OFL): un archivo variable por familia, solo el subconjunto latino
+   (cubre EN y ES), con el rango de pesos que trae cada archivo; las preloads de Inter y Sora van en el <head> de cada página */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/inter-latin.woff2") format("woff2"); }
+@font-face { font-family: "Sora"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("../fonts/sora-latin.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("../fonts/jetbrains-mono-latin.woff2") format("woff2"); }
 /* Tipografía A (Sora + Inter + JetBrains Mono), activa solo en las páginas con body.theme-a */
 .theme-a { --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; --font-head: "Sora", system-ui, sans-serif; --font-mono: "JetBrains Mono", ui-monospace, monospace; }
 .theme-a h1, .theme-a h2, .theme-a .stat b { letter-spacing: -0.035em; }

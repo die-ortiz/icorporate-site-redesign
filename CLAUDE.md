@@ -13,7 +13,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - **Formulario y reservas:** correo directo (sin Calendly ni servicios externos por ahora). El contacto del Home y el de cada servicio (`#proposal`) ofrecen tres vías (agendar llamada, WhatsApp, correo) y un formulario corto; "agendar" es un pedido de día y franja que el equipo confirma (no una reserva en tiempo real). Plazo de respuesta publicado: menos de 2 días hábiles.
 - **Blog:** fase posterior. No construirlo en esta etapa.
 - **Casos de éxito:** hay material suficiente (se entrega en `assets/img` y se redacta con el usuario).
-- **Identidad visual:** se mantienen logo y paleta (azul `#037FD9`, cian `#06BDE7`, lima `#BDCC26` y el casi negro del logo `#101010` como fondo oscuro, `--dark`; el antiguo navy `#05142B` no era de marca y se retiró). La tipografía **cambió** a Sora (títulos) + Inter (texto) + JetBrains Mono (etiquetas), activa con `body.theme-a`; H1, H2 y H3 van en peso 400 (regular). Comparativa en `reference/fonts-preview.html`.
+- **Identidad visual:** se mantienen logo y paleta (azul `#037FD9`, cian `#06BDE7`, lima `#BDCC26` y el casi negro del logo `#101010` como fondo oscuro, `--dark`; el antiguo navy `#05142B` no era de marca y se retiró). La tipografía **cambió** a Sora (títulos) + Inter (texto) + JetBrains Mono (etiquetas), activa con `body.theme-a`; H1, H2 y H3 van en peso 400 (regular). Las fuentes se alojan en el sitio (`assets/fonts/`, un archivo variable por familia, declarado en la sección 11 de `styles.css` y con preload de Inter y Sora en cada `<head>`); no se cargan de Google Fonts. Comparativa en `reference/fonts-preview.html`.
 - **Menú:** los 3 servicios son ítems propios (Tech Solutions, Events Management, Corporate Branding); en escritorio (≥ 1200 px) cada uno abre un mega-menú **solo con clic** de borde a borde: 3 columnas de enlaces a anclas de su página, un caso destacado y una barra con "Ver todo" + "Book a call". Debajo, About us y Contact. "Our team" solo en footer y About. En móvil, lista plana a ancho completo. El contenido del mega-menú sale de los h3 de cada página de servicio; si se renombran secciones o anclas (`#process`, `#formats`, `#numbers`, `#materials`…), actualizarlo en `scripts/partials/header.*.html`.
 - **Contenido:** se reescriben todos los textos (hoy son genéricos y vagos). Pendiente definir quién valida EN/ES.
 - **Mockup = solo muestra visual:** el texto, las fotos, el equipo, los testimonios y los logos de integraciones son de ejemplo y deben llevar la etiqueta visible `.sample-tag` ("Example content" / "Contenido de ejemplo"). Reemplazar por datos reales antes de publicar.
@@ -48,6 +48,7 @@ mockup/es/          Versión en español, mismos nombres de archivo
 assets/css/         styles.css (hoja única, con índice de 12 secciones al inicio)
 assets/js/          un archivo por función (ver tabla abajo)
 assets/img|video    Imágenes WebP y video
+assets/fonts/       Sora, Inter y JetBrains Mono (woff2 variables, subconjunto latino, licencia OFL)
 scripts/            Herramientas de desarrollo (ver scripts/README.md)
 scripts/partials/   Plantillas de cabecera, mega-menú y footer (EN/ES)
 reference/          Material de referencia y originales (no se publica)
