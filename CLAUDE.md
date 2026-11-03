@@ -82,7 +82,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `slots.js` | Pedido de llamada en los formularios de contacto (`[data-slot]`): próximos 10 días hábiles, franja mañana/tarde en hora de Miami y su equivalente en la zona del visitante; `[data-want-call]` lo activa | Home y servicios |
 | `stack.js` | Servicios del Home apilados (`[data-stack]`): achica y oscurece apenas la tarjeta que tapa la siguiente | Home |
 | `pin.js` | Cabecera fija a pantalla completa (`[data-pin]`): atenúa su contenido mientras la sección siguiente la tapa | Tech |
-| `ibot.js` | Asistente de demostración (flotante) | Todas |
+| `ibot.js` | Asistente de demostración (flotante) y su preview: globo con saludo y dos atajos, una vez por sesión | Todas |
 
 ## Convenciones de código
 - **CSS**: una hoja con secciones numeradas. Colores, radios y degradados salen de variables (`--blue`, `--cyan`, `--on-dark`, `--radius`, `--grad-btn`…); no pegar hex sueltos. Nombres tipo BEM (`.bloque__elemento--modificador`). Un solo botón primario (`.btn--primary`, cian de marca sólido con texto oscuro); las variantes por sección no deben redefinirlo. Las reglas de un componente van juntas bajo el comentario de su sección.
