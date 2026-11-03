@@ -132,6 +132,7 @@ if chrome is not None and chrome.returncode != 0:
 
 # avisos: CSS sin uso e imágenes huérfanas
 css = re.sub(r"/\*.*?\*/", "", read("assets/css/styles.css"), flags=re.S)
+css = re.sub(r"url\([^)]*\)", "", css)  # rutas de fuentes e imágenes (p. ej. .woff2) no son clases
 all_html = "".join(sources.values()) + read("index.html") + read("es/index.html")
 js = "".join(read(f) for f in glob.glob("assets/js/*.js"))
 used = {c for cls in re.findall(r'class="([^"]+)"', all_html) for c in cls.split()}
