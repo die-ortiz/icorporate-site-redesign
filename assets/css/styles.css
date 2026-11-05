@@ -566,6 +566,16 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   color: var(--dark); box-shadow: 0 12px 28px -10px rgba(6,189,231,.8); transform: translateY(-2px); text-decoration: none;
 }
 .contact__social { margin-top: 1.4rem; }
+.contact__bot { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; position: relative; padding: 2rem; color: var(--on-dark);
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); box-shadow: 0 40px 80px -40px rgba(0,0,0,.6); }
+.contact__bot-demo { position: absolute; top: 1.1rem; right: 1.2rem; font: 500 .68rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-muted); }
+.contact__bot-avatar { width: 72px; height: 72px; }
+.contact__bot > p { margin: 0; max-width: 44ch; color: var(--on-dark-muted); }
+.contact__bot-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.contact__bot-chip { padding: .5rem .95rem; border: 1px solid rgba(6,189,231,.5); border-radius: 999px; background: rgba(6,189,231,.1); color: var(--on-dark);
+  font: 500 .85rem/1 var(--font); cursor: pointer; transition: background .2s, border-color .2s; }
+.contact__bot-chip:hover { background: rgba(6,189,231,.22); border-color: var(--cyan); }
+.contact__bot-chip:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 .contact__form {
   display: grid; grid-template-columns: 1fr; gap: 1.1rem 1rem; padding: 1.75rem; color: var(--ink);
   background: #fff; border-radius: var(--radius); box-shadow: 0 40px 80px -40px rgba(0,0,0,.6);
@@ -752,6 +762,12 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .ibot__welcome { display: flex; flex-direction: column; align-items: center; text-align: center; margin: auto 0; padding: .4rem 0 .2rem; }
 .ibot__orb { width: 96px; height: 96px; padding: 16px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, var(--dark-2), var(--dark) 75%);
   box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 20px 50px -12px rgba(6,189,231,.75); animation: ibot-float 4s ease-in-out infinite; }
+/* Respuestas rápidas del iBot (flujo de contacto del Home): botones bajo el mensaje del bot */
+.ibot__quick { display: flex; flex-wrap: wrap; gap: .4rem; align-self: flex-start; max-width: 92%; animation: ibot-in .35s cubic-bezier(.2, .8, .2, 1) both; }
+.ibot__quick button { padding: .45rem .8rem; border: 1px solid rgba(6,189,231,.5); border-radius: 999px; background: rgba(6,189,231,.1); color: #fff; cursor: pointer;
+  font: 500 .8rem/1.2 var(--font); transition: background .2s, border-color .2s; }
+.ibot__quick button:hover { background: rgba(6,189,231,.22); border-color: var(--cyan); }
+.ibot__quick button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 @keyframes ibot-float { 50% { transform: translateY(-5px); } }
 .ibot__hello { margin: 1.1rem 0 .35rem; font: 400 1.35rem/1.3 var(--font-head); letter-spacing: -.01em; }
 .ibot__intro { margin: 0; max-width: 30ch; font-size: .86rem; line-height: 1.5; color: var(--on-dark-muted); }
