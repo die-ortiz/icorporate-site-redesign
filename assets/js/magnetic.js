@@ -3,6 +3,7 @@
    - Escritorio (≥ 768 px): las tarjetas cercanas al cursor crecen (efecto "dock"); clic abre una tarjeta grande y
      atenúa las demás. Flechas izquierda/derecha cambian de tarjeta, Esc cierra.
    - Móvil (< 768 px): sin efecto; el CSS muestra una fila con scroll horizontal y el enlace siempre visible.
+     Debajo, una barra de progreso (.magnetic__progress, decorativa, creada aquí) indica que la fila se desliza.
    - Movimiento reducido: sin easing; la tarjeta bajo el cursor/foco se expande al instante.
    Las tarjetas reparten el ancho con flex-grow (--f por ítem; --w1, --h0, --h1, --open, --open-grow, --gap en la raíz);
    no se re-renderiza nada por frame. */
@@ -132,8 +133,27 @@ if (root) {
     }
   });
 
-  measure();
-  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(root);
-  else window.addEventListener('resize', measure);
+  // Móvil: barra de progreso del scroll horizontal (tramo = parte visible, posición = avance)
+  const strip = root.querySelector('.magnetic__strip');
+  const bar = document.createElement('div');
+  bar.className = 'magnetic__progress';
+  bar.setAttribute('aria-hidden', 'true');
+  bar.append(document.createElement('span'));
+  root.append(bar);
+  let barRaf = null;
+  const progress = () => {
+    barRaf = null;
+    const max = strip.scrollWidth - strip.clientWidth;
+    const thumb = strip.scrollWidth ? clamp(strip.clientWidth / strip.scrollWidth, 0.1, 1) : 1;
+    const t = max > 0 ? clamp(strip.scrollLeft / max, 0, 1) : 0;
+    bar.style.setProperty('--thumb', (thumb * 100).toFixed(2) + '%');
+    bar.style.setProperty('--x', (t * (1 / thumb - 1) * 100).toFixed(2) + '%');
+  };
+  strip.addEventListener('scroll', () => { if (barRaf === null) barRaf = requestAnimationFrame(progress); }, { passive: true });
+
+  const resize = () => { measure(); progress(); };
+  resize();
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(root);
+  else window.addEventListener('resize', resize);
   desktop.addEventListener('change', () => { setOpen(-1, false); rest(); measure(); });
 }
