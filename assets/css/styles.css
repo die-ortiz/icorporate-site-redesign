@@ -442,8 +442,11 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic__actions { position: absolute; z-index: 3; left: 22px; right: 22px; bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
 .magnetic__ext { white-space: nowrap; font-family: var(--font-mono); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
 .magnetic__ext:hover { color: #fff; }
-/* con el cursor (o el foco) sobre una tarjeta cerrada los botones ya se ven y se pueden pulsar */
-.magnetic:not(.is-open) .magnetic__item:hover .magnetic__actions, .magnetic:not(.is-open) .magnetic__item:focus-within .magnetic__actions { opacity: var(--reveal); visibility: visible; transition-delay: 0s; }
+/* con el cursor (o el foco) sobre una tarjeta cerrada los botones ya se ven y se pueden pulsar.
+   Solo en escritorio: en móvil el toque deja la tarjeta en :hover/:focus y --reveal (0) ocultaría los botones */
+@media (min-width: 768px) {
+  .magnetic:not(.is-open) .magnetic__item:hover .magnetic__actions, .magnetic:not(.is-open) .magnetic__item:focus-within .magnetic__actions { opacity: var(--reveal); visibility: visible; transition-delay: 0s; }
+}
 .magnetic__item.is-open .magnetic__close, .magnetic__item.is-open .magnetic__actions { opacity: 1; visibility: visible; transition-delay: .25s, 0s, 0s; }
 .magnetic__hint {
   position: absolute; left: 0; right: 0; width: max-content; margin-inline: auto; bottom: 18px; z-index: 4; padding: .5rem .9rem; border-radius: 999px; pointer-events: none;
@@ -458,11 +461,15 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic--bare.is-open .magnetic__item { opacity: .45; filter: blur(2px); }
 .magnetic--bare.is-open .magnetic__item.is-open { opacity: 1; filter: none; box-shadow: 0 40px 80px -30px rgba(16,16,16,.6); }
 .magnetic--bare .magnetic__hint { color: var(--ink-soft); background: rgba(255,255,255,.7); border-color: var(--line); }
+.magnetic__progress { display: none; }
 @media (max-width: 767px) {
   .magnetic { height: auto; display: block; overflow: visible; background: none; border-radius: 0; margin-top: 1.25rem; }
   /* La fila sale hasta el borde derecho de la pantalla (width auto + margen negativo) y oculta su barra de scroll */
   .magnetic .magnetic__strip { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: .25rem 1rem 3.5rem 0; margin: 0 -1rem -2.5rem 0; scrollbar-width: none; }
   .magnetic .magnetic__strip::-webkit-scrollbar { display: none; }
+  /* Barra de progreso del deslizamiento (la crea magnetic.js): el tramo cian muestra la parte visible de la fila */
+  .magnetic__progress { display: block; height: 3px; margin-top: .75rem; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .magnetic__progress span { display: block; width: var(--thumb, 30%); height: 100%; border-radius: 999px; background: var(--cyan); transform: translateX(var(--x, 0%)); }
   .magnetic__item, .magnetic.is-open .magnetic__item, .magnetic.is-open .magnetic__item.is-open { flex: 0 0 78%; height: 400px; scroll-snap-align: start; opacity: 1; filter: none; }
   .magnetic__label { --reveal: 1; opacity: 1; width: calc(100% - 36px); bottom: 118px; }
   .magnetic__logo { --reveal: 1; opacity: 1; }
