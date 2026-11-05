@@ -62,19 +62,27 @@ if (subItems.length) {
   desktop.addEventListener('change', () => closeAll());
 }
 
-// Menú móvil (se cierra con Esc o al elegir un enlace)
+// Menú móvil: panel a pantalla completa (se cierra con Esc, al elegir un enlace o al pasar a escritorio).
+// Mientras está abierto, html.nav-locked quita el scroll de la página de fondo.
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.getElementById('site-nav');
 if (toggle && nav) {
   const setOpen = (open) => {
     nav.classList.toggle('is-open', open);
     header && header.classList.toggle('is-open', open);
+    document.documentElement.classList.toggle('nav-locked', open);
     toggle.setAttribute('aria-expanded', String(open));
   };
   toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
   nav.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
+  });
+  window.matchMedia('(min-width: 1200px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+  // Ítem de la página actual (aria-current): en el panel móvil lleva la línea de marca
+  const page = location.pathname.split('/').pop() || 'index.html';
+  nav.querySelectorAll(':scope > a, .nav__item > a').forEach((a) => {
+    if (a.getAttribute('href') === page) a.setAttribute('aria-current', 'page');
   });
 }
 
