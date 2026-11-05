@@ -459,8 +459,10 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic--bare.is-open .magnetic__item.is-open { opacity: 1; filter: none; box-shadow: 0 40px 80px -30px rgba(16,16,16,.6); }
 .magnetic--bare .magnetic__hint { color: var(--ink-soft); background: rgba(255,255,255,.7); border-color: var(--line); }
 @media (max-width: 767px) {
-  .magnetic { height: auto; display: block; overflow: visible; background: none; border-radius: 0; }
-  .magnetic__strip { overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: .25rem 1rem 1rem 0; margin-right: -1rem; }
+  .magnetic { height: auto; display: block; overflow: visible; background: none; border-radius: 0; margin-top: 1.25rem; }
+  /* La fila sale hasta el borde derecho de la pantalla (width auto + margen negativo) y oculta su barra de scroll */
+  .magnetic .magnetic__strip { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: .25rem 1rem 3.5rem 0; margin: 0 -1rem -2.5rem 0; scrollbar-width: none; }
+  .magnetic .magnetic__strip::-webkit-scrollbar { display: none; }
   .magnetic__item, .magnetic.is-open .magnetic__item, .magnetic.is-open .magnetic__item.is-open { flex: 0 0 78%; height: 400px; scroll-snap-align: start; opacity: 1; filter: none; }
   .magnetic__label { --reveal: 1; opacity: 1; width: calc(100% - 36px); bottom: 118px; }
   .magnetic__logo { --reveal: 1; opacity: 1; }
