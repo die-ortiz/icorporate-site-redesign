@@ -74,6 +74,11 @@ JOBS = {
     "footer-wordmark.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 1400, 90, {"box": (150, 135, 2040, 495), "trim": True}),
     "footer-star.webp":     ("inverseicorporate-logo-long-tag-color@2x.png", 520, 90, {"box": (2140, 95, 2635, 620), "trim": True}),
     "logo-waga-2026-white.webp": ("logo-waga-2026.png", 285, 92, {"white": 2.6}),
+    "case-waga-2026.webp":              ("waga-2026-01.jpg",             1000, 82, {}),
+    "case-waga-2026-registration.webp": ("waga-2026-register.jpg",       1000, 82, {}),
+    "case-waga-2026-exhibition.webp":   ("waga-2026-exhibition-area.jpg", 1000, 82, {}),
+    "case-waga-2026-session.webp":      ("waga-2026-general-sesion.jpg",  1000, 82, {}),
+    "case-waga-2026-keynote.webp":      ("waga-2026-erbacci.jpg",         1000, 82, {}),
     "case-aci-lac.webp":    ("aci-lac-waga-2026.jpg",                   1000, 82, {}),
     "tech-itask.webp":      ("itask-dashboard.png",                     1200, 82, {}),
     # Tech Solutions, cajas de servicios: foto de la sala del ALTA AGM (Event Tech) y captura de la web del foro (Web Solutions)
