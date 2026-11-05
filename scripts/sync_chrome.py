@@ -43,7 +43,7 @@ FEATURES = {
     "clock.js": r'data-clock',
     "cycle.js": r'data-cycle',
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
-    "forms.js": r'id="(?:contact|proposal)-form"',
+    "forms.js": r'id="(?:contact|proposal)-form"|data-copy',
     "pin.js": r'data-pin',
     "slots.js": r'data-slot',
     "stack.js": r'data-stack',

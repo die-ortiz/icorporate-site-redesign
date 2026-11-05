@@ -6,6 +6,9 @@
 // Preview (.ibot__peek): globo a la izquierda del ícono con un saludo y dos atajos, para que se note que el iBot existe.
 // Sale una vez por sesión (sessionStorage 'icorp-ibot-peek') a los 6 s o al bajar media pantalla, nunca con el splash
 // del Home en curso ni con el chat abierto; se va al cerrarlo, al abrir el chat o al usar un atajo.
+// Contacto por el bot (PRUEBA, solo el Home: lo activa [data-bot-contact]): "agendar una llamada" abre un flujo guiado
+// (nombre, correo, necesidad, día y franja) y no envía nada; en producción lo reemplaza el bot real. [data-open-ibot]
+// abre el chat y [data-ibot-say="texto"] además envía ese mensaje.
 (() => {
   const lang = (document.documentElement.lang || 'en').slice(0, 2) === 'es' ? 'es' : 'en';
 
@@ -28,6 +31,18 @@
         cases: 'Aviation is our flagship sector: we work with organizations like ALTA, ACI-LAC, IATA and SITA. Take a look at our featured cases.',
         fallback: 'Thanks for your message! If you book a call, the team will follow up with you directly.',
       },
+      lead: {
+        name: 'Great, let’s set up your call. What’s your name?',
+        email: (n) => `Nice to meet you, ${n}. What’s your email?`,
+        badEmail: 'That email doesn’t look right. Could you check it?',
+        need: 'What do you need help with?',
+        needs: ['Tech Solutions', 'Events Management', 'Corporate Branding', 'Not sure yet'],
+        day: 'Which day works best?',
+        win: 'And which time window? (Miami time, ET)',
+        wins: ['Morning · 9:00–12:00', 'Afternoon · 14:00–17:00'],
+        done: (n, d, w, e) => `Done, ${n}! We’ll confirm ${d}, ${w} (Miami time) at ${e} within 2 business days. This is a demo: nothing was sent.`,
+        cancel: /cancel/i, cancelled: 'No problem. Whenever you want to book, just tell me.',
+      },
     },
     es: {
       launcher: 'Abrir el chat de iBot', close: 'Cerrar el chat', title: 'iBot', status: 'En línea',
@@ -45,6 +60,18 @@
         events: 'Construimos la tecnología alrededor de los eventos: registro, agenda, apps del evento y datos en vivo para los organizadores.',
         cases: 'La aviación es nuestro sector estrella: trabajamos con organizaciones como ALTA, ACI-LAC, IATA y SITA. Mirá nuestros casos destacados.',
         fallback: '¡Gracias por tu mensaje! Si agendás una llamada, el equipo te contactará directamente.',
+      },
+      lead: {
+        name: 'Genial, armemos tu llamada. ¿Cómo te llamás?',
+        email: (n) => `Un gusto, ${n}. ¿Cuál es tu correo?`,
+        badEmail: 'Ese correo no parece válido. ¿Podés revisarlo?',
+        need: '¿En qué necesitás ayuda?',
+        needs: ['Tech Solutions', 'Events Management', 'Corporate Branding', 'Todavía no lo sé'],
+        day: '¿Qué día te viene mejor?',
+        win: '¿Y en qué franja? (hora de Miami, ET)',
+        wins: ['Mañana · 9:00–12:00', 'Tarde · 14:00–17:00'],
+        done: (n, d, w, e) => `¡Listo, ${n}! Te confirmamos ${d}, ${w} (hora de Miami) en ${e} dentro de 2 días hábiles. Esto es una demostración: no se envió nada.`,
+        cancel: /cancel/i, cancelled: 'Sin problema. Cuando quieras agendar, avisame.',
       },
     },
   }[lang];
@@ -137,8 +164,57 @@
     return 'fallback';
   };
 
+  // Flujo de contacto guiado (solo donde hay [data-bot-contact]): lead = { step, data } mientras está activo
+  const LEAD = !!document.querySelector('[data-bot-contact]');
+  let lead = null;
+  const typingDots = () => {
+    const typing = document.createElement('div');
+    typing.className = 'ibot__msg ibot__msg--bot ibot__typing';
+    typing.setAttribute('role', 'status'); typing.setAttribute('aria-label', T.typing);
+    typing.innerHTML = '<i></i><i></i><i></i>';
+    log.appendChild(typing); scroll();
+    return typing;
+  };
+  // Mensaje del bot con respuestas rápidas opcionales (botones que envían su etiqueta como si el usuario la escribiera)
+  const botSay = (text, options) => {
+    const typing = typingDots();
+    setTimeout(() => {
+      typing.remove(); add(text, 'bot');
+      if (!options) return;
+      const row = document.createElement('div');
+      row.className = 'ibot__quick'; row.setAttribute('role', 'group');
+      options.forEach((o) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.textContent = o;
+        b.addEventListener('click', () => { row.remove(); send(o); });
+        row.appendChild(b);
+      });
+      log.appendChild(row); scroll();
+    }, 700);
+  };
+  const nextDays = () => {
+    const out = []; const d = new Date();
+    while (out.length < 4) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() % 6) out.push(d.toLocaleDateString(lang, { weekday: 'short', month: 'short', day: 'numeric' }));
+    }
+    return out;
+  };
+  const leadStep = (text) => {
+    const L = T.lead, data = lead.data;
+    if (L.cancel.test(text)) { lead = null; botSay(L.cancelled); return; }
+    if (lead.step === 'name') { data.name = text; lead.step = 'email'; botSay(L.email(text)); }
+    else if (lead.step === 'email') {
+      if (!/^\S+@\S+\.\S+$/.test(text)) { botSay(L.badEmail); return; }
+      data.email = text; lead.step = 'need'; botSay(L.need, L.needs);
+    } else if (lead.step === 'need') { data.need = text; lead.step = 'day'; botSay(L.day, nextDays()); }
+    else if (lead.step === 'day') { data.day = text; lead.step = 'win'; botSay(L.win, L.wins); }
+    else { botSay(L.done(data.name, data.day, text, data.email)); lead = null; }
+  };
+
   const reply = (q) => {
     const kind = intent(q);
+    if (LEAD && kind === 'call') { lead = { step: 'name', data: {} }; botSay(T.lead.name); return; }
     const typing = document.createElement('div');
     typing.className = 'ibot__msg ibot__msg--bot ibot__typing';
     typing.setAttribute('role', 'status'); typing.setAttribute('aria-label', T.typing);
@@ -151,7 +227,8 @@
     text = text.trim();
     if (!text) return;
     panel.classList.add('is-chatting');
-    add(text, 'user'); reply(text);
+    add(text, 'user');
+    if (lead) leadStep(text); else reply(text);
   };
 
   T.chips.forEach(([kind, label, text]) => {
@@ -210,6 +287,9 @@
 
   // Botones externos (p. ej. "Abrir el asistente" en la página Tech Solutions)
   document.addEventListener('click', (e) => {
-    if (e.target.closest('[data-open-ibot]')) { e.preventDefault(); setOpen(true); }
+    const t = e.target.closest('[data-open-ibot]');
+    if (!t) return;
+    e.preventDefault(); setOpen(true);
+    if (t.dataset.ibotSay) send(t.dataset.ibotSay);
   });
 })();
