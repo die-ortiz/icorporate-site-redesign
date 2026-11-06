@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 h1, h2, h3, p, ul { margin: 0; }
 h1, h2, h3 { line-height: 1.08; letter-spacing: -0.02em; }
-h3 { font-weight: 400; }
+h2, h3 { font-weight: 400; }
 :focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
 
 .container { width: min(100% - 2rem, var(--container)); margin-inline: auto; }
