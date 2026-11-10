@@ -303,10 +303,9 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .hero--center .hero__actions { justify-content: center; }
 .hero--center .hero__veil {
   background:
-    /* tono de marca: azul que crece hacia los bordes, encima del velo oscuro para que no se apague */
-    radial-gradient(90% 100% at 50% 48%, color-mix(in srgb, var(--blue) 8%, transparent) 25%, color-mix(in srgb, var(--blue) 30%, transparent) 100%),
-    radial-gradient(75% 85% at 50% 48%, rgba(16,16,16,.66) 0%, rgba(16,16,16,.46) 55%, rgba(16,16,16,.18) 100%),
-    linear-gradient(0deg, rgba(16,16,16,.58) 0%, rgba(16,16,16,0) 34%);
+    /* velo plano y parejo (como Cvent); el tono azul de marca va dentro del video, en su corrección de color */
+    linear-gradient(rgba(16,16,16,.55), rgba(16,16,16,.55)),
+    linear-gradient(0deg, rgba(16,16,16,.4) 0%, rgba(16,16,16,0) 30%);
 }
 .hero.has-video .hero__video { opacity: 1; }
 .hero.has-video .hero__veil { display: block; }
