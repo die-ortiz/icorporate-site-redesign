@@ -1198,7 +1198,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
      la caja es algo más angosta que 3:2, así que cada foto se encuadra para no perder lo importante */
   .feature-quote__media { order: 0; aspect-ratio: auto; min-height: 340px; margin: .9rem .9rem .9rem 0; border-radius: 8px; }
   .feature-quote__photo:nth-child(1) { object-position: 18% 50%; } /* nombre en pantalla y José en el atril */
-  .feature-quote__photo:nth-child(2) { object-position: 70% 50%; } /* escenario */
+  .feature-quote__photo:nth-child(2) { object-position: 55% 40%; } /* entrega del premio */
 }
 
 
