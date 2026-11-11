@@ -1163,7 +1163,10 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .feature-quote { position: relative; display: grid; overflow: hidden; border-radius: var(--radius); color: #fff; background: linear-gradient(135deg, var(--dark), var(--dark-2)); }
 .feature-quote::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 3px; background: var(--grad); }
 .feature-quote__body { display: flex; flex-direction: column; align-items: flex-start; padding: 2rem 1.6rem 2.2rem; }
-.feature-quote__logo { display: block; width: auto; height: 34px; margin-bottom: 1.8rem; } /* SVG oficial del cliente, en blanco */
+.feature-quote__brand { display: block; margin-bottom: 1.8rem; border-radius: 4px; transition: opacity .2s ease; } /* enlace al sitio del cliente */
+.feature-quote__brand:hover { opacity: .75; }
+.feature-quote__brand:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+.feature-quote__logo { display: block; width: auto; height: 34px; } /* SVG oficial del cliente, en blanco */
 .feature-quote__fig { margin: 0; }
 .feature-quote blockquote { margin: 0; }
 .feature-quote blockquote::before { content: "\201C"; display: block; height: 2.4rem; font: 400 5rem/1 var(--font-head); color: var(--cyan); }
