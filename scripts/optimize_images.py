@@ -100,7 +100,7 @@ JOBS = {
     # captura de la app de WAGA 2026 en un iPhone, recortada al teléfono y sin el fondo blanco (celular del frente en Tech Solutions)
     "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True, "cutbottom": 11}),
     # app de la graduación de ITAérea 2026 (captura chica, 262x503, con iPhone incluido: se recorta la pantalla; pedir una más grande): teléfono del medio en Events
-    "svc-app-itaerea.webp": ("itaerea-app-home.png",                    360, 90, {"box": (40, 31, 236, 477)}),  # solo la pantalla: va dentro de nuestro marco de iPhone
+    "svc-app-itaerea.webp": ("itaerea-app-home.png",                    360, 90, {"box": (40, 31, 236, 477), "fill": [((62, 3, 136, 28), (254, 254, 254))]}),  # solo la pantalla, sin la isla de la captura (la pone nuestro marco)
     # el mismo iPhone con la pantalla vaciada (transparente, conserva la isla): detrás se pone un degradado en CSS.
     # coordenadas sobre la salida de 520 px: (izq, arriba, der, abajo, radio) de la pantalla y de la isla
     # capturas reales de la app de ALTA para las pantallas de los teléfonos de atrás (Tech Solutions)
@@ -403,6 +403,11 @@ def main():
             im = im.crop(opts["box"])
         if opts.get("portrait") is not None:
             im = make_portrait(im, **opts["portrait"])
+        if opts.get("fill"):  # tapar zonas con un color: [((x0, y0, x1, y1), (r, g, b)), ...] sobre la imagen ya recortada
+            from PIL import ImageDraw as _D
+            d = _D.Draw(im)
+            for box, color in opts["fill"]:
+                d.rectangle(box, fill=color + (255,))
         if opts.get("blur"):
             im = blur_boxes(im, opts["blur"])
         if opts.get("square"):  # recorte cuadrado (retratos): "top" conserva la parte alta, "center" el centro
