@@ -112,6 +112,9 @@ JOBS = {
     # (25.75924, -80.25887; 12 tiles bajados una vez). Lleva atribución visible "© OpenStreetMap" en la tarjeta (ODbL).
     "office-map.webp":      ("office-map-osm.png", 640, 80, {"box": (60, 37, 700, 437), "darkmap": True}),
     "team-diego-ortiz.webp":  ("diego-cutout.png", 240, 88, {"box": (255, 120, 495, 360)}),
+    # Fotos de testimonios del muro del Home (avatar de 46 px, salida 2x): cara y hombros
+    "quote-cindy-otis.webp":  ("testimonial-cindy-otis.png", 96, 86, {"box": (65, 0, 335, 270)}),
+    "quote-jose-ignacio-escudero.webp": ("testimonial-jose-ignacio-escudero.webp", 96, 86, {"box": (300, 165, 650, 515)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
     "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
