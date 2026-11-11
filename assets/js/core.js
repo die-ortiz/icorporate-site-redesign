@@ -1,6 +1,5 @@
 /* core.js · se carga en TODAS las páginas.
    - Cabecera: pasa de transparente a sólida con el scroll (escribe --scroll-p y .is-scrolled en .site-header).
-   - Mega-menú de escritorio: abre solo con clic (.nav__item.has-sub, .nav__caret); .is-mega en la cabecera.
    - Menú móvil (.menu-toggle + #site-nav).
    - Entrada suave de secciones (.reveal -> .in, con IntersectionObserver).
    - Animaciones infinitas fuera de pantalla: se pausan (.is-paused) hasta que el elemento vuelve a verse.
@@ -27,41 +26,6 @@ if (header) {
   update();
 }
 
-// Desplegables de servicio (escritorio): abren solo con clic (en el nombre o en la flecha; en el nombre, Ctrl/Cmd/Shift-clic sigue yendo a la página); cierran con Esc, clic fuera o al salir el foco
-const subItems = document.querySelectorAll('.nav__item.has-sub');
-if (subItems.length) {
-  const desktop = window.matchMedia('(min-width: 1200px)');
-  const syncHeader = () => {
-    if (header) header.classList.toggle('is-mega', [...subItems].some((el) => el.classList.contains('is-open')));
-  };
-  const closeAll = (except) => subItems.forEach((el) => { if (el !== except) setSub(el, false); });
-  function setSub(item, open) {
-    const on = open && desktop.matches;
-    if (on) closeAll(item);
-    item.classList.toggle('is-open', on);
-    item.querySelector('.nav__caret').setAttribute('aria-expanded', String(on));
-    syncHeader();
-  }
-  subItems.forEach((item) => {
-    const caret = item.querySelector('.nav__caret');
-    const label = item.querySelector(':scope > a');
-    if (label) label.addEventListener('click', (e) => {
-      if (!desktop.matches || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-      e.preventDefault();
-      setSub(item, !item.classList.contains('is-open'));
-    });
-    item.addEventListener('focusout', (e) => { if (!item.contains(e.relatedTarget)) setSub(item, false); });
-    caret.addEventListener('click', () => setSub(item, !item.classList.contains('is-open')));
-  });
-  document.addEventListener('click', (e) => { subItems.forEach((el) => { if (!el.contains(e.target)) setSub(el, false); }); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const open = [...subItems].find((el) => el.classList.contains('is-open'));
-    if (open) { setSub(open, false); open.querySelector('.nav__caret').focus(); }
-  });
-  desktop.addEventListener('change', () => closeAll());
-}
-
 // Menú móvil: panel a pantalla completa (se cierra con Esc, al elegir un enlace o al pasar a escritorio).
 // Mientras está abierto, html.nav-locked quita el scroll de la página de fondo.
 const toggle = document.querySelector('.menu-toggle');
@@ -81,7 +45,7 @@ if (toggle && nav) {
   window.matchMedia('(min-width: 1200px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
   // Ítem de la página actual (aria-current): en el panel móvil lleva la línea de marca
   const page = location.pathname.split('/').pop() || 'index.html';
-  nav.querySelectorAll(':scope > a, .nav__item > a').forEach((a) => {
+  nav.querySelectorAll(':scope > a').forEach((a) => {
     if (a.getAttribute('href') === page) a.setAttribute('aria-current', 'page');
   });
 }
