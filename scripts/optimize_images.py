@@ -60,10 +60,14 @@ JOBS = {
     "integration-zapier.webp": ("logo-zapier.png", 128, 90, {}),
     # ITAérea: sus logos ya no salen de aquí; son SVG del logo oficial (assets/img/logo-itaerea-white.svg y, en lienzos
     # de 300x200 y 300x150 como los demás logos de clientes, client-itaerea-white.svg y client-itaerea.svg)
-    "case-itaerea.webp":    ("itaerea-graduacion-2025.webp",            900, 80, {}),
-    # Foto del testimonio destacado (Events): recorte casi cuadrado del original a resolución completa (615 px de alto),
-    # sin reducir y con más calidad; la versión de 900x429 se ampliaba en esa caja y se veía blanda
-    "quote-itaerea.webp":   ("itaerea-graduacion-2025.webp",            640, 90, {"box": (325, 0, 965, 615)}),
+    # Graduación 2026 (álbum de Flickr de ITAérea; descarga pública limitada a 1024 px, originales 6144x4098 a pedir):
+    # auditorio completo para la tarjeta del Home
+    "case-itaerea.webp":    ("itaerea-2026-3803.jpg",                   1024, 84, {}),
+    # Foto del testimonio destacado (Events): José Ignacio Escudero en el atril con su nombre en pantalla (2026);
+    # completa, sin recortar (la caja usa su misma proporción 3:2)
+    "quote-itaerea.webp":   ("itaerea-2026-3494.jpg",                   1024, 88, {}),
+    # 3.ª foto del carrusel del testimonio (la 2.ª es case-itaerea.webp): público con las bandas doradas
+    "quote-itaerea-graduates.webp": ("itaerea-2026-3793.jpg",             1024, 88, {}),
     "case-alta-ccma.webp":  ("alta-ccma-2026-minimeetings.jpg",        1000, 82, {}),
     "case-alta-ccma-registration.webp": ("alta-ccma-2025-registration.jpg", 1000, 82, {}),
     "case-alta-ccma-plenary.webp":      ("alta-ccma-2025-plenary.jpg",      1000, 82, {}),
