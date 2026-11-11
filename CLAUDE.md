@@ -14,7 +14,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - **Blog:** fase posterior. No construirlo en esta etapa.
 - **Casos de éxito:** hay material suficiente (se entrega en `assets/img` y se redacta con el usuario).
 - **Identidad visual:** se mantienen logo y paleta (azul `#037FD9`, cian `#06BDE7`, lima `#BDCC26` y el casi negro del logo `#101010` como fondo oscuro, `--dark`; el antiguo navy `#05142B` no era de marca y se retiró). La tipografía **cambió** a Sora (títulos) + Inter (texto) + JetBrains Mono (etiquetas), activa con `body.theme-a`; H1, H2 y H3 van en peso 400 (regular). Las fuentes se alojan en el sitio (`assets/fonts/`, un archivo variable por familia, declarado en la sección 11 de `styles.css` y con preload de Inter y Sora en cada `<head>`); no se cargan de Google Fonts. Comparativa en `reference/fonts-preview.html`.
-- **Menú:** los 3 servicios son ítems propios (Tech Solutions, Events Management, Corporate Branding); en escritorio (≥ 1200 px) cada uno abre un mega-menú **solo con clic** de borde a borde: 3 columnas de enlaces a anclas de su página, un caso destacado y una barra con "Ver todo" + "Book a call". Debajo, About us y Contact. "Our team" solo en footer y About. En móvil, lista plana a ancho completo. El contenido del mega-menú sale de los h3 de cada página de servicio; si se renombran secciones o anclas (`#process`, `#formats`, `#numbers`, `#materials`…), actualizarlo en `scripts/partials/header.*.html`.
+- **Menú:** solo enlaces a páginas, sin desplegables ni enlaces a secciones (pedido del jefe, 2026-11-11: el menú lleva a páginas; nada que no tenga contenido propio): Tech Solutions, Events Management, Corporate Branding, About us y el botón "Book a call". "Our team" solo en footer y About. En móvil, lista a ancho completo con una línea de detalle por ítem (`.nav__hint`). Las secciones de cada servicio se alcanzan desde su página y desde el footer.
 - **Contenido:** se reescriben todos los textos (hoy son genéricos y vagos). Pendiente definir quién valida EN/ES.
 - **Mockup = solo muestra visual:** el texto, las fotos, el equipo, los testimonios y los logos de integraciones son de ejemplo y deben llevar la etiqueta visible `.sample-tag` ("Example content" / "Contenido de ejemplo"). Reemplazar por datos reales antes de publicar.
 - **Plazo:** sin fecha límite; objetivo de tener la primera versión la semana próxima.
@@ -35,7 +35,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 ## Requisitos transversales
 - Responsive mobile-first, carga rápida, accesibilidad básica.
 - SEO por página: title, meta description, schema.org, hreflang EN/ES, canonical y Open Graph/Twitter (este último lo escribe `sync_chrome.py`; la imagen es `hero-poster.webp`, 1280×732: conviene una de 1200×630 para redes). `sitemap.xml` y `robots.txt` los genera `publish.py`. La 404 sale de `publish.py` con rutas desde la raíz (`/assets/…`) y solo funciona al configurar `ErrorDocument 404 /404.html` (y `/es/404.html` en `es/`; ver docstring de `publish.py`).
-- Un CTA primario consistente ("Book a call"), sin salidas a sitios externos. Excepciones acordadas: (1) el botón "Learn more about iBot" de Tech Solutions abre `https://icorporatelab.com/service-ibot-2/` (WordPress actual) en pestaña nueva; pasar a ruta interna cuando esa página se migre. (2) La tienda de merchandising (iCorporate Events Store, PromoPlace: `https://www.promoplace.com/icorporate-events`) se enlaza desde la sección `#materials` de Corporate Branding, el mega-menú de Corporate Branding y el footer, siempre en pestaña nueva con `rel="noopener"`. Pendiente: URLs por categoría y confirmar "1,000+" y "desde $0.53" antes de publicar. (3) Las tarjetas de casos del Home enlazan al sitio de cada evento (ALTA AGM, WAGA, ITAérea) en pestaña nueva. (5) WhatsApp (`https://wa.me/19547701738`, con texto inicial) desde las vías de contacto del Home y de los servicios, en pestaña nueva. (4) "Get directions" / "Cómo llegar" de la tarjeta de la oficina (About) abre la dirección en Google Maps en pestaña nueva. El mapa de la tarjeta es una imagen fija de OpenStreetMap (zoom 15, bajada una vez y recoloreada a la paleta oscura por `optimize_images.py`), sin servicios externos al cargar; su atribución "© OpenStreetMap" enlaza a `openstreetmap.org/copyright` en pestaña nueva y es obligatoria (licencia ODbL). (6) El logo de ITAérea del testimonio destacado de Events enlaza a su sitio (`itaerea.com` en EN, `itaerea.es` en ES) en pestaña nueva.
+- Un CTA primario consistente ("Book a call"), sin salidas a sitios externos. Excepciones acordadas: (1) el botón "Learn more about iBot" de Tech Solutions abre `https://icorporatelab.com/service-ibot-2/` (WordPress actual) en pestaña nueva; pasar a ruta interna cuando esa página se migre. (2) La tienda de merchandising (iCorporate Events Store, PromoPlace: `https://www.promoplace.com/icorporate-events`) se enlaza desde la sección `#materials` de Corporate Branding y el footer, siempre en pestaña nueva con `rel="noopener"`. Pendiente: URLs por categoría y confirmar "1,000+" y "desde $0.53" antes de publicar. (3) Las tarjetas de casos del Home enlazan al sitio de cada evento (ALTA AGM, WAGA, ITAérea) en pestaña nueva. (5) WhatsApp (`https://wa.me/19547701738`, con texto inicial) desde las vías de contacto del Home y de los servicios, en pestaña nueva. (4) "Get directions" / "Cómo llegar" de la tarjeta de la oficina (About) abre la dirección en Google Maps en pestaña nueva. El mapa de la tarjeta es una imagen fija de OpenStreetMap (zoom 15, bajada una vez y recoloreada a la paleta oscura por `optimize_images.py`), sin servicios externos al cargar; su atribución "© OpenStreetMap" enlaza a `openstreetmap.org/copyright` en pestaña nueva y es obligatoria (licencia ODbL). (6) El logo de ITAérea del testimonio destacado de Events enlaza a su sitio (`itaerea.com` en EN, `itaerea.es` en ES) en pestaña nueva.
 - Formulario de contacto funcional por correo directo (hoy `mailto:` desde `forms.js`; en producción se puede cambiar por un endpoint PHP sin tocar el HTML).
 - Imágenes optimizadas antes de publicar: originales en `reference/img-originals/` (no se publican), salida WebP en `assets/img/` con `python3 scripts/optimize_images.py`. Siempre con `width`/`height` y `loading="lazy"` bajo el primer pantallazo.
 - Video de fondo (opcional): dejar el original y correr `scripts/optimize_video.sh original.mp4 [hero|events|tech]`; genera `assets/video/<nombre>.mp4` (H.264, 1280 px, ≤ 4 MB, 8-15 s en bucle, sin audio ni texto) y su póster `<nombre>-poster.webp`. Hoy solo existe `hero.mp4` (Home). Si el archivo no existe, la cabecera usa el póster o el fondo oscuro (--dark) y el navegador registra un 404 inofensivo. No se carga con movimiento reducido, ahorro de datos ni pantallas < 768px.
@@ -50,7 +50,7 @@ assets/js/          un archivo por función (ver tabla abajo)
 assets/img|video    Imágenes WebP y video
 assets/fonts/       Sora, Inter y JetBrains Mono (woff2 variables, subconjunto latino, licencia OFL)
 scripts/            Herramientas de desarrollo (ver scripts/README.md)
-scripts/partials/   Plantillas de cabecera, mega-menú y footer (EN/ES)
+scripts/partials/   Plantillas de cabecera y footer (EN/ES)
 reference/          Material de referencia y originales (no se publica)
 index.html, es/     Marcadores de posición ("new site in progress"); la raíz redirige a /mockup/
 dist/               Salida de publish.py (ignorada por git)
@@ -59,7 +59,7 @@ dist/               Salida de publish.py (ignorada por git)
 
 | Qué | Dónde se edita | Cómo se propaga |
 |---|---|---|
-| Cabecera, mega-menú, footer | `scripts/partials/{header,footer}.{en,es}.html` | `python3 scripts/sync_chrome.py` |
+| Cabecera, footer | `scripts/partials/{header,footer}.{en,es}.html` | `python3 scripts/sync_chrome.py` |
 | `<script>` de cada página | Se deducen del marcado (tabla `FEATURES` en `sync_chrome.py`) | `python3 scripts/sync_chrome.py` |
 | Open Graph / Twitter | Salen de `<title>`, description y canonical de cada página | `python3 scripts/sync_chrome.py` |
 | Imágenes WebP | Originales en `reference/img-originals/` + `JOBS` en `optimize_images.py` | `python3 scripts/optimize_images.py` |
@@ -70,7 +70,7 @@ dist/               Salida de publish.py (ignorada por git)
 
 | Archivo | Función | Páginas |
 |---|---|---|
-| `core.js` | Cabecera con scroll, mega-menú, menú móvil, entrada de secciones | Todas |
+| `core.js` | Cabecera con scroll, menú móvil, entrada de secciones | Todas |
 | `stats.js` | Contadores de cifras (`.stat b`) | Home, About, Events |
 | `forms.js` | Formularios por correo (`#contact-form`, `#proposal-form`) y botón de copiar (`[data-copy]`) | Home y servicios |
 | `home.js` | Carrusel de logos y muro de testimonios | Home |
@@ -98,7 +98,7 @@ dist/               Salida de publish.py (ignorada por git)
 | Cambias… | Actualiza también… |
 |---|---|
 | Un ítem del menú o del footer | Solo la plantilla en `scripts/partials/` (EN y ES) y `sync_chrome.py` |
-| El nombre o ancla de una sección de servicio (`#phases`, `#formats`, `#process`…) | El mega-menú en `scripts/partials/header.*.html` y el footer; luego `sync_chrome.py` |
+| El nombre o ancla de una sección de servicio (`#phases`, `#formats`, `#process`…) | El footer en `scripts/partials/footer.*.html`; luego `sync_chrome.py` |
 | Agregas una página | `PAGES` en `sync_chrome.py` y `loc()`/sitemap en `publish.py` se alimentan solos; crear también la versión ES |
 | Agregas un componente con JS | Su módulo en `assets/js/`, la expresión en `FEATURES` y correr `sync_chrome.py` |
 | Cambias un color o radio | La variable en `:root`, no el valor en cada regla |
