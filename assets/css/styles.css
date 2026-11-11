@@ -1252,7 +1252,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-card__body { display: flex; flex-direction: column; flex: 1; gap: 1.1rem; }
 .svc-card__body p { font-size: .93rem; color: var(--on-dark); }
 /* etiquetas en una grilla de 2x2: siempre dos líneas y del mismo ancho en las cuatro tarjetas */
-.svc-card__tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem; margin: auto 0 0; padding: 1.1rem 0 0; list-style: none; border-top: 1px solid rgba(255,255,255,.14); }
+.svc-card__tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem; margin: auto 0 0; padding: .4rem 0 0; list-style: none; }
 .svc-card__tags li { padding: .32rem .3rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .62rem/1.3 var(--font-mono); letter-spacing: 0; text-transform: uppercase; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* tope: nunca se sale de la pastilla */
 
 /* Efectos de carga discretos de Tech Solutions (cabecera, cajas) y Corporate Branding (cabecera, tarjetas) y, con `.process-fx` en una sección, los del proceso (título, fases en cascada y línea que se dibuja) también en otras páginas. Solo con movimiento permitido; se apoyan en .reveal/.in (core.js) y en animaciones al cargar. */
@@ -1293,10 +1293,16 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   /* títulos de sección: de desenfocado a nítido al entrar */
   .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal { filter: blur(6px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
   .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal.in { filter: none; }
-  /* cajas de servicios en cascada */
-  .js .page-tech .svc-card.reveal:nth-child(2) { transition-delay: .08s; }
-  .js .page-tech .svc-card.reveal:nth-child(3) { transition-delay: .16s; }
-  .js .page-tech .svc-card.reveal:nth-child(4) { transition-delay: .24s; }
+  /* tarjetas de servicios: entran de a una (suben más y se enfocan), con retraso según su lugar en la fila:
+     en 4 columnas 0 / .2 / .4 / .6 s; en 2 columnas la de la derecha .2 s; en móvil cada una al llegar a pantalla */
+  .js .page-tech .svc-card.reveal { transform: translateY(48px); filter: blur(4px); transition: opacity .9s ease, transform .9s cubic-bezier(.22, 1, .36, 1), filter .9s ease; }
+  .js .page-tech .svc-card.reveal.in { transform: none; filter: none; }
+  @media (min-width: 720px) and (max-width: 1279px) { .js .page-tech .svc-card.reveal:nth-child(even) { transition-delay: .2s; } }
+  @media (min-width: 1280px) {
+    .js .page-tech .svc-card.reveal:nth-child(2) { transition-delay: .2s; }
+    .js .page-tech .svc-card.reveal:nth-child(3) { transition-delay: .4s; }
+    .js .page-tech .svc-card.reveal:nth-child(4) { transition-delay: .6s; }
+  }
   /* Corporate Branding: las 5 celdas del bento en cascada (el retraso no afecta al hover) */
   .js .bento__item.reveal:nth-child(2) { transition-delay: .08s, .08s, 0s, 0s, 0s; }
   .js .bento__item.reveal:nth-child(3) { transition-delay: .16s, .16s, 0s, 0s, 0s; }
