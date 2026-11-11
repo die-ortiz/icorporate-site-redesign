@@ -981,11 +981,6 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 /* Bloque dividido: texto + imagen */
 .split { display: grid; gap: 2.5rem; align-items: center; }
 @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; gap: 4rem; } }
-.split__media { border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -36px rgba(16,16,16,.6); }
-.split__media img { display: block; width: 100%; height: auto; }
-.checks { margin: 1.6rem 0 0; padding: 0; list-style: none; display: grid; gap: .8rem; }
-.checks li { position: relative; padding-left: 1.9rem; }
-.checks li::before { content: ""; position: absolute; left: 0; top: .25em; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--blue-dark) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.8 6.2l2.2 2.2 4.2-4.6' fill='none' stroke='white' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/70% no-repeat; }
 .link-arrow { display: inline-flex; gap: .5rem; margin-top: 1.8rem; font-weight: 700; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--blue-dark); text-decoration: none; }
 .link-arrow::after { content: "→"; transition: transform .25s; }
 .link-arrow:hover::after { transform: translateX(4px); }
@@ -1199,7 +1194,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .svc-phone--1 { left: 0;      top: var(--top); }
 .svc-phone--2 { left: 3rem;   top: calc(var(--top) + 1rem); }
 .svc-phone--3 { left: 6rem;   top: calc(var(--top) + 2rem); }
-.svc-phone__frame { position: relative; display: block; width: 100%; height: 100%; }
+.svc-phone__frame { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; } /* contain: capturas con teléfono incluido de otra proporción */
 .svc-phone__screen { position: absolute; inset: 1.8% 4.2% .9%; border-radius: 13.7% / 6.2%; }
 .svc-phone__screen img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .svc-phone__screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.12) 100%); }
@@ -1215,6 +1210,62 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 /* etiquetas en una grilla de 2x2: siempre dos líneas y del mismo ancho en las cuatro tarjetas */
 .svc-card__tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem; margin: auto 0 0; padding: .4rem 0 0; list-style: none; }
 .svc-card__tags li { padding: .32rem .3rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .62rem/1.3 var(--font-mono); letter-spacing: 0; text-transform: uppercase; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* tope: nunca se sale de la pastilla */
+
+/* Events, "Event technology" (.techshow): vitrina de producto en oscuro. Título y texto a la izquierda; a la derecha los
+   tres iPhone con las apps reales (ALTA y WAGA 2026, mismo marcado .svc-phone que la tarjeta de Apps de Tech, en grande)
+   sobre un brillo azul; abajo las 4 funciones como mini tarjetas con ícono. */
+.techshow { position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
+.techshow::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(45% 55% at 76% 38%, rgba(3,127,217,.42), transparent 70%), radial-gradient(30% 35% at 85% 70%, rgba(6,189,231,.18), transparent 70%); }
+.techshow__top { display: grid; gap: 2.5rem; align-items: center; }
+.techshow .title { color: #fff; }
+.techshow .lead { color: var(--on-dark); max-width: 46ch; }
+.techshow .link-arrow { color: var(--cyan); }
+.techshow__phones { position: relative; height: 22rem; }
+.techshow .svc-phones__stack { --ph: 19rem; --top: 0rem; width: calc(var(--ph) * .978); }
+.techshow .svc-phone--2 { left: calc(var(--ph) * .25); top: calc(var(--top) + 1.2rem); }
+.techshow .svc-phone--3 { left: calc(var(--ph) * .5);  top: calc(var(--top) + 2.4rem); }
+.techshow__features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 3rem 0 0; padding: 0; list-style: none; }
+.techshow__feature { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: .9rem; padding: 1.25rem; border-radius: var(--radius); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); font-size: .95rem; line-height: 1.45; color: rgba(255,255,255,.9); }
+.techshow__feature svg { width: 28px; height: 28px; fill: none; stroke: var(--cyan); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+/* hover: la tarjeta sube un poco, se ilumina con un brillo cian desde arriba y el ícono se agranda */
+.techshow__feature::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; pointer-events: none; background: radial-gradient(90% 70% at 20% 0%, rgba(6,189,231,.22), transparent 70%); transition: opacity .3s ease; }
+.techshow__feature { isolation: isolate; }
+.js .techshow__feature.reveal { transition: transform .35s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, background-color .3s ease; } /* la entrada va por animación (abajo): la transición queda solo para el hover */
+.js .techshow__feature.reveal.in:hover { transform: translateY(-4px); border-color: rgba(6,189,231,.5); background-color: rgba(255,255,255,.08); transition-delay: 0s; } /* sin el retraso de entrada (data-d) */
+.techshow__feature:hover::before { opacity: 1; }
+.techshow__feature:hover svg { transform: scale(1.15) translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .js .techshow__feature.reveal.in:hover { transform: none; } .techshow__feature:hover svg { transform: none; } }
+@keyframes techshow-rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+/* Carga de la sección (solo con movimiento): el texto pasa de desenfocado a nítido; los tres teléfonos suben de a uno
+   girando apenas, como un abanico, mientras se enciende el brillo azul; las tarjetas entran en cascada (data-d) y su
+   ícono se dibuja con un trazo (pathLength="1" en cada trazo del SVG). Se apoya en .reveal/.in de core.js. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .techshow::before { opacity: 0; transition: opacity 2.2s ease .3s; }
+  .js .techshow:has(.techshow__phones.in)::before { opacity: 1; }
+  .js .techshow__text.reveal { filter: blur(8px); transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease; }
+  .js .techshow__text.reveal.in { filter: none; }
+  .js .techshow__phones.reveal { opacity: 1; transform: none; }
+  .js .techshow__phones .svc-phone { opacity: 0; translate: 0 130px; rotate: -12deg; transition: opacity 1s ease .2s, translate 1.7s cubic-bezier(.22, 1, .36, 1) .2s, rotate 1.7s cubic-bezier(.22, 1, .36, 1) .2s; }
+  .js .techshow__phones .svc-phone--2 { rotate: -5deg; transition-delay: .55s; }
+  .js .techshow__phones .svc-phone--3 { rotate: 6deg; transition-delay: .9s; }
+  .js .techshow__phones.in .svc-phone { opacity: 1; translate: 0 0; rotate: 0deg; }
+  .js .techshow__feature svg * { stroke-dashoffset: 1; stroke-dasharray: 1; transition: stroke-dashoffset 1.4s ease .5s; }
+  .js .techshow__feature.in svg * { stroke-dashoffset: 0; }
+  .js .techshow__feature:nth-child(2) svg * { transition-delay: .75s; }
+  .js .techshow__feature:nth-child(3) svg * { transition-delay: 1s; }
+  .js .techshow__feature:nth-child(4) svg * { transition-delay: 1.25s; }
+  /* tarjetas: animación con relleno "backwards" (no deja estilos al terminar, así el hover responde al instante) */
+  .js .techshow__feature.reveal.in { animation: techshow-rise 1.1s cubic-bezier(.22, 1, .36, 1) backwards; }
+  .js .techshow__feature.reveal.in:nth-child(2) { animation-delay: .25s; }
+  .js .techshow__feature.reveal.in:nth-child(3) { animation-delay: .5s; }
+  .js .techshow__feature.reveal.in:nth-child(4) { animation-delay: .75s; }
+}
+@media (min-width: 900px) {
+  .techshow__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .techshow__phones { height: 31rem; }
+  .techshow .svc-phones__stack { --ph: 27rem; }
+  .techshow__features { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 
 /* Efectos de carga discretos de Tech Solutions (cabecera, cajas) y Corporate Branding (cabecera, tarjetas) y, con `.process-fx` en una sección, los del proceso (título, fases en cascada y línea que se dibuja) también en otras páginas. Solo con movimiento permitido; se apoyan en .reveal/.in (core.js) y en animaciones al cargar. */
 @keyframes tech-rise { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
