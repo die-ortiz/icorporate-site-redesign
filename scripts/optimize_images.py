@@ -38,7 +38,6 @@ JOBS = {
     "client-iata.webp":    ("Logo_Iata.png",    300, 88, {"fit": True}),
     "client-sita.webp":    ("Logo_sita.png",    300, 88, {"fit": True}),
     "client-heico.webp":   ("Logo_Heico.png",   300, 88, {"fit": True}),
-    "client-itaerea.webp": ("Logo_Itaerea.png", 300, 88, {"fit": True}),
     "client-aviatdo.webp": ("aviatdo.png",       300, 88, {"unmatte": True, "fit": True}),
     "client-exolum.webp":  ("Logo_Exolum.jpg",  300, 88, {"box": (40, 60, 460, 190), "unmatte": True, "fit": True}),
     # Versiones blancas (carrusel sobre fondo oscuro): la luminosidad pasa a transparencia,
@@ -49,7 +48,6 @@ JOBS = {
     "client-iata-white.webp":    ("Logo_Iata.png",    300, 90, {"white": True}),
     "client-sita-white.webp":    ("Logo_sita.png",    300, 90, {"white": True}),
     "client-heico-white.webp":   ("Logo_Heico.png",   300, 90, {"white": True}),
-    "client-itaerea-white.webp": ("Logo_Itaerea.png", 300, 90, {"white": True}),
     "client-aviatdo-white.webp": ("aviatdo.png",      300, 90, {"white": True}),
     "client-exolum-white.webp":  ("Logo_Exolum.jpg",  300, 90, {"box": (40, 60, 460, 190), "solid": True}),
     # Fotografías
@@ -60,7 +58,12 @@ JOBS = {
     "integration-gmail.webp": ("logo-gmail.png", 128, 90, {}),
     "integration-notion.webp": ("logo-notion.png", 128, 90, {}),
     "integration-zapier.webp": ("logo-zapier.png", 128, 90, {}),
+    # ITAérea: sus logos ya no salen de aquí; son SVG del logo oficial (assets/img/logo-itaerea-white.svg y, en lienzos
+    # de 300x200 y 300x150 como los demás logos de clientes, client-itaerea-white.svg y client-itaerea.svg)
     "case-itaerea.webp":    ("itaerea-graduacion-2025.webp",            900, 80, {}),
+    # Foto del testimonio destacado (Events): recorte casi cuadrado del original a resolución completa (615 px de alto),
+    # sin reducir y con más calidad; la versión de 900x429 se ampliaba en esa caja y se veía blanda
+    "quote-itaerea.webp":   ("itaerea-graduacion-2025.webp",            640, 90, {"box": (325, 0, 965, 615)}),
     "case-alta-ccma.webp":  ("alta-ccma-2026-minimeetings.jpg",        1000, 82, {}),
     "case-alta-ccma-registration.webp": ("alta-ccma-2025-registration.jpg", 1000, 82, {}),
     "case-alta-ccma-plenary.webp":      ("alta-ccma-2025-plenary.jpg",      1000, 82, {}),
@@ -68,7 +71,6 @@ JOBS = {
     # Logo de la conferencia en blanco para la tarjeta destacada (sin caja, sobre la foto)
     "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
     # Marcas en blanco recortadas, sin caja, para las tarjetas de casos del Home
-    "case-mark-itaerea.webp": ("Logo_Itaerea.png", 300, 90, {"white": True, "trim": True}),
     "logo-alta-agm-white.webp": ("logo-alta-agm.png", 600, 92, {"white": 2.6, "trim": True}),
     # Pie de página: wordmark y figura del logo largo por separado (se componen a gran tamaño en CSS)
     "footer-wordmark.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 1400, 90, {"box": (150, 135, 2040, 495), "trim": True}),
