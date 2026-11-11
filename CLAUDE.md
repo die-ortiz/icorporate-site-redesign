@@ -81,7 +81,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `clock.js` | Hora local en vivo (`[data-clock="Zona/IANA"]`): la de Miami en la tarjeta de la oficina | About |
 | `team.js` | Equipo en "spotlight" (`[data-team]`): una persona por vez con miniaturas, flechas y avance automático | About |
 | `slots.js` | Pedido de llamada en los formularios de contacto (`[data-slot]`): próximos 10 días hábiles, franja mañana/tarde en hora de Miami y su equivalente en la zona del visitante; `[data-want-call]` lo activa | Home y servicios |
-| `stack.js` | Servicios del Home apilados (`[data-stack]`): achica y oscurece apenas la tarjeta que tapa la siguiente | Home |
+| `stack.js` | Servicios del Home apilados (`[data-stack]`): en ≥ 900 px cada tarjeta entra desde la derecha al bajar (pista alta, `.stack--x`); en móvil suben en columna; achica y oscurece apenas la tarjeta tapada | Home |
 | `pin.js` | Cabecera fija a pantalla completa (`[data-pin]`): atenúa su contenido mientras la sección siguiente la tapa | Tech |
 | `ibot.js` | Asistente de demostración (flotante) y su preview: globo con saludo y dos atajos, una vez por sesión | Todas |
 
