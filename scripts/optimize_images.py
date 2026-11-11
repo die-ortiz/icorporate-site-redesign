@@ -99,6 +99,8 @@ JOBS = {
     "svc-web-alta.webp":        ("screencapture-forum-alta-aero-2026-10-22-21_08_03.jpg", 720, 80, {}),
     # captura de la app de WAGA 2026 en un iPhone, recortada al teléfono y sin el fondo blanco (celular del frente en Tech Solutions)
     "svc-app-waga.webp":    ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True, "cutbottom": 11}),
+    # app de la graduación de ITAérea 2026 (captura chica, 262x503, con iPhone incluido: se recorta la pantalla; pedir una más grande): teléfono del medio en Events
+    "svc-app-itaerea.webp": ("itaerea-app-home.png",                    360, 90, {"box": (40, 31, 236, 477)}),  # solo la pantalla: va dentro de nuestro marco de iPhone
     # el mismo iPhone con la pantalla vaciada (transparente, conserva la isla): detrás se pone un degradado en CSS.
     # coordenadas sobre la salida de 520 px: (izq, arriba, der, abajo, radio) de la pantalla y de la isla
     # capturas reales de la app de ALTA para las pantallas de los teléfonos de atrás (Tech Solutions)
