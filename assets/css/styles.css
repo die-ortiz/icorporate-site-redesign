@@ -329,8 +329,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 
 /* ═══ 06 · HOME: servicios, clientes, cifras, casos, testimonios y proceso ═══ */
 /* Sección Our services: tres tarjetas oscuras apiladas. En pantallas ≥ 900 px (con movimiento) stack.js agrega
-   .stack--x: la lista se vuelve una pista alta, las tarjetas quedan fijas una encima de otra y, al bajar, cada una entra
-   desde la derecha y tapa la anterior, que se achica y oscurece apenas. En móvil o con movimiento reducido quedan en
+   .stack-track--x: el título y las tarjetas quedan fijos en pantalla y, al bajar, cada tarjeta entra desde la derecha y
+   tapa la anterior, que se achica y oscurece apenas (ver "Modo horizontal" abajo). En móvil o con movimiento reducido quedan en
    columna: cada una fija arriba (position: sticky, escalón de 18 px) y la siguiente sube y la tapa (solo transform y opacity). Texto a la izquierda con el color de acento de cada servicio, foto a la
    derecha; en móvil la foto va arriba */
 .stack { display: grid; gap: 1.5rem; margin: 3rem 0 0; padding: 0; list-style: none; }
@@ -363,11 +363,29 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   /* foto separada del borde, con sus propias esquinas, como una pieza apoyada en la tarjeta */
   .stack__media { margin: .9rem .9rem .9rem 0; border-radius: 8px; }
 }
-/* Modo horizontal (lo activa stack.js, que también fija la altura de la pista y mueve las tarjetas) */
-.services:has(.stack--x) { overflow-x: clip; }
-.stack--x { grid-template: 1fr / minmax(0, 1fr); gap: 0; }
-.stack--x .stack__item { grid-area: 1 / 1; align-self: start; top: var(--stack-top, 110px); } /* stack.js centra la tarjeta en la pantalla */
-.stack--x .stack__card { transform-origin: 0 50%; box-shadow: -30px 0 60px -30px rgba(16,16,16,.55); will-change: transform; }
+/* Modo horizontal (≥ 900 px con movimiento; lo activa stack.js con .stack-track--x, que también fija la altura de la pista
+   y escribe las variables). Un solo escenario fijo (.stack-stage) con el título, el indicador y las tarjetas superpuestas;
+   cada tarjeta que entra trae su foto con parallax (--stack-par), el texto con retraso (--stack-text) y la línea de acento
+   dibujándose (--stack-line). El indicador (.stack-nav) llena la línea de cada servicio (--fill) y lleva a su tarjeta. */
+.stack-nav { display: none; }
+.services:has(.stack-track--x) { overflow-x: clip; }
+.stack-track--x .stack-stage { position: sticky; top: var(--stack-top, 88px); }
+.stack-track--x .stack-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+.stack-track--x .stack-nav { display: flex; gap: 1.6rem; flex-shrink: 0; }
+.stack-nav button { --accent: var(--cyan); position: relative; padding: .3rem 0 .75rem; border: 0; background: none; cursor: pointer;
+  font: 500 .72rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); transition: color .3s ease; }
+.stack-nav button:nth-child(2) { --accent: var(--blue); }
+.stack-nav button:nth-child(3) { --accent: var(--lime); }
+.stack-nav button::before, .stack-nav button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: rgba(16,16,16,.12); }
+.stack-nav button::after { background: var(--accent); transform: scaleX(var(--fill, 0)); transform-origin: 0 50%; }
+.stack-nav button.is-active, .stack-nav button:hover { color: var(--ink); }
+.stack-track--x .stack { grid-template: 1fr / minmax(0, 1fr); gap: 0; margin-top: 2rem; }
+.stack-track--x .stack__item { grid-area: 1 / 1; position: relative; top: auto; }
+.stack-track--x .stack__card { min-height: min(500px, calc(100svh - 290px)); transform-origin: 0 50%; box-shadow: -30px 0 60px -30px rgba(16,16,16,.55); will-change: transform; }
+.stack-track--x .stack__card::before { transform: scaleX(var(--stack-line, 1)); transform-origin: 0 50%; }
+.stack-track--x .stack__text { opacity: var(--stack-text, 1); translate: calc((1 - var(--stack-text, 1)) * 40px) 0; }
+/* foto agrandada para que el parallax no deje ver sus bordes (translate y scale no pisan el transform del hover) */
+.stack-track--x .stack__media img { scale: 1.15; translate: calc(var(--stack-par, 0) * 7%) 0; }
 @media (prefers-reduced-motion: reduce) { .stack__media img, .stack__go { transition: none; } .stack__card:hover .stack__media img { transform: none; } }
 
 /* Carrusel de clientes dentro del hero: ancho completo, logos blancos, bucle continuo */
