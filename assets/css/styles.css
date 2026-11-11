@@ -1156,14 +1156,32 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .type-card h3 { margin-top: 1rem; font-size: 1.1rem; font-weight: 400; }
 .type-card p { margin-top: .4rem; color: var(--ink-soft); font-size: .93rem; }
 
-/* Testimonio destacado */
-.feature-quote { margin: 0; padding: 2.4rem; border-radius: var(--radius); color: #fff; background: linear-gradient(135deg, var(--dark), var(--dark-2)); }
+/* Testimonio destacado (Events): bloque oscuro con línea de marca arriba; a la izquierda logo del cliente, comillas en
+   cian, cita, firma y los lugares que menciona (chips); a la derecha la foto del evento, separada del borde como en las
+   tarjetas de servicios. En móvil la foto va arriba */
+.feature-quote { position: relative; display: grid; overflow: hidden; border-radius: var(--radius); color: #fff; background: linear-gradient(135deg, var(--dark), var(--dark-2)); }
+.feature-quote::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 3px; background: var(--grad); }
+.feature-quote__body { display: flex; flex-direction: column; align-items: flex-start; padding: 2rem 1.6rem 2.2rem; }
+.feature-quote__logo { display: block; width: auto; height: 34px; margin-bottom: 1.8rem; } /* SVG oficial del cliente, en blanco */
+.feature-quote__fig { margin: 0; }
 .feature-quote blockquote { margin: 0; }
-.feature-quote p { font-family: var(--font-head); font-size: clamp(1.25rem, 2.6vw, 1.8rem); font-weight: 500; line-height: 1.4; letter-spacing: -0.02em; max-width: 34ch; }
+.feature-quote blockquote::before { content: "\201C"; display: block; height: 2.4rem; font: 400 5rem/1 var(--font-head); color: var(--cyan); }
+.feature-quote p { font-family: var(--font-head); font-size: clamp(1.2rem, 2.1vw, 1.55rem); font-weight: 400; line-height: 1.45; letter-spacing: -0.015em; max-width: 34ch; }
 .feature-quote figcaption { display: flex; align-items: center; gap: .9rem; margin-top: 1.6rem; }
 .feature-quote .quote__avatar { width: 52px; height: 52px; }
 .feature-quote .quote__who span { color: var(--on-dark-muted); }
 .feature-quote .quote__who em { color: var(--cyan); }
+.feature-quote__places { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: auto; padding-top: 1.8rem; }
+.feature-quote__places > span { font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-muted); }
+.feature-quote__places ul { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.feature-quote__places li { padding: .38rem .7rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+.feature-quote__media { order: -1; aspect-ratio: 16 / 9; overflow: hidden; background: var(--dark-2); }
+.feature-quote__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+@media (min-width: 900px) {
+  .feature-quote { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .feature-quote__body { padding: 2.8rem 3rem 2.8rem; }
+  .feature-quote__media { order: 0; aspect-ratio: auto; margin: .9rem .9rem .9rem 0; border-radius: 8px; }
+}
 
 
 /* Preguntas frecuentes */
