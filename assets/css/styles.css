@@ -496,6 +496,7 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic__card:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
 .magnetic__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform .85s cubic-bezier(.22,1,.36,1); }
 .magnetic__item:hover .magnetic__photo, .magnetic__item.is-open .magnetic__photo { transform: scale(1); }
+.magnetic__photo[src*="case-itaerea"] { object-position: 66% 50%; } /* el escenario está a la derecha de la foto */
 .magnetic__logo { position: absolute; z-index: 1; top: 18px; left: 18px; width: 150px; max-width: calc(100% - 36px); height: auto; opacity: var(--reveal); filter: drop-shadow(0 2px 8px rgba(16,16,16,.7)); transition: width .5s cubic-bezier(.22,1,.36,1); }
 .magnetic__item.is-open .magnetic__logo { width: 190px; max-width: calc(100% - 90px); opacity: 1; }
 .magnetic__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,16,16,.5) 0, rgba(16,16,16,0) 26%), linear-gradient(180deg, rgba(16,16,16,0) 20%, rgba(16,16,16,.55) 58%, rgba(16,16,16,.92) 100%); }
@@ -1175,12 +1176,26 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 .feature-quote__places > span { font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-muted); }
 .feature-quote__places ul { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
 .feature-quote__places li { padding: .38rem .7rem; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
-.feature-quote__media { order: -1; aspect-ratio: 16 / 9; overflow: hidden; background: var(--dark-2); }
-.feature-quote__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.feature-quote__media { order: -1; aspect-ratio: 3 / 2; overflow: hidden; background: var(--dark-2); } /* misma proporción que la foto: se ve completa */
+.feature-quote__media { position: relative; isolation: isolate; }
+/* carrusel de fotos (slides.js): fundido entre fotos, con el mismo zoom sutil que la tarjeta destacada del Home */
+.feature-quote__slides { position: absolute; inset: 0; }
+.feature-quote__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1); transition: opacity .8s ease, transform 0s linear .8s; }
+.feature-quote__photo.is-active { opacity: 1; transform: scale(1.05); transition: opacity .8s ease, transform 6s linear; }
+.feature-quote__dots { position: absolute; left: .8rem; bottom: .8rem; z-index: 1; display: flex; }
+.feature-quote__dot { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+.feature-quote__dot::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.55); box-shadow: 0 0 0 1px rgba(16,16,16,.3); transition: background .25s, transform .25s; }
+.feature-quote__dot:hover::before { background: rgba(255,255,255,.9); }
+.feature-quote__dot.is-active::before { background: var(--cyan); transform: scale(1.4); }
+@media (prefers-reduced-motion: reduce) { .feature-quote__photo, .feature-quote__photo.is-active { transition: none; transform: none; } }
 @media (min-width: 900px) {
-  .feature-quote { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .feature-quote { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
   .feature-quote__body { padding: 2.8rem 3rem 2.8rem; }
-  .feature-quote__media { order: 0; aspect-ratio: auto; margin: .9rem .9rem .9rem 0; border-radius: 8px; }
+  /* foto a todo el alto de la tarjeta con el mismo margen arriba, a la derecha y abajo (como las tarjetas de servicios);
+     la caja es algo más angosta que 3:2, así que cada foto se encuadra para no perder lo importante */
+  .feature-quote__media { order: 0; aspect-ratio: auto; min-height: 340px; margin: .9rem .9rem .9rem 0; border-radius: 8px; }
+  .feature-quote__photo:nth-child(1) { object-position: 18% 50%; } /* nombre en pantalla y José en el atril */
+  .feature-quote__photo:nth-child(2) { object-position: 70% 50%; } /* escenario */
 }
 
 

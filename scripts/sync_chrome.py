@@ -50,7 +50,8 @@ FEATURES = {
     "splash.js": r'data-splash',
     "team.js": r'data-team',
     "magnetic.js": r'data-magnetic',
-    "home.js": r'class="(?:[^"]* )?(?:marquee|wall)(?: [^"]*)?"|data-flagship-slides',
+    "home.js": r'class="(?:[^"]* )?(?:marquee|wall)(?: [^"]*)?"',
+    "slides.js": r'data-slides',
     "stats.js": r'class="(?:[^"]* )?stat(?: [^"]*)?"|data-count',
 }
 SCRIPTS_RE = re.compile(

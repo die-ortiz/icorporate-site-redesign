@@ -353,7 +353,7 @@
     </section>
 
     <!-- TESTIMONIO DESTACADO (real: José Ignacio Escudero, ITAérea; corte más largo que el del muro del Home).
-         Logo, foto de su graduación 2025 y los lugares que él menciona en el testimonio original -->
+         Logo, carrusel de 3 fotos de la graduación 2026 (slides.js) y los lugares que él menciona en el testimonio original -->
     <section class="section">
       <div class="container reveal">
         <div class="feature-quote">
@@ -371,7 +371,14 @@
               <ul aria-label="Events organized in"><li>Argentina</li><li>Colombia</li><li>Miami</li><li>Madrid</li></ul>
             </div>
           </div>
-          <div class="feature-quote__media"><img src="../assets/img/quote-itaerea.webp" width="640" height="615" alt="ITAérea graduation ceremony, 2025" loading="lazy" decoding="async"></div>
+          <div class="feature-quote__media">
+            <div class="feature-quote__slides" data-slides="5000">
+              <img class="feature-quote__photo is-active" src="../assets/img/quote-itaerea.webp" width="1024" height="683" alt="José Ignacio Escudero, CEO of ITAérea, speaking at the 2026 graduation ceremony" loading="lazy" decoding="async">
+              <img class="feature-quote__photo" src="../assets/img/case-itaerea.webp" width="1024" height="683" alt="Audience in the auditorium at the ITAérea 2026 graduation ceremony" loading="lazy" decoding="async">
+              <img class="feature-quote__photo" src="../assets/img/quote-itaerea-graduates.webp" width="1024" height="683" alt="ITAérea 2026 graduates in their gold stoles" loading="lazy" decoding="async">
+            </div>
+            <div class="feature-quote__dots" role="group" aria-label="Graduation ceremony photos"><button type="button" data-dot class="feature-quote__dot is-active" aria-label="Photo 1 of 3" aria-current="true"></button><button type="button" data-dot class="feature-quote__dot" aria-label="Photo 2 of 3" aria-current="false"></button><button type="button" data-dot class="feature-quote__dot" aria-label="Photo 3 of 3" aria-current="false"></button></div>
+          </div>
         </div>
       </div>
     </section>
@@ -499,6 +506,7 @@
   <script type="module" src="../assets/js/backgrounds.js"></script>
   <script type="module" src="../assets/js/cycle.js"></script>
   <script type="module" src="../assets/js/forms.js"></script>
+  <script type="module" src="../assets/js/slides.js"></script>
   <script type="module" src="../assets/js/slots.js"></script>
   <script type="module" src="../assets/js/stats.js"></script>
 </body>

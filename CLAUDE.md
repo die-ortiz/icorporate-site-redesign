@@ -73,7 +73,8 @@ dist/               Salida de publish.py (ignorada por git)
 | `core.js` | Cabecera con scroll, mega-menú, menú móvil, entrada de secciones | Todas |
 | `stats.js` | Contadores de cifras (`.stat b`) | Home, About, Events |
 | `forms.js` | Formularios por correo (`#contact-form`, `#proposal-form`) y botón de copiar (`[data-copy]`) | Home y servicios |
-| `home.js` | Carrusel de logos, muro de testimonios, carrusel del destacado | Home |
+| `home.js` | Carrusel de logos y muro de testimonios | Home |
+| `slides.js` | Carrusel de fotos con fundido y puntos (`[data-slides]`, `[data-dot]`): tarjeta destacada del Home y testimonio destacado de Events | Home, Events |
 | `cycle.js` | Ciclo del evento (`[data-cycle]`) | Events |
 | `flow.js` | Diagrama de integraciones (`.flow`) | Tech |
 | `backgrounds.js` | Video de fondo, rayos y túnel (importa `siderays.js` y `tunnel.js`) | Home, Tech, Events |
