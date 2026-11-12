@@ -1652,7 +1652,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .chapter__actions { margin-top: 1.5rem; }
 .chapter__list { display: grid; align-content: start; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 /* ítems de cada servicio: tilde cian en un círculo y, al pasar el mouse, la fila se marca y el tilde se llena */
-.chapter__list li { position: relative; display: flex; align-items: center; gap: .85rem; padding: .7rem .6rem; border-bottom: 1px solid var(--line); font-size: .95rem; line-height: 1.4;
+.chapter__list li { position: relative; display: flex; align-items: center; gap: .85rem; padding: .5rem .6rem; border-bottom: 1px solid var(--line); font-size: .95rem; line-height: 1.4;
   transition: background .25s ease, padding .25s ease; }
 .chapter__list li::before { content: ""; flex: none; width: 24px; height: 24px; border-radius: 50%; background: rgba(6,189,231,.14); transition: background .25s ease, transform .25s ease; }
 .chapter__list li::after { content: ""; position: absolute; left: calc(.6rem + 6px); top: 50%; width: 12px; height: 12px; margin-top: -6px; background: var(--blue-dark);
