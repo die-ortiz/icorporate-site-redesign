@@ -1643,14 +1643,24 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .chapters__grid { display: grid; gap: 2rem; margin-top: 3rem; }
 .chapters__nav { display: none; }
 @media (min-width: 1000px) {
-  .chapters__grid { grid-template-columns: 210px minmax(0, 1fr); gap: 4rem; }
-  .chapters__nav { display: block; position: sticky; top: 120px; align-self: start; }
+  .chapters__grid { grid-template-columns: 250px minmax(0, 1fr); gap: 3.5rem; }
+  .chapters__nav { display: block; position: sticky; top: 110px; align-self: start; }
 }
-.chapters__nav ol { margin: 0; padding: 0; list-style: none; border-left: 1px solid var(--line); }
-.chapters__nav a { display: block; margin-left: -1px; padding: .55rem 0 .55rem 1.1rem; border-left: 2px solid transparent; color: var(--ink-soft); text-decoration: none; font-size: .95rem; line-height: 1.35; transition: color .2s, border-color .2s; }
-.chapters__nav a:hover { color: var(--ink); }
-.chapters__nav a.is-active { color: var(--ink); border-left-color: var(--cyan); }
-.chapters__nav .chapters__sub a { padding-left: 2rem; font-size: .88rem; }
+/* Índice: panel gris con miniatura de cada capítulo; el activo pasa a tarjeta blanca con borde cian y la barra de abajo muestra el avance (--p, chapters.js) */
+.chapters__nav { padding: 1.1rem; border: 1px solid var(--line); border-radius: calc(var(--radius) + 4px); background: var(--mist); }
+.chapters__label { margin: 0 0 .8rem .3rem; font: 500 .68rem/1.2 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-dark); }
+.chapters__nav ol { display: grid; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+.chapters__nav a { display: grid; grid-template-columns: 46px 1fr; align-items: center; gap: .85rem; padding: .45rem .55rem .45rem .45rem; border: 1px solid transparent; border-radius: 10px;
+  color: var(--ink-soft); text-decoration: none; font-size: .95rem; line-height: 1.3; transition: background .25s, border-color .25s, color .25s, box-shadow .25s; }
+.chapters__nav img { width: 46px; height: 46px; object-fit: cover; border-radius: 8px; filter: grayscale(1); opacity: .55; transition: filter .3s, opacity .3s; }
+.chapters__nav a:hover { color: var(--ink); background: rgba(255,255,255,.7); }
+.chapters__nav a:hover img { opacity: .85; }
+.chapters__nav a.is-active { color: var(--ink); background: var(--paper); border-color: rgba(6,189,231,.55); box-shadow: 0 12px 26px -18px rgba(16,16,16,.45); }
+.chapters__nav a.is-active img { filter: none; opacity: 1; }
+.chapters__nav .chapters__sub a { margin-left: 1.1rem; grid-template-columns: 36px 1fr; font-size: .9rem; }
+.chapters__nav .chapters__sub img { width: 36px; height: 36px; }
+.chapters__progress { display: block; height: 3px; margin: 1rem .3rem 0; border-radius: 2px; background: var(--line); overflow: hidden; }
+.chapters__progress i { display: block; height: 100%; background: var(--grad-btn); transform: scaleX(var(--p, 0)); transform-origin: left; }
 .chapters__list { display: grid; gap: 5rem; }
 .chapter { scroll-margin-top: 110px; }
 .chapter__media { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--mist); }
