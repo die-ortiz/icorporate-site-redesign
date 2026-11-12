@@ -75,8 +75,6 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
 .skip-link { position: absolute; left: 1rem; top: -4rem; background: var(--dark); color: #fff; padding: .6rem 1rem; border-radius: 8px; z-index: 100; }
 .skip-link:focus { top: 1rem; }
 
-/* Datos pendientes: tienen que verse en el mockup */
-.ph { background: #fff3bf; color: var(--sample-ink); border-bottom: 2px dashed #e0a800; padding: 0 .25em; border-radius: 3px; -webkit-text-fill-color: var(--sample-ink); }
 
 /* ═══ 03 · BOTONES ═══ */
 /* Botones */
@@ -97,7 +95,7 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
 .btn--ghost:hover { background: rgba(255,255,255,.1); border-color: #fff; }
 .btn--sm { padding: .75rem 1.15rem; font-size: .7rem; min-height: 44px; }
 .arrow::after { content: "→"; font-size: 1.1em; transition: transform .25s; }
-a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
+.arrow:hover::after { transform: translateX(4px); }
 
 /* ═══ 04 · CABECERA Y NAVEGACIÓN (header, logo y menú) ═══ */
 /* Header: caja rectangular (ancho del contenedor) pegada al borde superior. El fondo (caja, blur, sombra) se solidifica de forma continua con el scroll:
@@ -263,7 +261,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 }
 .hero.has-video .hero__video { opacity: 1; }
 .hero.has-video .hero__veil { display: block; }
-.hero.has-video .rays { display: none; }
 .hero__text { max-width: 1020px; }
 .hero h1 { font-size: clamp(2.2rem, 5.4vw, 4.2rem); font-weight: 400; margin-top: 0; letter-spacing: -0.035em; }
 .hero__sub { margin-top: 1.6rem; font-size: clamp(1.02rem, 2vw, 1.25rem); color: var(--on-dark); max-width: 52ch; }
@@ -475,7 +472,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .magnetic__item.is-open .magnetic__result { opacity: 1; }
 /* Marcas más compactas (WAGA e ITAérea pesan más que los logos apaisados de ALTA): se igualan en presencia visual */
 .magnetic__mark[src*="ccma"] { width: min(132px, calc(100% - 28px)); }
-.magnetic__mark[src*="waga"] { width: min(86px, calc(100% - 28px)); }
 .magnetic__mark[src*="itaerea"] { width: min(104px, calc(100% - 28px)); }
 .magnetic__item.is-open .magnetic__mark { opacity: 0; }
 .magnetic__close {
@@ -646,7 +642,6 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
 .footer__grid { display: grid; gap: 2.5rem; }
 @media (min-width: 560px) { .footer__grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 820px) { .footer__grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2rem; } } /* Servicios · Empresa · Contacto: las mismas páginas que el menú */
-.site-footer h4 a { color: inherit; }
 .site-footer li a[aria-current="page"] { color: #fff; }
 /* Wordmark gigante con la figura; las redes comparten la línea, alineadas al borde inferior del logo */
 .footer__mark { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1.6rem 3%; margin-top: 4.5rem; }
@@ -926,7 +921,6 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .phase ul { margin: .9rem 0 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
 .phase li { position: relative; padding-left: 1.1rem; font-size: .93rem; color: var(--ink-soft); }
 .phase li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
-.phase p { margin-top: .7rem; font-size: .93rem; line-height: 1.55; color: var(--ink-soft); } /* paso descripto en una frase */
 
 /* Por qué elegirnos (.why-band): banda oscura con un bento de tarjetas; cada punto lleva arriba un visual de lo que dice
    (roles del equipo, canales, logos de clientes reales, alcance de una pieza a un sistema). Compartido por las páginas de servicio */
@@ -1338,14 +1332,14 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
     .js .page-tech .svc-card.reveal:nth-child(4) { transition-delay: .6s; }
   }
   /* proceso: fases en cascada (el retraso no afecta al hover) y la línea de color se dibuja de izquierda a derecha */
-  .js :is(.page-tech, .page-branding) .phase.reveal:nth-child(2) { transition-delay: .1s, .1s, 0s, 0s, 0s; }
-  .js :is(.page-tech, .page-branding) .phase.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s, 0s; }
-  .js :is(.page-tech, .page-branding) .phase.reveal:nth-child(4) { transition-delay: .3s, .3s, 0s, 0s, 0s; }
-  .js :is(.page-tech, .page-branding) .phase::after { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22, 1, .36, 1) .35s; }
-  .js :is(.page-tech, .page-branding) .phase.in::after { transform: scaleX(1); }
-  .js :is(.page-tech, .page-branding) .phase:nth-child(2)::after { transition-delay: .45s; }
-  .js :is(.page-tech, .page-branding) .phase:nth-child(3)::after { transition-delay: .55s; }
-  .js :is(.page-tech, .page-branding) .phase:nth-child(4)::after { transition-delay: .65s; }
+  .js .page-tech .phase.reveal:nth-child(2) { transition-delay: .1s, .1s, 0s, 0s, 0s; }
+  .js .page-tech .phase.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s, 0s; }
+  .js .page-tech .phase.reveal:nth-child(4) { transition-delay: .3s, .3s, 0s, 0s, 0s; }
+  .js .page-tech .phase::after { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22, 1, .36, 1) .35s; }
+  .js .page-tech .phase.in::after { transform: scaleX(1); }
+  .js .page-tech .phase:nth-child(2)::after { transition-delay: .45s; }
+  .js .page-tech .phase:nth-child(3)::after { transition-delay: .55s; }
+  .js .page-tech .phase:nth-child(4)::after { transition-delay: .65s; }
 }
 
 /* Cierre de About: sección oscura de borde a borde con tres luces de marca que se mueven lento (azul, cian, lima; degradados
@@ -1569,7 +1563,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .flow__tile { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 12px; color: var(--cyan);
   background: linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.04)); border: 1px solid rgba(255,255,255,.14);
   box-shadow: 0 14px 30px -16px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.12); }
-.flow__tile svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .flow__label { position: absolute; top: calc(50% + 42px); left: 50%; transform: translateX(-50%); white-space: nowrap;
   font: 600 .62rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: #a9adb3; }
 .flow__mid { position: relative; min-width: 60px; }
@@ -1588,7 +1581,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 @media (max-width: 520px) {
   .flow { min-height: 270px; }
   .flow__tile { width: 54px; height: 54px; border-radius: 12px; }
-  .flow__tile svg { width: 24px; height: 24px; }
   .flow__tile--hub { width: 70px; height: 70px; border-radius: 50%; }
   .flow__label { top: calc(50% + 34px); font-size: .55rem; }
 }
@@ -1599,7 +1591,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 
 /* Logos reales/de referencia dentro de los mosaicos */
 .flow__tile--logo { background: rgba(255,255,255,.07); }
-.flow__tile--logo svg { width: 42px; height: 42px; fill: initial; stroke: none; }
 .flow__tile--logo img { width: 46px; height: 46px; object-fit: contain; border-radius: 8px; }
 .flow-full .flow__tile { width: 84px; height: 84px; border-radius: 14px; }
 .flow-full .flow__label { top: calc(50% + 52px); }
@@ -1608,7 +1599,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 @media (max-width: 520px) {
   .flow-full .flow { min-height: 300px; }
   .flow-full .flow__tile { width: 56px; height: 56px; border-radius: 12px; }
-  .flow__tile--logo svg { width: 28px; height: 28px; }
   .flow__tile--logo img { width: 30px; height: 30px; border-radius: 7px; }
   .flow-full .flow__label { top: calc(50% + 36px); }
   .flow-full .flow__tile--hub { width: 62px; height: 62px; border-radius: 50%; }
