@@ -42,6 +42,7 @@ FEATURES = {
     "backgrounds.js": r'hero__video|data-siderays|data-tunnel',
     "clock.js": r'data-clock',
     "cycle.js": r'data-cycle',
+    "formats.js": r'data-formats',
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
     "forms.js": r'id="(?:contact|proposal)-form"|data-copy',
     "pin.js": r'data-pin',

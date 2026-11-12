@@ -76,6 +76,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `home.js` | Carrusel de logos y muro de testimonios | Home |
 | `slides.js` | Carrusel de fotos con fundido y puntos (`[data-slides]`, `[data-dot]`): tarjeta destacada del Home y testimonio destacado de Events | Home, Events |
 | `cycle.js` | Ciclo del evento (`[data-cycle]`) | Events |
+| `formats.js` | Formatos de evento (`[data-formats]`): lista numerada y foto real que cambia con el mouse o sola cada 5 s, con barra de tiempo | Events |
 | `flow.js` | Diagrama de integraciones (`.flow`) | Tech |
 | `backgrounds.js` | Video de fondo, rayos y túnel (importa `siderays.js` y `tunnel.js`) | Home, Tech, Events |
 | `splash.js` | Splash de entrada (`[data-splash]`): telón con logo y línea de carga, una vez por sesión; lo activa el script del `<head>` (`.has-splash`) | Home |
