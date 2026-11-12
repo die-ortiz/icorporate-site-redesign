@@ -1631,7 +1631,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .chapters__list { display: grid; gap: 5rem; }
 .chapter { scroll-margin-top: 1rem; } /* se suma al scroll-padding-top de html (cabecera fija) */
 .chapter:focus { outline: none; }
-@media (min-width: 1000px) { .chapter__media { max-height: 46vh; } } /* en escritorio cada capítulo entra entero en pantalla */
+@media (min-width: 1000px) { .chapter__media { width: 100%; max-height: 46vh; } } /* en escritorio cada capítulo entra entero en pantalla; el ancho fijo evita que el tope de alto achique la foto */
 .chapter__media { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--mist); }
 .chapter__media > img { width: 100%; height: 100%; object-fit: cover; }
 .chapter__body { display: grid; gap: 1.4rem 3rem; margin-top: 1.8rem; }
@@ -1669,9 +1669,9 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
   background: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.5px) 0 0 / 20px 20px, var(--dark); } /* mesa de trabajo: oscuro plano con grilla de puntos, para que las tarjetas resalten */
 .sf-row { display: flex; align-items: flex-end; justify-content: center; gap: clamp(.8rem, 3vw, 2.2rem); width: 100%; } /* fila centrada en el recuadro; los formatos alineados por la base */
 .sf-item { display: flex; flex-direction: column; align-items: center; gap: .8rem; }
-.sf-item:nth-child(1) { width: 29%; }
-.sf-item:nth-child(2) { width: 25%; }
-.sf-item:nth-child(3) { width: 20%; }
+.sf-item:nth-child(1) { width: 25%; }
+.sf-item:nth-child(2) { width: 21.5%; }
+.sf-item:nth-child(3) { width: 17%; }
 .sf { position: relative; width: 100%; overflow: hidden; border-radius: 12px; background: var(--paper); box-shadow: 0 22px 44px -26px rgba(16,16,16,.6), 0 0 0 1px rgba(16,16,16,.06); }
 .sf__head { display: flex; align-items: center; gap: .45rem; padding: .5rem .6rem; font: 600 .68rem/1 var(--font); color: var(--ink); }
 .sf__avatar { flex: none; width: 20px; height: 20px; padding: 2px; border-radius: 50%; object-fit: contain; background: var(--paper); box-shadow: 0 0 0 1px var(--line); }
