@@ -83,6 +83,7 @@ dist/               Salida de publish.py (ignorada por git)
 | `clock.js` | Hora local en vivo (`[data-clock="Zona/IANA"]`): la de Miami en la tarjeta de la oficina | About |
 | `team.js` | Equipo en "spotlight" (`[data-team]`): una persona por vez con miniaturas, flechas y avance automático | About |
 | `slots.js` | Pedido de llamada en los formularios de contacto (`[data-slot]`): próximos 10 días hábiles, franja mañana/tarde en hora de Miami y su equivalente en la zona del visitante; `[data-want-call]` lo activa | Home y servicios |
+| `chapters.js` | Índice de capítulos (`[data-chapters]`): en ≥ 1000 px índice fijo con el capítulo activo marcado al bajar; sin JS son anclas | Corporate Branding |
 | `stack.js` | Servicios del Home apilados (`[data-stack]`): en ≥ 900 px título, indicador y tarjetas quedan fijos y cada tarjeta entra desde la derecha al bajar, con parallax en la foto (pista alta, `.stack-track--x`); el indicador lleva a cada tarjeta y el foco con teclado salta a la que lo recibe; en móvil suben en columna | Home |
 | `pin.js` | Cabecera fija a pantalla completa (`[data-pin]`): atenúa su contenido mientras la sección siguiente la tapa | Tech |
 | `ibot.js` | Asistente de demostración (flotante) y su preview: globo con saludo y dos atajos, una vez por sesión | Todas |

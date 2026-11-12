@@ -7,7 +7,7 @@
    03 Botones                     09 Animación de entrada
    04 Cabecera y navegación       10 iBot
    05 Hero (home)                 11 Páginas internas y componentes compartidos
-   06 Home: secciones             12 Tienda (PromoPlace)
+   06 Home: secciones             12 Corporate Branding
    Reglas de oro: colores y radios por variable (:root); H1-H3 en peso 400; un solo botón primario (.btn--primary);
    los estilos de una sección van juntos; las variantes por página se escriben bajo el comentario de su sección. */
 /* ═══ 01 · TOKENS ═══ */
@@ -903,13 +903,6 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
     linear-gradient(0deg, rgba(16,16,16,.85) 0%, rgba(16,16,16,0) 40%);
 }
 .page-hero .hero__video { z-index: -2; }
-/* Variante con velo más claro: deja lucir la foto (el texto sigue sobre una zona central más oscura) */
-.page-hero--clear .page-hero__img { object-position: 50% 60%; }
-.page-hero--clear::after {
-  background:
-    radial-gradient(58% 72% at 50% 46%, rgba(16,16,16,.56) 0%, rgba(16,16,16,.36) 55%, rgba(16,16,16,.1) 100%),
-    linear-gradient(0deg, rgba(16,16,16,.42) 0%, rgba(16,16,16,0) 36%);
-}
 .page-hero.has-video .hero__video { opacity: 1; }
 /* Cabecera de página con las cifras dentro: degradado inferior de transparente a azul oscuro */
 .page-hero--stats { padding-bottom: 0; }
@@ -1346,7 +1339,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .page-404 .page-hero .container > :nth-child(4) { animation-delay: .4s; }
   .page-404 .page-hero .container > :nth-child(5) { animation-delay: .55s; }
   :is(.page-tech, .page-404) .tunnel-bg canvas { animation: tech-fade 1.6s ease both; } /* el canvas se crea tras la carga: aparece con un fundido */
-  .page-branding .page-hero__img { animation: tech-fade 1.6s ease both; }
   /* títulos de sección: de desenfocado a nítido al entrar */
   .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal { filter: blur(6px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
   .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal.in { filter: none; }
@@ -1360,11 +1352,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
     .js .page-tech .svc-card.reveal:nth-child(3) { transition-delay: .4s; }
     .js .page-tech .svc-card.reveal:nth-child(4) { transition-delay: .6s; }
   }
-  /* Corporate Branding: las 5 celdas del bento en cascada (el retraso no afecta al hover) */
-  .js .bento__item.reveal:nth-child(2) { transition-delay: .08s, .08s, 0s, 0s, 0s; }
-  .js .bento__item.reveal:nth-child(3) { transition-delay: .16s, .16s, 0s, 0s, 0s; }
-  .js .bento__item.reveal:nth-child(4) { transition-delay: .24s, .24s, 0s, 0s, 0s; }
-  .js .bento__item.reveal:nth-child(5) { transition-delay: .32s, .32s, 0s, 0s, 0s; }
   /* proceso: fases en cascada (el retraso no afecta al hover) y la línea de color se dibuja de izquierda a derecha */
   .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(2) { transition-delay: .1s, .1s, 0s, 0s, 0s; }
   .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s, 0s; }
@@ -1406,62 +1393,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
     radial-gradient(55% 80% at 0% 100%, rgba(3,127,217,.35), transparent 70%),
     var(--dark);
 }
-/* Bento de Corporate Branding (#what): Visual Branding en una celda alta y Video y Social apiladas a su derecha. Cada celda
-   lleva arriba una mini ilustración hecha con CSS (paleta y tipografías de marca, sin imágenes) que se anima apenas al pasar
-   el mouse, y abajo el texto con los entregables como píldoras. Animaciones solo de transform y opacity */
-.bento { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
-@media (min-width: 720px) { .bento { grid-template-columns: repeat(2, 1fr); } .bento__item--identity { grid-column: 1 / -1; } }
-@media (min-width: 1100px) { .bento { grid-template-columns: 1.2fr 1fr; } .bento__item--identity { grid-column: 1; grid-row: span 2; } }
-.bento__item { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
-  transition: translate .3s, border-color .3s, box-shadow .3s; }
-.js .bento__item.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, border-color .3s, box-shadow .3s; }
-.bento__item:hover { translate: 0 -4px; border-color: rgba(6,189,231,.45); box-shadow: 0 24px 50px -30px rgba(16,16,16,.45); }
-.bento__art { position: relative; display: grid; place-items: center; height: 170px; overflow: hidden; background: var(--mist); border-bottom: 1px solid var(--line); }
-.bento__item--identity .bento__art { flex: 1; min-height: 240px; height: auto; }
-.bento__art :where(i, b, span) { display: block; }
-.bento__art :where(*), .bento__art :where(*)::before { transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .5s; }
-.bento__body { padding: 1.4rem 1.5rem 1.5rem; }
-.bento__body h3 { font: 400 1.35rem/1.2 var(--font-head); }
-.bento__item--identity .bento__body h3 { font-size: 1.7rem; }
-.bento__body p { margin-top: .5rem; color: var(--ink-soft); font-size: .95rem; line-height: 1.55; }
-.bento__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
-.bento__tags li { padding: .35rem .65rem; border-radius: 999px; background: var(--mist); border: 1px solid var(--line); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--blue-dark); }
-/* Identidad: abanico de muestras de color, "Aa" en Sora y una marca de ejemplo */
-.art-identity { grid-template-columns: auto auto; gap: 2.2rem; background: radial-gradient(70% 80% at 30% 50%, rgba(6,189,231,.14), transparent 70%), var(--mist); }
-.art-id__fan { position: relative; width: 120px; height: 150px; }
-.art-id__fan i { position: absolute; left: 30px; bottom: 0; width: 60px; height: 140px; border-radius: 10px; transform-origin: 50% 100%; box-shadow: 0 10px 24px -14px rgba(16,16,16,.6); }
-.art-id__fan i:nth-child(1) { background: var(--dark); transform: rotate(-24deg); }
-.art-id__fan i:nth-child(2) { background: var(--blue); transform: rotate(-8deg); }
-.art-id__fan i:nth-child(3) { background: var(--cyan); transform: rotate(8deg); }
-.art-id__fan i:nth-child(4) { background: var(--lime); transform: rotate(24deg); }
-.bento__item--identity:hover .art-id__fan i:nth-child(1) { transform: rotate(-36deg); }
-.bento__item--identity:hover .art-id__fan i:nth-child(2) { transform: rotate(-12deg); }
-.bento__item--identity:hover .art-id__fan i:nth-child(3) { transform: rotate(12deg); }
-.bento__item--identity:hover .art-id__fan i:nth-child(4) { transform: rotate(36deg); }
-.art-id__type { font: 400 5.5rem/1 var(--font-head); letter-spacing: -.04em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.art-id__mark { position: absolute; right: 1.2rem; bottom: 1.2rem; width: 38px; height: 38px; border-radius: 10px; background: var(--dark); display: grid; place-items: center; }
-.art-id__mark i { width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--cyan); }
-.bento__item--identity:hover .art-id__mark { transform: rotate(90deg); }
-/* Contenido: comillas grandes y líneas de texto que se completan */
-.art-content { grid-template-columns: auto 150px; gap: 1rem; }
-.art-ct__q { font: 400 6rem/.6 var(--font-head); color: var(--cyan); transform: translateY(18px); }
-.art-ct__lines { display: grid; gap: 9px; width: 150px; }
-.art-ct__lines i { height: 7px; border-radius: 4px; background: var(--ink-soft); opacity: .35; transform-origin: left; }
-.art-ct__lines i:nth-child(2) { transform: scaleX(.85); }
-.art-ct__lines i:nth-child(3) { transform: scaleX(.92); background: var(--blue); opacity: .7; }
-.art-ct__lines i:nth-child(4) { transform: scaleX(.45); }
-.bento__item--content:hover .art-ct__lines i { transform: none; }
-.bento__item--content:hover .art-ct__q { transform: translateY(12px) scale(1.08); }
-/* Video: cuadro oscuro con play y barra de tiempo que avanza */
-.art-vd__frame { position: relative; width: 170px; height: 100px; border-radius: 10px; background: linear-gradient(135deg, var(--dark), var(--dark-2)); box-shadow: 0 16px 34px -18px rgba(16,16,16,.7); overflow: hidden; }
-.art-vd__play { position: absolute; left: 50%; top: 44%; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%; background: var(--cyan); }
-.art-vd__play::before { content: ""; position: absolute; left: 15px; top: 11px; border-style: solid; border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--dark); }
-.art-vd__track { position: absolute; left: 12px; right: 12px; bottom: 12px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.2); overflow: hidden; }
-.art-vd__track b { height: 100%; background: var(--grad-btn); transform: scaleX(.3); transform-origin: left; transition-duration: 1.2s; }
-.bento__item--video:hover .art-vd__track b { transform: scaleX(.85); }
-.bento__item--video:hover .art-vd__play { transform: scale(1.12); }
-@media (max-width: 519px) { .art-identity { gap: .6rem; } .art-id__fan { scale: .8; } .art-id__type { font-size: 4.2rem; } .bento__item--identity .bento__art { min-height: 210px; } }
-@media (prefers-reduced-motion: reduce) { .bento__item, .bento__art *, .bento__art *::before { transition: none !important; } .bento__item:hover { translate: none; } }
 
 /* Nosotros: equipo en "spotlight" (una persona por vez) con miniaturas; team.js alterna las personas ([data-team]).
    Escenario oscuro de marca con un brillo azul y cian detrás del retrato; el texto y el retrato se funden con un leve
@@ -1698,25 +1629,85 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
   .flow-full .flow__tile--hub { width: 62px; height: 62px; border-radius: 50%; }
 }
 
-/* ═══ 12 · TIENDA (PromoPlace) ═══ */
-/* Tienda (Merchandise Hub, enlaza a PromoPlace): banda oscura con foto, lista de productos e iBrand */
-.store { position: relative; overflow: hidden; background: var(--dark); color: #fff; }
-.store::before { content: ""; position: absolute; inset: 0; background: radial-gradient(45% 70% at 0% 50%, rgba(3,127,217,.35), transparent 70%), radial-gradient(35% 60% at 100% 0%, rgba(6,189,231,.16), transparent 70%); pointer-events: none; }
-.store__grid { position: relative; }
-.store__media { position: relative; }
-.store__media::before { content: ""; position: absolute; inset: -8% -6%; background: radial-gradient(closest-side, rgba(6,189,231,.45), rgba(3,127,217,.2) 60%, transparent); filter: blur(30px); }
-.store__stage { position: relative; padding: 1.4rem; border-radius: calc(var(--radius) + 6px); background: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 40px 80px -30px rgba(0,0,0,.7); }
-.store__stage img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
-.store .title { color: #fff; max-width: 20ch; }
-.store__grad { background: linear-gradient(90deg, var(--blue), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.store .lead { color: var(--on-dark-muted); }
-.store-list { display: grid; gap: .6rem 1.2rem; margin: 1.6rem 0 1.9rem; padding: 0; list-style: none; }
-@media (min-width: 520px) { .store-list { grid-template-columns: repeat(2, 1fr); } }
-.store-list li { position: relative; padding-left: 1.1rem; font-size: .95rem; line-height: 1.45; color: #fff; }
-.store-list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
-.store__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
-/* iBrand: servicio de entrega en el stand, en una caja dentro de la tienda */
-.store-ibrand { margin-top: 2.2rem; padding: 1.4rem 1.5rem; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); background: rgba(255,255,255,.05); }
-.store-ibrand h3 { font: 400 1.25rem/1.25 var(--font-head); color: #fff; }
-.store-ibrand p { margin: .5rem 0 1.1rem; color: var(--on-dark-muted); font-size: .95rem; line-height: 1.55; }
+/* ═══ 12 · CORPORATE BRANDING ═══ */
+/* Cabecera con mosaico de trabajos reales (.page-hero--mosaic): texto a la izquierda y tres fotos de eventos a la derecha, sin foto de fondo */
+.page-hero--mosaic { text-align: left; padding: 8.5rem 0 4.5rem; background: radial-gradient(55% 70% at 100% 30%, rgba(3,127,217,.3), transparent 70%), var(--dark); }
+.page-hero--mosaic::after { display: none; }
+.page-hero--mosaic .container { display: grid; gap: 2.5rem; align-items: center; }
+@media (min-width: 960px) { .page-hero--mosaic .container { grid-template-columns: 1fr 1.1fr; gap: 3.5rem; } }
+.page-hero--mosaic .breadcrumb, .page-hero--mosaic .page-hero__actions { justify-content: flex-start; }
+.page-hero--mosaic h1, .page-hero--mosaic .page-hero__sub { margin-inline: 0; }
+.mosaic { display: grid; grid-template-columns: 1.45fr 1fr; grid-template-rows: 1fr 1fr; gap: .7rem; aspect-ratio: 4 / 3; margin: 0; }
+.mosaic img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.mosaic img:first-child { grid-row: span 2; object-position: 18% 50%; } /* deja ver el "WAGA 2026" de la pantalla */
 
+/* Servicios como capítulos ([data-chapters], chapters.js): en escritorio, índice fijo a la izquierda con el capítulo activo marcado;
+   cada capítulo lleva su foto real, nombre, frase, texto y todos sus ítems en filas. iBrand es un capítulo oscuro (.chapter--dark) */
+.chapters__grid { display: grid; gap: 2rem; margin-top: 3rem; }
+.chapters__nav { display: none; }
+@media (min-width: 1000px) {
+  .chapters__grid { grid-template-columns: 210px minmax(0, 1fr); gap: 4rem; }
+  .chapters__nav { display: block; position: sticky; top: 120px; align-self: start; }
+}
+.chapters__nav ol { margin: 0; padding: 0; list-style: none; border-left: 1px solid var(--line); }
+.chapters__nav a { display: block; margin-left: -1px; padding: .55rem 0 .55rem 1.1rem; border-left: 2px solid transparent; color: var(--ink-soft); text-decoration: none; font-size: .95rem; line-height: 1.35; transition: color .2s, border-color .2s; }
+.chapters__nav a:hover { color: var(--ink); }
+.chapters__nav a.is-active { color: var(--ink); border-left-color: var(--cyan); }
+.chapters__nav .chapters__sub a { padding-left: 2rem; font-size: .88rem; }
+.chapters__list { display: grid; gap: 5rem; }
+.chapter { scroll-margin-top: 110px; }
+.chapter__media { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--mist); }
+.chapter__media > img { width: 100%; height: 100%; object-fit: cover; }
+.chapter__body { display: grid; gap: 1.4rem 3rem; margin-top: 1.8rem; }
+@media (min-width: 760px) { .chapter__body { grid-template-columns: 1fr 1fr; } }
+.chapter__body h3 { font: 400 clamp(1.6rem, 2.6vw, 2.1rem)/1.15 var(--font-head); }
+.chapter__tag { margin-top: .7rem; font-weight: 600; color: var(--blue-dark); }
+.chapter__text { margin-top: .6rem; color: var(--ink-soft); }
+.chapter__actions { margin-top: 1.5rem; }
+.chapter__list { display: grid; align-content: start; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.chapter__list li { padding: .7rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; line-height: 1.4; }
+/* Merchandise: los objetos de marca (fondo blanco) y el kit entregado en un registro */
+.chapter__media--duo { display: grid; grid-template-columns: 1.2fr 1fr; gap: .7rem; background: none; }
+.chapter__media--duo > img { border-radius: var(--radius); }
+.chapter__media--duo > img:first-child { object-fit: contain; padding: 1rem; background: #fff; border: 1px solid var(--line); }
+/* Video: botón de play y barra de tiempo dibujados sobre la foto (decorativos) */
+.chapter__play { position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; display: grid; place-items: center; border-radius: 50%; background: var(--cyan); color: var(--dark); box-shadow: 0 16px 40px -12px rgba(6,189,231,.8); }
+.chapter__play svg { width: 26px; height: 26px; margin-left: 4px; }
+.chapter__timeline { position: absolute; left: 1.2rem; right: 1.2rem; bottom: 1.2rem; height: 4px; border-radius: 2px; background: rgba(255,255,255,.3); }
+.chapter__timeline::before { content: ""; position: absolute; inset: 0 62% 0 0; border-radius: inherit; background: var(--grad-btn); }
+/* Social: los tres formatos (post 1:1, carrusel 4:5 y story 9:16) armados con fotos de eventos */
+.social-formats { display: flex; align-items: center; justify-content: center; gap: clamp(.8rem, 3vw, 2rem); height: 100%; padding: 1.5rem; background: radial-gradient(60% 80% at 50% 100%, rgba(6,189,231,.16), transparent 70%), var(--mist); }
+.sf { position: relative; flex: none; overflow: hidden; border-radius: 10px; background: #fff; box-shadow: 0 18px 40px -24px rgba(16,16,16,.6); }
+.sf img { width: 100%; height: 100%; object-fit: cover; }
+.sf--post { width: 30%; aspect-ratio: 1; }
+.sf--carousel { width: 25%; aspect-ratio: 4 / 5; box-shadow: 9px 9px 0 -1px #fff, 9px 9px 0 0 var(--line), 18px 18px 0 -2px #fff, 18px 18px 0 -1px var(--line), 0 18px 40px -24px rgba(16,16,16,.6); overflow: visible; }
+.sf--carousel img { border-radius: 10px; }
+.sf--story { width: 21%; aspect-ratio: 9 / 16; }
+.sf__label { position: absolute; left: .5rem; bottom: .5rem; padding: .25rem .5rem; border-radius: 999px; background: rgba(16,16,16,.7); color: #fff; font: 500 .62rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.sf__bars { position: absolute; left: .5rem; right: .5rem; top: .5rem; display: flex; gap: 3px; }
+.sf__bars i { flex: 1; height: 2px; border-radius: 1px; background: rgba(255,255,255,.5); }
+.sf__bars i:first-child { background: #fff; }
+.sf__dots { position: absolute; left: 0; right: 0; bottom: -1.1rem; display: flex; justify-content: center; gap: 4px; }
+.sf__dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
+.sf__dots i:first-child { background: var(--blue); }
+@media (max-width: 519px) { .sf__label { font-size: .55rem; padding: .2rem .35rem; } }
+/* iBrand: capítulo oscuro con foto del área de exhibición y los tres pasos del servicio */
+.chapter--dark { padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: calc(var(--radius) + 6px); color: #fff; background: radial-gradient(60% 80% at 100% 0%, rgba(6,189,231,.18), transparent 70%), var(--dark); }
+.chapter--dark .chapter__media { aspect-ratio: 21 / 9; }
+.chapter--dark .eyebrow { color: var(--cyan); }
+.chapter--dark h3 { margin-top: .6rem; }
+.chapter--dark .chapter__tag { color: var(--cyan); }
+.chapter--dark .chapter__text { color: var(--on-dark); }
+.ibrand-steps { display: grid; align-content: start; gap: .7rem; margin: 0; padding: 0; list-style: none; counter-reset: ib; }
+.ibrand-steps li { counter-increment: ib; display: grid; grid-template-columns: 2.2rem 1fr; gap: .9rem; align-items: center; padding: .9rem 1rem; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); background: rgba(255,255,255,.04); }
+.ibrand-steps li::before { content: counter(ib); display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--cyan); color: var(--dark); font: 600 .85rem/1 var(--font-mono); }
+.ibrand-steps b { display: block; font-weight: 600; }
+.ibrand-steps span { color: var(--on-dark-muted); font-size: .9rem; line-height: 1.4; }
+
+/* Galería de Experiencia: trabajos reales con pie de foto */
+.gallery { display: grid; gap: .8rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
+@media (min-width: 720px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+.gallery figure { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); }
+.gallery img { width: 100%; height: 100%; object-fit: cover; }
+.gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1rem .85rem; background: linear-gradient(0deg, rgba(16,16,16,.8), transparent); color: #fff; font: 500 .7rem/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.gallery + .experience { margin-top: 1.1rem; }

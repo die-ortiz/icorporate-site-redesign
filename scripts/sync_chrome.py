@@ -40,6 +40,7 @@ PAGES = {
 # módulo -> patrón del marcado que lo hace necesario (core.js e ibot.js van siempre)
 FEATURES = {
     "backgrounds.js": r'hero__video|data-siderays|data-tunnel',
+    "chapters.js": r'data-chapters',
     "clock.js": r'data-clock',
     "cycle.js": r'data-cycle',
     "formats.js": r'data-formats',

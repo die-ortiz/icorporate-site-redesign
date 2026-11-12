@@ -84,84 +84,85 @@
   </header>
 
   <main id="main">
-    <!-- CABECERA sobria (sin foto: la foto de materiales tiene fondo blanco) -->
-    <section class="page-hero page-hero--clear">
-      <img class="page-hero__img" src="../../assets/img/branding-hero.webp" width="1800" height="1200" alt="" fetchpriority="high">
+    <!-- CABECERA: mosaico de trabajos reales (WAGA 2026, ALTA CCMA, ITAérea) -->
+    <section class="page-hero page-hero--mosaic">
       <div class="container">
-        <ol class="breadcrumb" aria-label="breadcrumb">
-          <li><a href="index.html">Inicio</a></li><li><a href="index.html#services">Servicios</a></li><li aria-current="page">Corporate Branding</li>
-        </ol>
-        <h1>Una marca que se ve,<br><span class="grad-text">se toca y se comparte.</span></h1>
-        <p class="page-hero__sub">De la identidad de marca y los impresos al merchandising a medida, los videos de eventos y el contenido para redes, convertimos tu marca en piezas que la gente nota, usa y recuerda.</p>
-        <div class="page-hero__actions">
-          <a class="btn btn--primary" href="#proposal">Hablemos</a>
+        <div class="page-hero__text">
+          <ol class="breadcrumb" aria-label="breadcrumb">
+            <li><a href="index.html">Inicio</a></li><li><a href="index.html#services">Servicios</a></li><li aria-current="page">Corporate Branding</li>
+          </ol>
+          <h1>Una marca que se ve, <span class="grad-text">se toca y se comparte.</span></h1>
+          <p class="page-hero__sub">De la identidad de marca y los impresos al merchandising a medida, los videos de eventos y el contenido para redes, convertimos tu marca en piezas que la gente nota, usa y recuerda.</p>
+          <div class="page-hero__actions">
+            <a class="btn btn--primary" href="#proposal">Hablemos</a>
+          </div>
         </div>
+        <figure class="mosaic">
+          <img src="../../assets/img/case-waga-2026-session.webp" width="799" height="533" alt="Identidad de la WAGA 2026 en las pantallas del escenario, en Lima" decoding="async" fetchpriority="high">
+          <img src="../../assets/img/case-alta-ccma-registration.webp" width="799" height="533" alt="Mostrador de registro de la ALTA CCMA & MRO Conference con su señalética" decoding="async">
+          <img src="../../assets/img/quote-itaerea-award.webp" width="1024" height="683" alt="Contenido en pantalla de la ceremonia de graduación 2026 de ITAérea" decoding="async">
+        </figure>
       </div>
     </section>
 
-    <!-- QUÉ HACEMOS (textos de comunicaciones, 2026-11). Merchandise Hub va aparte, en la banda de la tienda (#materials) -->
-    <section class="section" id="what">
+    <!-- QUÉ HACEMOS: un capítulo por servicio (textos de comunicaciones, 2026-11); índice fijo con chapters.js -->
+    <section class="section" id="what" data-chapters>
       <div class="container">
         <div class="section__head reveal">
           <span class="eyebrow">Qué hacemos</span>
           <h2 class="title">Todo lo que tu marca necesita para lucirse.</h2>
         </div>
-        <div class="bento">
-          <article class="bento__item bento__item--identity reveal">
-            <div class="bento__art art-identity" aria-hidden="true"><span class="art-id__fan"><i></i><i></i><i></i><i></i></span><span class="art-id__type">Aa</span><span class="art-id__mark"><i></i></span></div>
-            <div class="bento__body">
-              <h3>Branding visual y diseño gráfico</h3>
-              <p><strong>Que cada contacto visual cuente.</strong> Del logo a las presentaciones, los banners, el contenido digital y los impresos, creamos una comunicación visual consistente que mantiene tu marca reconocible.</p>
-              <ul class="bento__tags"><li>Diseño de logo e identidad visual</li><li>Manual de marca y aplicaciones</li><li>Presentaciones y materiales de venta</li><li>Banners digitales y gráficas para email</li><li>Gráficas para sitios web y landing pages</li><li>Folletos, flyers e impresos</li><li>Banners, señalética y displays para eventos</li><li>Animación y motion graphics</li></ul>
-            </div>
-          </article>
-          <article class="bento__item bento__item--video reveal">
-            <div class="bento__art art-video" aria-hidden="true"><span class="art-vd__frame"><i class="art-vd__play"></i><i class="art-vd__track"><b></b></i></span></div>
-            <div class="bento__body">
-              <h3>Estudio de video</h3>
-              <p><strong>Tu historia, en pantalla.</strong> Producimos videos y contenido multimedia para tus eventos y tu marca, de la cobertura de un evento a una campaña promocional.</p>
-              <ul class="bento__tags"><li>Video y fotografía de eventos</li><li>Videos resumen de eventos</li><li>Videos corporativos y promocionales</li><li>Edición y posproducción</li><li>Animación y motion graphics</li></ul>
-            </div>
-          </article>
-          <article class="bento__item bento__item--content reveal">
-            <div class="bento__art art-content" aria-hidden="true"><span class="art-ct__q">“</span><span class="art-ct__lines"><i></i><i></i><i></i><i></i></span></div>
-            <div class="bento__body">
-              <h3>Pack de contenido para redes</h3>
-              <p><strong>Contenido para redes, listo para publicar.</strong> Contanos el tema y diseñamos gráficas y videos para tus redes sociales con el estilo de tu marca, para que siempre tengas contenido visual profesional para publicar.</p>
-              <ul class="bento__tags"><li>Gráficas a medida para redes</li><li>Carruseles e historias</li><li>Videos cortos y reels</li></ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- MERCHANDISE HUB (foto real de materiales de marca; enlaza a PromoPlace) e iBrand -->
-    <section class="section store on-dark" id="materials">
-      <div class="container split store__grid">
-        <div class="store__media reveal">
-          <div class="store__stage">
-            <img src="../../assets/img/branding-objects.webp" width="800" height="603" alt="" loading="lazy" decoding="async">
-          </div>
-        </div>
-        <div class="reveal" data-d="1">
-          <span class="eyebrow">Merchandise Hub</span>
-          <h2 class="title">El producto, <span class="store__grad">como lo querés.</span></h2>
-          <p class="lead">Productos de marca a medida para tu empresa, tu equipo o tu evento, diseñados y producidos según tu identidad. Buscá ideas en nuestro catálogo online o contanos qué tenés en mente.</p>
-          <ul class="store-list"><li>Regalos corporativos y kits de bienvenida</li><li>Merchandising y obsequios para eventos</li><li>Indumentaria y accesorios</li><li>Desarrollo de productos a medida</li></ul>
-          <div class="store__cta">
-            <a class="btn btn--primary" href="https://www.promoplace.com/icorporate-events" target="_blank" rel="noopener">Explorá ideas<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
-          </div>
-          <div class="store-ibrand">
-            <h3>iBrand: tu stand, listo</h3>
-            <p>¿Vas a exponer en un evento en el exterior? Que los materiales lleguen a tiempo es uno de los problemas más comunes de sponsors y expositores. Producimos tus impresos y artículos de marca y los entregamos directo en tu stand: sin envíos internacionales, sin aduana y sin apuros de último momento.</p>
-            <a class="btn btn--ghost btn--sm" href="#proposal">Contactanos</a>
+        <div class="chapters__grid">
+          <nav class="chapters__nav" aria-label="Servicios en esta página">
+            <ol><li><a href="#visual-branding">Branding visual</a></li><li><a href="#merchandise">Merchandise Hub</a></li><li class="chapters__sub"><a href="#ibrand">iBrand</a></li><li><a href="#video-studio">Estudio de video</a></li><li><a href="#social-content">Contenido para redes</a></li></ol>
+          </nav>
+          <div class="chapters__list">
+            <article class="chapter reveal" id="visual-branding">
+              <figure class="chapter__media"><img src="../../assets/img/case-waga-2026-keynote.webp" width="799" height="533" alt="Contenido en pantalla diseñado para una keynote de la WAGA 2026" loading="lazy" decoding="async"></figure>
+              <div class="chapter__body">
+                <div><h3>Branding visual y diseño gráfico</h3><p class="chapter__tag">Que cada contacto visual cuente.</p><p class="chapter__text">Del logo a las presentaciones, los banners, el contenido digital y los impresos, creamos una comunicación visual consistente que mantiene tu marca reconocible.</p></div>
+                <ul class="chapter__list"><li>Diseño de logo e identidad visual</li><li>Manual de marca y aplicaciones</li><li>Presentaciones y materiales de venta</li><li>Banners digitales y gráficas para email</li><li>Gráficas para sitios web y landing pages</li><li>Folletos, flyers e impresos</li><li>Banners, señalética y displays para eventos</li><li>Animación y motion graphics</li></ul>
+              </div>
+            </article>
+            <article class="chapter reveal" id="merchandise">
+              <figure class="chapter__media chapter__media--duo"><img src="../../assets/img/branding-objects.webp" width="800" height="603" alt="Merchandising de marca de iCorporate: bolsa, botella, taza, gorra y cuaderno" loading="lazy" decoding="async"><img src="../../assets/img/case-waga-2026-registration.webp" width="799" height="533" alt="Bolsa de bienvenida de la WAGA 2026 entregada en el registro" loading="lazy" decoding="async" style="object-position:30% 50%"></figure>
+              <div class="chapter__body">
+                <div><h3>Merchandise Hub</h3><p class="chapter__tag">El producto, como lo querés.</p><p class="chapter__text">Productos de marca a medida para tu empresa, tu equipo o tu evento, diseñados y producidos según tu identidad. Buscá ideas en nuestro catálogo online o contanos qué tenés en mente.</p><div class="chapter__actions"><a class="btn btn--primary" href="https://www.promoplace.com/icorporate-events" target="_blank" rel="noopener">Explorá ideas<span class="sr-only"> (se abre en una pestaña nueva)</span></a></div></div>
+                <ul class="chapter__list"><li>Regalos corporativos y kits de bienvenida</li><li>Merchandising y obsequios para eventos</li><li>Indumentaria y accesorios</li><li>Desarrollo de productos a medida</li></ul>
+              </div>
+            </article>
+            <article class="chapter chapter--dark on-dark reveal" id="ibrand">
+              <figure class="chapter__media"><img src="../../assets/img/case-waga-2026-exhibition.webp" width="799" height="533" alt="Stand de un sponsor en el área de exhibición de la WAGA 2026" loading="lazy" decoding="async"></figure>
+              <div class="chapter__body">
+                <div><span class="eyebrow">Servicio para expositores</span><h3>iBrand</h3><p class="chapter__tag">¿Vas a exponer en un evento en el exterior?</p><p class="chapter__text">Que los materiales lleguen a tiempo es uno de los problemas más comunes de sponsors y expositores. Producimos tus impresos y artículos de marca y los entregamos directo en tu stand.</p><div class="chapter__actions"><a class="btn btn--ghost" href="#proposal">Contactanos</a></div></div>
+                <ol class="ibrand-steps"><li><div><b>Producimos</b><span>Tus impresos y artículos de marca.</span></div></li><li><div><b>Entregamos</b><span>Directo en tu stand.</span></div></li><li><div><b>Exponés</b><span>Sin envíos internacionales, sin aduana y sin apuros de último momento.</span></div></li></ol>
+              </div>
+            </article>
+            <article class="chapter reveal" id="video-studio">
+              <figure class="chapter__media"><img src="../../assets/img/case-alta-ccma-plenary.webp" width="799" height="533" alt="Sesión plenaria de una conferencia de ALTA, filmada para el video del evento" loading="lazy" decoding="async"><span class="chapter__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg></span><span class="chapter__timeline" aria-hidden="true"></span></figure>
+              <div class="chapter__body">
+                <div><h3>Estudio de video</h3><p class="chapter__tag">Tu historia, en pantalla.</p><p class="chapter__text">Producimos videos y contenido multimedia para tus eventos y tu marca, de la cobertura de un evento a una campaña promocional.</p></div>
+                <ul class="chapter__list"><li>Video y fotografía de eventos</li><li>Videos resumen de eventos</li><li>Videos corporativos y promocionales</li><li>Edición y posproducción</li><li>Animación y motion graphics</li></ul>
+              </div>
+            </article>
+            <article class="chapter reveal" id="social-content">
+              <figure class="chapter__media"><div class="social-formats" aria-hidden="true">
+                <div class="sf sf--post"><img src="../../assets/img/case-waga-2026.webp" width="1024" height="683" alt="" loading="lazy" decoding="async"><span class="sf__label">Post</span></div>
+                <div class="sf sf--carousel"><img src="../../assets/img/case-alta-ccma-gala.webp" width="799" height="533" alt="" loading="lazy" decoding="async"><span class="sf__label">Carrusel</span><span class="sf__dots"><i></i><i></i><i></i></span></div>
+                <div class="sf sf--story"><img src="../../assets/img/quote-itaerea.webp" width="1024" height="683" alt="" loading="lazy" decoding="async"><span class="sf__bars"><i></i><i></i><i></i></span><span class="sf__label">Story</span></div>
+              </div></figure>
+              <div class="chapter__body">
+                <div><h3>Pack de contenido para redes</h3><p class="chapter__tag">Contenido para redes, listo para publicar.</p><p class="chapter__text">Contanos el tema y diseñamos gráficas y videos para tus redes sociales con el estilo de tu marca, para que siempre tengas contenido visual profesional para publicar.</p></div>
+                <ul class="chapter__list"><li>Gráficas a medida para redes</li><li>Carruseles e historias</li><li>Videos cortos y reels</li></ul>
+              </div>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
     <!-- POR QUÉ ELEGIRNOS -->
-    <section class="section" id="why">
+    <section class="section cases--mist" id="why">
       <div class="container">
         <div class="section__head reveal">
           <span class="eyebrow">Por qué elegirnos</span>
@@ -173,12 +174,15 @@
       </div>
     </section>
 
-    <!-- EXPERIENCIA (clientes reales). Pendiente: galería de identidades de conferencias y merchandising cuando lleguen las fotos -->
-    <section class="section cases--mist" id="experience">
+    <!-- EXPERIENCIA: galería de trabajos reales y clientes -->
+    <section class="section" id="experience">
       <div class="container">
         <div class="section__head reveal">
           <span class="eyebrow">Experiencia</span>
           <h2 class="title">Organizaciones globales confían en nosotros.</h2>
+        </div>
+        <div class="gallery reveal">
+          <figure><img src="../../assets/img/case-itaerea.webp" width="1024" height="683" alt="Escenario de la graduación de ITAérea con su contenido en pantalla" loading="lazy" decoding="async"><figcaption>ITAérea · Graduación, Madrid</figcaption></figure><figure><img src="../../assets/img/case-aci-lac.webp" width="400" height="267" alt="Conferencia de ACI-LAC con pantallas de escenario con su identidad" loading="lazy" decoding="async"><figcaption>ACI-LAC</figcaption></figure><figure><img src="../../assets/img/events-case-summit.webp" width="800" height="534" alt="Orador en una conferencia de ALTA con atril y presentación con la identidad del evento" loading="lazy" decoding="async"><figcaption>ALTA</figcaption></figure>
         </div>
         <ul class="experience">
           <li class="reveal"><img src="../../assets/img/client-iata.webp" width="300" height="150" alt="" loading="lazy" decoding="async"><div><h3>IATA</h3><p>Diseño gráfico, producción y edición de video para sus Aviation Days en las Américas desde hace 8 años.</p></div></li><li class="reveal"><img src="../../assets/img/client-alta.webp" width="300" height="150" alt="" loading="lazy" decoding="async"><div><h3>ALTA</h3><p>Identidades visuales, contenido en pantalla, multimedia y merchandising para sus cinco conferencias anuales.</p></div></li><li class="reveal"><img src="../../assets/img/client-aci-lac.webp" width="300" height="150" alt="" loading="lazy" decoding="async"><div><h3>ACI-LAC</h3><p>Identidades visuales, contenido en pantalla, multimedia y merchandising para sus conferencias, incluida la WAGA 2026 en Lima.</p></div></li><li class="reveal"><img src="../../assets/img/client-itaerea.svg" width="300" height="150" alt="" loading="lazy" decoding="async"><div><h3>ITAérea</h3><p>Todas las presentaciones y el contenido en pantalla de su ceremonia de graduación en Madrid.</p></div></li>
@@ -187,7 +191,7 @@
     </section>
 
     <!-- PROCESO -->
-    <section class="section process-fx" id="process">
+    <section class="section cases--mist process-fx" id="process">
       <div class="container">
         <div class="section__head reveal">
           <span class="eyebrow">Cómo trabajamos</span>
@@ -237,23 +241,6 @@
         </form>
       </div>
     </section>
-
-    <!-- PREGUNTAS FRECUENTES (EJEMPLO) -->
-    <section class="section">
-      <div class="container">
-        <div class="section__head reveal">
-          <span class="eyebrow">Preguntas</span>
-          <h2 class="title">Preguntas frecuentes</h2>
-        </div>
-        <div class="faq">
-          <details open><summary>¿Pueden trabajar con nuestro manual de marca actual?</summary><p>Sí. Podemos extender y aplicar vuestras pautas actuales, o evolucionarlas si necesitan una actualización.</p></details>
-          <details><summary>¿También producen materiales físicos?</summary><p>Sí. Diseñamos y coordinamos la producción de piezas impresas, señalética y merchandising.</p></details>
-          <details><summary>¿Trabajan en más de un idioma?</summary><p>Sí. Diseñamos sistemas y materiales que funcionan en inglés y en español.</p></details>
-          <details><summary>¿Cómo se cotiza un proyecto de branding?</summary><p>Cada proyecto se cotiza según su alcance: las piezas involucradas, los formatos y la cantidad de revisiones. La propuesta detalla todo.</p></details>
-          <details><summary>¿Pueden encargarse también de la señalética de nuestros eventos?</summary><p>Sí. Como los eventos son parte de lo que hacemos, podemos llevar vuestra identidad a toda la experiencia del evento.</p></details>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- chrome:footer: generado desde scripts/partials/footer.es.html. No editar aquí: editar la plantilla y correr scripts/sync_chrome.py -->
@@ -301,6 +288,7 @@
   <!-- scripts: generado por scripts/sync_chrome.py según el marcado de la página (ver FEATURES) -->
   <script src="../../assets/js/ibot.js" defer></script>
   <script type="module" src="../../assets/js/core.js"></script>
+  <script type="module" src="../../assets/js/chapters.js"></script>
   <script type="module" src="../../assets/js/forms.js"></script>
   <script type="module" src="../../assets/js/slots.js"></script>
 </body>
