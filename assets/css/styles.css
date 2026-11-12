@@ -1870,16 +1870,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
   .js .page-branding .chapter.in .chapter__list li:nth-child(6) { transition-delay: .7s, .7s, 0s, 0s; }
   .js .page-branding .chapter.in .chapter__list li:nth-child(7) { transition-delay: .76s, .76s, 0s, 0s; }
   .js .page-branding .chapter.in .chapter__list li:nth-child(8) { transition-delay: .82s, .82s, 0s, 0s; }
-  /* índice lateral: entra desde la izquierda y sus ítems se acomodan en cascada */
-  .js .page-branding .chapters__nav.reveal { transform: translateX(-48px); transition: opacity .7s ease, transform .9s cubic-bezier(.22, 1, .36, 1); }
-  .js .page-branding .chapters__nav.reveal.in { transform: none; }
-  .js .page-branding .chapters__nav li { opacity: 0; transform: translateX(-16px); transition: opacity .5s ease, transform .6s cubic-bezier(.22, 1, .36, 1); }
-  .js .page-branding .chapters__nav.in li { opacity: 1; transform: none; }
-  .js .page-branding .chapters__nav.in li:nth-child(1) { transition-delay: .25s; }
-  .js .page-branding .chapters__nav.in li:nth-child(2) { transition-delay: .32s; }
-  .js .page-branding .chapters__nav.in li:nth-child(3) { transition-delay: .39s; }
-  .js .page-branding .chapters__nav.in li:nth-child(4) { transition-delay: .46s; }
-  .js .page-branding .chapters__nav.in li:nth-child(5) { transition-delay: .53s; }
   /* Video: el play aparece y la barra de tiempo avanza */
   .js .page-branding .chapter__play { opacity: 0; transform: scale(.5); transition: opacity .5s ease .7s, transform .7s cubic-bezier(.34, 1.56, .64, 1) .7s; }
   .js .page-branding .chapter.in .chapter__play { opacity: 1; transform: none; }
