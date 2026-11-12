@@ -1105,12 +1105,41 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .principles__num { left: 0; top: -4.2rem; }
 }
 @media (prefers-reduced-motion: reduce) { .principles::after { transition: none; transform: none; } .principles__num { transition: none !important; } }
-.type-cards { display: grid; gap: 1.1rem; margin-top: 2.5rem; }
-@media (min-width: 820px) { .type-cards { grid-template-columns: repeat(3, 1fr); } }
-.type-card { padding: 1.6rem; border-radius: var(--radius); border: 1px solid var(--line); background: #fff; }
-.type-card svg { width: 34px; height: 34px; fill: none; stroke: var(--blue-dark); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.type-card h3 { margin-top: 1rem; font-size: 1.1rem; font-weight: 400; }
-.type-card p { margin-top: .4rem; color: var(--ink-soft); font-size: .93rem; }
+
+/* Formatos de evento (Events, #formats): lista editorial numerada a la izquierda y foto real a la derecha que cambia
+   con la fila activa (formats.js marca .is-active en fila y foto; .is-auto mientras avanza solo, para la barra de tiempo).
+   En móvil cada fila lleva su propia foto (.formats__thumb) y no hay columna de foto. */
+.formats { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
+.formats__list { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--line); }
+.formats__item { position: relative; display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.4rem; padding: 1.6rem 0; border-top: 1px solid var(--line); }
+.formats__item::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--grad-btn); transform: scaleX(0); transform-origin: left; }
+.formats__thumb { grid-column: 1 / -1; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius); margin-bottom: 1rem; }
+.formats__num { font: 600 .78rem/2.6 var(--font-mono); letter-spacing: .08em; color: var(--blue-dark); }
+.formats__item h3 { font: 400 clamp(1.4rem, 2.6vw, 2rem)/1.15 var(--font-head); letter-spacing: -.02em; }
+.formats__item p { margin-top: .5rem; max-width: 42ch; color: var(--ink-soft); }
+.formats__media { display: none; }
+@media (min-width: 900px) {
+  .formats { grid-template-columns: 1fr 1.05fr; gap: 4rem; align-items: stretch; }
+  .formats__thumb { display: none; }
+  .formats__item { padding: 2rem 0; cursor: default; }
+  .formats__item h3, .formats__num { transition: color .3s ease; }
+  .formats__item:not(.is-active) h3 { color: var(--ink-soft); }
+  .formats__item:not(.is-active) .formats__num { color: var(--ink-soft); }
+  .formats__item.is-active::before { transform: none; }
+  .formats.is-auto .formats__item.is-active::before { animation: formats-timer var(--formats-delay, 5s) linear; }
+  .formats__media { display: block; position: relative; min-height: 420px; border-radius: var(--radius); overflow: hidden; background: var(--dark); }
+  .formats__slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .6s ease; }
+  .formats__slide.is-active { opacity: 1; }
+  .formats__slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.04); transition: transform 6s ease; }
+  .formats__slide.is-active img { transform: none; }
+  .formats__slide figcaption { position: absolute; left: 1rem; bottom: 1rem; padding: .45rem .8rem; border-radius: 999px;
+    background: rgba(16, 16, 16, .72); color: #fff; font: 600 .68rem/1.3 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+}
+@keyframes formats-timer { from { transform: scaleX(0); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .formats__slide, .formats__slide img, .formats__item h3 { transition: none; }
+  .formats__slide img { transform: none; }
+}
 
 /* Testimonio destacado (Events): bloque oscuro con línea de marca arriba; a la izquierda logo del cliente, comillas en
    cian, cita, firma y los lugares que menciona (chips); a la derecha la foto del evento, separada del borde como en las
@@ -1330,9 +1359,6 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .js :is(.page-tech, .page-branding, .process-fx) .phase:nth-child(4)::after { transition-delay: .65s; }
 }
 
-.type-card ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
-.type-card li { position: relative; padding-left: 1.1rem; font-size: .9rem; color: var(--ink-soft); }
-.type-card li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
 /* Cierre de About: sección oscura de borde a borde con tres luces de marca que se mueven lento (azul, cian, lima; degradados
    radiales que solo animan transform, pausados fuera de pantalla por core.js), título grande con el degradado de marca,
    las caras del equipo y dos acciones: Book a call y correo */
@@ -1527,14 +1553,14 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
 }
 @media (prefers-reduced-motion: reduce) { .js .team-spot__text > *, .js .team-spot__photo, .js .team-spot__role::before { transition: none !important; transform: none; } }
 /* Hover de cajas (el de las tarjetas de "Technology with measurable impact"): suben 4 px, borde cian y sombra.
-   Aplica a tarjetas de tipo (.type-card: servicios, formatos, enfoque) y, en las páginas de servicio, a fases y preguntas.
+   Aplica, en las páginas de servicio, a fases y preguntas.
    Se usa `translate` (no `transform`) para no pisar la entrada .reveal, que además pisaba estas transiciones. */
-.type-card, .page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
-.js .type-card.reveal, .js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
+.page-service .phase, .page-service .faq details { transition: translate .3s, box-shadow .3s, border-color .3s; }
+.js .page-service .phase.reveal { transition: opacity .8s ease, transform .8s ease, translate .3s, box-shadow .3s, border-color .3s; }
 @media (hover: hover) {
-  .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
+  .page-service .phase:hover, .page-service .faq details:hover { translate: 0 -4px; box-shadow: 0 24px 50px -30px rgba(16,16,16,.5); border-color: rgba(6,189,231,.5); }
 }
-@media (prefers-reduced-motion: reduce) { .type-card, .page-service .phase, .page-service .faq details { transition: none; } .type-card:hover, .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
+@media (prefers-reduced-motion: reduce) { .page-service .phase, .page-service .faq details { transition: none; } .page-service .phase:hover, .page-service .faq details:hover { translate: none; } }
 /* Clientes (About): encabezado a la izquierda (fijo al desplazar en escritorio) y grilla de logos de 3x3 con líneas finas
    solo entre celdas (gap de 1px sobre el color de línea). Los logos vienen normalizados de optimize_images.py (fit_logo):
    mismo lienzo y peso visual; en gris, toman su color y la celda se aclara al pasar el mouse */

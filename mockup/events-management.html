@@ -205,17 +205,36 @@
       </div>
     </section>
 
-    <!-- TIPOS DE EVENTO (EJEMPLO) -->
+    <!-- FORMATOS: lista editorial con foto real que cambia al pasar el mouse o sola cada 5 s (formats.js) -->
     <section class="section cases--mist" id="formats">
       <div class="container">
         <div class="section__head reveal">
           <span class="eyebrow">Events we run</span>
           <h2 class="title">Built for the formats aviation and associations rely on.</h2>
         </div>
-        <div class="type-cards">
-          <div class="type-card reveal"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8M7.5 12l3-3 2.5 2 3.5-4"/></svg><h3>Conferences & summits</h3><p>Plenaries, parallel tracks, exhibitions and sponsor programs.</p></div>
-          <div class="type-card reveal"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.2c.6-.2 1.3-.3 2-.3 2.2 0 4 1.8 4 4"/></svg><h3>Association assemblies</h3><p>Annual meetings, chapter events and member gatherings.</p></div>
-          <div class="type-card reveal"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="3" width="10" height="18" rx="1.5"/><path d="M15 9h4a1 1 0 0 1 1 1v11M9 7h2M9 11h2M9 15h2M3 21h18"/></svg><h3>Corporate & internal events</h3><p>Leadership meetings, launches and team gatherings.</p></div>
+        <div class="formats" data-formats>
+          <ol class="formats__list reveal" aria-label="Event formats">
+            <li class="formats__item is-active" data-format>
+              <img class="formats__thumb" src="../assets/img/case-waga-2026-keynote.webp" width="799" height="533" alt="Audience at a WAGA 2026 keynote session in Lima" loading="lazy" decoding="async">
+              <span class="formats__num" aria-hidden="true">01</span>
+              <div><h3>Conferences & summits</h3><p>Plenaries, parallel tracks, exhibitions and sponsor programs.</p></div>
+            </li>
+            <li class="formats__item" data-format>
+              <img class="formats__thumb" src="../assets/img/case-alta-ccma-plenary.webp" width="799" height="533" alt="Speaker on stage at the ALTA CCMA &amp; MRO Conference plenary" loading="lazy" decoding="async">
+              <span class="formats__num" aria-hidden="true">02</span>
+              <div><h3>Association assemblies</h3><p>Annual meetings, chapter events and member gatherings.</p></div>
+            </li>
+            <li class="formats__item" data-format>
+              <img class="formats__thumb" src="../assets/img/case-alta-ccma-gala.webp" width="799" height="533" alt="Mariachi band performing at an evening gala" loading="lazy" decoding="async">
+              <span class="formats__num" aria-hidden="true">03</span>
+              <div><h3>Corporate & internal events</h3><p>Leadership meetings, launches and team gatherings.</p></div>
+            </li>
+          </ol>
+          <div class="formats__media reveal">
+          <figure class="formats__slide is-active"><img src="../assets/img/case-waga-2026-keynote.webp" width="799" height="533" alt="Audience at a WAGA 2026 keynote session in Lima" loading="lazy" decoding="async"><figcaption>WAGA 2026 · Lima</figcaption></figure>
+          <figure class="formats__slide"><img src="../assets/img/case-alta-ccma-plenary.webp" width="799" height="533" alt="Speaker on stage at the ALTA CCMA &amp; MRO Conference plenary" loading="lazy" decoding="async"><figcaption>ALTA CCMA &amp; MRO · Cancún</figcaption></figure>
+          <figure class="formats__slide"><img src="../assets/img/case-alta-ccma-gala.webp" width="799" height="533" alt="Mariachi band performing at an evening gala" loading="lazy" decoding="async"><figcaption>ALTA CCMA gala · Cancún</figcaption></figure>
+          </div>
         </div>
       </div>
     </section>
@@ -355,6 +374,7 @@
   <script type="module" src="../assets/js/core.js"></script>
   <script type="module" src="../assets/js/backgrounds.js"></script>
   <script type="module" src="../assets/js/cycle.js"></script>
+  <script type="module" src="../assets/js/formats.js"></script>
   <script type="module" src="../assets/js/forms.js"></script>
   <script type="module" src="../assets/js/slides.js"></script>
   <script type="module" src="../assets/js/slots.js"></script>
