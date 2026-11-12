@@ -71,7 +71,7 @@ h2, h3 { font-weight: 400; }
 /* ═══ 02 · BASE: tipografía por rol, etiquetas y utilidades ═══ */
 /* Roles tipográficos: titulares, etiquetas técnicas y acento. Por defecto todo usa --font. */
 h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
-.eyebrow, .stat > span, .contact__badge, .field label, .site-footer h4, .quote__who em { font-family: var(--font-mono); }
+.eyebrow, .stat > span, .contact__badge, .site-footer h4, .quote__who em { font-family: var(--font-mono); }
 .skip-link { position: absolute; left: 1rem; top: -4rem; background: var(--dark); color: #fff; padding: .6rem 1rem; border-radius: 8px; z-index: 100; }
 .skip-link:focus { top: 1rem; }
 
@@ -636,64 +636,8 @@ a:hover > .arrow::after, .arrow:hover::after { transform: translateX(4px); }
   font: 500 .85rem/1 var(--font); cursor: pointer; transition: background .2s, border-color .2s; }
 .contact__bot-chip:hover { background: rgba(6,189,231,.22); border-color: var(--cyan); }
 .contact__bot-chip:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
-.contact__form {
-  display: grid; grid-template-columns: 1fr; gap: 1.1rem 1rem; padding: 1.75rem; color: var(--ink);
-  background: #fff; border-radius: var(--radius); box-shadow: 0 40px 80px -40px rgba(0,0,0,.6);
-}
-@media (min-width: 560px) { .contact__form { grid-template-columns: 1fr 1fr; padding: 2rem; } }
-.field { display: flex; flex-direction: column; gap: .4rem; min-width: 0; }
-.field--full { grid-column: 1 / -1; }
-.field label { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
-.field input, .field select, .field textarea {
-  width: 100%; min-height: 46px; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: 10px;
-  background: var(--mist); color: var(--ink); font: 500 .95rem/1.4 var(--font); transition: border-color .2s, background .2s;
-}
-.field textarea { min-height: 120px; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #7b8592; }
-.field select {
-  appearance: none; -webkit-appearance: none; padding-right: 2.4rem; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' fill='none' stroke='%231d1d1b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right .9rem center;
-}
-.field input:hover, .field select:hover, .field textarea:hover { border-color: #c4cfdc; }
-.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 3px solid var(--cyan); outline-offset: 1px; background: #fff; border-color: var(--blue-dark); }
-.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #c0392b; background: #fdf1ef; }
 .contact__form-title { margin: 0; font: 400 1.35rem/1.2 var(--font-head); }
-/* Píldoras de selección (servicio y franja horaria): radios reales, ocultos a la vista y con la etiqueta como botón */
-.chips { margin: 0; padding: 0; border: 0; }
-.chips legend, .slot__group legend { padding: 0; margin-bottom: .5rem; font: 700 .7rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
-.chips__list { display: flex; flex-wrap: wrap; gap: .45rem; }
-.chip, .chips .chip { position: relative; cursor: pointer; font: inherit; letter-spacing: normal; text-transform: none; color: inherit; } /* .field label no aplica a las píldoras */
-.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-.chip span { display: block; padding: .5rem .9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--mist); font-size: .88rem; color: var(--ink); transition: background-color .2s, border-color .2s, color .2s; }
-.chip:hover span { border-color: #c4cfdc; }
-.chip input:checked + span { background: rgba(6,189,231,.14); border-color: var(--cyan); color: var(--blue-dark); font-weight: 600; }
-.chip input:focus-visible + span { outline: 3px solid var(--cyan); outline-offset: 1px; }
-/* Pedido de llamada: casilla que abre (con :has) los días hábiles y la franja; slots.js arma los días y la hora local */
-.slot { display: grid; gap: .9rem; padding: .9rem 1rem; border-radius: var(--radius); background: var(--mist); border: 1px solid var(--line); }
-.slot__toggle { display: flex; align-items: center; gap: .6rem; font-weight: 600; font-size: .95rem; cursor: pointer; }
-.slot__toggle input { width: 18px; height: 18px; accent-color: var(--blue); }
-.slot__panel { display: none; gap: .9rem; }
-.slot:has(.slot__toggle input:checked) .slot__panel { display: grid; }
-.slot:has(.slot__toggle input:checked) { border-color: var(--cyan); }
-.slot__group { margin: 0; padding: 0; border: 0; min-width: 0; }
-.slot__days { display: flex; flex-wrap: wrap; gap: .5rem; }
-.slot__day { position: relative; cursor: pointer; }
-.slot__day input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-/* días en círculos: día de la semana arriba y número grande */
-.slot__day span { display: grid; place-content: center; justify-items: center; gap: .15rem; width: 58px; height: 58px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); text-align: center; transition: background-color .2s, border-color .2s, transform .2s; }
-.slot__day small { font: 500 .62rem/1 var(--font-mono); text-transform: uppercase; color: var(--ink-soft); }
-.slot__day b { font-size: 1.05rem; font-weight: 600; line-height: 1; }
-.slot__day:hover span { border-color: #c4cfdc; transform: translateY(-2px); }
-.slot__day input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; }
-.slot__day input:checked + span small { color: rgba(255,255,255,.8); }
-.slot__day input:focus-visible + span { outline: 3px solid var(--cyan); outline-offset: 1px; }
-.slot__tz { margin: 0; font-size: .82rem; color: var(--ink-soft); }
-@media (max-width: 479px) { .slot__day span { width: 52px; height: 52px; } }
 .contact__note { font-size: .8rem; color: var(--ink-soft); }
-.contact__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
-.contact__status { margin: 0; font-size: .9rem; font-weight: 600; color: var(--blue-dark); }
-.contact__status.is-error { color: #b3261e; }
 
 /* ═══ 08 · FOOTER (mapa del sitio y logo gigante) ═══ */
 /* Footer */
@@ -890,7 +834,7 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 /* Tipografía A (Sora + Inter + JetBrains Mono), activa solo en las páginas con body.theme-a */
 .theme-a { --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; --font-head: "Sora", system-ui, sans-serif; --font-mono: "JetBrains Mono", ui-monospace, monospace; }
 .theme-a h1, .theme-a h2, .theme-a .stat b { letter-spacing: -0.035em; }
-.theme-a .eyebrow, .theme-a .stat > span, .theme-a .field label { letter-spacing: .06em; }
+.theme-a .eyebrow, .theme-a .stat > span { letter-spacing: .06em; }
 .theme-a .hero h1 { font-weight: 400; }
 
 /* Cabecera de página: centrada, con foto de fondo y velo radial */

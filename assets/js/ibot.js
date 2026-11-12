@@ -6,8 +6,9 @@
 // Preview (.ibot__peek): globo a la izquierda del ícono con un saludo y dos atajos, para que se note que el iBot existe.
 // Sale una vez por sesión (sessionStorage 'icorp-ibot-peek') a los 6 s o al bajar media pantalla, nunca con el splash
 // del Home en curso ni con el chat abierto; se va al cerrarlo, al abrir el chat o al usar un atajo.
-// Contacto por el bot (PRUEBA, solo el Home: lo activa [data-bot-contact]): "agendar una llamada" abre un flujo guiado
-// (nombre, correo, necesidad, día y franja) y no envía nada; en producción lo reemplaza el bot real. [data-open-ibot]
+// Contacto por el bot (PRUEBA; lo activa [data-bot-contact], en el Home y en cada servicio): "agendar una llamada" abre un flujo
+// guiado (nombre, correo, necesidad, día y franja) y no envía nada; en producción lo reemplaza el bot real. En cada servicio,
+// data-bot-needs="a|b|c" cambia las opciones de "necesidad" por las de esa página. [data-open-ibot]
 // abre el chat y [data-ibot-say="texto"] además envía ese mensaje.
 (() => {
   const lang = (document.documentElement.lang || 'en').slice(0, 2) === 'es' ? 'es' : 'en';
@@ -30,6 +31,10 @@
         events: 'We build the technology around events: registration, agenda, event apps and live data for organizers.',
         cases: 'Aviation is our flagship sector: we work with organizations like ALTA, ACI-LAC, IATA and SITA. Take a look at our featured cases.',
         fallback: 'Thanks for your message! If you book a call, the team will follow up with you directly.',
+        merch: 'We design and produce branded merchandise for your company or event: welcome kits, giveaways, apparel and custom products. Book a call and tell us quantities and dates.',
+        ibrand: 'With iBrand we produce your printed and branded items and deliver them straight to your booth: no international shipping and no customs. Book a call and tell us the event and dates.',
+        build: 'We build AI assistants, automations, custom apps and websites around how your team works. Book a call and tell us what you want to solve.',
+        plan: 'We plan and run conferences, summits and corporate events end to end: logistics, sponsors, technology and on-site team. Book a call and tell us about your event.',
       },
       lead: {
         name: 'Great, let’s set up your call. What’s your name?',
@@ -60,6 +65,10 @@
         events: 'Construimos la tecnología alrededor de los eventos: registro, agenda, apps del evento y datos en vivo para los organizadores.',
         cases: 'La aviación es nuestro sector estrella: trabajamos con organizaciones como ALTA, ACI-LAC, IATA y SITA. Mirá nuestros casos destacados.',
         fallback: '¡Gracias por tu mensaje! Si agendás una llamada, el equipo te contactará directamente.',
+        merch: 'Diseñamos y producimos merchandising de marca para tu empresa o tu evento: kits de bienvenida, obsequios, indumentaria y productos a medida. Agendá una llamada y contanos cantidades y fechas.',
+        ibrand: 'Con iBrand producimos tus impresos y artículos de marca y los entregamos directo en tu stand: sin envíos internacionales ni aduana. Agendá una llamada y contanos el evento y las fechas.',
+        build: 'Creamos asistentes con IA, automatizaciones, apps a medida y sitios web pensados para cómo trabaja tu equipo. Agendá una llamada y contanos qué querés resolver.',
+        plan: 'Planificamos y operamos conferencias, cumbres y eventos corporativos de punta a punta: logística, sponsors, tecnología y equipo en sitio. Agendá una llamada y contanos sobre tu evento.',
       },
       lead: {
         name: 'Genial, armemos tu llamada. ¿Cómo te llamás?',
@@ -159,13 +168,19 @@
     q = q.toLowerCase();
     if (/(call|meeting|book|schedul|llamada|reuni|agend|coordin)/.test(q)) return 'call';
     if (/(case|caso|aviat|aviaci|client)/.test(q)) return 'cases';
+    if (/(booth|ibrand|exhibit|stand\b|exponer|exterior|abroad)/.test(q)) return 'ibrand';
+    if (/(merch|giveaway|swag|kit|regalo|obsequio)/.test(q)) return 'merch';
+    if (/(bot|automat|app\b|apps|software|website|sitio)/.test(q)) return 'build';
+    if (/(plan|organiz|conferen|summit|cumbre)/.test(q)) return 'plan';
     if (/(service|offer|servicio|ofrec|hacen|que hac)/.test(q)) return 'services';
     if (/(event|app|tech|tecnolog|evento)/.test(q)) return 'events';
     return 'fallback';
   };
 
   // Flujo de contacto guiado (solo donde hay [data-bot-contact]): lead = { step, data } mientras está activo
-  const LEAD = !!document.querySelector('[data-bot-contact]');
+  const BOT_CONTACT = document.querySelector('[data-bot-contact]');
+  const LEAD = !!BOT_CONTACT;
+  const NEEDS = BOT_CONTACT && BOT_CONTACT.dataset.botNeeds ? BOT_CONTACT.dataset.botNeeds.split('|') : T.lead.needs;
   let lead = null;
   const typingDots = () => {
     const typing = document.createElement('div');
@@ -206,7 +221,7 @@
     if (lead.step === 'name') { data.name = text; lead.step = 'email'; botSay(L.email(text)); }
     else if (lead.step === 'email') {
       if (!/^\S+@\S+\.\S+$/.test(text)) { botSay(L.badEmail); return; }
-      data.email = text; lead.step = 'need'; botSay(L.need, L.needs);
+      data.email = text; lead.step = 'need'; botSay(L.need, NEEDS);
     } else if (lead.step === 'need') { data.need = text; lead.step = 'day'; botSay(L.day, nextDays()); }
     else if (lead.step === 'day') { data.day = text; lead.step = 'win'; botSay(L.win, L.wins); }
     else { botSay(L.done(data.name, data.day, text, data.email)); lead = null; }
@@ -220,7 +235,9 @@
     typing.setAttribute('role', 'status'); typing.setAttribute('aria-label', T.typing);
     typing.innerHTML = '<i></i><i></i><i></i>';
     log.appendChild(typing); scroll();
-    setTimeout(() => { typing.remove(); add(T.replies[kind], 'bot', T.cards[kind] ? kind : null); }, 900);
+    // las respuestas de cada servicio (merch, ibrand, build, plan) terminan con el acceso directo para agendar
+    const card = T.cards[kind] ? kind : (['merch', 'ibrand', 'build', 'plan'].includes(kind) ? 'call' : null);
+    setTimeout(() => { typing.remove(); add(T.replies[kind], 'bot', card); }, 900);
   };
 
   const send = (text) => {
