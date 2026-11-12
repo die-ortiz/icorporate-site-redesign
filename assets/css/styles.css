@@ -1707,22 +1707,47 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .chapter__play svg { width: 26px; height: 26px; margin-left: 4px; }
 .chapter__timeline { position: absolute; left: 1.2rem; right: 1.2rem; bottom: 1.2rem; height: 4px; border-radius: 2px; background: rgba(255,255,255,.3); }
 .chapter__timeline::before { content: ""; position: absolute; inset: 0 62% 0 0; border-radius: inherit; background: var(--grad-btn); }
-/* Social: los tres formatos (post 1:1, carrusel 4:5 y story 9:16) armados con fotos de eventos */
-.social-formats { display: flex; align-items: center; justify-content: center; gap: clamp(.8rem, 3vw, 2rem); height: 100%; padding: 1.5rem; background: radial-gradient(60% 80% at 50% 100%, rgba(6,189,231,.16), transparent 70%), var(--mist); }
-.sf { position: relative; flex: none; overflow: hidden; border-radius: 10px; background: #fff; box-shadow: 0 18px 40px -24px rgba(16,16,16,.6); }
-.sf img { width: 100%; height: 100%; object-fit: cover; }
-.sf--post { width: 30%; aspect-ratio: 1; }
-.sf--carousel { width: 25%; aspect-ratio: 4 / 5; box-shadow: 9px 9px 0 -1px #fff, 9px 9px 0 0 var(--line), 18px 18px 0 -2px #fff, 18px 18px 0 -1px var(--line), 0 18px 40px -24px rgba(16,16,16,.6); overflow: visible; }
-.sf--carousel img { border-radius: 10px; }
-.sf--story { width: 21%; aspect-ratio: 9 / 16; }
-.sf__label { position: absolute; left: .5rem; bottom: .5rem; padding: .25rem .5rem; border-radius: 999px; background: rgba(16,16,16,.7); color: #fff; font: 500 .62rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
-.sf__bars { position: absolute; left: .5rem; right: .5rem; top: .5rem; display: flex; gap: 3px; }
-.sf__bars i { flex: 1; height: 2px; border-radius: 1px; background: rgba(255,255,255,.5); }
-.sf__bars i:first-child { background: #fff; }
-.sf__dots { position: absolute; left: 0; right: 0; bottom: -1.1rem; display: flex; justify-content: center; gap: 4px; }
+/* Social: los tres formatos (post 1:1, carrusel 4:5 y story 9:16) como publicaciones de muestra con fotos de eventos:
+   cabecera con la cuenta, foto y acciones; el nombre de cada formato va debajo, fuera de la foto, para que se lea siempre */
+.social-formats { display: flex; align-items: flex-end; justify-content: center; gap: clamp(.8rem, 3vw, 2.2rem); height: 100%; padding: 1.5rem 1.5rem 1.3rem;
+  background: radial-gradient(60% 80% at 50% 100%, rgba(6,189,231,.18), transparent 70%), var(--mist); }
+.sf-item { display: flex; flex-direction: column; align-items: center; gap: .8rem; }
+.sf-item:nth-child(1) { width: 29%; }
+.sf-item:nth-child(2) { width: 25%; }
+.sf-item:nth-child(3) { width: 20%; }
+.sf { position: relative; width: 100%; overflow: hidden; border-radius: 12px; background: var(--paper); box-shadow: 0 22px 44px -26px rgba(16,16,16,.6), 0 0 0 1px rgba(16,16,16,.06); }
+.sf__head { display: flex; align-items: center; gap: .45rem; padding: .5rem .6rem; font: 600 .68rem/1 var(--font); color: var(--ink); }
+.sf__avatar { flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--grad); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--cyan); }
+.sf__img { position: relative; display: block; aspect-ratio: 1; }
+.sf--carousel .sf__img { aspect-ratio: 4 / 5; }
+.sf__img img, .sf--story > img { width: 100%; height: 100%; object-fit: cover; }
+.sf__actions { display: flex; align-items: center; gap: .55rem; padding: .5rem .6rem .55rem; }
+.sf__actions svg, .sf__save svg { width: 15px; height: 15px; fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+.sf__actions > svg:first-child { fill: #e0245e; stroke: #e0245e; }
+.sf__save { margin-left: auto; display: flex; }
+.sf__count { position: absolute; right: .5rem; top: .5rem; padding: .2rem .45rem; border-radius: 999px; background: rgba(16,16,16,.7); color: #fff; font: 600 .6rem/1.2 var(--font); }
+.sf__dots { display: flex; justify-content: center; gap: 4px; padding: .55rem 0 .6rem; }
 .sf__dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
 .sf__dots i:first-child { background: var(--blue); }
-@media (max-width: 519px) { .sf__label { font-size: .55rem; padding: .2rem .35rem; } }
+.sf--carousel { box-shadow: 8px 8px 0 -1px var(--paper), 8px 8px 0 0 var(--line), 16px 16px 0 -2px var(--paper), 16px 16px 0 -1px var(--line), 0 22px 44px -26px rgba(16,16,16,.6); overflow: visible; }
+.sf--carousel .sf__img { overflow: hidden; }
+.sf--story { aspect-ratio: 9 / 16; background: var(--dark); }
+.sf--story > img { position: absolute; inset: 0; object-position: 30% 50%; }
+.sf__top { position: absolute; left: 0; right: 0; top: 0; padding: .45rem .5rem 1.6rem; background: linear-gradient(180deg, rgba(16,16,16,.7), transparent); }
+.sf__top .sf__head { padding: .45rem 0 0; color: #fff; }
+.sf__top .sf__avatar { box-shadow: 0 0 0 2px var(--dark), 0 0 0 3px var(--cyan); }
+.sf__bars { display: flex; gap: 3px; }
+.sf__bars i { flex: 1; height: 2px; border-radius: 1px; background: rgba(255,255,255,.45); }
+.sf__bars i:first-child { background: #fff; }
+.sf__label { padding: .35rem .75rem; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--blue-dark); white-space: nowrap; }
+@media (max-width: 599px) {
+  .chapter__media:has(> .social-formats) { aspect-ratio: 4 / 3; } /* en móvil el recuadro crece para que entren los tres formatos */
+  .social-formats { padding: 1rem .8rem .9rem; gap: .6rem; }
+  .sf__head { padding: .35rem .4rem; font-size: .55rem; gap: .3rem; } .sf__avatar { width: 12px; height: 12px; }
+  .sf__actions { gap: .35rem; padding: .35rem .4rem; } .sf__actions svg, .sf__save svg { width: 10px; height: 10px; }
+  .sf__label { padding: .25rem .45rem; font-size: .52rem; letter-spacing: .04em; }
+  .sf--carousel { box-shadow: 5px 5px 0 -1px var(--paper), 5px 5px 0 0 var(--line), 0 22px 44px -26px rgba(16,16,16,.6); }
+}
 /* iBrand: capítulo oscuro con foto del área de exhibición y los tres pasos del servicio */
 .chapter--dark { padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: calc(var(--radius) + 6px); color: #fff; background: radial-gradient(60% 80% at 100% 0%, rgba(6,189,231,.18), transparent 70%), var(--dark); }
 .chapter--dark .chapter__media { aspect-ratio: 21 / 9; }
