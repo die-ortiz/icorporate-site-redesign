@@ -40,13 +40,14 @@ PAGES = {
 # módulo -> patrón del marcado que lo hace necesario (core.js e ibot.js van siempre)
 FEATURES = {
     "backgrounds.js": r'hero__video|data-siderays|data-tunnel',
+    "chapters.js": r'data-chapters',
     "clock.js": r'data-clock',
     "cycle.js": r'data-cycle',
     "formats.js": r'data-formats',
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
-    "forms.js": r'id="(?:contact|proposal)-form"|data-copy',
+    "forms.js": r'data-copy',
+    "parallax.js": r'data-parallax',
     "pin.js": r'data-pin',
-    "slots.js": r'data-slot',
     "stack.js": r'data-stack',
     "splash.js": r'data-splash',
     "team.js": r'data-team',

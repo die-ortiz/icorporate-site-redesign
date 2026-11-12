@@ -217,34 +217,25 @@
           <h2>Tell us what you need.</h2>
           <p>Share the basics and we will come back with an approach and next steps.</p>
           <ul class="channels">
-            <li><a class="channel channel--call" href="#pf-call" data-want-call><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span><b>Book a call</b><small>Pick a day and time · 30 min</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a class="channel channel--call" href="#proposal" data-open-ibot data-ibot-say="I want to book a call"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span><b>Book a call</b><small>Pick a day and time · 30 min</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
             <li><a class="channel" href="https://wa.me/19547701738?text=Hi%20iCorporate%2C%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .4-.1.6l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.1.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-.6.3-1.6.4-3.2-.4a8.3 8.3 0 0 1-3.4-3.4c-.8-1.6-.7-2.6-.4-3.2z"/></svg><span><b>WhatsApp</b><small>+1 954 770 1738</small></span><svg class="channel__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
             <li class="channel channel--mail"><a href="mailto:info@icorporateevents.com"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 6 8-6"/></svg><span><b>Email</b><small>info@icorporateevents.com</small></span></a><button class="channel__copy" type="button" data-copy="info@icorporateevents.com" data-copied="Copied" aria-label="Copy email"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></li>
           </ul>
           <p class="contact__sla"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>We reply in under 2 business days.</p>
         </div>
-        <form class="contact__form reveal" data-d="1" id="proposal-form" novalidate
-              data-to="info@icorporateevents.com" data-subject="Tech Solutions request" data-ok="Thanks! Your email app should open with your request ready to send." data-err="Please complete your name, email and brief.">
-          <p class="contact__form-title field--full">Or send us your request</p>
-          <div class="field"><label for="pf-name">Name</label><input id="pf-name" name="name" type="text" autocomplete="name" placeholder="Jane Doe" required></div>
-          <div class="field"><label for="pf-email">Email</label><input id="pf-email" name="email" type="email" autocomplete="email" placeholder="name@company.com" required></div>
-          <div class="field field--full"><label for="pf-company">Company (optional)</label><input id="pf-company" name="company" type="text" autocomplete="organization" placeholder="Company name"></div>
-          <fieldset class="field field--full chips"><legend>What do you need?</legend><div class="chips__list"><label class="chip"><input type="radio" name="need" value="Bot assistant or automation"><span>Bot assistant or automation</span></label><label class="chip"><input type="radio" name="need" value="App or business tool"><span>App or business tool</span></label><label class="chip"><input type="radio" name="need" value="Website"><span>Website</span></label><label class="chip"><input type="radio" name="need" value="Event technology"><span>Event technology</span></label><label class="chip"><input type="radio" name="need" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
-          <div class="field field--full"><label for="pf-brief">Brief</label><textarea id="pf-brief" name="brief" rows="3" placeholder="Tell us about your project: goals, users, tools you use today…" required></textarea></div>
-          <div class="field--full slot" data-slot>
-            <label class="slot__toggle"><input id="pf-call" name="call" type="checkbox"><span>I'd like to book a 30-minute call</span></label>
-            <div class="slot__panel">
-              <fieldset class="slot__group"><legend>Pick a day</legend><div class="slot__days" data-slot-days></div></fieldset>
-              <fieldset class="slot__group"><legend>Time window</legend><div class="chips__list"><label class="chip"><input type="radio" name="window" value="9:00-12:00"><span>Morning · 9:00–12:00</span></label><label class="chip"><input type="radio" name="window" value="14:00-17:00"><span>Afternoon · 14:00–17:00</span></label></div></fieldset>
-              <p class="slot__tz" data-slot-tz>Times in Miami (ET).</p>
-            </div>
+        <div class="contact__bot reveal" data-d="1" data-bot-contact data-bot-needs="Bot assistant or automation|App or business tool|Website|Event technology|Not sure yet">
+          <span class="contact__bot-demo">Demo assistant</span>
+          <img class="contact__bot-avatar" src="../assets/img/ibot-icon-clear.webp" width="300" height="300" alt="iBot assistant" loading="lazy" decoding="async">
+          <h3 class="contact__form-title">Talk to iBot</h3>
+          <p>Tell iBot what you want to build, from an AI assistant to an app or a website, and it sets up your call in under a minute. The team confirms the day and time.</p>
+          <button class="btn btn--primary" type="button" data-open-ibot>Start chat</button>
+          <div class="contact__bot-chips">
+            <button class="contact__bot-chip" type="button" data-open-ibot data-ibot-say="I want to book a call">Book a call</button>
+            <button class="contact__bot-chip" type="button" data-open-ibot data-ibot-say="I need a bot or an app">A bot or an app</button>
+            <button class="contact__bot-chip" type="button" data-open-ibot data-ibot-say="Tell me about event tech">Event technology</button>
           </div>
-          <div class="field--full contact__actions">
-            <button class="btn btn--primary" type="submit">Send request</button>
-            <span class="contact__note">Goes straight to the team</span>
-            <p class="contact__status" role="status" aria-live="polite"></p>
-          </div>
-        </form>
+          <p class="contact__note">Replies instantly · The team follows up in under 2 business days</p>
+        </div>
       </div>
     </section>
 
@@ -315,7 +306,6 @@
   <script type="module" src="../assets/js/flow.js"></script>
   <script type="module" src="../assets/js/forms.js"></script>
   <script type="module" src="../assets/js/pin.js"></script>
-  <script type="module" src="../assets/js/slots.js"></script>
   <script type="module" src="../assets/js/stats.js"></script>
 </body>
 </html>
