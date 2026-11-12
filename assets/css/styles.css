@@ -986,7 +986,7 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 
 /* Por qué elegirnos (.why-band): banda oscura con un bento de tarjetas; cada punto lleva arriba un visual de lo que dice
    (roles del equipo, canales, logos de clientes reales, alcance de una pieza a un sistema). Compartido por las páginas de servicio */
-.why-band { position: relative; overflow: hidden; color: #fff; background: radial-gradient(50% 60% at 0% 0%, rgba(3,127,217,.32), transparent 70%), radial-gradient(40% 55% at 100% 100%, rgba(6,189,231,.16), transparent 70%), var(--dark); }
+.why-band { position: relative; overflow: hidden; color: #fff; background: var(--dark); }
 .why-band .title { color: #fff; }
 .why { display: grid; gap: 1rem; margin: 2.8rem 0 0; padding: 0; list-style: none; }
 @media (min-width: 720px) { .why { grid-template-columns: repeat(2, 1fr); } .why-card--wide { grid-column: 1 / -1; } }
@@ -1716,7 +1716,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 /* Social: los tres formatos (post 1:1, carrusel 4:5 y story 9:16) como publicaciones de muestra con fotos de eventos:
    cabecera con la cuenta, foto y acciones; el nombre de cada formato va debajo, fuera de la foto, para que se lea siempre */
 .social-formats { display: flex; align-items: center; justify-content: center; height: 100%; padding: 1.6rem 1.5rem;
-  background: radial-gradient(60% 80% at 50% 100%, rgba(6,189,231,.18), transparent 70%), var(--mist); }
+  background: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.5px) 0 0 / 20px 20px, var(--dark); } /* mesa de trabajo: oscuro plano con grilla de puntos, para que las tarjetas resalten */
 .sf-row { display: flex; align-items: flex-end; justify-content: center; gap: clamp(.8rem, 3vw, 2.2rem); width: 100%; } /* fila centrada en el recuadro; los formatos alineados por la base */
 .sf-item { display: flex; flex-direction: column; align-items: center; gap: .8rem; }
 .sf-item:nth-child(1) { width: 29%; }
@@ -1739,7 +1739,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .sf--carousel { box-shadow: 8px 8px 0 -1px var(--paper), 8px 8px 0 0 var(--line), 16px 16px 0 -2px var(--paper), 16px 16px 0 -1px var(--line), 0 22px 44px -26px rgba(16,16,16,.6); overflow: visible; }
 .sf--carousel .sf__img { overflow: hidden; }
 .sf--carousel + .sf__label { margin-top: 16px; } /* compensa las tarjetas apiladas detrás del carrusel */
-.sf--story { aspect-ratio: 9 / 16; background: var(--dark); }
+.sf--story { aspect-ratio: 9 / 16; background: var(--dark); box-shadow: 0 22px 44px -26px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.18); }
 .sf--story > img { position: absolute; inset: 0; object-position: 74% 50%; } /* centra al orador en el atril */
 .sf__top { position: absolute; left: 0; right: 0; top: 0; padding: .45rem .5rem 1.6rem; background: linear-gradient(180deg, rgba(16,16,16,.7), transparent); }
 .sf__top .sf__head { padding: .45rem 0 0; color: #fff; }
@@ -1759,7 +1759,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
   .sf--carousel + .sf__label { margin-top: 5px; }
 }
 /* iBrand: capítulo oscuro con foto del área de exhibición y los tres pasos del servicio */
-.chapter--dark { padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: calc(var(--radius) + 6px); color: #fff; background: radial-gradient(60% 80% at 100% 0%, rgba(6,189,231,.18), transparent 70%), var(--dark); }
+.chapter--dark { padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: calc(var(--radius) + 6px); color: #fff; background: var(--dark-2); }
 .chapter--dark .chapter__media { aspect-ratio: 21 / 9; }
 .chapter--dark .eyebrow { color: var(--cyan); }
 .chapter--dark h3 { margin-top: .6rem; }
