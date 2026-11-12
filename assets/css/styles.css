@@ -1772,3 +1772,93 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .gallery img { width: 100%; height: 100%; object-fit: cover; }
 .gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1rem .85rem; background: linear-gradient(0deg, rgba(16,16,16,.8), transparent); color: #fff; font: 500 .7rem/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 .gallery + .experience { margin-top: 1.1rem; }
+
+/* Efectos de entrada de Corporate Branding: se disparan con .reveal -> .in (core.js) y solo animan opacity, transform y clip-path.
+   Capítulos: la foto se descubre de abajo hacia arriba y se asienta, el texto y los ítems entran en cascada; en Video el play aparece
+   y la barra de tiempo avanza; en Social los tres formatos suben de a uno y late el corazón; en iBrand los pasos entran en orden.
+   Why choose us: tarjetas en cascada y cada visual se arma (roles, canales, logos, columnas que crecen). Experiencia: las fotos de
+   la galería se descubren de a una. Con movimiento reducido no se aplica nada. */
+@keyframes brand-pop { 0% { transform: scale(0); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: no-preference) {
+  /* capítulos: el artículo solo aparece; el movimiento lo hacen sus partes */
+  .js .page-branding .chapter.reveal { transform: none; transition: opacity .4s ease; }
+  .js .page-branding .chapter__media { clip-path: inset(0 0 100% 0 round var(--radius)); transition: clip-path 1.1s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .chapter.in .chapter__media { clip-path: inset(0 round var(--radius)); }
+  .js .page-branding .chapter__media > img { transform: scale(1.12); transition: transform 1.8s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .chapter.in .chapter__media > img { transform: none; }
+  .js .page-branding .chapter__body > div > * { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .chapter.in .chapter__body > div > * { opacity: 1; transform: none; }
+  .js .page-branding .chapter.in .chapter__body > div > :nth-child(1) { transition-delay: .3s; }
+  .js .page-branding .chapter.in .chapter__body > div > :nth-child(2) { transition-delay: .38s; }
+  .js .page-branding .chapter.in .chapter__body > div > :nth-child(3) { transition-delay: .46s; }
+  .js .page-branding .chapter.in .chapter__body > div > :nth-child(4) { transition-delay: .54s; }
+  .js .page-branding .chapter.in .chapter__body > div > :nth-child(5) { transition-delay: .62s; }
+  .js .page-branding .chapter__list li { opacity: 0; transform: translateX(-14px); transition: opacity .6s ease, transform .6s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .chapter.in .chapter__list li { opacity: 1; transform: none; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(1) { transition-delay: .4s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(2) { transition-delay: .46s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(3) { transition-delay: .52s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(4) { transition-delay: .58s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(5) { transition-delay: .64s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(6) { transition-delay: .7s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(7) { transition-delay: .76s; }
+  .js .page-branding .chapter.in .chapter__list li:nth-child(8) { transition-delay: .82s; }
+  /* Video: el play aparece y la barra de tiempo avanza */
+  .js .page-branding .chapter__play { opacity: 0; transform: scale(.5); transition: opacity .5s ease .7s, transform .7s cubic-bezier(.34, 1.56, .64, 1) .7s; }
+  .js .page-branding .chapter.in .chapter__play { opacity: 1; transform: none; }
+  .js .page-branding .chapter__timeline::before { transform: scaleX(0); transform-origin: left; transition: transform 2.4s cubic-bezier(.22, 1, .36, 1) 1s; }
+  .js .page-branding .chapter.in .chapter__timeline::before { transform: none; }
+  /* Social: los formatos suben de a uno y late el corazón del post */
+  .js .page-branding .sf-item { opacity: 0; transform: translateY(36px) rotate(-3deg); transition: opacity .7s ease, transform .9s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .chapter.in .sf-item { opacity: 1; transform: none; }
+  .js .page-branding .chapter.in .sf-item:nth-child(1) { transition-delay: .45s; }
+  .js .page-branding .chapter.in .sf-item:nth-child(2) { transition-delay: .6s; }
+  .js .page-branding .chapter.in .sf-item:nth-child(3) { transition-delay: .75s; }
+  .js .page-branding .chapter.in .sf__actions > svg:first-child { animation: brand-pop .6s cubic-bezier(.22, 1, .36, 1) 1.4s both; }
+  /* iBrand: los tres pasos en orden y su número aparece con un rebote */
+  .js .page-branding .ibrand-steps li { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .7s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .chapter.in .ibrand-steps li { opacity: 1; transform: none; }
+  .js .page-branding .chapter.in .ibrand-steps li:nth-child(1) { transition-delay: .45s; }
+  .js .page-branding .chapter.in .ibrand-steps li:nth-child(2) { transition-delay: .65s; }
+  .js .page-branding .chapter.in .ibrand-steps li:nth-child(3) { transition-delay: .85s; }
+  .js .page-branding .chapter.in .ibrand-steps li::before { animation: brand-pop .6s cubic-bezier(.22, 1, .36, 1) both; }
+  .js .page-branding .chapter.in .ibrand-steps li:nth-child(1)::before { animation-delay: .6s; }
+  .js .page-branding .chapter.in .ibrand-steps li:nth-child(2)::before { animation-delay: .8s; }
+  .js .page-branding .chapter.in .ibrand-steps li:nth-child(3)::before { animation-delay: 1s; }
+
+  /* Why choose us: tarjetas en cascada y sus visuales se arman */
+  .js .page-branding .why-card.reveal { transform: translateY(40px) scale(.97); transition: opacity .8s ease, transform .9s cubic-bezier(.22, 1, .36, 1), border-color .3s, background .3s; }
+  .js .page-branding .why-card.reveal.in { transform: none; }
+  @media (min-width: 1000px) {
+    .js .page-branding .why-card.reveal:nth-child(2) { transition-delay: .12s, .12s, 0s, 0s; }
+    .js .page-branding .why-card.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s; }
+    .js .page-branding .why-card.reveal:nth-child(4) { transition-delay: .32s, .32s, 0s, 0s; }
+  }
+  .js .page-branding .why-team__role, .js .page-branding .why-uses li, .js .page-branding .why-logos li { opacity: 0; transform: scale(.7); transition: opacity .5s ease, transform .6s cubic-bezier(.34, 1.56, .64, 1); }
+  .js .page-branding .why-card.in :is(.why-team__role, .why-uses li, .why-logos li) { opacity: 1; transform: none; }
+  .js .page-branding .why-card.in :is(.why-team__role, .why-uses li, .why-logos li):nth-child(1) { transition-delay: .35s; }
+  .js .page-branding .why-card.in :is(.why-team__role, .why-uses li, .why-logos li):nth-child(2) { transition-delay: .45s; }
+  .js .page-branding .why-card.in :is(.why-team__role, .why-uses li, .why-logos li):nth-child(3) { transition-delay: .55s; }
+  .js .page-branding .why-card.in :is(.why-team__role, .why-uses li, .why-logos li):nth-child(4) { transition-delay: .65s; }
+  .js .page-branding .why-card.in :is(.why-logos li):nth-child(5) { transition-delay: .75s; }
+  .js .page-branding .why-card.in :is(.why-logos li):nth-child(6) { transition-delay: .85s; }
+  .js .page-branding .why-scope__col { transform: scaleY(0); transform-origin: bottom; transition: transform .7s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .why-card.in .why-scope__col { transform: none; }
+  .js .page-branding .why-card.in .why-scope__col:nth-child(1) { transition-delay: .5s; }
+  .js .page-branding .why-card.in .why-scope__col:nth-child(2) { transition-delay: .6s; }
+  .js .page-branding .why-card.in .why-scope__col:nth-child(3) { transition-delay: .7s; }
+  .js .page-branding .why-card.in .why-scope__col:nth-child(4) { transition-delay: .8s; }
+  .js .page-branding .why-card.in .why-scope__col:nth-child(5) { transition-delay: .9s; }
+
+  /* Experiencia: las fotos de la galería se descubren de a una y las tarjetas de clientes entran en cascada */
+  .js .page-branding .gallery.reveal { transform: none; }
+  .js .page-branding .gallery figure { clip-path: inset(100% 0 0 0 round var(--radius)); transition: clip-path 1s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .gallery.in figure { clip-path: inset(0 round var(--radius)); }
+  .js .page-branding .gallery.in figure:nth-child(2) { transition-delay: .15s; }
+  .js .page-branding .gallery.in figure:nth-child(3) { transition-delay: .3s; }
+  .js .page-branding .gallery img { transform: scale(1.15); transition: transform 1.6s cubic-bezier(.22, 1, .36, 1); }
+  .js .page-branding .gallery.in img { transform: none; }
+  @media (min-width: 720px) {
+    .js .page-branding .experience li.reveal:nth-child(even) { transition-delay: .12s; }
+  }
+}
