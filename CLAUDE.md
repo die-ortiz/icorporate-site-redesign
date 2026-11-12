@@ -14,7 +14,7 @@ Rediseño completo del sitio corporativo de iCorporate (agencia: Tech Solutions,
 - **Blog:** fase posterior. No construirlo en esta etapa.
 - **Casos de éxito:** hay material suficiente (se entrega en `assets/img` y se redacta con el usuario).
 - **Identidad visual:** se mantienen logo y paleta (azul `#037FD9`, cian `#06BDE7`, lima `#BDCC26` y el casi negro del logo `#101010` como fondo oscuro, `--dark`; el antiguo navy `#05142B` no era de marca y se retiró). La tipografía **cambió** a Sora (títulos) + Inter (texto) + JetBrains Mono (etiquetas), activa con `body.theme-a`; H1, H2 y H3 van en peso 400 (regular). Las fuentes se alojan en el sitio (`assets/fonts/`, un archivo variable por familia, declarado en la sección 11 de `styles.css` y con preload de Inter y Sora en cada `<head>`); no se cargan de Google Fonts. Comparativa en `reference/fonts-preview.html`.
-- **Menú:** solo enlaces a páginas, sin desplegables ni enlaces a secciones (pedido del jefe, 2026-11-11: el menú lleva a páginas; nada que no tenga contenido propio): Tech Solutions, Events Management, Corporate Branding, About us y el botón "Book a call". "Our team" solo en footer y About. En móvil, lista a ancho completo con una línea de detalle por ítem (`.nav__hint`). Las secciones de cada servicio se alcanzan desde su página y desde el footer.
+- **Menú:** solo enlaces a páginas, sin desplegables ni enlaces a secciones (pedido del jefe, 2026-11-11: el menú lleva a páginas; nada que no tenga contenido propio): Tech Solutions, Events Management, Corporate Branding, About us y el botón "Book a call". "Our team" solo en footer y About. En móvil, lista a ancho completo con una línea de detalle por ítem (`.nav__hint`). Las secciones de cada servicio se alcanzan desde su página. El footer sigue la misma regla: Servicios (las 3 páginas), Empresa (About us, Our team, tienda) y Contacto.
 - **Contenido:** se reescriben todos los textos (hoy son genéricos y vagos). Pendiente definir quién valida EN/ES.
 - **Mockup = solo muestra visual:** el texto, las fotos, el equipo, los testimonios y los logos de integraciones son de ejemplo y deben llevar la etiqueta visible `.sample-tag` ("Example content" / "Contenido de ejemplo"). Reemplazar por datos reales antes de publicar.
 - **Plazo:** sin fecha límite; objetivo de tener la primera versión la semana próxima.
@@ -98,7 +98,7 @@ dist/               Salida de publish.py (ignorada por git)
 | Cambias… | Actualiza también… |
 |---|---|
 | Un ítem del menú o del footer | Solo la plantilla en `scripts/partials/` (EN y ES) y `sync_chrome.py` |
-| El nombre o ancla de una sección de servicio (`#phases`, `#formats`, `#process`…) | El footer en `scripts/partials/footer.*.html`; luego `sync_chrome.py` |
+| El ancla `#team` de About | El footer en `scripts/partials/footer.*.html`; luego `sync_chrome.py` |
 | Agregas una página | `PAGES` en `sync_chrome.py` y `loc()`/sitemap en `publish.py` se alimentan solos; crear también la versión ES |
 | Agregas un componente con JS | Su módulo en `assets/js/`, la expresión en `FEATURES` y correr `sync_chrome.py` |
 | Cambias un color o radio | La variable en `:root`, no el valor en cada regla |
