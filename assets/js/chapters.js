@@ -2,7 +2,8 @@
    Marcado: un contenedor [data-chapters] con enlaces `.chapters__nav a[href="#id"]` y artículos `.chapter` con esos ids.
    Al bajar, el enlace del capítulo que ocupa la franja central de la pantalla recibe .is-active y aria-current="true",
    y el índice recibe --p (0 a 1) con el avance por la lista, que dibuja la barra .chapters__progress.
-   Sin JS el índice sigue funcionando como enlaces de ancla. No anima nada, así que no depende de prefers-reduced-motion. */
+   Al hacer clic en el índice, el capítulo queda centrado bajo la cabecera fija (o arriba si es más alto que la pantalla).
+   Sin JS el índice sigue funcionando como enlaces de ancla. Con movimiento reducido el salto es instantáneo. */
 
 const root = document.querySelector('[data-chapters]');
 if (root && 'IntersectionObserver' in window) {
@@ -25,6 +26,25 @@ if (root && 'IntersectionObserver' in window) {
     entries.forEach((e) => { if (e.isIntersecting) setActive(e.target); });
   }, { rootMargin: '-35% 0px -55% 0px' });
   links.forEach((_, t) => io.observe(t));
+
+  // clic en el índice: lleva al capítulo centrado en el espacio libre bajo la cabecera fija (si no entra, alineado arriba)
+  // y le pasa el foco para el teclado. El desplazamiento es suave salvo con movimiento reducido.
+  const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  links.forEach((a, target) => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const header = document.querySelector('.site-header');
+      const top = header ? header.getBoundingClientRect().bottom + 16 : 16;
+      const free = window.innerHeight - top;
+      const h = target.getBoundingClientRect().height;
+      const offset = top + Math.max(0, (free - h) / 2);
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: smooth ? 'smooth' : 'auto' });
+      history.replaceState(null, '', a.getAttribute('href'));
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+      setActive(target);
+    });
+  });
 
   // barra de avance del índice (.chapters__progress): escribe --p (0 a 1) según cuánto se recorrió la lista de capítulos
   const nav = root.querySelector('.chapters__nav');
