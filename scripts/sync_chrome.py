@@ -46,6 +46,7 @@ FEATURES = {
     "formats.js": r'data-formats',
     "flow.js": r'class="(?:[^"]* )?flow(?: [^"]*)?"',
     "forms.js": r'id="(?:contact|proposal)-form"|data-copy',
+    "parallax.js": r'data-parallax',
     "pin.js": r'data-pin',
     "slots.js": r'data-slot',
     "stack.js": r'data-stack',

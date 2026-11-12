@@ -911,6 +911,12 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
     linear-gradient(0deg, rgba(16,16,16,.42) 0%, rgba(16,16,16,0) 36%);
 }
 .page-hero.has-video .hero__video { opacity: 1; }
+/* Parallax de cabecera ([data-parallax], parallax.js escribe --par-p de 0 a 1): la foto baja más lento que la página y se acerca
+   apenas; el texto acompaña un poco y se apaga antes de salir. Solo con movimiento permitido */
+@media (prefers-reduced-motion: no-preference) {
+  .page-hero[data-parallax] .page-hero__img { transform: translate3d(0, calc(var(--par-p, 0) * 35%), 0) scale(calc(1.06 + var(--par-p, 0) * .08)); will-change: transform; }
+  .page-hero[data-parallax] > .container { transform: translate3d(0, calc(var(--par-p, 0) * 40%), 0); opacity: calc(1 - var(--par-p, 0) * 1.25); }
+}
 /* Cabecera de página con las cifras dentro: degradado inferior de transparente a azul oscuro */
 .page-hero--stats { padding-bottom: 0; }
 .page-hero--stats::after {
