@@ -39,20 +39,22 @@ if (statNumbers.length && !reduce && 'IntersectionObserver' in window) {
   };
 
   // Cifras con texto en degradado (background-clip: text): el navegador no pinta el degradado sobre las tiras que se
-  // mueven, así que cada dígito lleva su tramo del degradado de la cifra para que se vea continuo.
+  // mueven (y al pasar el mouse por la tarjeta deja restos de las tiras), así que cada dígito y cada signo fijo llevan
+  // su tramo del degradado de la cifra, y la cifra deja de usar el suyo.
   const tint = (el, reels) => {
     const cs = getComputedStyle(el);
     if (!/text/.test(cs.backgroundClip + cs.webkitBackgroundClip) || cs.backgroundImage === 'none') return;
     const box = el.getBoundingClientRect();
+    const paint = (d, x) => Object.assign(d.style, {
+      backgroundImage: cs.backgroundImage, backgroundSize: `${box.width}px ${box.height}px`,
+      backgroundPosition: `${-x}px 0`, webkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+    });
     reels.forEach((r) => {
       const x = r.strip.getBoundingClientRect().left - box.left;
-      r.strip.querySelectorAll('span').forEach((d) => {
-        Object.assign(d.style, {
-          backgroundImage: cs.backgroundImage, backgroundSize: `${box.width}px ${box.height}px`,
-          backgroundPosition: `${-x}px 0`, webkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
-        });
-      });
+      r.strip.querySelectorAll('span').forEach((d) => paint(d, x));
     });
+    el.querySelectorAll('.reels > .reel__fix').forEach((d) => paint(d, d.getBoundingClientRect().left - box.left));
+    Object.assign(el.style, { backgroundImage: 'none', webkitBackgroundClip: 'border-box', backgroundClip: 'border-box' });
   };
 
   const spin = (el, reels, delay) => {
