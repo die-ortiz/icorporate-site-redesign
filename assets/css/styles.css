@@ -903,6 +903,13 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
     linear-gradient(0deg, rgba(16,16,16,.85) 0%, rgba(16,16,16,0) 40%);
 }
 .page-hero .hero__video { z-index: -2; }
+/* Variante con velo más claro: deja lucir la foto (el texto sigue sobre una zona central más oscura) */
+.page-hero--clear .page-hero__img { object-position: 50% 60%; }
+.page-hero--clear::after {
+  background:
+    radial-gradient(58% 72% at 50% 46%, rgba(16,16,16,.56) 0%, rgba(16,16,16,.36) 55%, rgba(16,16,16,.1) 100%),
+    linear-gradient(0deg, rgba(16,16,16,.42) 0%, rgba(16,16,16,0) 36%);
+}
 .page-hero.has-video .hero__video { opacity: 1; }
 /* Cabecera de página con las cifras dentro: degradado inferior de transparente a azul oscuro */
 .page-hero--stats { padding-bottom: 0; }
@@ -1317,6 +1324,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .page-home .hero__poster { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
   .page-home .trust { animation: tech-fade 1s ease .6s both; }
   /* Events Management: misma carga que el hero del Home (la cascada del texto sale de la regla compartida de arriba) */
+  .page-branding .page-hero__img { animation: tech-fade 1.6s ease both; }
   .page-events .page-hero__img { animation: hero-settle 1.8s cubic-bezier(.22, 1, .36, 1) both; }
   .page-events .stats--hero { animation: tech-fade 1s ease .6s both; }
   /* About: misma carga (texto en cascada, foto que se asienta y cifras al final) */
@@ -1630,17 +1638,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 }
 
 /* ═══ 12 · CORPORATE BRANDING ═══ */
-/* Cabecera con mosaico de trabajos reales (.page-hero--mosaic): texto a la izquierda y tres fotos de eventos a la derecha, sin foto de fondo */
-.page-hero--mosaic { text-align: left; padding: 8.5rem 0 4.5rem; background: radial-gradient(55% 70% at 100% 30%, rgba(3,127,217,.3), transparent 70%), var(--dark); }
-.page-hero--mosaic::after { display: none; }
-.page-hero--mosaic .container { display: grid; gap: 2.5rem; align-items: center; }
-@media (min-width: 960px) { .page-hero--mosaic .container { grid-template-columns: 1fr 1.1fr; gap: 3.5rem; } }
-.page-hero--mosaic .breadcrumb, .page-hero--mosaic .page-hero__actions { justify-content: flex-start; }
-.page-hero--mosaic h1, .page-hero--mosaic .page-hero__sub { margin-inline: 0; }
-.mosaic { display: grid; grid-template-columns: 1.45fr 1fr; grid-template-rows: 1fr 1fr; gap: .7rem; aspect-ratio: 4 / 3; margin: 0; }
-.mosaic img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
-.mosaic img:first-child { grid-row: span 2; object-position: 18% 50%; } /* deja ver el "WAGA 2026" de la pantalla */
-
 /* Servicios como capítulos ([data-chapters], chapters.js): en escritorio, índice fijo a la izquierda con el capítulo activo marcado;
    cada capítulo lleva su foto real, nombre, frase, texto y todos sus ítems en filas. iBrand es un capítulo oscuro (.chapter--dark) */
 .chapters__grid { display: grid; gap: 2rem; margin-top: 3rem; }
