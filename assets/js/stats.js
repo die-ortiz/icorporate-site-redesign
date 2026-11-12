@@ -58,7 +58,7 @@ if (statNumbers.length && !reduce && 'IntersectionObserver' in window) {
   const spin = (el, reels, delay) => {
     tint(el, reels);
     reels.forEach((r) => {
-      r.strip.style.transitionDuration = `${900 + r.i * 160}ms`;
+      r.strip.style.transitionDuration = `${2000 + r.i * 400}ms`;
       r.strip.style.transitionDelay = `${delay}ms`;
       r.strip.style.setProperty('--stop', r.stop);
     });
@@ -78,7 +78,7 @@ if (statNumbers.length && !reduce && 'IntersectionObserver' in window) {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
       io.unobserve(e.target);
-      groups.get(e.target).forEach(([el, reels], n) => spin(el, reels, n * 140));
+      groups.get(e.target).forEach(([el, reels], n) => spin(el, reels, n * 250));
     });
   }, { rootMargin: '0px 0px -12% 0px' });
   groups.forEach((_, g) => io.observe(g));
