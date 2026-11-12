@@ -1345,7 +1345,7 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .techshow__features { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* Efectos de carga discretos de Tech Solutions (cabecera, cajas) y Corporate Branding (cabecera, tarjetas) y, con `.process-fx` en una sección, los del proceso (título, fases en cascada y línea que se dibuja) también en otras páginas. Solo con movimiento permitido; se apoyan en .reveal/.in (core.js) y en animaciones al cargar. */
+/* Efectos de carga discretos de Tech Solutions (cabecera, cajas) y Corporate Branding (cabecera, tarjetas) y los del proceso de Tech (fases en cascada y línea que se dibuja). Solo con movimiento permitido; se apoyan en .reveal/.in (core.js) y en animaciones al cargar. */
 @keyframes tech-rise { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes tech-fade { from { opacity: 0; } to { opacity: 1; } }
 /* Home: carga discreta del hero. Título, subtítulo y botones entran en cascada, el póster se asienta (sin fundido, para no retrasar el LCP) y los logos de clientes aparecen al final. */
@@ -1381,8 +1381,8 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
   .page-404 .page-hero .container > :nth-child(5) { animation-delay: .55s; }
   :is(.page-tech, .page-404) .tunnel-bg canvas { animation: tech-fade 1.6s ease both; } /* el canvas se crea tras la carga: aparece con un fundido */
   /* títulos de sección: de desenfocado a nítido al entrar */
-  .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal { filter: blur(6px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
-  .js :is(.page-tech, .page-branding, .process-fx) .section__head.reveal.in { filter: none; }
+  .js :is(.page-tech, .page-branding) .section__head.reveal { filter: blur(6px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
+  .js :is(.page-tech, .page-branding) .section__head.reveal.in { filter: none; }
   /* tarjetas de servicios: entran de a una (suben más y se enfocan), con retraso según su lugar en la fila:
      en 4 columnas 0 / .2 / .4 / .6 s; en 2 columnas la de la derecha .2 s; en móvil cada una al llegar a pantalla */
   .js .page-tech .svc-card.reveal { transform: translateY(48px); filter: blur(4px); transition: opacity .9s ease, transform .9s cubic-bezier(.22, 1, .36, 1), filter .9s ease; }
@@ -1394,14 +1394,14 @@ html:not(.js) .cycle__panel[hidden] { display: grid; }
     .js .page-tech .svc-card.reveal:nth-child(4) { transition-delay: .6s; }
   }
   /* proceso: fases en cascada (el retraso no afecta al hover) y la línea de color se dibuja de izquierda a derecha */
-  .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(2) { transition-delay: .1s, .1s, 0s, 0s, 0s; }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s, 0s; }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase.reveal:nth-child(4) { transition-delay: .3s, .3s, 0s, 0s, 0s; }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase::after { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22, 1, .36, 1) .35s; }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase.in::after { transform: scaleX(1); }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase:nth-child(2)::after { transition-delay: .45s; }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase:nth-child(3)::after { transition-delay: .55s; }
-  .js :is(.page-tech, .page-branding, .process-fx) .phase:nth-child(4)::after { transition-delay: .65s; }
+  .js :is(.page-tech, .page-branding) .phase.reveal:nth-child(2) { transition-delay: .1s, .1s, 0s, 0s, 0s; }
+  .js :is(.page-tech, .page-branding) .phase.reveal:nth-child(3) { transition-delay: .2s, .2s, 0s, 0s, 0s; }
+  .js :is(.page-tech, .page-branding) .phase.reveal:nth-child(4) { transition-delay: .3s, .3s, 0s, 0s, 0s; }
+  .js :is(.page-tech, .page-branding) .phase::after { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22, 1, .36, 1) .35s; }
+  .js :is(.page-tech, .page-branding) .phase.in::after { transform: scaleX(1); }
+  .js :is(.page-tech, .page-branding) .phase:nth-child(2)::after { transition-delay: .45s; }
+  .js :is(.page-tech, .page-branding) .phase:nth-child(3)::after { transition-delay: .55s; }
+  .js :is(.page-tech, .page-branding) .phase:nth-child(4)::after { transition-delay: .65s; }
 }
 
 /* Cierre de About: sección oscura de borde a borde con tres luces de marca que se mueven lento (azul, cian, lima; degradados
@@ -1774,6 +1774,72 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .ibrand-steps li::before { content: counter(ib); display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--cyan); color: var(--dark); font: 600 .85rem/1 var(--font-mono); }
 .ibrand-steps b { display: block; font-weight: 600; }
 .ibrand-steps span { color: var(--on-dark-muted); font-size: .9rem; line-height: 1.4; }
+
+/* Proceso de Branding (.evolve): una misma pieza, una credencial de evento, avanza en los cuatro pasos (brief y paleta, bocetos,
+   revisión con comentarios, pieza terminada con sus archivos) sobre una línea de tiempo con un punto por paso. Dibujado con CSS,
+   sin imágenes. En escritorio la línea es horizontal; en móvil, vertical a la izquierda */
+.evolve { position: relative; display: grid; gap: 2.2rem; margin: 2.8rem 0 0; padding: 0 0 0 2rem; list-style: none; --art-h: 132px; }
+.evolve::before, .evolve::after { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; border-radius: 1px; background: var(--line); }
+.evolve::after { background: var(--blue); }
+.evolve__step { position: relative; }
+.evolve__art { position: relative; display: flex; align-items: center; justify-content: center; gap: 1rem; height: var(--art-h); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); overflow: hidden; }
+.evolve__dot { position: absolute; left: calc(-2rem + 1px); top: calc(var(--art-h) / 2 - 6px); width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--blue); background: var(--blue); box-shadow: 0 0 0 4px var(--mist); }
+.evolve__n { display: block; margin-top: 1.1rem; font: 500 .74rem/1 var(--font-mono); letter-spacing: .08em; color: var(--blue-dark); }
+.evolve__step h3 { margin-top: .5rem; font: 400 1.3rem/1.2 var(--font-head); }
+.evolve__step p { margin-top: .45rem; color: var(--ink-soft); font-size: .95rem; line-height: 1.55; }
+@media (min-width: 900px) {
+  .evolve { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4rem; padding: 0; }
+  .evolve::before, .evolve::after { left: 0; right: 0; top: calc(var(--art-h) + 1.4rem + 5px); bottom: auto; width: auto; height: 2px; }
+  .evolve__dot { position: relative; left: 0; top: 0; display: block; margin-top: 1.4rem; }
+  .evolve__n { margin-top: 1rem; }
+}
+/* 01 brief: nota con renglones y la paleta de marca */
+.ev-note { display: grid; gap: 6px; width: 54px; padding: 10px 8px; border-radius: 4px; background: #fff7c2; box-shadow: 0 8px 18px -12px rgba(16,16,16,.5); transform: rotate(-5deg); }
+.ev-note i { display: block; height: 3px; border-radius: 2px; background: rgba(16,16,16,.35); }
+.ev-note i:last-child { width: 60%; }
+.ev-swatches { display: flex; gap: 5px; }
+.ev-swatches i { display: block; width: 16px; height: 46px; border-radius: 4px; }
+.ev-swatches i:nth-child(1) { background: var(--dark); } .ev-swatches i:nth-child(2) { background: var(--blue); }
+.ev-swatches i:nth-child(3) { background: var(--cyan); } .ev-swatches i:nth-child(4) { background: var(--lime); }
+/* credencial: banda superior, foto, renglón; sus variantes son el boceto, la versión en color y la terminada */
+.ev-badge { position: relative; display: grid; justify-items: center; align-content: start; gap: 7px; width: 58px; height: 82px; padding-top: 0; border-radius: 8px; background: #fff; box-shadow: 0 10px 22px -14px rgba(16,16,16,.55); overflow: visible; }
+.ev-badge i { display: block; }
+.ev-badge__band { width: 100%; height: 18px; border-radius: 8px 8px 0 0; background: var(--blue); }
+.ev-badge__photo { width: 24px; height: 24px; border-radius: 50%; background: var(--line); }
+.ev-badge__line { width: 34px; height: 4px; border-radius: 2px; background: var(--dark); opacity: .6; }
+.ev-badge--sketch { background: none; box-shadow: none; border: 1.5px dashed var(--ink-soft); opacity: .7; transform: rotate(-4deg); }
+.ev-badge--sketch .ev-badge__band { background: none; border-bottom: 1.5px dashed var(--ink-soft); border-radius: 0; }
+.ev-badge--sketch .ev-badge__photo { background: none; border: 1.5px dashed var(--ink-soft); }
+.ev-badge--sketch .ev-badge__line { background: none; border-top: 1.5px dashed var(--ink-soft); height: 0; opacity: 1; }
+.ev-badge--alt { transform: rotate(5deg); border-radius: 14px; }
+.ev-badge--alt .ev-badge__photo { border-radius: 6px; }
+.ev-pin { position: absolute; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--dark); color: #fff; font: 600 .62rem/1 var(--font); }
+.ev-pin--1 { right: -9px; top: 8px; }
+.ev-pin--2 { left: -9px; bottom: 16px; }
+.ev-badge--final { margin-top: 18px; }
+.ev-badge--final .ev-badge__band { background: var(--blue); }
+.ev-badge--final .ev-badge__photo { background: var(--cyan); }
+.ev-badge__strap { position: absolute; left: 50%; top: -22px; width: 12px; height: 24px; margin-left: -6px; border-radius: 2px; background: var(--lime); }
+.ev-files { display: grid; gap: 5px; }
+.ev-files i { padding: .2rem .45rem; border-radius: 999px; border: 1px solid var(--line); font: 500 .62rem/1.2 var(--font-mono); font-style: normal; color: var(--blue-dark); }
+/* entrada: la línea se dibuja, los puntos se encienden en orden y cada paso sube a su turno; los comentarios aparecen con un rebote */
+@media (prefers-reduced-motion: no-preference) {
+  .js .evolve.reveal { transform: none; }
+  .js .evolve::after { transform: scaleY(0); transform-origin: top; transition: transform 1.6s cubic-bezier(.22, 1, .36, 1) .2s; }
+  .js .evolve.in::after { transform: none; }
+  @media (min-width: 900px) { .js .evolve::after { transform: scaleX(0); transform-origin: left; } }
+  .js .evolve__step { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .8s cubic-bezier(.22, 1, .36, 1); }
+  .js .evolve.in .evolve__step { opacity: 1; transform: none; }
+  .js .evolve__dot { background: var(--paper); transition: background .3s ease; }
+  .js .evolve.in .evolve__dot { background: var(--blue); }
+  .js .evolve.in .evolve__step:nth-child(1), .js .evolve.in .evolve__step:nth-child(1) .evolve__dot { transition-delay: .2s; }
+  .js .evolve.in .evolve__step:nth-child(2), .js .evolve.in .evolve__step:nth-child(2) .evolve__dot { transition-delay: .55s; }
+  .js .evolve.in .evolve__step:nth-child(3), .js .evolve.in .evolve__step:nth-child(3) .evolve__dot { transition-delay: .9s; }
+  .js .evolve.in .evolve__step:nth-child(4), .js .evolve.in .evolve__step:nth-child(4) .evolve__dot { transition-delay: 1.25s; }
+  .js .evolve.in .ev-pin { animation: brand-pop .6s cubic-bezier(.22, 1, .36, 1) both; }
+  .js .evolve.in .ev-pin--1 { animation-delay: 1.4s; }
+  .js .evolve.in .ev-pin--2 { animation-delay: 1.6s; }
+}
 
 /* Galería de Experiencia: trabajos reales con pie de foto */
 .gallery { display: grid; gap: .8rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
