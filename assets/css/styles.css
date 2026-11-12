@@ -1657,8 +1657,6 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .chapters__nav a:hover img { opacity: .85; }
 .chapters__nav a.is-active { color: var(--ink); background: var(--paper); border-color: rgba(6,189,231,.55); box-shadow: 0 12px 26px -18px rgba(16,16,16,.45); }
 .chapters__nav a.is-active img { filter: none; opacity: 1; }
-.chapters__nav .chapters__sub a { margin-left: 1.1rem; grid-template-columns: 36px 1fr; font-size: .9rem; }
-.chapters__nav .chapters__sub img { width: 36px; height: 36px; }
 .chapters__progress { display: block; height: 3px; margin: 1rem .3rem 0; border-radius: 2px; background: var(--line); overflow: hidden; }
 .chapters__progress i { display: block; height: 100%; background: var(--grad-btn); transform: scaleX(var(--p, 0)); transform-origin: left; }
 .chapters__list { display: grid; gap: 5rem; }
