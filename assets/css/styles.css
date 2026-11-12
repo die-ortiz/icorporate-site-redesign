@@ -978,14 +978,41 @@ body:has(.ibot.is-open) .icorp-up { opacity: 0; visibility: hidden; pointer-even
 .phase li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
 .phase p { margin-top: .7rem; font-size: .93rem; line-height: 1.55; color: var(--ink-soft); } /* paso descripto en una frase */
 
-/* Por qué elegirnos (.why): puntos breves con título y una frase; en escritorio van todos en una fila. Compartido por las páginas de servicio */
-.why { display: grid; gap: 1.8rem 2rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
-@media (min-width: 720px) { .why { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1100px) { .why { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 1fr; } }
-.why li { position: relative; padding-top: 1.2rem; border-top: 1px solid var(--line); }
-.why li::before { content: ""; position: absolute; left: 0; top: -1px; width: 2.5rem; height: 2px; background: var(--grad-btn); }
-.why h3 { font: 400 1.2rem/1.25 var(--font-head); }
-.why p { margin-top: .5rem; color: var(--ink-soft); font-size: .95rem; line-height: 1.55; }
+/* Por qué elegirnos (.why-band): banda oscura con un bento de tarjetas; cada punto lleva arriba un visual de lo que dice
+   (roles del equipo, canales, logos de clientes reales, alcance de una pieza a un sistema). Compartido por las páginas de servicio */
+.why-band { position: relative; overflow: hidden; color: #fff; background: radial-gradient(50% 60% at 0% 0%, rgba(3,127,217,.32), transparent 70%), radial-gradient(40% 55% at 100% 100%, rgba(6,189,231,.16), transparent 70%), var(--dark); }
+.why-band .title { color: #fff; }
+.why { display: grid; gap: 1rem; margin: 2.8rem 0 0; padding: 0; list-style: none; }
+@media (min-width: 720px) { .why { grid-template-columns: repeat(2, 1fr); } .why-card--wide { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .why { grid-template-columns: repeat(3, 1fr); } .why-card--wide { grid-column: span 2; } }
+.why-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: calc(var(--radius) + 4px); background: rgba(255,255,255,.04); transition: border-color .3s, background .3s; }
+.why-card:hover { border-color: rgba(6,189,231,.45); background: rgba(255,255,255,.06); }
+.why-card__art { flex: 1; display: grid; place-items: center; min-height: 170px; margin: 0; padding: 1.6rem; list-style: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+.why-card__body { padding: 1.3rem 1.5rem 1.5rem; }
+.why-card h3 { font: 400 1.3rem/1.25 var(--font-head); color: #fff; }
+.why-card p { margin-top: .5rem; color: var(--on-dark-muted); font-size: .95rem; line-height: 1.55; }
+.why-card svg { width: 26px; height: 26px; fill: none; stroke: var(--cyan); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+/* Equipo: cuatro roles en círculos que se superponen */
+.why-team { display: flex; justify-content: center; }
+.why-team__role { display: grid; justify-items: center; gap: .8rem; width: 8.6rem; }
+.why-team__role + .why-team__role { margin-left: -1.6rem; }
+.why-team__role svg { box-sizing: content-box; width: 30px; height: 30px; padding: 1.7rem; border-radius: 50%; background: var(--dark-2); border: 1px solid rgba(6,189,231,.45); box-shadow: 0 0 0 6px var(--dark); }
+.why-team__role small { font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark); text-align: center; }
+/* Canales: escenario, pantalla, online y papel */
+.why-uses { grid-template-columns: repeat(2, 1fr); gap: .6rem; place-items: stretch; }
+.why-uses li { display: flex; align-items: center; gap: .65rem; padding: .75rem .85rem; border-radius: 10px; background: rgba(255,255,255,.05); font-size: .9rem; }
+/* Clientes: logos reales en blanco */
+.why-logos { grid-template-columns: repeat(3, 1fr); gap: 1rem 1.2rem; }
+.why-logos img { width: 100%; max-width: 86px; max-height: 44px; object-fit: contain; opacity: .8; }
+/* Alcance: columnas que crecen de una pieza a un sistema, sobre una línea con sus dos extremos */
+.why-scope { gap: 1rem; align-content: end; }
+.why-scope__bars { display: flex; align-items: flex-end; justify-content: space-between; gap: .6rem; width: 100%; }
+.why-scope__col { flex: 1; display: flex; flex-direction: column-reverse; gap: .35rem; }
+.why-scope__col i { height: 18px; border-radius: 5px; background: rgba(6,189,231,.22); border: 1px solid rgba(6,189,231,.45); }
+.why-scope__col:first-child i { background: var(--cyan); }
+.why-scope__track { display: flex; justify-content: space-between; width: 100%; padding-top: .8rem; border-top: 2px solid; border-image: var(--grad-btn) 1; font: 500 .66rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark); }
+.why-scope__track b { font-weight: 500; }
+@media (max-width: 519px) { .why-team__role { width: 5.4rem; } .why-team__role svg { padding: 1rem; } .why-team__role + .why-team__role { margin-left: -.8rem; } }
 
 /* Experiencia (.experience): clientes reales, cada uno con su logo y lo que hicimos. Compartido por las páginas de servicio */
 .experience { display: grid; gap: 1.1rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
