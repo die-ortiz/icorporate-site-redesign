@@ -75,7 +75,6 @@ JOBS = {
     "events-case-summit.webp":     ("alta-ccma-2025.jpg",                  800, 80, {}),
     "events-case-gala.webp":       ("itaerea-2026-5280.jpg",               800, 82, {}),
     # Guardadas para la página de Casos (aún sin usar): graduados aplaudiendo (4097) y escenario completo (4174)
-    "case-alta-ccma.webp":  ("alta-ccma-2026-minimeetings.jpg",        1000, 82, {}),
     "case-alta-ccma-registration.webp": ("alta-ccma-2025-registration.jpg", 1000, 82, {}),
     "case-alta-ccma-plenary.webp":      ("alta-ccma-2025-plenary.jpg",      1000, 82, {}),
     "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
