@@ -108,7 +108,8 @@ JOBS = {
     "svc-app-alta-agenda.webp": ("alta-app.jpeg",                       360, 82, {}),
     "svc-phone-frame.webp": ("waga-app.jpg",                            520, 84, {"box": (380, 0, 1700, 2490), "clearbg": True, "trim": True, "cutbottom": 11,
                                                                                  "screenhole": {"screen": (26, 24, 494, 1062, 64), "island": (189, 37, 331, 77, 20)}}),
-    "events-hero.webp":     ("alta-agm-opening-ceremony.jpg",           1800, 74, {"blur": EVENTS_BLUR}),
+    # Cabecera de Events: ALTA Forum 2026, panel en el escenario (antes la apertura de AGM, repetida en el Home)
+    "events-hero.webp":     ("forum-2026-session02.jpg",                1800, 74, {}),
     # blur: logo de un tercero en la mochila (coordenadas del original de 2000x1333)
     # Retratos del equipo (avatar de 92 px) con el fondo reemplazado por el azul de marca (ver make_portrait).
     # Alberto y Maria salen de la foto del equipo (about-hero-team.jpg, box = recorte en píxeles); Alejandro y Alexandra,
@@ -132,7 +133,10 @@ JOBS = {
     "quote-jose-ignacio-escudero.webp": ("testimonial-jose-ignacio-escudero.webp", 96, 86, {"box": (300, 165, 650, 515)}),
     "about-hero.webp":      ("foto-aboutus.jpg",                        1800, 74, {"blur": ABOUT_BLUR}),
     "branding-hero.webp":   ("branding-hero.jpg",                       1800, 72, {"blur": [(925, 812, 1110, 884)]}),
-    "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),
+    "events-card.webp":     ("alta-agm-opening-ceremony.jpg",           800, 76, {"blur": EVENTS_BLUR}),  # solo en su caso de la galería del Home
+    # Tarjeta "Events Management" de los servicios del Home: ALTA Forum 2026, público y pantallas con cifras
+    "events-service.webp":  ("forum-2026-session.jpg",                  800, 78, {}),
+    # Guardada para la página de Casos (sin usar): forum-2026-session01.jpg (vista lateral del salón)
     "ibot-icon-clear.webp": ("icono-ibot.jpg",                          300, 92, {"clearbg": True}),
 }
 # Íconos PNG (los navegadores los piden en PNG): salida -> (original, lado)
