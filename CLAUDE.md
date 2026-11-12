@@ -71,7 +71,7 @@ dist/               Salida de publish.py (ignorada por git)
 | Archivo | Función | Páginas |
 |---|---|---|
 | `core.js` | Cabecera con scroll, menú móvil, entrada de secciones | Todas |
-| `stats.js` | Contadores de cifras (`.stat b`) | Home, About, Events |
+| `stats.js` | Cifras con rodillos tipo tragamonedas (`.stat b`, `[data-count]`): cada dígito gira y frena en su valor al entrar en pantalla | Home, About, Events, Tech |
 | `forms.js` | Botón de copiar el correo (`[data-copy]`) en las vías de contacto | Home y servicios |
 | `home.js` | Carrusel de logos y muro de testimonios | Home |
 | `slides.js` | Carrusel de fotos con fundido y puntos (`[data-slides]`, `[data-dot]`): tarjeta destacada del Home y testimonio destacado de Events | Home, Events |
