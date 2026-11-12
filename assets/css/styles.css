@@ -1732,6 +1732,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
 .sf__dots i:first-child { background: var(--blue); }
 .sf--carousel { box-shadow: 8px 8px 0 -1px var(--paper), 8px 8px 0 0 var(--line), 16px 16px 0 -2px var(--paper), 16px 16px 0 -1px var(--line), 0 22px 44px -26px rgba(16,16,16,.6); overflow: visible; }
 .sf--carousel .sf__img { overflow: hidden; }
+.sf--carousel + .sf__label { margin-top: 16px; } /* compensa las tarjetas apiladas detrás del carrusel */
 .sf--story { aspect-ratio: 9 / 16; background: var(--dark); }
 .sf--story > img { position: absolute; inset: 0; object-position: 74% 50%; } /* centra al orador en el atril */
 .sf__top { position: absolute; left: 0; right: 0; top: 0; padding: .45rem .5rem 1.6rem; background: linear-gradient(180deg, rgba(16,16,16,.7), transparent); }
@@ -1749,6 +1750,7 @@ a.office-card__row:hover .office-card__go, a.office-card__row:focus-visible .off
   .sf__actions { gap: .35rem; padding: .35rem .4rem; } .sf__actions svg, .sf__save svg { width: 10px; height: 10px; }
   .sf__label { padding: .25rem .45rem; font-size: .52rem; letter-spacing: .04em; }
   .sf--carousel { box-shadow: 5px 5px 0 -1px var(--paper), 5px 5px 0 0 var(--line), 0 22px 44px -26px rgba(16,16,16,.6); }
+  .sf--carousel + .sf__label { margin-top: 5px; }
 }
 /* iBrand: capítulo oscuro con foto del área de exhibición y los tres pasos del servicio */
 .chapter--dark { padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: calc(var(--radius) + 6px); color: #fff; background: radial-gradient(60% 80% at 100% 0%, rgba(6,189,231,.18), transparent 70%), var(--dark); }
