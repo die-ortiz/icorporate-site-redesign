@@ -91,8 +91,10 @@ JOBS = {
     "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
     # Marcas en blanco recortadas, sin caja, para las tarjetas de casos del Home
     "logo-alta-agm-white.webp": ("logo-alta-agm.png", 600, 92, {"white": 2.6, "trim": True}),
-    # Logo general de ALTA en blanco y recortado, para las tarjetas de ALTA Safety y ALTA Fuel 2026 (sin logo propio todavía)
-    "logo-alta-white.webp": ("Logo_alta.png", 400, 92, {"white": 2.6, "trim": True}),
+    # Logos de ALTA Safety 2026 y ALTA Fuel 2026 (bajados de safety.alta.aero y fuel.alta.aero, PNG transparentes)
+    # en blanco sólido para las tarjetas de la galería magnética del Home
+    "logo-alta-safety-white.webp": ("logo-alta-safety.png", 440, 92, {"silhouette": True, "trim": True}),
+    "logo-alta-fuel-white.webp":   ("logo-alta-fuel.png",   440, 92, {"silhouette": True, "trim": True}),
     # Pie de página: wordmark y figura del logo largo por separado (se componen a gran tamaño en CSS)
     "footer-wordmark.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 1400, 90, {"box": (150, 135, 2040, 495), "trim": True}),
     "footer-star.webp":     ("inverseicorporate-logo-long-tag-color@2x.png", 520, 90, {"box": (2140, 95, 2635, 620), "trim": True}),
@@ -442,6 +444,8 @@ def main():
             im = to_white_solid(im)
         if opts.get("white"):
             im = to_white(im) if opts["white"] is True else to_white(im, opts["white"])
+        if opts.get("silhouette"):  # logo con fondo transparente -> blanco sólido conservando su alfa (sin perder tonos claros)
+            sil = Image.new("RGBA", im.size, (255, 255, 255, 0)); sil.putalpha(im.split()[3]); im = sil
         if opts.get("trim"):
             im = im.crop(im.split()[3].getbbox())
         if opts.get("fit"):  # logos de la grilla de clientes (About): mismo lienzo y peso visual parejo; un número agranda (letra chica)
