@@ -70,18 +70,29 @@ JOBS = {
     "quote-itaerea-graduates.webp": ("itaerea-2026-3793.jpg",             1024, 88, {}),
     # Entrega de premio en el escenario (4297): 2.ª foto del carrusel del testimonio
     "quote-itaerea-award.webp":    ("itaerea-2026-4297.jpg",              1024, 86, {}),
-    # Casos de Events ("Results you can measure"), fotos propias para no repetir las del Home:
-    # plenaria de ALTA CCMA 2025 (caso "summit") y recepción de la graduación de ITAérea en el palacio (caso con gala)
-    "events-case-summit.webp":     ("alta-ccma-2025.jpg",                  800, 80, {}),
+    # Casos de Events ("Results you can measure"): recepción de la graduación de ITAérea en el palacio (caso con gala).
+    # El caso "summit" usa alta-fuel-2026-keynote.webp (antes events-case-summit.webp, de alta-ccma-2025.jpg)
     "events-case-gala.webp":       ("itaerea-2026-5280.jpg",               800, 82, {}),
+    # ALTA Aviation Safety, Flight Ops & Training Summit (Mendoza, junio de 2026) y ALTA Fuel & Sustainability
+    # Conference (Quito, abril de 2026). Originales entregados en 6144 px, guardados a 2400 px (JPEG 90) para no
+    # inflar el repo. Nombres descriptivos (evento-año-escena) para SEO; el WebP sale sin metadatos EXIF.
+    "alta-safety-2026-plenary.webp":      ("alta-safety-2026-plenary.jpg",      1000, 82, {}),  # galería magnética (Home)
+    "alta-fuel-2026-panel.webp":          ("alta-fuel-2026-panel.jpg",          1000, 82, {}),  # galería magnética (Home)
+    "alta-fuel-2026-plenary.webp":        ("alta-fuel-2026-plenary.jpg",        1000, 82, {}),  # formatos de Events: conferencias
+    "alta-safety-2026-group-photo.webp":  ("alta-safety-2026-group-photo.jpg",  1000, 82, {}),  # formatos de Events: asambleas
+    "alta-fuel-2026-reception.webp":      ("alta-fuel-2026-reception.jpg",      1000, 72, {}),  # formatos de Events: corporativos
+    "alta-fuel-2026-keynote.webp":        ("alta-fuel-2026-keynote.jpg",         800, 80, {}),  # caso "summit" de Events
+    "alta-safety-2026-registration.webp": ("alta-safety-2026-registration.jpg", 1000, 82, {}),  # galería de Branding
     # Guardadas para la página de Casos (aún sin usar): graduados aplaudiendo (4097) y escenario completo (4174)
-    "case-alta-ccma-registration.webp": ("alta-ccma-2025-registration.jpg", 1000, 82, {}),
+    # (alta-ccma-2025-registration.jpg queda en los originales para la página de Casos; su tarjeta del Home pasó a ALTA Safety)
     "case-alta-ccma-plenary.webp":      ("alta-ccma-2025-plenary.jpg",      1000, 82, {}),
     "case-alta-ccma-gala.webp":         ("alta-ccma-2025-gala.jpg",         1000, 82, {}),
     # Logo de la conferencia en blanco para la tarjeta destacada (sin caja, sobre la foto)
     "logo-alta-ccma-white.webp": ("logo-alta-ccma.png", 400, 92, {"white": 2.6}),
     # Marcas en blanco recortadas, sin caja, para las tarjetas de casos del Home
     "logo-alta-agm-white.webp": ("logo-alta-agm.png", 600, 92, {"white": 2.6, "trim": True}),
+    # Logo general de ALTA en blanco y recortado, para las tarjetas de ALTA Safety y ALTA Fuel 2026 (sin logo propio todavía)
+    "logo-alta-white.webp": ("Logo_alta.png", 400, 92, {"white": 2.6, "trim": True}),
     # Pie de página: wordmark y figura del logo largo por separado (se componen a gran tamaño en CSS)
     "footer-wordmark.webp": ("inverseicorporate-logo-long-tag-color@2x.png", 1400, 90, {"box": (150, 135, 2040, 495), "trim": True}),
     "footer-star.webp":     ("inverseicorporate-logo-long-tag-color@2x.png", 520, 90, {"box": (2140, 95, 2635, 620), "trim": True}),

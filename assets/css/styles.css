@@ -480,6 +480,10 @@ h1, h2, h3, h4, .stat b { font-family: var(--font-head); }
 /* Marcas más compactas (WAGA e ITAérea pesan más que los logos apaisados de ALTA): se igualan en presencia visual */
 .magnetic__mark[src*="ccma"] { width: min(132px, calc(100% - 28px)); }
 .magnetic__mark[src*="itaerea"] { width: min(104px, calc(100% - 28px)); }
+/* logo general de ALTA (Safety y Fuel 2026, hasta tener el de cada evento): más alto que los demás, va más angosto */
+.magnetic__mark[src*="logo-alta-white"] { width: min(84px, calc(100% - 28px)); }
+.magnetic__logo[src*="logo-alta-white"] { width: 92px; }
+.magnetic__item.is-open .magnetic__logo[src*="logo-alta-white"] { width: 116px; }
 .magnetic__item.is-open .magnetic__mark { opacity: 0; }
 .magnetic__close {
   position: absolute; z-index: 3; top: 16px; right: 16px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 50%;
